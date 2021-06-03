@@ -1,0 +1,6 @@
+snippet readyn "Prompt [Y/N]?"
+read -p "${1:Are you sure?} ${2:[y/n]} " -n 1 -r ; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+	${3:exit 1}
+fi
+endsnippet

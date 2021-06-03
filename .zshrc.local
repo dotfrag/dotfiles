@@ -1,0 +1,239 @@
+# ZSH USER CONFIG
+
+# LS colors
+[[ -f $HOME/.dircolors ]] && eval "$(dircolors $HOME/.dircolors)"
+
+# Aliases
+alias ag="ag --hidden"
+alias echopath="echo $PATH | tr ':' '\n'"
+alias myip="curl ifconfig.co"
+alias lm="command ls -hAl --color=always | less -R"
+alias chmod="chmod -v"
+alias chown="chown -v"
+alias glog="git log --oneline | fzf --multi --height 100% --preview 'git show --color=always {1}'"
+
+# Functions
+
+# Fzf edit
+fe() {
+    local file
+
+    if [[ "$#" -eq 1 ]]; then
+        file=$(fzf -0 --multi --query $@)
+    else
+        file=$(fzf -0 --multi)
+    fi
+
+    [[ -n "$file" ]] && vim "$file"
+}
+
+# ranger
+if type ranger > /dev/null; then
+    if [ -f $HOME/.config/ranger/devicons.py ]; then
+        alias ranger="ranger --cmd='default_linemode devicons'"
+    fi
+    alias ran='ranger --choosedir=/tmp/rangerdir; LASTDIR=`cat /tmp/rangerdir`; cd "$LASTDIR"'
+fi
+
+# ripgrep
+if type rg > /dev/null; then
+    # rg config file
+    export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
+
+    # rg pager
+    rgp() { rg --pretty "$@" | less -RFX }
+fi
+
+# fasd
+if type fasd > /dev/null; then
+    eval "$(fasd --init auto)"
+    alias v="f -e vim"
+    alias sv="f -sie vim"
+fi
+
+# fzf
+if [ -f ~/.fzf.zsh ]; then
+    source ~/.fzf.zsh
+    export FZF_DEFAULT_OPTS='--height 20% --reverse --border --inline-info --cycle'
+    export FZF_ALT_C_OPTS="--preview 'tree -a -L 1 -C {} | head -200'"
+
+    # use fd > rg > default
+    if type fd > /dev/null; then
+        export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow --exclude .git'
+        export FZF_ALT_C_COMMAND='fd --type d . --hidden --follow --exclude .git'
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    elif type rg > /dev/null; then
+        export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*" 2> /dev/null'
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    fi
+
+    # fuzzy grep open via rg with line number
+    # https://github.com/junegunn/fzf/wiki/examples
+    vg() {
+        local file
+        local line
+
+        # read -r file line <<< "$(ag $@ | fzf -0 -1 | awk -F: '{print $1, $2}')"
+        read -r file line <<< "$(rg --no-heading -n $@ | fzf -0 -1 | awk -F: '{print $1, $2}')"
+
+        if [[ -n $file ]]; then
+            vim $file +$line
+        fi
+    }
+
+    # fkill - kill processes - list only the ones you can kill
+    # https://github.com/junegunn/fzf/wiki/examples
+    fkill() {
+        local pid
+        if [ "$UID" != "0" ]; then
+            pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+        else
+            pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+        fi
+
+        if [ "x$pid" != "x" ]; then
+            echo $pid | xargs kill -${1:-9}
+        fi
+    }
+fi
+
+# Google Cloud SDK.
+[[ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]] && source "$HOME/google-cloud-sdk/path.zsh.inc"
+[[ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]] && source "$HOME/google-cloud-sdk/completion.zsh.inc"
+
+# Auto load local conf
+load-local-conf() {
+if [[ -f .zshrc.lo && -r .zshrc.lo ]]; then
+    source .zshrc.lo
+fi
+}
+add-zsh-hook chpwd load-local-conf
+
+# Widgets
+list-files() {
+    ls -hAl
+    zle reset-prompt
+}
+zle -N list-files
+
+repeat-last-cmd() {
+    BUFFER=$(history -n | tail -n1)
+    zle clear-screen
+    zle accept-line
+}
+zle -N repeat-last-cmd
+
+fzf-history-accept() {
+  fzf-history-widget
+  zle accept-line
+}
+zle -N fzf-history-accept
+
+# Bindings
+bindkey '\ec'  'clear-screen'
+bindkey '\el'  'list-files'
+bindkey '\er'  'repeat-last-cmd'
+bindkey '\ej'  'fzf-cd-widget'
+bindkey '^X^R' 'fzf-history-accept'
+
+# Virtualenv support
+function virtual_env_prompt () {
+    REPLY=${VIRTUAL_ENV+(${VIRTUAL_ENV:t}) }
+}
+grml_theme_add_token  virtual-env -f virtual_env_prompt '%F{magenta}' '%f'
+zstyle ':prompt:grml:left:setup' items rc virtual-env change-root user at host path vcs percent
+
+# Global aliases
+alias -g '...'='../..'
+alias -g '....'='../../..'
+alias -g BG='& exit'
+alias -g C='|wc -l'
+alias -g G='|rg'
+alias -g H='|head'
+alias -g Hl=' --help |& less -r'
+alias -g K='|keep'
+alias -g L='|less'
+alias -g LL='|& less -r'
+alias -g M='|most'
+alias -g N='&>/dev/null'
+alias -g R='| tr A-z N-za-m'
+alias -g SL='| sort | less'
+alias -g S='| sort -u'
+alias -g T='|tail'
+alias -g V='| vim -'
+
+# Abbreviations
+abk[G]="| rg "
+
+# Use the vi navigation keys (hjkl) besides cursor keys in menu completion
+# bindkey -M menuselect 'h' vi-backward-char        # left
+# bindkey -M menuselect 'k' vi-up-line-or-history   # up
+# bindkey -M menuselect 'l' vi-forward-char         # right
+# bindkey -M menuselect 'j' vi-down-line-or-history # bottom
+
+# Set command prediction from history, see 'man 1 zshcontrib'
+# is4 && zrcautoload predict-on && \
+# zle -N predict-on         && \
+# zle -N predict-off        && \
+# bindkey "^X^Z" predict-on && \
+# bindkey "^Z" predict-off
+
+# Define word separators (for stuff like backward-word, forward-word, backward-kill-word,..)
+# WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>' # the default
+# WORDCHARS=.
+WORDCHARS='*?_[]~=&;!#$%^(){}'
+# WORDCHARS='${WORDCHARS:s@/@}'
+# WORDCHARS=${WORDCHARS//[\/]}
+
+# Alert me if something failed
+# setopt printexitvalue
+
+# Allow comments even in interactive shells
+# setopt interactivecomments
+
+# The default grml setup provides '..' as a completion. it does not provide
+# '.' though. If you want that too, use the following line:
+# zstyle ':completion:*' special-dirs true
+
+# Use a default width of 80 for manpages for more convenient reading
+export MANWIDTH=${MANWIDTH:-80}
+
+# Handy functions for use with the (e::) globbing qualifier (like nt)
+# contains() { grep -q "$*" $REPLY }
+# sameas() { diff -q "$*" $REPLY &>/dev/null }
+# ot () { [[ $REPLY -ot ${~1} ]] }
+
+# Ctrl-s will no longer freeze the terminal
+# stty erase "^?"
+
+# Some quick Perl-hacks aka /useful/ oneliner
+# bew() { perl -le 'print unpack "B*","'$1'"' }
+# web() { perl -le 'print pack "B*","'$1'"' }
+# hew() { perl -le 'print unpack "H*","'$1'"' }
+# weh() { perl -le 'print pack "H*","'$1'"' }
+# pversion()    { perl -M$1 -le "print $1->VERSION" } # i. e."pversion LWP -> 5.79"
+getlinks()   { perl -ne 'while ( m/"((www|ftp|http):\/\/.*?)"/gc ) { print $1, "\n"; }' $* }
+gethrefs()   { perl -ne 'while ( m/href="([^"]*)"/gc ) { print $1, "\n"; }' $* }
+getanames()  { perl -ne 'while ( m/a name="([^"]*)"/gc ) { print $1, "\n"; }' $* }
+getforms()   { perl -ne 'while ( m:(\</?(input|form|select|option).*?\>):gic ) { print $1, "\n"; }' $* }
+getstrings() { perl -ne 'while ( m/"(.*?)"/gc ) { print $1, "\n"; }' $*}
+# getanchors () { perl -ne 'while ( m/«([^«»\n]+)»/gc ) { print $1, "\n"; }' $* }
+# showINC ()    { perl -e 'for (@INC) { printf "%d %s\n", $i++, $_ }' }
+# vimpm ()      { vim `perldoc -l $1 | sed -e 's/pod$/pm/'` }
+# vimhelp ()    { vim -c "help $1" -c on -c "au! VimEnter *" }
+
+# Update grml-zsh config
+function zshrc-update() {
+    # Get latest grml-zsh-config
+    wget -qO $HOME/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+
+    # Patch configuration settings
+    sed -i '/GRML_NO_APT_ALIASES/iGRML_NO_APT_ALIASES=1' $HOME/.zshrc
+    sed -i '/Natural sorting order on GNU ls(1)/,+5d' $HOME/.zshrc
+    sed -i 's/xsource "${ZDOTDIR:-${HOME}}\/.zshrc.local"/xsource "${ZDOTDIR:-${HOME}}\/dotfiles\/.zshrc.local"/g' $HOME/.zshrc
+}
+
+# Start tmux on ssh
+if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ]; then
+    tmux attach-session -t ssh_tmux &> /dev/null || tmux new-session -s ssh_tmux
+fi

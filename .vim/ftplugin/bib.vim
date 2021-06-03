@@ -1,0 +1,1 @@
+nmap <buffer> ga= =ipgaip=

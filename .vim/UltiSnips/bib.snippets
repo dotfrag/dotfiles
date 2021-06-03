@@ -1,0 +1,35 @@
+snippet online "Online resource" bA
+@online{${1:name},
+	author  = "${2:author}",
+	title   = "\{${3:title}\}",
+	year    = "${4:yyyy}",
+	url     = "${5:url}",
+	urldate = "${6:accessed}"
+}
+$0
+endsnippet
+
+snippet article "Article reference" bA
+@article{${1:name},
+	author  = "${2:author}",
+	title   = "\{${3:title}\}",
+	journal = "${4:journal}",
+	year    = "${5:yyyy}",
+	volume  = "${6:nn}",
+	number  = "${7:nn}",
+	pages   = "${8:nn}--${9:nn}",
+	doi     = "${10:doi}"
+}
+$0
+endsnippet
+
+snippet doa "Accessed" w
+`!v strftime("%d~%B~%Y")`
+endsnippet
+
+snippet rand "Random num" w
+`!p
+if not snip.c:
+	import random
+	snip.rv = random.randint(10000,99999)`
+endsnippet

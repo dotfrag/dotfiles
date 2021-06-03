@@ -1,0 +1,86 @@
+[options]
+font = Iosevka 11
+mouse_autohide = true
+scrollback_lines = -1
+allow_bold = true
+audible_bell = false
+scrollbar = off
+search_wrap = true
+
+# bold_is_bright = true
+# clickable_url = true
+# dynamic_title = true
+# fullscreen = true
+# hyperlinks = false
+# icon_name = terminal
+# scroll_on_keystroke = true
+# scroll_on_output = false
+# urgent_on_bell = true
+
+# $BROWSER is used by default if set, with xdg-open as a fallback
+#browser = xdg-open
+
+# "system", "on" or "off"
+#cursor_blink = system
+
+# "block", "underline" or "ibeam"
+#cursor_shape = block
+
+# Hide links that are no longer valid in url select overlay mode
+#filter_unmatched_urls = true
+
+# Emit escape sequences for extra modified keys
+#modify_other_keys = false
+
+# set size hints for the window
+#size_hints = false
+
+# If unset, will reverse foreground and background
+# highlight = #2f2f2f
+
+# Dracula theme for termite
+# https://github.com/dracula/termite
+# Copyright 2013-present, All rights reserved
+# Code licensed under the MIT license
+
+[colors]
+
+# special
+foreground      = #f8f8f2
+foreground_bold = #f8f8f2
+# cursor          = #d9d9d4
+background      = #282a36
+
+# black
+color0  = #000000
+color8  = #4d4d4d
+
+# red
+color1  = #ff5555
+color9  = #ff6e67
+
+# green
+color2  = #50fa7b
+color10 = #5af78e
+
+# yellow
+color3  = #f1fa8c
+color11 = #f4f99d
+
+# blue
+color4  = #bd93f9
+color12 = #caa9fa
+
+# magenta
+color5  = #ff79c6
+color13 = #ff92d0
+
+# cyan
+color6  = #8be9fd
+color14 = #9aedfe
+
+# white
+color7  = #bfbfbf
+color15 = #e6e6e6
+
+# vim: ft=dosini cms=#%s

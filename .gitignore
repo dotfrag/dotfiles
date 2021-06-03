@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+
+# Ranger
+.config/ranger/*.py*
+.config/ranger/plugins/
+.config/ranger/bookmarks
+.config/ranger/history
+.config/ranger/tagged
+

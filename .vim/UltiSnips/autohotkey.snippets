@@ -1,0 +1,112 @@
+snippet timer "SetTimer" bA
+SetTimer, ${1:[Label}, ${2:Period|On|Off|Delete}, ${3:Priority]}
+endsnippet
+
+snippet include "Include file" bA
+#Include %A_ScriptDir%\\${1:filename}.ahk
+endsnippet
+
+snippet apprun "Run application" bA
+${1:hotkey}::AppRun("${2:path}")
+endsnippet
+
+snippet if "if"
+if (${1:expression}) {
+	${2:statement}
+}
+endsnippet
+
+snippet else
+else (${1:expression}) {
+	${2:statement}
+}
+endsnippet
+
+snippet elif
+else if (${1:expression}) {
+	${2:statement}
+}
+endsnippet
+
+snippet msg "MsgBox" bA
+MsgBox, ${1:[ Options}, ${2:Title}, ${3:Text}, ${4:Timeout]}
+endsnippet
+
+snippet input "InputBox" bA
+InputBox, ${1:OutputVar [}, ${2:Title}, ${3:Prompt}, ${4:HIDE}, ${5:Width}, ${6:Height}, ${7:X}, ${8:Y}, ${9:Font}, ${10:Timeout}, ${11:Default]}
+endsnippet
+
+snippet set "WinSet" bA
+WinSet, ${1:AlwaysOnTop|Trans}, ${2:On|Off|Toggle|Value(0-255) [}, ${3:WinTitle}, ${4:WinText}, ${5:ExcludeTitle}, ${6:ExcludeText]}
+endsnippet
+
+snippet winwait "WinWait" bA
+WinWait, ${1:WinTitle}, ${2:WinText}, ${3:Seconds [}, ${4:ExcludeTitle}, ${5:ExcludeText]}
+if (!ErrorLevel) {
+	${6:statement}
+}
+endsnippet
+
+snippet activate "WinActivate" bA
+WinActivate, ${1:[ WinTitle}, ${2:WinText}, ${3:ExcludeTitle}, ${4:ExcludeText]}
+endsnippet
+
+snippet waitactive "WinWaitActive" bA
+WinWaitActive, ${1:[ WinTitle}, ${2:WinText}, ${3:Seconds}, ${4:ExcludeTitle}, ${5:ExcludeText]}
+endsnippet
+
+snippet close "WinClose" b
+WinClose, ${1:[ WinTitle}, ${2:WinText}, ${3:SecondsToWait}, ${4:ExcludeTitle}, ${5:ExcludeText]}
+endsnippet
+
+snippet move "WinMove" bA
+WinMove, ${1:WinTitle}, ${2:WinText}, ${3:X}, ${4:Y}, ${5:[Width}, ${6:Height}, ${7:ExcludeTitle}, ${8:ExcludeText]}
+endsnippet
+
+snippet waitclose "WinWaitClose" bA
+WinWaitClose, ${1:WinTitle}, ${2:WinText}, ${3:Seconds [}, ${4:ExcludeTitle}, ${5:ExcludeText]}
+endsnippet
+
+snippet ifactive "#IfWinActive" bA
+#IfWinActive, ${1:[WinTitle}, ${2:WinText]}
+endsnippet
+
+snippet active "#IfWinActive" bA
+#IfWinActive
+endsnippet
+
+snippet ifnotactive "#IfWinNotActive" bA
+#IfWinNotActive, ${1:[WinTitle}, ${2:WinText]}
+endsnippet
+
+snippet notactive "#IfWinNotActive" bA
+#IfWinNotActive
+endsnippet
+
+snippet ifexist "#IfWinExist" bA
+#IfWinExist, ${1:[WinTitle}, ${2:WinText]}
+endsnippet
+
+snippet exist "#IfWinExist" bA
+#IfWinExist
+endsnippet
+
+snippet hot "Hotstring" bA
+:${1:*}:$2${3:@}::$4
+endsnippet
+
+snippet winget "WinGet" bA
+WinGet, ${1:OutputVar}, ${2:[Cmd}, ${3:WinTitle}, ${4:WinText}, ${5:ExcludeTitle}, ${6:ExcludeText]}
+endsnippet
+
+snippet gettitle "WinGetTitle" bA
+WinGetTitle, ${1:OutputVar}, ${2:[WinTitle}, ${3:WinText}, ${4:ExcludeTitle}, ${5:ExcludeText]}
+endsnippet
+
+snippet click "MouseClick" bA
+MouseClick, ${1:[WhichButton}, ${2:X}, ${3:Y}, ${4:ClickCount}, ${5:Speed}, ${6:D|U}, ${7:R]}
+endsnippet
+
+snippet rematch "RegExMatch" bA
+RegExMatch(${1:Haystack}, ${2:NeedleRegEx}, ${3:OutputVar})
+endsnippet

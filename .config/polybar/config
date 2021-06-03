@@ -1,0 +1,336 @@
+;=============================================================;
+;                                                             ;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗    ;
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗   ;
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝   ;
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗   ;
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║   ;
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ;
+;                                                             ;
+;=============================================================;
+
+[colors]
+foreground = #e6e6e6
+background = #282a36
+
+blue   = #6272a4
+green  = #38ab55
+grey   = #808080
+orange = #ffb86c
+purple = #9f78e1
+red    = #e64c4c
+
+[bar/main]
+width  = 100%
+height = 26
+override-redirect = true
+
+foreground = ${colors.foreground}
+background = ${colors.background}
+
+border-size = 0
+border-color = #00000000
+
+padding-left  = 0
+padding-right = 1
+
+module-margin-left  = 1
+module-margin-right = 1
+
+font-0 = Iosevka:size=11;2
+
+modules-left  = bspwm i3
+modules-right = xbacklight cpu temperature memory wlan eth battery alsa date
+
+cursor-click  = pointer
+cursor-scroll = ns-resize
+
+separator = %{F#808080}•%{F-}
+
+[module/alsa]
+type = internal/alsa
+
+; format-volume = [<label-volume> <bar-volume>]
+format-volume = [ <bar-volume> ]
+label-volume = VOL
+; label-volume-foreground = ${root.foreground}
+
+format-muted-foreground = ${colors.red}
+label-muted = [  MUTED  ]
+
+bar-volume-width = 7
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 1
+bar-volume-fill = —
+bar-volume-fill-font = 1
+bar-volume-empty = —
+bar-volume-empty-font = 1
+bar-volume-empty-foreground = ${colors.grey}
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+
+label-mounted = %free%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.grey}
+
+[module/bspwm]
+type = internal/bspwm
+
+label-focused = %name%
+label-focused-background = ${colors.blue}
+; label-focused-underline= ${colors.orange}
+label-focused-padding = 1
+
+label-occupied = %name%
+label-occupied-padding = 1
+label-occupied-foreground = ${colors.grey}
+
+label-urgent = %name%!
+label-urgent-background = ${colors.red}
+label-urgent-padding = 1
+
+label-empty = •
+label-empty-foreground = ${colors.grey}
+label-empty-padding = 1
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+; Only show workspaces on the same output as the bar
+; pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.orange}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${module/bspwm.label-focused-background}
+; label-focused-underline = ${module/bspwm.label-focused-underline}
+label-focused-padding = ${module/bspwm.label-focused-padding}
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = ${module/bspwm.label-occupied-padding}
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+; label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${module/bspwm.label-urgent-background}
+label-urgent-padding = ${module/bspwm.label-urgent-padding}
+
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+[module/xbacklight]
+type = internal/xbacklight
+
+format = <label> <bar>
+label = BL
+
+bar-width = 10
+bar-indicator = |
+bar-indicator-foreground = #fff
+; bar-indicator-font = 2
+bar-fill = ─
+; bar-fill-font = 2
+bar-fill-foreground = #9f78e1
+bar-empty = ─
+; bar-empty-font = 2
+bar-empty-foreground = ${colors.grey}
+
+[module/backlight-acpi]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+label = [CPU: %percentage%%]
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix-foreground = ${colors.grey}
+; format-underline = ${colors.blue}
+label = [MEM: %percentage_used%%]
+
+[module/wlan]
+type = internal/network
+interface = wlo1
+interval = 3.0
+
+format-connected = [<ramp-signal> <label-connected>]
+; format-connected-underline = ${colors.green}
+; label-connected = %essid%
+label-connected = %{A1:notify-send 'W\: %local_ip%':}%{A3:nm-connection-editor&:}%essid%%{A}%{A}
+
+; format-disconnected =
+format-disconnected = [<label-disconnected>]
+; format-disconnected-underline = ${self.format-connected-underline}
+label-disconnected = %{A3:nm-connection-editor&:}%ifname%%{A}
+label-disconnected-foreground = ${colors.grey}
+
+ramp-signal-0 = 1
+ramp-signal-1 = 2
+ramp-signal-2 = 3
+ramp-signal-3 = 4
+ramp-signal-4 = 5
+ramp-signal-foreground = ${colors.grey}
+
+[module/eth]
+type = internal/network
+interface = eno1
+interval = 3.0
+
+format-connected = [<label-connected>]
+; format-connected-underline = ${colors.green}
+format-connected-prefix-foreground = ${colors.grey}
+label-connected = %{A1:notify-send 'E\: %local_ip%':}%{A3:nm-connection-editor&:}ETH%{A}%{A}
+
+format-disconnected =
+;format-disconnected = <label-disconnected>
+; format-disconnected-underline = ${colors.red}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.grey}
+
+[module/date]
+type = internal/date
+interval = 1
+
+date =
+date-alt = "[%d.%m] • "
+
+time = [%H:%M]
+time-alt = [%H:%M:%S]
+
+label = %date%%time%
+; format-underline = ${colors.purple}
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 98
+
+format-charging = [<animation-charging> <label-charging>]
+; format-charging-underline = #ffb52a
+
+format-discharging = [<animation-discharging> <label-discharging>]
+; format-discharging-underline = ${self.format-charging-underline}
+
+format-full-prefix = " "
+format-full-prefix-foreground = ${colors.grey}
+; format-full-underline = ${self.format-charging-underline}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-foreground = ${colors.grey}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-foreground = ${colors.grey}
+animation-charging-framerate = 750
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-foreground = ${colors.grey}
+animation-discharging-framerate = 750
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+; format = <ramp> <label>
+format = <label>
+; format-underline = ${colors.blue}
+; format-warn = <ramp> <label-warn>
+format-warn = <label-warn>
+; format-warn-underline = ${colors.red}
+
+label = [TEMP: %temperature-c%]
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.red}
+
+ramp-0 = A
+ramp-1 = B
+ramp-2 = C
+ramp-foreground = ${colors.grey}
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = %{T2}%{T-}
+label-open-foreground = ${colors.red}
+label-close = cancel
+label-close-foreground = ${colors.red}
+label-separator = |
+label-separator-foreground = ${colors.grey}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = power off
+menu-2-0-exec = sudo poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+; vim:ft=dosini

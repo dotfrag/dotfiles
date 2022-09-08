@@ -24,6 +24,7 @@ lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["ga"] = "<Plug>(EasyAlign)"
 lvim.keys.visual_mode["ga"] = "<Plug>(EasyAlign)"
+
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
@@ -114,7 +115,7 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 -- ---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!
 -- ---`:LvimInfo` lists which server(s) are skipped for the current filetype
--- vim.tbl_map(function(server)
+-- lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
 --   return server ~= "emmet_ls"
 -- end, lvim.lsp.automatic_configuration.skipped_servers)
 
@@ -168,12 +169,7 @@ lvim.plugins = {
   { "navarasu/onedark.nvim" },
   { "tpope/vim-repeat" },
   { "tpope/vim-surround" },
-  { "tpope/vim-unimpaired" }
-  -- {"folke/tokyonight.nvim"},
-  -- {
-  -- "folke/trouble.nvim",
-  --   cmd = "TroubleToggle",
-  -- },
+  { "tpope/vim-unimpaired" },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)

@@ -42,7 +42,7 @@ bindsym $mod+Ctrl+Shift+plus  exec --no-startup-id sudo brightnessctl set +5%
 
 # Screenshot
 bindsym Print      exec --no-startup-id flameshot gui
-bindsym $mod+Print exec --no-startup-id scrot_active_window
+bindsym $mod+Print exec --no-startup-id scrot-active-window
 
 # launch apps
 bindsym $mod+Return       exec --no-startup-id kitty

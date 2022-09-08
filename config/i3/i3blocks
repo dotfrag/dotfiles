@@ -1,0 +1,220 @@
+markup=pango
+full_text=
+align=center
+separator=false
+separator_block_width=0
+background=#2e3440
+
+[separator]
+color=#4c566a
+background=#2e3440
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+
+[microphone]
+command=~/.config/i3/scripts/microphone.sh
+interval=once
+signal=10
+color=#eceff4
+background=#4c566a
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+
+############
+[separator]
+full_text=" "
+color=#2e3440
+background=#4c566a
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+############
+
+[volume]
+command=~/.config/i3/scripts/volume.sh
+interval=once
+signal=10
+color=#eceff4
+background=#4c566a
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+
+# ############
+# [separator]
+# full_text=" "
+# color=#2e3440
+# background=#4c566a
+# border=#2e3440
+# border_left=0
+# border_right=0
+# border_top=2
+# border_bottom=2
+# ############
+
+# [mediaplayer]
+# command=~/.config/i3/scripts/media.sh
+# interval=2
+# signal=6
+# color=#eceff4
+# background=#4c566a
+# border=#2e3440
+# border_left=0
+# border_right=0
+# border_top=2
+# border_bottom=2
+
+# ############
+# [separator]
+# full_text=" "
+# color=#2e3440
+# background=#4c566a
+# border=#2e3440
+# border_left=0
+# border_right=0
+# border_top=2
+# border_bottom=2
+# ############
+
+# [checkupdates]
+# command=~/.config/i3/scripts/archupdates.sh
+# interval=once
+# signal=9
+# color=#eceff4
+# background=#4c566a
+# border=#2e3440
+# border_left=0
+# border_right=0
+# border_top=2
+# border_bottom=2
+
+[separator]
+color=#81a1c1
+background=#4c566a
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+
+[vpn]
+command=~/.config/i3/scripts/vpn.sh
+interval=10
+color=#2e3440
+background=#81a1c1
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+
+[separator]
+color=#88c0d0
+background=#81a1c1
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+
+[wifi]
+command=~/.config/i3/scripts/wifi.sh
+interval=once
+signal=8
+color=#2e3440
+background=#88c0d0
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+
+############
+[separator]
+color=#2e3440
+background=#88c0d0
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+############
+
+[separator]
+color=#4c566a
+background=#2e3440
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+
+[battery]
+command=~/.config/i3/scripts/battery.sh
+interval=5
+color=#eceff4
+background=#4c566a
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+
+[separator]
+color=#81a1c1
+background=#4c566a
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+
+[date]
+command=~/.config/i3/scripts/date.sh
+interval=60
+color=#2e3440
+background=#81a1c1
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+
+[separator]
+color=#88c0d0
+background=#81a1c1
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+
+[time]
+command=~/.config/i3/scripts/time.sh
+interval=5
+color=#2e3440
+background=#88c0d0
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2
+
+[separator]
+color=#2e3440
+background=#88c0d0
+border=#2e3440
+border_left=0
+border_right=0
+border_top=2
+border_bottom=2

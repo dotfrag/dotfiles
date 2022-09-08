@@ -1,0 +1,66 @@
+" Basic config
+set nocompatible
+syntax enable
+set encoding=utf-8
+
+" set backupdir=~/.vim/backup
+" set directory=~/.vim/swap
+" set undodir=~/.vim/undo
+
+" Leader key
+let mapleader = ' '
+
+" Tweaks
+set hidden
+set number
+set scrolloff=3
+set history=200
+set synmaxcol=800
+
+" Time out on key codes but not mappings
+set notimeout
+set ttimeout
+set ttimeoutlen=100
+
+" Whitespace
+set nowrap
+set tabstop=4 shiftwidth=4
+set expandtab
+set backspace=indent,eol,start
+
+" Searching
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set gdefault
+
+" Have Vim able to edit crontab files again
+set backupskip=/tmp/*,/private/tmp/*"
+
+" Status line
+set showcmd
+if has("statusline") && !&cp
+  set laststatus=2
+  set statusline=%f\ %m\ %r
+  set statusline+=\ %l/%L[%p%%]
+  set statusline+=\ %v[0x%B]
+endif
+
+" Mappings
+nmap <leader>s :update<cr>
+nmap <leader>x :x<cr>
+nmap <leader>d :bd<cr>
+nmap <leader>q :q<cr>
+
+nmap <leader>h :set hlsearch!<cr>
+nmap <leader>cl :set cursorline!<cr>
+nmap <leader>cc :set cursorcolumn!<cr>
+
+cmap w!! w !sudo tee > /dev/null %
+
+" Other
+set wildmode=full
+set wildmenu
+set list listchars=tab:..,trail:_,extends:>,precedes:<,nbsp:~
+set showbreak=\\

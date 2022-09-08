@@ -8,11 +8,11 @@ configuration {
 *{
 	font: "Iosevka SS08 Medium 11";			//Font
 	//Colors
-	foreground:#f8f8f2; 				//Text
-	background:#0A1229; 				//Background
+	foreground:#D8DEE9; 				//Text
+	background:#434C5E; 				//Background
 	accent:#00BCD4; 					//Highlight
-	foreground-selection:@foreground; 	//Selection_fg
-	background-selection:#e34039; 		//Selection_bg
+	foreground-selection:#434C5E; 	//Selection_fg
+	background-selection:#EBCB8B; 		//Selection_bg
 
 	transparent:					#ffffff00;
 	background-color:				@transparent;

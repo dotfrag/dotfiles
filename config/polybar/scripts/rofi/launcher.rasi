@@ -8,7 +8,7 @@
  */
 
 configuration {
-	font:							"Iosevka Nerd Font 10";
+	font:							"IosevkaVariableWidth Nerd Font 10";
     show-icons:                     true;
 	icon-theme: 					"NordArc-Icons";
     display-drun: 					"";
@@ -39,7 +39,7 @@ prompt {
 	padding: 						10px;
 	background-color: 				@al;
 	text-color: 					@ac;
-	font:							"Iosevka Nerd Font 10";
+	font:							"IosevkaVariableWidth Nerd Font Medium 10";
 }
 
 entry {

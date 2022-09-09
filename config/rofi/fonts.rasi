@@ -8,5 +8,5 @@
  **/
 
 * {
-    font: "Patched Nerd Font 12";
+    font: "IosevkaVariableWidth Nerd Font Medium 11";
 }

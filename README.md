@@ -1,5 +1,15 @@
 # Dots.
 
+- [Dots.](#dots)
+  - [kitty](#kitty)
+  - [Gnome](#gnome)
+  - [Ubuntu](#ubuntu)
+    - [i3-gaps](#i3-gaps)
+    - [polybar](#polybar)
+    - [rofi](#rofi)
+    - [picom](#picom)
+    - [betterlockscreen](#betterlockscreen)
+
 ## kitty
 
 ```
@@ -117,4 +127,3 @@ sudo cp betterlockscreen /usr/local/bin/
 sudo cp system/betterlockscreen@.service /usr/lib/systemd/system/
 systemctl enable betterlockscreen@$USER
 ```
-

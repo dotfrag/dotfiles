@@ -18,20 +18,22 @@ fi
 
 # packages
 if [ "$OS" = "Ubuntu" ]; then
-    sudo apt update && sudo apt install zsh ripgrep fd-find ranger tree tmux -y
+    sudo apt update && sudo apt install zsh ripgrep ranger tree tmux -y
 elif [ "$OS" = "Fedora Linux" ]; then
-    sudo dnf check-update && sudo dnf install zsh ripgrep fd-find ranger tree tmux -y
+    sudo dnf check-update && sudo dnf install zsh ripgrep ranger tree tmux -y
 fi
 
 # zsh
-wget --no-verbose -O "${HOME}/.zshrc" https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
-wget --no-verbose -O "${HOME}/.zshrc.skel" https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
+wget -nv -O "${HOME}/.zshrc" https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+wget -nv -O "${HOME}/.zshrc.skel" https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
 [ -f "${HOME}/.zshrc.pre" ] || printf "ls_options+=( --group-directories-first )" >"${HOME}/.zshrc.pre"
 ln -sf "${SCRIPT_DIR}/.zshrc.local" "${HOME}/.zshrc.local"
 mkdir -p "${HOME}/.zsh"
 # git -C "${HOME}/.zsh/pure" pull 2>/dev/null || git clone "https://github.com/sindresorhus/pure.git" "${HOME}/.zsh/pure"
 # git -C "${HOME}/.zsh/zsh-z" pull 2>/dev/null || git clone "https://github.com/agkozak/zsh-z.git" "${HOME}/.zsh/zsh-z"
 git -C "${HOME}/.zsh/zsh-syntax-highlighting" pull 2>/dev/null || git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" "${HOME}/.zsh/zsh-syntax-highlighting"
+sudo wget -nv -O /usr/local/share/zsh/site-functions/_autorandr https://raw.githubusercontent.com/phillipberndt/autorandr/master/contrib/zsh_completion/_autorandr
+sudo wget -nv -O /usr/local/share/zsh/site-functions/_fd https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd
 
 # tmux
 ln -sf "${SCRIPT_DIR}/.tmux.conf" "${HOME}/.tmux.conf"

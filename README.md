@@ -19,8 +19,9 @@ sudo update-alternatives --remove x-terminal-emulator ${HOME}/.local/bin/kitty
 
 ## Gnome
 
-[Nordic Theme](https://github.com/EliverLara/Nordic) 
-[NordArc Icons](https://github.com/robertovernina/NordArc) 
+[Nordic Theme](https://github.com/EliverLara/Nordic)
+
+[NordArc Icons](https://github.com/robertovernina/NordArc)
 
 ```
 gsettings set org.gnome.desktop.interface gtk-theme "Nordic-darker"

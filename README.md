@@ -1,4 +1,8 @@
+Dotfiles
+========
+
 - [kitty](#kitty)
+- [Fonts](#fonts)
 - [Gnome](#gnome)
 - [Ubuntu](#ubuntu)
   - [i3-gaps](#i3-gaps)
@@ -26,6 +30,19 @@ sudo update-alternatives --config x-terminal-emulator
 sudo update-alternatives --remove x-terminal-emulator ${HOME}/.local/bin/kitty
 ```
 
+## Fonts
+
+```
+LATEST_RELEASE=$(curl -LsH 'Accept: application/json' https://github.com/be5invis/Iosevka/releases/latest)
+LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+cd /tmp
+wget -nc "https://github.com/be5invis/Iosevka/releases/download/${LATEST_VERSION}/super-ttc-iosevka-ss08-${LATEST_VERSION//v}.zip"
+unzip super-ttc-iosevka-ss08-${LATEST_VERSION//v}.zip
+mkdir -p ~/.local/share/fonts
+mv -vf /tmp/iosevka-ss08.ttc ~/.local/share/fonts/
+```
+
+
 ## Gnome
 
 ```
@@ -34,14 +51,14 @@ wget https://github.com/EliverLara/Nordic/releases/latest/download/Nordic-darker
 tar xvf Nordic-darker.tar.xz
 mkdir -p ~/.local/share/themes
 rm -rf ~/.local/share/themes/Nordic-darker
-mv Nordic-darker ~/.local/share/themes/
+mv -v Nordic-darker ~/.local/share/themes/
 ```
 
 ```
 git -C /tmp clone https://github.com/robertovernina/NordArc.git
 mkdir -p ~/.local/share/icons
 rm -rf ~/.local/share/icons/NordArc-Icons
-mv /tmp/NordArc/NordArc-Icons ~/.local/share/icons/
+mv -v /tmp/NordArc/NordArc-Icons ~/.local/share/icons/
 ```
 
 ```

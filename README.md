@@ -8,8 +8,8 @@ Dotfiles
   - [i3-gaps](#i3-gaps)
   - [polybar](#polybar)
   - [rofi](#rofi)
-  - [picom](#picom)
   - [betterlockscreen](#betterlockscreen)
+  - [picom](#picom)
 
 ---
 
@@ -112,17 +112,6 @@ make
 sudo make install
 ```
 
-### picom
-
-```
-sudo nala install libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev meson
-git -C /tmp clone https://github.com/ibhagwan/picom
-cd /tmp/picom
-git submodule update --init --recursive
-meson --buildtype=release . build
-sudo ninja -C build install
-```
-
 ### betterlockscreen
 
 ```
@@ -141,3 +130,15 @@ sudo cp betterlockscreen /usr/local/bin/
 sudo cp system/betterlockscreen@.service /usr/lib/systemd/system/
 systemctl enable betterlockscreen@$USER
 ```
+
+### picom
+
+```
+sudo nala install libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev meson
+git -C /tmp clone https://github.com/ibhagwan/picom
+cd /tmp/picom
+git submodule update --init --recursive
+meson --buildtype=release . build
+sudo ninja -C build install
+```
+

@@ -3,13 +3,18 @@ Dotfiles
 
 - [Fonts](#fonts)
 - [Gnome](#gnome)
-- [Ubuntu](#ubuntu)
-  - [kitty](#kitty)
+- [Fedora](#fedora)
   - [i3-gaps](#i3-gaps)
-  - [polybar](#polybar)
   - [rofi](#rofi)
   - [betterlockscreen](#betterlockscreen)
   - [picom](#picom)
+- [Ubuntu](#ubuntu)
+  - [kitty](#kitty)
+  - [i3-gaps](#i3-gaps-1)
+  - [polybar](#polybar)
+  - [rofi](#rofi-1)
+  - [betterlockscreen](#betterlockscreen-1)
+  - [picom](#picom-1)
 
 ---
 
@@ -53,6 +58,67 @@ gsettings set org.gnome.desktop.interface gtk-theme "Nordic-darker"
 gsettings set org.gnome.desktop.wm.preferences theme "Nordic-darker"
 gsettings set org.gnome.desktop.interface icon-theme "NordArc-Icons"
 gsettings set org.gnome.desktop.interface monospace-font-name "Iosevka SS08 11"
+```
+
+## Fedora
+
+```
+dnf -y groupinstall "Development Tools"
+```
+
+### i3-gaps
+
+```
+sudo dnf copr enable fuhrmann/i3-gaps
+sudo dnf install -y i3-gaps
+```
+
+### rofi
+
+```
+sudo dnf -y install xcb-util-wm-devel xcb-util-cursor-devel pango-devel startup-notification-devel gdk-pixbuf2-devel check-devel
+LATEST_RELEASE=$(curl -LsH 'Accept: application/json' https://github.com/davatorium/rofi/releases/latest)
+LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+cd /tmp
+wget -nc "https://github.com/davatorium/rofi/releases/download/${LATEST_VERSION}/rofi-${LATEST_VERSION}.tar.gz"
+tar xzvf "rofi-${LATEST_VERSION}.tar.gz"
+cd "rofi-${LATEST_VERSION}"
+mkdir -p build && cd build
+../configure
+make
+sudo make install
+```
+
+### betterlockscreen
+
+```
+sudo dnf install -y autoconf automake cairo-devel fontconfig gcc libev-devel libjpeg-turbo-devel libXinerama libxkbcommon-devel libxkbcommon-x11-devel libXrandr pam-devel pkgconf xcb-util-image-devel xcb-util-xrm-devel
+git -C /tmp clone https://github.com/Raymo111/i3lock-color.git
+cd /tmp/i3lock-color
+git tag -f "git-$(git rev-parse --short HEAD)"
+./install-i3lock-color.sh
+```
+
+```
+cd /tmp
+wget https://github.com/pavanjadhaw/betterlockscreen/archive/refs/heads/main.zip
+unzip main.zip
+cd betterlockscreen-main/
+chmod u+x betterlockscreen
+sudo cp betterlockscreen /usr/local/bin/
+sudo cp system/betterlockscreen@.service /usr/lib/systemd/system/
+systemctl enable betterlockscreen@$USER
+```
+
+### picom
+
+```
+sudo dnf install -y dbus-devel gcc git libconfig-devel libdrm-devel libev-devel libX11-devel libX11-xcb libXext-devel libxcb-devel mesa-libGL-devel meson pcre-devel pixman-devel uthash-devel xcb-util-image-devel xcb-util-renderutil-devel xorg-x11-proto-devel
+git -C /tmp clone https://github.com/ibhagwan/picom
+cd /tmp/picom
+git submodule update --init --recursive
+meson --buildtype=release . build
+sudo ninja -C build install
 ```
 
 ## Ubuntu

@@ -250,6 +250,7 @@ exec_always --no-startup-id sleep 2 && betterlockscreen --fx dimblur -u ~/Pictur
 exec_always --no-startup-id picom
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh
 exec --no-startup-id /usr/libexec/gsd-xsettings
+exec --no-startup-id setxkbmap -option caps:escape
 exec --no-startup-id xsetroot -solid "#4C566A"
 exec --no-startup-id start-pulseaudio-x11
 exec --no-startup-id xbindkeys_autostart

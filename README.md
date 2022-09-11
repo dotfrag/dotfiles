@@ -1,22 +1,43 @@
 Dotfiles
 ========
 
+- [kitty](#kitty)
 - [Fonts](#fonts)
 - [Gnome](#gnome)
 - [Fedora](#fedora)
   - [i3-gaps](#i3-gaps)
+  - [polybar](#polybar)
   - [rofi](#rofi)
   - [betterlockscreen](#betterlockscreen)
   - [picom](#picom)
 - [Ubuntu](#ubuntu)
-  - [kitty](#kitty)
   - [i3-gaps](#i3-gaps-1)
-  - [polybar](#polybar)
+  - [polybar](#polybar-1)
   - [rofi](#rofi-1)
   - [betterlockscreen](#betterlockscreen-1)
   - [picom](#picom-1)
 
 ---
+
+## kitty
+
+```
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
+cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+```
+
+```
+sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator ${HOME}/.local/bin/kitty 1
+sudo update-alternatives --config x-terminal-emulator
+```
+
+```
+sudo update-alternatives --remove x-terminal-emulator ${HOME}/.local/bin/kitty
+```
 
 ## Fonts
 
@@ -63,7 +84,7 @@ gsettings set org.gnome.desktop.interface monospace-font-name "Iosevka SS08 11"
 ## Fedora
 
 ```
-dnf -y groupinstall "Development Tools"
+sudo dnf groupinstall -y "Development Tools"
 ```
 
 ### i3-gaps
@@ -71,6 +92,12 @@ dnf -y groupinstall "Development Tools"
 ```
 sudo dnf copr enable fuhrmann/i3-gaps
 sudo dnf install -y i3-gaps
+```
+
+### polybar
+
+```
+sudo dnf install -y polybar
 ```
 
 ### rofi
@@ -123,30 +150,10 @@ sudo ninja -C build install
 
 ## Ubuntu
 
-### kitty
-
-```
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
-cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
-sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
-sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
-```
-
-```
-sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator ${HOME}/.local/bin/kitty 1
-sudo update-alternatives --config x-terminal-emulator
-```
-
-```
-sudo update-alternatives --remove x-terminal-emulator ${HOME}/.local/bin/kitty
-```
-
 ### i3-gaps
 
 ```
-sudo nala install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev
+sudo nala install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev
 git -C /tmp clone https://www.github.com/Airblader/i3 i3-gaps
 cd /tmp/i3-gaps
 mkdir -p build && cd build
@@ -157,7 +164,7 @@ sudo meson install
 ### polybar
 
 ```
-sudo nala install build-essential git cmake cmake-data pkg-config python3-sphinx python3-packaging libuv1-dev libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev i3-wm libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev
+sudo nala install -y build-essential git cmake cmake-data pkg-config python3-sphinx python3-packaging libuv1-dev libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev i3-wm libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev
 LATEST_RELEASE=$(curl -LsH 'Accept: application/json' https://github.com/polybar/polybar/releases/latest)
 LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
 cd /tmp
@@ -188,7 +195,7 @@ sudo make install
 ### betterlockscreen
 
 ```
-sudo nala install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util0-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev
+sudo nala install -y autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util0-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev
 git -C /tmp clone https://github.com/Raymo111/i3lock-color.git
 cd /tmp/i3lock-color
 git tag -f "git-$(git rev-parse --short HEAD)"
@@ -207,7 +214,7 @@ systemctl enable betterlockscreen@$USER
 ### picom
 
 ```
-sudo nala install libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev meson
+sudo nala install -y libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev meson
 git -C /tmp clone https://github.com/ibhagwan/picom
 cd /tmp/picom
 git submodule update --init --recursive

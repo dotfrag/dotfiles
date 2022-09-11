@@ -13,23 +13,6 @@ Dotfiles
 
 ---
 
-## kitty
-
-```
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
-cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
-sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
-sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
-sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator ${HOME}/.local/bin/kitty 1
-sudo update-alternatives --config x-terminal-emulator
-```
-
-```
-sudo update-alternatives --remove x-terminal-emulator ${HOME}/.local/bin/kitty
-```
-
 ## Fonts
 
 ```
@@ -69,6 +52,26 @@ gsettings set org.gnome.desktop.interface monospace-font-name "Iosevka SS08 11"
 ```
 
 ## Ubuntu
+
+### kitty
+
+```
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
+cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+```
+
+```
+sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator ${HOME}/.local/bin/kitty 1
+sudo update-alternatives --config x-terminal-emulator
+```
+
+```
+sudo update-alternatives --remove x-terminal-emulator ${HOME}/.local/bin/kitty
+```
 
 ### i3-gaps
 

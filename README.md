@@ -150,6 +150,10 @@ sudo ninja -C build install
 
 ## Ubuntu
 
+```
+sudo apt install -y nala
+```
+
 ### i3-gaps
 
 ```

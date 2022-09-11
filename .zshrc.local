@@ -97,9 +97,6 @@ source "${HOME}/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # -------------------------------------------------------------------------- FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# bindkey "^R" "history-incremental-search-backward"
-# eval "$(mcfly init zsh)"
-# export MCFLY_FUZZY=2
 
 export FZF_DEFAULT_OPTS="--height 35% --reverse --border --inline-info --cycle --bind \
 ctrl-y:preview-up,ctrl-e:preview-down,\

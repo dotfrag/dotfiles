@@ -29,6 +29,10 @@ mv -vf /tmp/iosevka-ss08.ttc ~/.local/share/fonts/
 ## Gnome
 
 ```
+gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape']"
+```
+
+```
 cd /tmp
 wget https://github.com/EliverLara/Nordic/releases/latest/download/Nordic-darker.tar.xz
 tar xvf Nordic-darker.tar.xz

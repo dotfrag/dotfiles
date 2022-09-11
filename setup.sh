@@ -19,9 +19,6 @@ fi
 # packages
 if [ "$OS" = "Ubuntu" ]; then
   sudo apt update && sudo apt install -y ranger ripgrep tmux tree zsh
-  git -C ${HOME}/.fzf pull || git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf
-  ${HOME}/.fzf/install --completion --key-bindings --no-update-rc >/dev/null
-
 elif [ "$OS" = "Fedora Linux" ]; then
   sudo dnf check-update && sudo dnf install -y autoconf automake cargo cmake exa gcc gcc-c++ golang kitty neovim nodejs ranger ripgrep rust starship tmux tree vim-enhanced zoxide zsh
 fi
@@ -56,6 +53,10 @@ for i in "${vim_plugins[@]}"; do
   name=$(echo "$i" | cut -d '/' -f2)
   git -C "${HOME}/.vim/pack/plugins/start/${name}" pull 2>/dev/null || git clone "https://github.com/${i}" "${HOME}/.vim/pack/plugins/start/${name}"
 done
+
+# fzf
+git -C ${HOME}/.fzf pull || git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf
+${HOME}/.fzf/install --completion --key-bindings --no-update-rc >/dev/null
 
 # ripgrep
 mkdir -p "${HOME}/.config/ripgrep"

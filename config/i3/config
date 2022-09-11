@@ -193,6 +193,9 @@ mode "resize" {
     bindsym Right       resize grow   right 5 px or 5 ppt
     bindsym Shift+Right resize shrink right 5 px or 5 ppt
 
+    bindsym minus gaps inner current minus 10
+    bindsym plus gaps inner current plus  10
+
     bindsym Return mode "default"
     bindsym Escape mode "default"
     bindsym $mod+r mode "default"
@@ -282,11 +285,3 @@ hide_edge_borders both
 gaps inner 10
 smart_gaps on
 smart_borders on
-set $mode_gaps Toggle gaps: (1) on (2) off
-bindsym $mod+Shift+g mode "$mode_gaps"
-mode "$mode_gaps" {
-    bindsym 1 mode "default", gaps inner all set 10
-    bindsym 2 mode "default", gaps inner all set 1
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}

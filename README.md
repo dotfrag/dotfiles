@@ -1,10 +1,10 @@
 Dotfiles
 ========
 
-- [kitty](#kitty)
 - [Fonts](#fonts)
 - [Gnome](#gnome)
 - [Ubuntu](#ubuntu)
+  - [kitty](#kitty)
   - [i3-gaps](#i3-gaps)
   - [polybar](#polybar)
   - [rofi](#rofi)
@@ -144,4 +144,3 @@ git submodule update --init --recursive
 meson --buildtype=release . build
 sudo ninja -C build install
 ```
-

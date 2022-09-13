@@ -231,12 +231,16 @@ client.placeholder      #FF0000 #FF0000 #FF0000 #FF0000 #FF0000
 # }
 
 # assign workspaces to outputs
-workspace $ws0 output eDP-1
+workspace $ws0 output eDP-1 HDMI-1
 workspace $ws1 output primary
 workspace $ws2 output primary
 workspace $ws3 output primary
 workspace $ws4 output primary
 workspace $ws5 output primary
+workspace $ws6 output primary
+workspace $ws7 output HDMI-1
+workspace $ws8 output HDMI-1
+workspace $ws9 output HDMI-1
 
 # assign windows to workspaces
 assign [class="Gnome-terminal"]  workspace $ws2
@@ -253,7 +257,7 @@ exec_always --no-startup-id sleep 2 && betterlockscreen --fx dimblur -u ~/Pictur
 exec_always --no-startup-id picom
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh
 exec --no-startup-id /usr/libexec/gsd-xsettings
-exec --no-startup-id setxkbmap -option caps:escape
+exec --no-startup-id setxkbmap us -option caps:escape
 exec --no-startup-id xset r rate 250 25
 exec --no-startup-id xsetroot -solid "#4C566A"
 exec --no-startup-id start-pulseaudio-x11
@@ -262,11 +266,11 @@ exec --no-startup-id diodon
 exec --no-startup-id home.sh
 exec --no-startup-id paconf
 
-exec --no-startup-id google-chrome --password-store=gnome
 exec --no-startup-id gnome-terminal -x zsh -c "sleep 5; tmux has-session 2> /dev/null && tmux attach-session || start-tmux.sh"
 exec --no-startup-id subl
 exec --no-startup-id code
 exec --no-startup-id Obsidian.AppImage
+exec --no-startup-id sleep 3 && i3-msg 'workspace $ws0; workspace $ws1' && google-chrome --password-store=gnome
 
 for_window [class=".*"] border pixel 1
 for_window [class="File-roller"] floating enable

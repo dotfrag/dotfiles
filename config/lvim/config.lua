@@ -166,6 +166,8 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- Additional Plugins
 lvim.plugins = {
   { "junegunn/vim-easy-align" },
+  { "lambdalisue/suda.vim" },
+  { "mg979/vim-visual-multi" },
   { "navarasu/onedark.nvim" },
   { "tpope/vim-repeat" },
   { "tpope/vim-surround" },

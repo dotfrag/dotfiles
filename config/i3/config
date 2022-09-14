@@ -198,7 +198,7 @@ mode "resize" {
     bindsym Shift+Right resize shrink right 5 px or 5 ppt
 
     bindsym minus gaps inner current minus 10
-    bindsym plus gaps inner current plus  10
+    bindsym plus  gaps inner current plus  10
 
     bindsym Return mode "default"
     bindsym Escape mode "default"

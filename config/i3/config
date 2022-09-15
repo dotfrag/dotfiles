@@ -274,8 +274,8 @@ exec --no-startup-id ~/.local/bin/paconf
 exec --no-startup-id subl
 exec --no-startup-id code
 exec --no-startup-id /opt/obsidian/Obsidian.AppImage
-exec --no-startup-id sleep 3 && i3-msg 'workspace $ws0; workspace $ws1' && google-chrome --password-store=gnome
-exec --no-startup-id sleep 3 && gnome-terminal
+exec --no-startup-id i3-msg 'workspace $ws0; workspace $ws1' && google-chrome --password-store=gnome
+exec --no-startup-id sleep 3 && gnome-terminal -x zsh -c "tmux has-session 2> /dev/null && tmux attach-session || start-tmux.sh"
 exec --no-startup-id ~/.local/bin/mark_urgent_as_read
 
 for_window [class=".*"] border pixel 1

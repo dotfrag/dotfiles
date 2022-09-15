@@ -65,11 +65,12 @@ alias update-starship="curl -sS https://starship.rs/install.sh | sh"
 
 alias gcl='git config --local --list'
 alias gcm='git checkout $(git_main_branch)'
+alias gd='git diff'
 alias glg='git log --oneline -5'
 alias glog="git log --oneline | fzf --multi --height 100% --preview 'git show --color=always {1}'"
 alias gpp="git add -u && git commit -m '.' && git push"
+alias gp="git pull"
 alias gss='git status -s'
-alias gd='git diff'
 
 # --------------------------------------------------------------- GLOBAL ALIASES
 alias -g C='|wc -l'

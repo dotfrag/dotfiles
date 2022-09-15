@@ -255,17 +255,18 @@ assign [class="jetbrains-idea"]  workspace $ws6
 
 # Autostart
 exec_always --no-startup-id autorandr --change --default default
-exec_always --no-startup-id sleep 5 && ~/.config/polybar/launch.sh
-exec_always --no-startup-id sleep 2 && feh --bg-scale --randomize ~/Pictures/wallpapers/*
-exec_always --no-startup-id sleep 2 && betterlockscreen --fx dimblur -u ~/Pictures/lockscreen
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id feh --bg-scale --randomize ~/Pictures/wallpapers/*
+exec_always --no-startup-id betterlockscreen --fx dimblur -u ~/Pictures/lockscreen
 exec_always --no-startup-id picom
+exec --no-startup-id dbus-update-activation-environment --all
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh
+exec --no-startup-id /usr/libexec/gsd-power
 exec --no-startup-id /usr/libexec/gsd-xsettings
 exec --no-startup-id setxkbmap us -option caps:escape
-exec --no-startup-id xset r rate 250 25
-exec --no-startup-id xsetroot -solid "#4C566A"
-exec --no-startup-id start-pulseaudio-x11
 exec --no-startup-id xbindkeys_autostart
+exec --no-startup-id xset r rate 250 25
+exec --no-startup-id start-pulseaudio-x11
 exec --no-startup-id diodon
 exec --no-startup-id home.sh
 exec --no-startup-id paconf

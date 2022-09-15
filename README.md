@@ -49,8 +49,8 @@ wget -nc "https://github.com/be5invis/Iosevka/releases/download/${LATEST_VERSION
 unzip super-ttc-iosevka-ss08-${LATEST_VERSION//v}.zip
 mkdir -p ~/.local/share/fonts
 mv -vf /tmp/iosevka-ss08.ttc ~/.local/share/fonts/
+fc-cache -vrf
 ```
-
 
 ## Gnome
 

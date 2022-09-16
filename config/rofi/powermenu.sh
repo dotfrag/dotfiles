@@ -58,22 +58,22 @@ run_cmd() {
   selected="$(confirm_exit)"
   if [[ "$selected" == "$yes" ]]; then
     if [[ $1 == '--shutdown' ]]; then
-      ~/.local/bin/graceful_exit systemctl poweroff
+      ~/.local/bin/graceful-exit systemctl poweroff
     elif [[ $1 == '--reboot' ]]; then
-      ~/.local/bin/graceful_exit systemctl reboot
+      ~/.local/bin/graceful0exit systemctl reboot
     elif [[ $1 == '--suspend' ]]; then
       mpc -q pause
       amixer set Master mute
       systemctl suspend
     elif [[ $1 == '--logout' ]]; then
       if [[ "$DESKTOP_SESSION" == 'openbox' ]]; then
-        ~/.local/bin/graceful_exit openbox --exit
+        ~/.local/bin/graceful-exit openbox --exit
       elif [[ "$DESKTOP_SESSION" == 'bspwm' ]]; then
-        ~/.local/bin/graceful_exit bspc quit
+        ~/.local/bin/graceful-exit bspc quit
       elif [[ "$DESKTOP_SESSION" == 'i3' ]]; then
-        ~/.local/bin/graceful_exit i3-msg exit
+        ~/.local/bin/graceful-exit i3-msg exit
       elif [[ "$DESKTOP_SESSION" == 'plasma' ]]; then
-        ~/.local/bin/graceful_exit qdbus org.kde.ksmserver /KSMServer logout 0 0 0
+        ~/.local/bin/graceful-exit qdbus org.kde.ksmserver /KSMServer logout 0 0 0
       fi
     fi
   else

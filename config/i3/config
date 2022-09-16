@@ -46,7 +46,7 @@ bindsym $mod+Print exec --no-startup-id scrot-active-window
 
 # launch apps
 bindsym $mod+Return       exec --no-startup-id kitty
-bindsym $mod+Shift+Return exec --no-startup-id gnome-terminal -x zsh -c "tmux has-session 2> /dev/null && tmux attach-session || start-tmux.sh"
+bindsym $mod+Shift+Return exec --no-startup-id gnome-terminal -x zsh -c "tmux has-session 2>/dev/null && tmux attach-session || start-tmux"
 bindsym $mod+Ctrl+Shift+c exec --no-startup-id google-chrome --password-store=gnome
 bindsym $mod+Ctrl+Mod1+c  exec --no-startup-id google-chrome --password-store=gnome --incognito
 bindsym $mod+Ctrl+Shift+e exec --no-startup-id thunar ~/Downloads
@@ -186,6 +186,11 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 bindsym $mod+Ctrl+Shift+0 exec --no-startup-id ~/.config/rofi/powermenu.sh
 
+# gaps
+gaps inner 10
+smart_gaps on
+smart_borders on
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
     bindsym Left        resize grow   left  5 px or 5 ppt
@@ -253,7 +258,20 @@ assign [class="Code"]           workspace $ws4
 assign [class="obsidian"]       workspace $ws5
 assign [class="jetbrains-idea"] workspace $ws6
 
-# Autostart
+# window rules
+for_window [class=".*"] border pixel 1
+for_window [class="File-roller"] floating enable
+# for_window [class="Google-chrome"] border none
+for_window [class="Nm-connection-editor"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Thunar"] floating enable
+for_window [class="jetbrains-.*" title="Welcome to IntelliJ IDEA"] floating enable border none
+for_window [class="jetbrains-.*" title="splash"] floating enable border none
+for_window [instance="gnome-calculator"] floating enable
+for_window [instance="org.gnome.Nautilus"] floating enable
+hide_edge_borders both
+
+# autostart
 exec_always --no-startup-id autorandr --change --default default
 exec_always --no-startup-id sleep 2 && ~/.config/polybar/launch.sh
 exec_always --no-startup-id sleep 2 && feh --bg-scale --randomize ~/Pictures/wallpapers/*
@@ -268,28 +286,11 @@ exec --no-startup-id xbindkeys_autostart
 exec --no-startup-id xset r rate 250 25
 exec --no-startup-id start-pulseaudio-x11
 exec --no-startup-id diodon
-exec --no-startup-id ~/.local/bin/home.sh
-exec --no-startup-id ~/.local/bin/paconf
+exec --no-startup-id ~/.local/bin/whereami
 
 exec --no-startup-id subl
 exec --no-startup-id code
 exec --no-startup-id /opt/obsidian/Obsidian.AppImage
 exec --no-startup-id sleep 2 && i3-msg 'workspace $ws0; workspace $ws1' && google-chrome --password-store=gnome
-exec --no-startup-id sleep 2 && gnome-terminal -x zsh -c "tmux has-session 2> /dev/null && tmux attach-session || start-tmux.sh"
-exec --no-startup-id ~/.local/bin/mark_urgent_as_read
-
-for_window [class=".*"] border pixel 1
-for_window [class="File-roller"] floating enable
-# for_window [class="Google-chrome"] border none
-for_window [class="Nm-connection-editor"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="Thunar"] floating enable
-for_window [class="jetbrains-.*" title="Welcome to IntelliJ IDEA"] floating enable border none
-for_window [class="jetbrains-.*" title="splash"] floating enable border none
-for_window [instance="gnome-calculator"] floating enable
-for_window [instance="org.gnome.Nautilus"] floating enable
-hide_edge_borders both
-
-gaps inner 10
-smart_gaps on
-smart_borders on
+exec --no-startup-id sleep 2 && gnome-terminal -x zsh -c "tmux has-session 2>/dev/null && tmux attach-session || start-tmux"
+exec --no-startup-id ~/.local/bin/mark-urgent-as-read

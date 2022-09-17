@@ -173,14 +173,14 @@ smart_borders on
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-    bindsym Left        resize grow   left  5 px or 5 ppt
-    bindsym Shift+Left  resize shrink left  5 px or 5 ppt
-    bindsym Down        resize grow   down  5 px or 5 ppt
-    bindsym Shift+Down  resize shrink down  5 px or 5 ppt
-    bindsym Up          resize grow   up    5 px or 5 ppt
-    bindsym Shift+Up    resize shrink up    5 px or 5 ppt
-    bindsym Right       resize grow   right 5 px or 5 ppt
-    bindsym Shift+Right resize shrink right 5 px or 5 ppt
+    bindsym Left        resize grow   left  10 px or 5 ppt
+    bindsym Shift+Left  resize shrink left  10 px or 5 ppt
+    bindsym Down        resize grow   down  10 px or 5 ppt
+    bindsym Shift+Down  resize shrink down  10 px or 5 ppt
+    bindsym Up          resize grow   up    10 px or 5 ppt
+    bindsym Shift+Up    resize shrink up    10 px or 5 ppt
+    bindsym Right       resize grow   right 10 px or 5 ppt
+    bindsym Shift+Right resize shrink right 10 px or 5 ppt
 
     bindsym minus gaps inner current minus 10
     bindsym plus  gaps inner current plus  10

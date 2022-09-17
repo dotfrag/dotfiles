@@ -8,8 +8,7 @@ NOTIFICATIONS_INIT="off"
 QRCODE_DIR="/tmp/"
 WIDTH_FIX_MAIN=1
 WIDTH_FIX_STATUS=10
-# DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DIR="$(dirname "$(readlink -f "$0")")"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PASSWORD_ENTER="if connection is stored,hit enter/esc"
 WIRELESS_INTERFACES=($(nmcli device | awk '$2=="wifi" {print $1}'))
 WIRELESS_INTERFACES_PRODUCT=()

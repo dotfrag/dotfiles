@@ -60,7 +60,7 @@ run_cmd() {
     if [[ $1 == '--shutdown' ]]; then
       ~/.local/bin/graceful-exit systemctl poweroff
     elif [[ $1 == '--reboot' ]]; then
-      ~/.local/bin/graceful0exit systemctl reboot
+      ~/.local/bin/graceful-exit systemctl reboot
     elif [[ $1 == '--suspend' ]]; then
       mpc -q pause
       amixer set Master mute

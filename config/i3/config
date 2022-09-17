@@ -2,7 +2,6 @@
 set $mod Mod4
 
 # font
-# font pango:Montserrat Medium 12
 font pango:Iosevka SS08 Medium 11
 
 # Window title alignment
@@ -43,22 +42,6 @@ bindsym $mod+Ctrl+Shift+plus  exec --no-startup-id sudo brightnessctl set +5%
 # Screenshot
 bindsym Print      exec --no-startup-id flameshot gui
 bindsym $mod+Print exec --no-startup-id scrot-active-window
-
-# launch apps
-bindsym $mod+Return       exec --no-startup-id kitty
-bindsym $mod+Shift+Return exec --no-startup-id gnome-terminal -x zsh -c "tmux has-session 2>/dev/null && tmux attach-session || start-tmux"
-bindsym $mod+Ctrl+Shift+c exec --no-startup-id google-chrome --password-store=gnome
-bindsym $mod+Ctrl+Mod1+c  exec --no-startup-id google-chrome --password-store=gnome --incognito
-bindsym $mod+Ctrl+Shift+e exec --no-startup-id thunar ~/Downloads
-bindsym $mod+Ctrl+Shift+w exec --no-startup-id feh --bg-scale --randomize ~/Pictures/wallpapers/*
-bindsym $mod+Ctrl+Shift+n exec --no-startup-id rofi-network-manager.sh
-bindsym $mod+Ctrl+Shift+p exec --no-startup-id pavucontrol
-bindsym Ctrl+Mod1+h       exec --no-startup-id diodon
-
-# floating terminal
-bindsym $mod+Ctrl+Return  exec --no-startup-id kitty -T "spacekitty"
-for_window [class="kitty" title="spacekitty"] move scratchpad scratchpad show
-bindsym Menu scratchpad show
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -175,9 +158,6 @@ bindsym $mod+Shift+7 move container to workspace number $ws7, workspace $ws7, fo
 bindsym $mod+Shift+8 move container to workspace number $ws8, workspace $ws8, focus
 bindsym $mod+Shift+9 move container to workspace number $ws9, workspace $ws9, focus
 
-# Change xrandr setup
-bindsym $mod+Shift+x exec --no-startup-id autorandr --change --default default && feh --bg-scale --randomize ~/Pictures/wallpapers/* && betterlockscreen --fx dim -u ~/Pictures/lockscreen
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -221,76 +201,5 @@ client.unfocused        #5E81AC #2E3440 #D8DEE9 #EBCB8B #5E81AC
 client.placeholder      #FF0000 #FF0000 #FF0000 #FF0000 #FF0000
 # client.placeholder      #000000 #0C0C0C #FFFFFF #000000 #0C0C0C
 
-# bar {
-#   font pango:Iosevka SS08 12
-#   position top
-#   tray_output primary
-#   tray_padding 4
-#   # strip_workspace_numbers yes
-#   status_command i3blocks -c ~/.config/i3/i3blocks
-#   colors {
-#     separator          #2e3440
-#     background         #2e3440
-#     statusline         #d8dee9
-#     focused_workspace  #88c0d0 #88c0d0 #2e3440 #2e3440
-#     active_workspace   #2e3440 #2e3440 #8fbcbb #8fbcbb
-#     inactive_workspace #3b4252 #3b4252 #eceff4 #eceff4
-#     urgent_workspace   #bf616a #bf616a #eceff4 #eceff4
-#   }
-# }
-
-# assign workspaces to outputs
-workspace $ws0 output eDP-1 HDMI-1
-workspace $ws1 output primary
-workspace $ws2 output primary
-workspace $ws3 output primary
-workspace $ws4 output primary
-workspace $ws5 output primary
-workspace $ws6 output primary
-workspace $ws7 output HDMI-1
-workspace $ws8 output HDMI-1
-workspace $ws9 output HDMI-1
-
-# assign windows to workspaces
-assign [class="Gnome-terminal"] workspace $ws2
-assign [class="Sublime_text"]   workspace $ws3
-assign [class="Code"]           workspace $ws4
-assign [class="obsidian"]       workspace $ws5
-assign [class="jetbrains-idea"] workspace $ws6
-
-# window rules
-for_window [class=".*"] border pixel 1
-for_window [class="File-roller"] floating enable
-# for_window [class="Google-chrome"] border none
-for_window [class="Nm-connection-editor"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="Thunar"] floating enable
-for_window [class="jetbrains-.*" title="Welcome to IntelliJ IDEA"] floating enable border none
-for_window [class="jetbrains-.*" title="splash"] floating enable border none
-for_window [instance="gnome-calculator"] floating enable
-for_window [instance="org.gnome.Nautilus"] floating enable
-hide_edge_borders both
-
-# autostart
-exec_always --no-startup-id autorandr --change --default default
-exec_always --no-startup-id sleep 2 && ~/.config/polybar/launch.sh
-exec_always --no-startup-id sleep 2 && feh --bg-scale --randomize ~/Pictures/wallpapers/*
-exec_always --no-startup-id sleep 2 && betterlockscreen --fx dim -u ~/Pictures/lockscreen
-exec_always --no-startup-id picom
-exec --no-startup-id dbus-update-activation-environment --all
-exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh
-exec --no-startup-id /usr/libexec/gsd-power
-exec --no-startup-id /usr/libexec/gsd-xsettings
-exec --no-startup-id setxkbmap us -option caps:escape
-exec --no-startup-id xbindkeys_autostart
-exec --no-startup-id xset r rate 250 25
-exec --no-startup-id start-pulseaudio-x11
-exec --no-startup-id diodon
-exec --no-startup-id ~/.local/bin/whereami
-
-exec --no-startup-id subl
-exec --no-startup-id code
-exec --no-startup-id /opt/obsidian/Obsidian.AppImage
-exec --no-startup-id sleep 2 && i3-msg 'workspace $ws0; workspace $ws1' && google-chrome --password-store=gnome
-exec --no-startup-id sleep 2 && gnome-terminal -x zsh -c "tmux has-session 2>/dev/null && tmux attach-session || start-tmux"
-exec --no-startup-id ~/.local/bin/mark-urgent-as-read
+# include local configuration
+include ~/.config/i3/local.config

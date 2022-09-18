@@ -20,8 +20,8 @@ fi
 if [ "$DISTRO" = "Ubuntu" ]; then
   sudo apt update && sudo apt install -y ranger ripgrep tmux tree zsh
 elif [ "$DISTRO" = "Fedora Linux" ]; then
-  sudo dnf check-update && sudo dnf install -y cargo exa golang kitty \
-    neovim nodejs ranger ripgrep rust starship tmux tree vim-enhanced zoxide zsh
+  sudo dnf check-update && sudo dnf install -y cargo exa golang neovim \
+    nodejs ranger ripgrep rust starship tmux tree vim-enhanced zoxide zsh
 fi
 
 # zsh

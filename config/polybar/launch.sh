@@ -8,7 +8,7 @@ killall -q -9 polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Variables
-MONITORS=$(polybar --list-monitors | cut -d":" -f1)
+mapfile -t MONITORS < <(polybar --list-monitors | cut -d":" -f1)
 PRIMARY_MONITOR=$(polybar --list-monitors | grep "primary" | cut -d":" -f1)
 if [ -z "${POLYBAR_INTF_TYPE}" ]; then
   has_ethernet=$(nmcli device | awk '$2=="ethernet" {print $1}' | head -1 | wc -l)
@@ -24,7 +24,8 @@ for m in "${MONITORS[@]}"; do
   if [ "${m}" = "${PRIMARY_MONITOR}" ]; then
     export TRAY_POS="right"
   fi
-  polybar --log=warning --reload top    2>&1 | tee -a /tmp/polybar_top.log    & disown
-  polybar --log=warning --reload bottom 2>&1 | tee -a /tmp/polybar_bottom.log & disown
+  for bar in top bottom; do
+    polybar --log=warning --reload "${bar}" 2>&1 | tee -a "/tmp/polybar_${bar}.log" & disown
+  done
   unset TRAY_POS
 done

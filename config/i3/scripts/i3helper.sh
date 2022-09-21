@@ -2,15 +2,23 @@
 
 case $1 in
 moveToParent)
-    i3 mark i3ha
-    i3 focus parent
-    i3 focus parent
-    i3 mark i3hb
-    i3 [con_mark="i3ha"] focus
-    i3 move window to mark i3hb
-    i3 unmark i3ha
-    i3 unmark i3hb
-    ;;
+  i3-msg mark i3ha
+  i3-msg focus parent
+  i3-msg focus parent
+  i3-msg mark i3hb
+  i3-msg [con_mark="i3ha"] focus
+  i3-msg move window to mark i3hb
+  i3-msg unmark i3ha
+  i3-msg unmark i3hb
+  ;;
+centerWindow)
+  kitty & disown
+  kitty & disown
+  sleep 1
+  i3-msg focus left
+  i3-msg focus left
+  i3-msg move right
+  i3-msg resize grow left 20 px or 10 ppt
+  i3-msg resize grow right 20 px or 10 ppt
+  ;;
 esac
-
-exit 0

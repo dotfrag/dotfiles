@@ -4,24 +4,24 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 # detect distro for package manager
 if [ -f /etc/os-release ]; then
-  . /etc/os-release
-  DISTRO=$NAME
+	. /etc/os-release
+	DISTRO=$NAME
 elif type lsb_release >/dev/null 2>&1; then
-  DISTRO=$(lsb_release -si)
+	DISTRO=$(lsb_release -si)
 elif [ -f /etc/lsb-release ]; then
-  . /etc/lsb-release
-  DISTRO=$DISTRIB_ID
+	. /etc/lsb-release
+	DISTRO=$DISTRIB_ID
 else
-  echo "Unable to detect distribution."
-  exit 1
+	echo "Unable to detect distribution."
+	exit 1
 fi
 
 # packages
 if [ "$DISTRO" = "Ubuntu" ]; then
-  sudo apt update && sudo apt install -y ranger ripgrep tmux tree zsh
+	sudo apt update && sudo apt install -y ranger ripgrep tmux tree zsh
 elif [ "$DISTRO" = "Fedora Linux" ]; then
-  sudo dnf check-update && sudo dnf install -y cargo exa golang neovim \
-    nodejs ranger ripgrep rust starship tmux tree vim-enhanced zoxide zsh
+	sudo dnf check-update && sudo dnf install -y cargo exa golang neovim \
+		nodejs ranger ripgrep rust starship tmux tree vim-enhanced zoxide zsh
 fi
 
 # zsh
@@ -43,15 +43,15 @@ ln -sf "${SCRIPT_DIR}/.vimrc" "${HOME}/.vimrc"
 mkdir -p "${HOME}/.vim/{backup,swap,undo}"
 mkdir -p "${HOME}/.vim/pack/plugins/{start,opt}"
 vim_plugins=(
-  "Yggdroot/indentLine" "arcticicestudio/nord-vim.git"
-  "christoomey/vim-tmux-navigator.git" "junegunn/fzf" "junegunn/fzf.vim"
-  "junegunn/vim-easy-align" "sheerun/vim-polyglot" "tpope/vim-commentary"
-  "tpope/vim-commentary" "tpope/vim-repeat.git" "tpope/vim-surround.git"
-  "tpope/vim-unimpaired" "vim-airline/vim-airline.git"
+	"Yggdroot/indentLine" "arcticicestudio/nord-vim.git"
+	"christoomey/vim-tmux-navigator.git" "junegunn/fzf" "junegunn/fzf.vim"
+	"junegunn/vim-easy-align" "sheerun/vim-polyglot" "tpope/vim-commentary"
+	"tpope/vim-commentary" "tpope/vim-repeat.git" "tpope/vim-surround.git"
+	"tpope/vim-unimpaired" "vim-airline/vim-airline.git"
 )
 for i in "${vim_plugins[@]}"; do
-  name=$(echo "$i" | cut -d '/' -f2)
-  git -C "${HOME}/.vim/pack/plugins/start/${name}" pull 2>/dev/null || git clone "https://github.com/${i}" "${HOME}/.vim/pack/plugins/start/${name}"
+	name=$(echo "$i" | cut -d '/' -f2)
+	git -C "${HOME}/.vim/pack/plugins/start/${name}" pull 2>/dev/null || git clone "https://github.com/${i}" "${HOME}/.vim/pack/plugins/start/${name}"
 done
 
 # fzf

@@ -14,7 +14,7 @@ moveToParent)
 centerWindow)
   kitty & disown
   kitty & disown
-  sleep 1
+  sleep 0.5
   i3-msg focus left
   i3-msg focus left
   i3-msg move right

@@ -39,8 +39,8 @@ bindsym XF86AudioMicMute     exec --no-startup-id pactl set-source-mute   @DEFAU
 bindsym $mod+m               exec --no-startup-id pactl set-source-mute   @DEFAULT_SOURCE@ toggle
 
 # Display brightness
-bindsym $mod+Ctrl+Shift+minus exec --no-startup-id sudo brightnessctl set 5%-
-bindsym $mod+Ctrl+Shift+plus  exec --no-startup-id sudo brightnessctl set +5%
+bindsym $mod+Ctrl+Shift+plus  exec --no-startup-id ~/.config/i3/scripts/brightness.sh up
+bindsym $mod+Ctrl+Shift+minus exec --no-startup-id ~/.config/i3/scripts/brightness.sh down
 
 # Screenshot
 bindsym Print      exec --no-startup-id flameshot gui

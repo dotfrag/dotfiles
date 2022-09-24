@@ -8,56 +8,59 @@ export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep/config"
 # -------------------------------------------------------------------- FUNCTIONS
 # ripgrep | less
 rgl() {
-    rg --pretty "$@" | less -RFX
+  rg --pretty "$@" | less -RFX
 }
 
 # check if main exists and use instead of master
 git_main_branch() {
-    command git rev-parse --git-dir &>/dev/null || return
-    local ref
-    for ref in refs/{heads,remotes/{origin,upstream}}/{main,trunk}; do
-        if command git show-ref -q --verify $ref; then
-            echo ${ref:t}
-            return
-        fi
-    done
-    echo master
+  command git rev-parse --git-dir &>/dev/null || return
+  local ref
+  for ref in refs/{heads,remotes/{origin,upstream}}/{main,trunk}; do
+    if command git show-ref -q --verify $ref; then
+      echo ${ref:t}
+      return
+    fi
+  done
+  echo master
 }
 
 # find branches that have modified a file
 glf() {
-    git log --all --source -- $1 |
-        rg -o "refs/.*" |
-        awk '!x[$0]++' |
-        head -10 |
-        xargs -I '{}' git log -1 --format='%S|%ai%x20(%ar)' '{}' -- $1 |
-        sed -E 's|refs/(remotes\|tags)(/origin)?/||' |
-        column -t -s '|'
-}
+  git log --all --source -- $1 |
+    rg -o "refs/.*" |
+    awk '!x[$0]++' |
+    head -10 |
+    xargs -I '{}' git log -1 --format='%S|%ai%x20(%ar)' '{}' -- $1 |
+    sed -E 's|refs/(remotes\|tags)(/origin)?/||' |
+    column -t -s '|'
+  }
 
 # run git command for all repos in directory
 gall() {
-    fd -td '^\.git$' -IHL -x echo {//} | sort | xargs -I{} zsh -c "echo {} && git -C {} $*"
+  fd -td '^\.git$' -IHL -x echo {//} | sort | xargs -I{} zsh -c "echo {} && git -C {} $*"
 }
 
 # launch app and exit
 launch() {
-    nohup "$@" >/dev/null 2>/dev/null & disown && exit
+  nohup "$@" >/dev/null 2>/dev/null & disown && exit
 }
 
 # ---------------------------------------------------------------------- ALIASES
-alias aug="sudo apt update && sudo apt upgrade"
-alias bat="bat --theme=Coldark-Dark"
+alias agi="sudo nala install"
+alias aug="sudo nala update && sudo nala upgrade"
+alias di="sudo dnf install"
+alias dug="sudo dnf check-update && sudo dnf upgrade"
+
+alias bat="bat --theme=TwoDark"
 alias chmod="chmod -v"
 alias chown="chown -v"
 alias colors='bash -c "$(wget -qO- https://git.io/vQgMr)"'
 alias cp="cp -vi"
 alias exa="exa -l --group-directories-first"
 alias gpall="fd -td '^\.git$' -IHL -x git -C {//} pull"
-alias killsig="kill -l | tr ' ' '\n' | nl"
+alias killsigs="kill -l | tr ' ' '\n' | nl"
 alias ln="ln -vi"
 alias mv="mv -vi"
-alias python="python3"
 alias ran='ranger --choosedir=/tmp/.rangerdir; LASTDIR=$(cat /tmp/.rangerdir); cd "$LASTDIR"'
 alias tx="tmux has-session 2> /dev/null && tmux attach-session || start-tmux.sh"
 alias update-grml-zshrc="wget --no-verbose -O ${HOME}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc"
@@ -117,36 +120,36 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #   - [b] bat preview
 #   - [d] dotfiles
 fe() {
-    IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
-    [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+  IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 feb() {
-    IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0 --height 100 --preview "bat --color=always --theme=Coldark-Dark {}"))
-    [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+  IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0 --height 100 --preview "bat --color=always --theme=TwoDark {}"))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 fed() {
-    file=$(cat ${HOME}/.dots | fzf --query="$1" --select-1 --exit-0)
-    [[ -n "$file" ]] && ${EDITOR:-vim} $file
+  file=$(cat ${HOME}/.dots | fzf --query="$1" --select-1 --exit-0)
+  [[ -n "$file" ]] && ${EDITOR:-vim} $file
 }
 
 # fuzzy ripgrep open with line number
 vg() {
-    read -r file line <<<$(rg --no-heading --line-number --pretty $@ | fzf --exit-0 --select-1 --ansi | awk -F: '{print $1, $2}')
-    [[ -n $file ]] && ${EDITOR:-vim} $file +$line
+  read -r file line <<<$(rg --no-heading --line-number --pretty $@ | fzf --exit-0 --select-1 --ansi | awk -F: '{print $1, $2}')
+  [[ -n $file ]] && ${EDITOR:-vim} $file +$line
 }
 
 # fkill - kill processes - list only the ones you can kill
 fkill() {
-    local pid
-    if [ "$UID" != "0" ]; then
-        pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
-    else
-        pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-    fi
+  local pid
+  if [ "$UID" != "0" ]; then
+    pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+  else
+    pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+  fi
 
-    if [ "x$pid" != "x" ]; then
-        echo $pid | xargs kill -${1:-9}
-    fi
+  if [ "x$pid" != "x" ]; then
+    echo $pid | xargs kill -${1:-9}
+  fi
 }
 
 # ---------------------------------------------------------------------- WIDGETS
@@ -155,9 +158,9 @@ zle -N list_dir
 bindkey "^[l" "list_dir"
 
 repeat-last-cmd() {
-    BUFFER=$(history -n -1)
-    zle clear-screen
-    zle accept-line
+  BUFFER=$(history -n -1)
+  zle clear-screen
+  zle accept-line
 }
 zle -N repeat-last-cmd
 bindkey "^[r" "repeat-last-cmd"

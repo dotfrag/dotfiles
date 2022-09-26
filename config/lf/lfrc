@@ -166,6 +166,12 @@ cmd bulk-rename ${{
     lf -remote "send $id unselect"
 }}
 
+# follow symlink
+cmd follow_link %{{
+  lf -remote "send ${id} select '$(readlink $f)'"
+}}
+map gL follow_link
+
 # y (select for copy) and P to paste soft-link
 # d (select for cut) and P to paste hard-link
 cmd link %{{

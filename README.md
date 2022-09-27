@@ -67,10 +67,6 @@ fc-cache -vrf
 ## Gnome
 
 ```
-gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape']"
-```
-
-```
  cd /tmp
 wget https://github.com/EliverLara/Nordic/releases/latest/download/Nordic-darker.tar.xz
 tar xvf Nordic-darker.tar.xz
@@ -84,6 +80,10 @@ mv -v Nordic-darker ~/.local/share/themes/
 mkdir -p ~/.local/share/icons
 rm -rf ~/.local/share/icons/NordArc-Icons
 mv -v /tmp/NordArc/NordArc-Icons ~/.local/share/icons/
+```
+
+```
+gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape']"
 ```
 
 ```

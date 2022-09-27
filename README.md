@@ -23,6 +23,9 @@ Dotfiles
 
 ```
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+```
+
+```
 \ln -sf ~/.local/kitty.app/bin/kitty ~/.local/bin/
 \cp -f ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
 \cp -f ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/

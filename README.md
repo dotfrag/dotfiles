@@ -23,11 +23,20 @@ Dotfiles
 
 ```
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
-cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+\ln -sf ~/.local/kitty.app/bin/kitty ~/.local/bin/
+\cp -f ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+\cp -f ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
 sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
 sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+```
+
+```
+if [ -n "$TERMINFO" ]; then
+  sudo mkdir -p /etc/terminfo/x
+  sudo install --owner=root --group=root "${TERMINFO}/kitty.termcap" /etc/terminfo/
+  sudo install --owner=root --group=root "${TERMINFO}/kitty.terminfo" /etc/terminfo/
+  sudo install --owner=root --group=root "${TERMINFO}/x/xterm-kitty" /etc/terminfo/x/
+fi
 ```
 
 ```

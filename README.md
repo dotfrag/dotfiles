@@ -1,7 +1,20 @@
-Dotfiles
-========
+# Dotfiles
 
-[TOC]
+- [kitty](#kitty)
+- [Fonts](#fonts)
+- [Gnome](#gnome)
+- [Fedora](#fedora)
+  - [i3-gaps](#i3-gaps)
+  - [polybar](#polybar)
+  - [rofi](#rofi)
+  - [betterlockscreen](#betterlockscreen)
+  - [picom](#picom)
+- [Ubuntu](#ubuntu)
+  - [i3-gaps](#i3-gaps-1)
+  - [polybar](#polybar-1)
+  - [rofi](#rofi-1)
+  - [betterlockscreen](#betterlockscreen-1)
+  - [picom](#picom-1)
 
 ---
 

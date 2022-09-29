@@ -39,6 +39,17 @@ git_main_branch() {
   echo master
 }
 
+# dot commit and push
+gpp() {
+  if git remote -v | grep -q "git@github.com:dotfrag"; then
+    git add -u
+    git commit -m '.'
+    git push
+  else
+    echo "Invalid repository."
+  fi
+}
+
 # find branches that have modified a file
 glf() {
   git log --all --source -- $1 |
@@ -88,7 +99,6 @@ alias gdd='git diff -U0'
 alias glg='git log --oneline -5'
 alias glog="git log --oneline | fzf --multi --height 100% --preview 'git show --color=always {1}'"
 alias gp="git pull"
-alias gpp="git add -u && git commit -m '.' && git push"
 alias gs="git status"
 alias gss='git status -s'
 

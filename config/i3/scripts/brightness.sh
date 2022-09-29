@@ -17,4 +17,4 @@ esac
 
 value=$(sudo brightnessctl info | grep -oP "\d+%")
 command -v canberra-gtk-play &>/dev/null && canberra-gtk-play -i audio-volume-change
-command -v dunstify && dunstify --icon="audio-volume-muted" --hints="string:x-dunst-stack-tag:brightness" "Brightness" "Value: ${value}"
+command -v dunstify && dunstify --hints="string:x-dunst-stack-tag:brightness" "Brightness" "Value: ${value}"

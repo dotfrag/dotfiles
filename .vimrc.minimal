@@ -16,7 +16,8 @@ let mapleader = ' '
 " Tweaks
 set hidden
 set number
-set scrolloff=3
+set relativenumber
+set scrolloff=5
 set history=200
 set synmaxcol=800
 

@@ -3,9 +3,12 @@ set nocompatible
 syntax enable
 set encoding=utf-8
 
-" set backupdir=~/.vim/backup
-" set directory=~/.vim/swap
-" set undodir=~/.vim/undo
+silent call mkdir($HOME . "/.vim/backup", "p")
+set backupdir=~/.vim/backup
+silent call mkdir($HOME . "/.vim/swap", "p")
+set directory=~/.vim/swap
+silent call mkdir($HOME . "/.vim/undo", "p")
+set undodir=~/.vim/undo
 
 " Leader key
 let mapleader = ' '

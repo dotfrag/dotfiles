@@ -9,6 +9,7 @@ silent call mkdir($HOME . "/.vim/swap", "p")
 set directory=~/.vim/swap
 silent call mkdir($HOME . "/.vim/undo", "p")
 set undodir=~/.vim/undo
+set undofile
 
 " Leader key
 let mapleader = ' '

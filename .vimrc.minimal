@@ -71,4 +71,4 @@ set list listchars=tab:..,trail:_,extends:>,precedes:<,nbsp:~
 set showbreak=\\
 
 " File specific settings
-autocmd BufEnter *.log set nonumber norelativenumber nolist
+autocmd BufEnter *.log* set nonumber norelativenumber nolist

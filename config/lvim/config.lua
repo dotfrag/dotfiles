@@ -24,6 +24,7 @@ lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["ga"] = "<Plug>(EasyAlign)"
 lvim.keys.visual_mode["ga"] = "<Plug>(EasyAlign)"
+lvim.keys.normal_mode["dil"] = "0d$"
 
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")

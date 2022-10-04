@@ -53,10 +53,14 @@ if has("statusline") && !&cp
 endif
 
 " Mappings
+nmap <leader>w :write<cr>
 nmap <leader>s :update<cr>
 nmap <leader>x :x<cr>
 nmap <leader>d :bd<cr>
 nmap <leader>q :q<cr>
+
+nmap <leader>n :set number!
+nmap <leader>r :set relativenumber!
 
 nmap <leader>h :set hlsearch!<cr>
 nmap <leader>cl :set cursorline!<cr>

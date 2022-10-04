@@ -59,8 +59,8 @@ nmap <leader>x :x<cr>
 nmap <leader>d :bd<cr>
 nmap <leader>q :q<cr>
 
-nmap <leader>n :set number!
-nmap <leader>r :set relativenumber!
+nmap <leader>n :set number!<cr>
+nmap <leader>r :set relativenumber!<cr>
 
 nmap <leader>h :set hlsearch!<cr>
 nmap <leader>cl :set cursorline!<cr>

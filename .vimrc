@@ -91,8 +91,9 @@ set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
 
 " Colorscheme
-" set termguicolors
-" colorscheme nord
+set termguicolors
+packadd! onedark.vim
+colorscheme onedark
 
 " Mappings
 let mapleader = ' '

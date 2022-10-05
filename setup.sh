@@ -41,14 +41,11 @@ ln -sf "${SCRIPT_DIR}/.tmux.conf" "${HOME}/.tmux.conf"
 
 # vim
 ln -sf "${SCRIPT_DIR}/.vimrc" "${HOME}/.vimrc"
-mkdir -p "${HOME}/.vim/{backup,swap,undo}"
-mkdir -p "${HOME}/.vim/pack/plugins/{start,opt}"
 vim_plugins=(
-  "Yggdroot/indentLine" "arcticicestudio/nord-vim.git"
   "christoomey/vim-tmux-navigator.git" "junegunn/fzf" "junegunn/fzf.vim"
-  "junegunn/vim-easy-align" "sheerun/vim-polyglot" "tpope/vim-commentary"
-  "tpope/vim-commentary" "tpope/vim-repeat.git" "tpope/vim-surround.git"
-  "tpope/vim-unimpaired" "vim-airline/vim-airline.git"
+  "junegunn/vim-easy-align" "mg979/vim-visual-multi" "sheerun/vim-polyglot"
+  "tpope/vim-commentary" "tpope/vim-commentary" "tpope/vim-repeat.git"
+  "tpope/vim-surround.git" "tpope/vim-unimpaired" "vim-airline/vim-airline.git"
 )
 for i in "${vim_plugins[@]}"; do
   name=$(echo "$i" | cut -d '/' -f2)

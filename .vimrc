@@ -4,8 +4,15 @@
 set nocompatible
 set encoding=utf-8
 
-" Directories
+" Create directories
 let $MYVIMPATH=$HOME . '/.vim'
+silent call mkdir($MYVIMPATH . "/backup", "p")
+silent call mkdir($MYVIMPATH . "/swap", "p")
+silent call mkdir($MYVIMPATH . "/undo", "p")
+silent call mkdir($MYVIMPATH . "/pack/plugins/opt", "p")
+silent call mkdir($MYVIMPATH . "/pack/plugins/start", "p")
+
+" Set directories
 set backupdir=$MYVIMPATH/backup
 set directory=$MYVIMPATH/swap
 set undodir=$MYVIMPATH/undo
@@ -13,7 +20,7 @@ set undodir=$MYVIMPATH/undo
 " Settings: General
 set autoread                      " Set to auto read when a file is changed from the outside
 set backspace=indent,eol,start    " Backspace behaviour
-set cursorline                    " Highlight the current line
+" set cursorline                    " Highlight the current line
 set foldmethod=manual             " Enable manual folding
 set gdefault                      " By default add g flag to search/replace. Add g to toggle
 set hidden                        " When a buffer is brought to foreground, remember undo history and marks
@@ -42,7 +49,7 @@ set splitbelow                    " New window goes below
 set splitright                    " New windows goes right
 set timeoutlen=1000 ttimeoutlen=0 " Key timeout delay
 set ttyfast                       " Send more characters at a given time
-set undofile                      " Persistent Undo
+set undofile                      " Persistent undo
 set winminheight=0                " Allow splits to be reduced to a single line
 set wrapscan                      " Searches wrap around end of file
 " set ofu=syntaxcomplete#Complete " Set omni-completion method
@@ -84,8 +91,8 @@ set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
 
 " Colorscheme
-set termguicolors
-colorscheme nord
+" set termguicolors
+" colorscheme nord
 
 " Mappings
 let mapleader = ' '
@@ -99,10 +106,10 @@ noremap <leader>x :x<cr>
 noremap <leader>d :bd<cr>
 noremap <leader>D :b#<bar>bd#<cr>
 noremap <leader>q :q<cr>
-"noremap <C-h> <C-w>h
-"noremap <C-j> <C-w>j
-"noremap <C-k> <C-w>k
-"noremap <C-l> <C-w>l
+" noremap <C-h> <C-w>h
+" noremap <C-j> <C-w>j
+" noremap <C-k> <C-w>k
+" noremap <C-l> <C-w>l
 noremap  <silent> <C-S> :update<CR>
 vnoremap <silent> <C-S> <C-C>:update<CR>
 inoremap <silent> <C-S> <C-O>:update<CR>
@@ -124,9 +131,6 @@ nmap <leader>ts :%s/\s\+$//<cr>
 nmap <leader>f :Files<cr>
 nmap <leader>l :Lines<cr>
 
-" Indent lines
-nmap <leader>il :IndentLinesToggle<cr>
-
 " Easy align
 xmap ga <plug>(EasyAlign)
 nmap ga <plug>(EasyAlign)
@@ -145,8 +149,3 @@ function! ColorColumnToggle()
         setlocal colorcolumn=80
     endif
 endfunction
-
-" Plugins
-let g:indentLine_enabled = 0
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-

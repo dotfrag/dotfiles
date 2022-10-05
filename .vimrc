@@ -111,9 +111,9 @@ noremap <leader>q :q<cr>
 " noremap <C-j> <C-w>j
 " noremap <C-k> <C-w>k
 " noremap <C-l> <C-w>l
-noremap  <silent> <C-S> :update<CR>
-vnoremap <silent> <C-S> <C-C>:update<CR>
-inoremap <silent> <C-S> <C-O>:update<CR>
+noremap  <silent> <C-S> :update<cr>
+vnoremap <silent> <C-S> <C-C>:update<cr>
+inoremap <silent> <C-S> <C-O>:update<cr>
 
 " Visual
 nmap <leader>h :set hlsearch! hlsearch?<cr>

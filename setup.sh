@@ -51,6 +51,7 @@ for i in "${vim_plugins[@]}"; do
   name=$(echo "$i" | cut -d '/' -f2)
   git -C "${HOME}/.vim/pack/plugins/start/${name}" pull 2>/dev/null || git clone "https://github.com/${i}" "${HOME}/.vim/pack/plugins/start/${name}"
 done
+git -C "${HOME}/.vim/pack/plugins/opt/onedark.vim" pull 2>/dev/null || git clone "https://github.com/joshdick/onedark.vim" "${HOME}/.vim/pack/plugins/opt/onedark.vim"
 
 # fzf
 git -C "${HOME}/.fzf" pull || git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}/.fzf"

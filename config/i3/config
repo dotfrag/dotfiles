@@ -180,6 +180,7 @@ smart_gaps on
 smart_borders on
 
 # resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
 mode "resize" {
     bindsym Left        resize grow   left  10 px or 5 ppt
     bindsym Shift+Left  resize shrink left  10 px or 5 ppt
@@ -198,7 +199,12 @@ mode "resize" {
     bindsym $mod+r mode "default"
     bindsym q      mode "default"
 }
-bindsym $mod+r mode "resize"
+
+# passthrough mode
+bindsym $mod+p mode "passthrough"
+mode "passthrough" {
+  bindsym $mod+p mode "default"
+}
 
 # colors                border  backgr. text    indictr child_border
 client.focused          #88C0D0 #88C0D0 #2E3440 #EBCB8B #88C0D0

@@ -11,7 +11,7 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "onedark"
+lvim.colorscheme = "tokyonight"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 vim.opt.relativenumber = true -- set relative numbered lines
@@ -51,6 +51,10 @@ lvim.keys.normal_mode["vae"] = "ggVG"
 --   },
 -- }
 
+-- Change theme settings
+-- lvim.builtin.theme.options.dim_inactive = true
+-- lvim.builtin.theme.options.style = "storm"
+
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 -- lvim.builtin.which_key.mappings["t"] = {
@@ -89,13 +93,13 @@ lvim.builtin.treesitter.ensure_installed = {
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
-lvim.builtin.treesitter.highlight.enabled = true
+lvim.builtin.treesitter.highlight.enable = true
 
 -- generic LSP settings
 
 -- -- make sure server will always be installed even if the server is in skipped_servers list
 -- lvim.lsp.installer.setup.ensure_installed = {
---     "sumeko_lua",
+--     "sumneko_lua",
 --     "jsonls",
 -- }
 -- -- change UI setting of `LspInstallInfo`
@@ -138,15 +142,15 @@ formatters.setup {
   { command = "black", filetypes = { "python" } },
   { command = "isort", filetypes = { "python" } },
   { command = "shfmt", extra_args = { "-i", "2" }, filetypes = { "sh", "zsh" } },
-  --   {
-  --     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
-  --     command = "prettier",
-  --     ---@usage arguments to pass to the formatter
-  --     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-  --     extra_args = { "--print-with", "100" },
-  --     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-  --     filetypes = { "typescript", "typescriptreact" },
-  --   },
+--   {
+--     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+--     command = "prettier",
+--     ---@usage arguments to pass to the formatter
+--     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+--     extra_args = { "--print-with", "100" },
+--     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+--     filetypes = { "typescript", "typescriptreact" },
+--   },
 }
 
 -- -- set additional linters

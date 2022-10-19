@@ -59,7 +59,13 @@ glf() {
     xargs -I '{}' git log -1 --format='%S|%ai%x20(%ar)' '{}' -- $1 |
     sed -E 's|refs/(remotes\|tags)(/origin)?/||' |
     column -t -s '|'
-  }
+}
+
+glog() {
+  selected=$(git log --oneline | fzf --multi --height 100% --preview-window 'down,80%' --preview 'git show --color=always {1}')
+  commit=$(echo "${selected}" | awk '{print $1}')
+  git show "${commit}"
+}
 
 # run git command for all repos in directory
 gall() {
@@ -97,7 +103,6 @@ alias gcm='git checkout $(git_main_branch)'
 alias gd='git diff'
 alias gdd='git diff -U0'
 alias glg='git log --oneline -5'
-alias glog="git log --oneline | fzf --multi --height 100% --preview-window 'down,80%' --preview 'git show --color=always {1}' | git show"
 alias gp="git pull"
 alias gs="git status"
 alias gss='git status -s'

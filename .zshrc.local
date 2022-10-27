@@ -96,6 +96,7 @@ alias mv="mv -vi"
 alias ran='ranger --choosedir=/tmp/.rangerdir; LASTDIR=$(cat /tmp/.rangerdir); cd "$LASTDIR"'
 alias tx="tmux has-session 2> /dev/null && tmux attach-session || start-tmux.sh"
 alias update-grml-zshrc="wget --no-verbose -O ${HOME}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc"
+alias update-kitty="curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin && exit"
 alias update-starship="curl -sS https://starship.rs/install.sh | sh"
 
 alias gcl='git config --local --list'

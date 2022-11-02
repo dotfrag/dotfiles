@@ -47,7 +47,7 @@ set backupskip=/tmp/*,/private/tmp/*"
 set showcmd
 if has("statusline") && !&cp
   set laststatus=2
-  set statusline=%f\ %m\ %r
+  set statusline=%F\ %m\ %r
   set statusline+=\ %l/%L[%p%%]
   set statusline+=\ %v[0x%B]
 endif

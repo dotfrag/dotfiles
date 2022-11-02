@@ -30,6 +30,7 @@ wget -nv -O "${HOME}/.zshrc.skel" https://git.grml.org/f/grml-etc-core/etc/skel/
 [ -f "${HOME}/.zshrc.pre" ] || printf "ls_options+=( --group-directories-first )" >"${HOME}/.zshrc.pre"
 ln -sf "${SCRIPT_DIR}/.zshrc.local" "${HOME}/.zshrc.local"
 mkdir -p "${HOME}/.zsh"
+printf "[zsh-syntax-highlighting.git] "
 git -C "${HOME}/.zsh/zsh-syntax-highlighting" pull 2>/dev/null || git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" "${HOME}/.zsh/zsh-syntax-highlighting"
 sudo mkdir -p /usr/local/share/zsh/site-functions
 sudo wget -nv -O /usr/local/share/zsh/site-functions/_autorandr https://raw.githubusercontent.com/phillipberndt/autorandr/master/contrib/zsh_completion/_autorandr
@@ -49,11 +50,14 @@ vim_plugins=(
 )
 for i in "${vim_plugins[@]}"; do
   name=$(echo "$i" | cut -d '/' -f2)
+  printf "[%s] " "${name}"
   git -C "${HOME}/.vim/pack/plugins/start/${name}" pull 2>/dev/null || git clone "https://github.com/${i}" "${HOME}/.vim/pack/plugins/start/${name}"
 done
+printf "[onedark.vim] "
 git -C "${HOME}/.vim/pack/plugins/opt/onedark.vim" pull 2>/dev/null || git clone "https://github.com/joshdick/onedark.vim" "${HOME}/.vim/pack/plugins/opt/onedark.vim"
 
 # fzf
+printf "[fzf] "
 git -C "${HOME}/.fzf" pull || git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}/.fzf"
 "${HOME}/.fzf/install" --completion --key-bindings --no-update-rc >/dev/null
 

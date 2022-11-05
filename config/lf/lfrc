@@ -26,6 +26,7 @@ set scrolloff 10
 # set display info
 set info size
 set dircounts
+map sn :set sortby natural; set info size
 
 # use enter for shell commands
 map <enter> shell
@@ -136,6 +137,7 @@ map f :fzf_jump
 
 # bookmarks
 map gd cd ~/Downloads
+map gr cd ~/repos
 map gt cd /tmp
 
 # file previewer (ctpv)

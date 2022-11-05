@@ -98,6 +98,7 @@ alias tx="tmux has-session 2> /dev/null && tmux attach-session || start-tmux.sh"
 alias update-grml-zshrc="wget --no-verbose -O ${HOME}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc"
 alias update-kitty="curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin && exit"
 alias update-starship="curl -sS https://starship.rs/install.sh | sh"
+alias x="simple-extract"
 
 alias gcl='git config --local --list'
 alias gcm='git checkout $(git_main_branch)'

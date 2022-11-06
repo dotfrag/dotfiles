@@ -10,8 +10,8 @@ an executable
 
 -- general
 lvim.log.level = "warn"
-lvim.format_on_save = true
-lvim.colorscheme = "tokyonight"
+lvim.format_on_save.enabled = true
+lvim.colorscheme = "lunar"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 vim.opt.relativenumber = true -- set relative numbered lines

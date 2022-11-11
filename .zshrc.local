@@ -41,13 +41,13 @@ git_main_branch() {
 
 # dot commit and push
 gpp() {
-  if git remote -v | grep -q "git@github.com:dotfrag"; then
-    git add -u
-    git commit -m "$(date '+%Y-%m-%d %H:%M:%S')"
-    git push
-  else
+  if ! git remote -v | grep -q "git@github.com:dotfrag"; then
     echo "Invalid repository."
+    return
   fi
+  git add -u
+  git commit -m "$(date '+%Y-%m-%d %H:%M:%S')"
+  git push
 }
 
 # find branches that have modified a file

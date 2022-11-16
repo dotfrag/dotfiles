@@ -53,6 +53,7 @@ if has("statusline") && !&cp
 endif
 
 " Mappings
+map Q <nop>
 nmap <leader>w :write<cr>
 nmap <leader>s :update<cr>
 nmap <leader>x :x<cr>

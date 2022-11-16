@@ -98,6 +98,7 @@ colorscheme onedark
 " Mappings
 let mapleader = ' '
 cnoremap w!! w !sudo tee > /dev/null %
+map Q <nop>
 
 " Buffers
 noremap <leader>w :write<cr>

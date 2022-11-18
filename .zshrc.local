@@ -148,8 +148,9 @@ ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down \
 --color=marker:#e06c75,spinner:#e5c97b,header:#56b6c2"
 
 export FZF_DEFAULT_COMMAND="fd --type file --hidden --follow"
-export FZF_ALT_C_OPTS="--preview 'tree -a -L 1 -C {} | head -200'"
 export FZF_ALT_C_COMMAND="fd --type directory . --hidden --follow"
+export FZF_ALT_C_OPTS="--preview 'tree -a -L 1 -C {} | head -200'"
+export FZF_CTRL_R_OPTS="--height 20%"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # fe[b|d] [FUZZY PATTERN] - Open the selected file with the default editor

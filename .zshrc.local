@@ -205,7 +205,7 @@ zle -N repeat-last-cmd
 bindkey "^[r" "repeat-last-cmd"
 
 # ------------------------------------------------------------------------- MISC
-eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh --cmd cd)"
 
 # ----------------------------------------------------------------------- PROMPT
 prompt off

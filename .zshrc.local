@@ -102,13 +102,14 @@ alias update-kitty="curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /d
 alias update-starship="curl -sS https://starship.rs/install.sh | sh"
 alias x="simple-extract"
 
+alias gc='git commit'
 alias gcl='git config --local --list'
 alias gcm='git checkout $(git_main_branch)'
 alias gd='git diff'
 alias gdd='git diff -U0'
 alias glg='git log --oneline -5'
-alias gp="git pull"
-alias gs="git status"
+alias gp='git pull'
+alias gs='git status'
 alias gss='git status -s'
 
 # --------------------------------------------------------------- GLOBAL ALIASES

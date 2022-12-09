@@ -176,6 +176,7 @@ bindsym $mod+Ctrl+Shift+0 exec --no-startup-id ~/.config/rofi/powermenu.sh
 
 # gaps
 gaps inner 10
+gaps horizontal 300
 smart_gaps inverse_outer
 smart_borders on
 
@@ -190,11 +191,6 @@ mode "resize" {
     bindsym Shift+Up    resize shrink up    10 px or 5 ppt
     bindsym Right       resize grow   right 10 px or 5 ppt
     bindsym Shift+Right resize shrink right 10 px or 5 ppt
-
-    bindsym minus       gaps inner current minus 10
-    bindsym plus        gaps inner current plus  10
-    bindsym Shift+minus gaps outer current minus 10
-    bindsym Shift+plus  gaps outer current plus  10
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -235,6 +231,9 @@ client.focused_inactive #81A1C1 #81A1C1 #2E3440 #EBCB8B #81A1C1
 client.unfocused        #5E81AC #2E3440 #D8DEE9 #EBCB8B #5E81AC
 client.placeholder      #FF0000 #FF0000 #FF0000 #FF0000 #FF0000
 # client.placeholder      #000000 #0C0C0C #FFFFFF #000000 #0C0C0C
+
+# include gaps configuration
+include ~/.config/i3/gaps.config
 
 # include local configuration
 include ~/.config/i3/local.config

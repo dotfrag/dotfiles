@@ -92,6 +92,8 @@ alias rm="rm -v"
 
 alias bat="bat --theme=TwoDark"
 alias colors='bash -c "$(wget -qO- https://git.io/vQgMr)"'
+alias dfs="df -h | sort -n -k 5"
+alias dus="du -sh * 2>/dev/null | sort -h"
 alias exa="exa -l --group-directories-first"
 alias gpall="fd -td '^\.git$' -IHL -x git -C {//} pull"
 alias killsigs="kill -l | tr ' ' '\n' | nl"

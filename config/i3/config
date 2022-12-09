@@ -176,7 +176,7 @@ bindsym $mod+Ctrl+Shift+0 exec --no-startup-id ~/.config/rofi/powermenu.sh
 
 # gaps
 gaps inner 10
-smart_gaps on
+smart_gaps inverse_outer
 smart_borders on
 
 # resize window (you can also use the mouse for that)
@@ -191,13 +191,10 @@ mode "resize" {
     bindsym Right       resize grow   right 10 px or 5 ppt
     bindsym Shift+Right resize shrink right 10 px or 5 ppt
 
-    bindsym 1 gaps inner current set 10
-    bindsym 2 gaps inner current set 20
-    bindsym 3 gaps inner current set 30
-    bindsym 4 gaps inner current set 40
-    bindsym 5 gaps inner current set 50
-    bindsym minus gaps inner current minus 10
-    bindsym plus  gaps inner current plus  10
+    bindsym minus       gaps inner current minus 10
+    bindsym plus        gaps inner current plus  10
+    bindsym Shift+minus gaps outer current minus 10
+    bindsym Shift+plus  gaps outer current plus  10
 
     bindsym Return mode "default"
     bindsym Escape mode "default"

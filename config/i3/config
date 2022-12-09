@@ -191,6 +191,11 @@ mode "resize" {
     bindsym Right       resize grow   right 10 px or 5 ppt
     bindsym Shift+Right resize shrink right 10 px or 5 ppt
 
+    bindsym 1 gaps inner current set 10
+    bindsym 2 gaps inner current set 20
+    bindsym 3 gaps inner current set 30
+    bindsym 4 gaps inner current set 40
+    bindsym 5 gaps inner current set 50
     bindsym minus gaps inner current minus 10
     bindsym plus  gaps inner current plus  10
 

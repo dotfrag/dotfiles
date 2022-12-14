@@ -176,6 +176,7 @@ bindsym $mod+Ctrl+Shift+0 exec --no-startup-id ~/.config/rofi/powermenu.sh
 
 # gaps
 gaps inner 10
+gaps outer -10
 smart_gaps inverse_outer
 smart_borders on
 

@@ -119,9 +119,6 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+a focus child
 bindsym $mod+Shift+d exec --no-startup-id ~/.config/i3/scripts/i3-helper moveToParent
 
-# center window for ultrawide monitors
-bindsym $mod+Ctrl+Shift+r exec --no-startup-id ~/.config/i3/scripts/i3-helper centerWindow
-
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws0 " 0 "

@@ -53,7 +53,7 @@ sudo update-alternatives --remove x-terminal-emulator ${HOME}/.local/bin/kitty
 ## Fonts
 
 ```shell
- LATEST_RELEASE=$(curl -LsH 'Accept: application/json' https://github.com/be5invis/Iosevka/releases/latest)
+ LATEST_RELEASE=$(curl -sLH 'Accept: application/json' https://github.com/be5invis/Iosevka/releases/latest)
 LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
 cd /tmp
 wget -nc "https://github.com/be5invis/Iosevka/releases/download/${LATEST_VERSION}/super-ttc-iosevka-ss08-${LATEST_VERSION//v}.zip"
@@ -124,7 +124,7 @@ sudo dnf install -y polybar
 
 ```shell
  sudo dnf -y install xcb-util-wm-devel xcb-util-cursor-devel pango-devel startup-notification-devel gdk-pixbuf2-devel check-devel
-LATEST_RELEASE=$(curl -LsH 'Accept: application/json' https://github.com/davatorium/rofi/releases/latest)
+LATEST_RELEASE=$(curl -sLH 'Accept: application/json' https://github.com/davatorium/rofi/releases/latest)
 LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
 cd /tmp
 wget -nc "https://github.com/davatorium/rofi/releases/download/${LATEST_VERSION}/rofi-${LATEST_VERSION}.tar.gz"
@@ -189,7 +189,7 @@ sudo meson install
 
 ```shell
  sudo nala install -y build-essential git cmake cmake-data pkg-config python3-sphinx python3-packaging libuv1-dev libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev i3-wm libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev
-LATEST_RELEASE=$(curl -LsH 'Accept: application/json' https://github.com/polybar/polybar/releases/latest)
+LATEST_RELEASE=$(curl -sLH 'Accept: application/json' https://github.com/polybar/polybar/releases/latest)
 LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
 cd /tmp
 wget -nc "https://github.com/polybar/polybar/releases/download/${LATEST_VERSION}/polybar-${LATEST_VERSION}.tar.gz"
@@ -204,7 +204,7 @@ sudo make install
 ### rofi
 
 ```shell
- LATEST_RELEASE=$(curl -LsH 'Accept: application/json' https://github.com/davatorium/rofi/releases/latest)
+ LATEST_RELEASE=$(curl -sLH 'Accept: application/json' https://github.com/davatorium/rofi/releases/latest)
 LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
 cd /tmp
 wget -nc "https://github.com/davatorium/rofi/releases/download/${LATEST_VERSION}/rofi-${LATEST_VERSION}.tar.gz"

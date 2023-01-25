@@ -7,7 +7,7 @@ export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep/config"
 
 # -------------------------------------------------------------------- FUNCTIONS
 # change working dir in shell to last dir in lf on exit
-lfd () {
+lfd() {
   tmp="$(mktemp)"
   lf -last-dir-path="$tmp" "$@"
   if [ -f "$tmp" ]; then
@@ -19,6 +19,15 @@ lfd () {
       fi
     fi
   fi
+}
+
+# touch executable and edit
+touchx() {
+  if ! [[ -e "$1" ]]; then
+    echo -e "#!/bin/bash\n\n" > "$1"
+  fi
+  chmod +x "$1" >/dev/null
+  $EDITOR + "$1"
 }
 
 # ripgrep | less

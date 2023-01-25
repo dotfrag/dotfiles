@@ -21,7 +21,7 @@ lfd() {
   fi
 }
 
-# man pages specific option
+# man pages search for option
 mans() {
   man --pager="less -p '^\s+$2'" "$1"
 }

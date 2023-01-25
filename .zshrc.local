@@ -21,6 +21,11 @@ lfd() {
   fi
 }
 
+# man pages specific option
+mans() {
+  man --pager="less -p '^\s+$2'" "$1"
+}
+
 # touch executable and edit
 touchx() {
   if ! [[ -e "$1" ]]; then

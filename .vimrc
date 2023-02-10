@@ -132,6 +132,9 @@ nmap <leader>ts :%s/\s\+$//<cr>
 " Fzf
 nmap <leader>f :Files<cr>
 nmap <leader>l :Lines<cr>
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Easy align
 xmap ga <plug>(EasyAlign)

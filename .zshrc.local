@@ -126,6 +126,7 @@ alias gdd='git diff --no-ext-diff'
 alias gdu='git diff --no-ext-diff -U0'
 alias glg='git log --oneline -5'
 alias gp='git pull'
+alias gr='cd $(git rev-parse --show-toplevel)'
 alias gs='git status'
 alias gss='git status -s'
 

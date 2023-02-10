@@ -20,8 +20,9 @@ def adjust_gaps(self, e):
         i3.command("gaps horizontal current set 5")
 
 
-i3.on(Event.WINDOW_NEW, adjust_gaps)
 i3.on(Event.WINDOW_CLOSE, adjust_gaps)
 i3.on(Event.WINDOW_FLOATING, adjust_gaps)
+i3.on(Event.WINDOW_MOVE, adjust_gaps)
+i3.on(Event.WINDOW_NEW, adjust_gaps)
 
 i3.main()

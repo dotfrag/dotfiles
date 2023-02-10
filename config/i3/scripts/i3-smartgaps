@@ -24,5 +24,6 @@ i3.on(Event.WINDOW_CLOSE, adjust_gaps)
 i3.on(Event.WINDOW_FLOATING, adjust_gaps)
 i3.on(Event.WINDOW_MOVE, adjust_gaps)
 i3.on(Event.WINDOW_NEW, adjust_gaps)
+i3.on(Event.WORKSPACE_FOCUS, adjust_gaps)
 
 i3.main()

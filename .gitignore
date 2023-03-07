@@ -1,0 +1,7 @@
+config/lvim/*
+!config/lvim/config.lua
+
+config/lazygit/*
+!config/lazygit/config.yml
+
+config/i3/local.config

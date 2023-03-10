@@ -121,7 +121,7 @@ alias x="simple-extract"
 
 alias gc='git commit'
 alias gcl='git config --local --list'
-alias gcm='git checkout $(git_main_branch)'
+alias gcm='gr && git checkout $(git_main_branch)'
 alias gd='git diff'
 alias gdd='git diff | delta --line-numbers'
 alias gdu='git diff --no-ext-diff -U0'

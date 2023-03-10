@@ -76,7 +76,7 @@ glf() {
 }
 
 glog() {
-  selected=$(git log --oneline | fzf --multi --height 100% --preview-window 'down,80%' --preview 'git show --color=always {1}')
+  selected=$(git log --oneline | fzf --multi --height 100% --preview-window 'down,80%' --preview 'git show -m --color=always {1}')
   commit=$(echo "${selected}" | awk '{print $1}')
   git show "${commit}"
 }

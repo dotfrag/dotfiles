@@ -78,7 +78,7 @@ glf() {
 glog() {
   selected=$(git log --oneline | fzf --multi --height 100% --preview-window 'down,80%' --preview 'git show -m --color=always {1}')
   commit=$(echo "${selected}" | awk '{print $1}')
-  git show "${commit}"
+  git show -m "${commit}"
 }
 
 # run git command for all repos in directory

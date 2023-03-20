@@ -4,13 +4,12 @@
 - [Fonts](#fonts)
 - [Gnome](#gnome)
 - [Fedora](#fedora)
-  - [i3-gaps](#i3-gaps)
   - [polybar](#polybar)
   - [rofi](#rofi)
   - [betterlockscreen](#betterlockscreen)
   - [picom](#picom)
 - [Ubuntu](#ubuntu)
-  - [i3-gaps](#i3-gaps-1)
+  - [i3-gaps](#i3-gaps)
   - [polybar](#polybar-1)
   - [rofi](#rofi-1)
   - [betterlockscreen](#betterlockscreen-1)
@@ -105,13 +104,6 @@ gsettings set org.gnome.desktop.interface monospace-font-name "Iosevka SS08 11"
 
 ```shell
 sudo dnf groupinstall -y "Development Tools"
-```
-
-### i3-gaps
-
-```shell
-sudo dnf copr enable fuhrmann/i3-gaps
-sudo dnf install -y i3-gaps
 ```
 
 ### polybar

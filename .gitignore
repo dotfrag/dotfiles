@@ -4,4 +4,7 @@ config/lvim/*
 config/lazygit/*
 !config/lazygit/config.yml
 
+config/tmux/*
+!config/tmux/tmux.conf
+
 config/i3/local.config

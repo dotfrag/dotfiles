@@ -24,6 +24,7 @@ elif [ "$DISTRO" = "Fedora Linux" ]; then
   sudo dnf check-update && sudo dnf install -y cargo exa golang neovim \
     nodejs ranger ripgrep rust starship tmux tree vim-enhanced zoxide zsh
 fi
+printf '=%.0s' $(seq 1 ${COLUMNS})
 
 # zsh
 wget -nv -O "${HOME}/.zshrc" https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
@@ -37,9 +38,11 @@ sudo mkdir -p /usr/local/share/zsh/site-functions
 sudo wget -nv -O /usr/local/share/zsh/site-functions/_autorandr https://raw.githubusercontent.com/phillipberndt/autorandr/master/contrib/zsh_completion/_autorandr
 sudo wget -nv -O /usr/local/share/zsh/site-functions/_fd https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd
 sudo wget -nv -O /usr/local/share/zsh/site-functions/_docker https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
+printf '=%.0s' $(seq 1 ${COLUMNS})
 
 # tmux
 ln -vsf "${SCRIPT_DIR}/config/tmux" "${HOME}/.config/"
+printf '=%.0s' $(seq 1 ${COLUMNS})
 
 # vim
 ln -vsf "${SCRIPT_DIR}/.vimrc" "${HOME}/.vimrc"
@@ -56,11 +59,13 @@ for i in "${vim_plugins[@]}"; do
 done
 printf "[onedark.vim] "
 git -C "${HOME}/.vim/pack/plugins/opt/onedark.vim" pull 2>/dev/null || git clone "https://github.com/joshdick/onedark.vim" "${HOME}/.vim/pack/plugins/opt/onedark.vim"
+printf '=%.0s' $(seq 1 ${COLUMNS})
 
 # fzf
 printf "[fzf] "
 git -C "${HOME}/.fzf" pull || git clone --depth 1 https://github.com/junegunn/fzf "${HOME}/.fzf"
 "${HOME}/.fzf/install" --completion --key-bindings --no-update-rc >/dev/null
+printf '=%.0s' $(seq 1 ${COLUMNS})
 
 # ripgrep
 mkdir -p "${HOME}/.config/ripgrep"

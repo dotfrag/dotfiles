@@ -29,7 +29,7 @@ fi
 wget -nv -O "${HOME}/.zshrc" https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
 wget -nv -O "${HOME}/.zshrc.skel" https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
 [ -f "${HOME}/.zshrc.pre" ] || printf "ls_options+=( --group-directories-first )" >"${HOME}/.zshrc.pre"
-ln -sf "${SCRIPT_DIR}/.zshrc.local" "${HOME}/.zshrc.local"
+ln -vsf "${SCRIPT_DIR}/.zshrc.local" "${HOME}/.zshrc.local"
 mkdir -p "${HOME}/.zsh"
 printf "[zsh-syntax-highlighting] "
 git -C "${HOME}/.zsh/zsh-syntax-highlighting" pull 2>/dev/null || git clone "https://github.com/zsh-users/zsh-syntax-highlighting" "${HOME}/.zsh/zsh-syntax-highlighting"
@@ -39,10 +39,10 @@ sudo wget -nv -O /usr/local/share/zsh/site-functions/_fd https://raw.githubuserc
 sudo wget -nv -O /usr/local/share/zsh/site-functions/_docker https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
 
 # tmux
-ln -sf "${SCRIPT_DIR}/config/tmux" "${HOME}/.config/tmux"
+ln -vsf "${SCRIPT_DIR}/config/tmux" "${HOME}/.config/"
 
 # vim
-ln -sf "${SCRIPT_DIR}/.vimrc" "${HOME}/.vimrc"
+ln -vsf "${SCRIPT_DIR}/.vimrc" "${HOME}/.vimrc"
 vim_plugins=(
   "christoomey/vim-tmux-navigator" "junegunn/fzf" "junegunn/fzf.vim"
   "junegunn/vim-easy-align" "mg979/vim-visual-multi" "sheerun/vim-polyglot"

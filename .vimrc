@@ -16,6 +16,7 @@ silent call mkdir($MYVIMPATH . "/pack/plugins/start", "p")
 set backupdir=$MYVIMPATH/backup
 set directory=$MYVIMPATH/swap
 set undodir=$MYVIMPATH/undo
+set viminfofile=$MYVIMPATH/viminfo
 
 " Settings: General
 set autoread                      " Set to auto read when a file is changed from the outside

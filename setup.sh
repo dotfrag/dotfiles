@@ -39,7 +39,7 @@ sudo wget -nv -O /usr/local/share/zsh/site-functions/_fd https://raw.githubuserc
 sudo wget -nv -O /usr/local/share/zsh/site-functions/_docker https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
 
 # tmux
-ln -sf "${SCRIPT_DIR}/.tmux.conf" "${HOME}/.tmux.conf"
+ln -sf "${SCRIPT_DIR}/config/tmux" "${HOME}/.config/tmux"
 
 # vim
 ln -sf "${SCRIPT_DIR}/.vimrc" "${HOME}/.vimrc"

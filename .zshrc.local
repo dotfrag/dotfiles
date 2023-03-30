@@ -188,21 +188,21 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #   - [d] dotfiles
 fe() {
   IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
-  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+  [[ -n "$files" ]] && "${EDITOR:-vim}" "${files[@]}"
 }
 feb() {
   IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0 --height 100 --preview "bat --color=always --theme=TwoDark {}"))
-  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+  [[ -n "$files" ]] && "${EDITOR:-vim}" "${files[@]}"
 }
 fed() {
   file=$(cat ${HOME}/.dots | fzf --query="$1" --select-1 --exit-0)
-  [[ -n "$file" ]] && ${EDITOR:-vim} $file
+  [[ -n "$file" ]] && "${EDITOR:-vim}" "$file"
 }
 
 # fuzzy ripgrep open with line number
 vg() {
-  read -r file line <<<$(rg --no-heading --line-number --pretty $@ | fzf --exit-0 --select-1 --ansi | awk -F: '{print $1, $2}')
-  [[ -n $file ]] && ${EDITOR:-vim} $file +$line
+  read -r file line <<<"$(rg --no-heading --line-number --pretty $@ | fzf --exit-0 --select-1 --ansi | awk -F: '{print $1, $2}')"
+  [[ -n $file ]] && "${EDITOR:-vim}" "$file" +"$line"
 }
 
 # fkill - kill processes - list only the ones you can kill

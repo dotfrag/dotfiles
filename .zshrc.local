@@ -59,8 +59,7 @@ gpp() {
     echo "Invalid repository."
     return
   fi
-  git add -u
-  git commit -m "$(date '+%Y-%m-%d %H:%M:%S')"
+  git commit -am "$(date '+%Y-%m-%d %H:%M:%S')"
   git push
 }
 

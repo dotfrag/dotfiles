@@ -35,7 +35,7 @@ while read -r file; do
 done < <(find "${OUT_DIR}" -name '*.ttx')
 mv "${OUT_DIR:?}"/*.ttf "${SCRIPT_DIR}/"
 
-find "${SCRIPT_DIR}" -name '*.ttf' -exec cp {} "${FONTS_DIR}/" \;
+cp "${SCRIPT_DIR}"/*.ttf "${FONTS_DIR}/"
 fc-cache -rf
 
 echo "${LATEST_VERSION}" >"${SCRIPT_DIR}/version.txt"

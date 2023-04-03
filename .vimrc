@@ -124,6 +124,7 @@ nmap <leader>n nzz
 nmap <leader>N Nzz
 nmap cae ggcG
 nmap vae ggVG
+nmap dil 0d$
 vnoremap < <gv
 vnoremap > >gv
 

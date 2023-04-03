@@ -74,6 +74,10 @@ nmap <leader>h :set hlsearch!<cr>
 nmap <leader>cl :set cursorline!<cr>
 nmap <leader>cc :set cursorcolumn!<cr>
 
+nmap cae ggcG
+nmap vae ggVG
+nmap dil 0d$
+
 cmap w!! w !sudo tee > /dev/null %
 
 " Regex: Trailing spaces

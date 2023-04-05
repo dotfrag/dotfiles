@@ -10,6 +10,7 @@ systemctl is-active --quiet docker || systemctl start docker || exit 1
 mkdir "${ROOT_DIR}" "${IN_DIR}" "${OUT_DIR}" "${FONTS_DIR}" 2>/dev/null
 
 LATEST_RELEASE=$(curl -sLH 'Accept: application/json' https://github.com/be5invis/Iosevka/releases/latest)
+# shellcheck disable=SC2001
 LATEST_VERSION=$(echo "${LATEST_RELEASE}" | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
 
 wget -nc "https://github.com/be5invis/Iosevka/releases/download/${LATEST_VERSION}/ttf-iosevka-ss08-${LATEST_VERSION//v/}.zip" -P "${ROOT_DIR}/"

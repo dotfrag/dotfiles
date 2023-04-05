@@ -198,6 +198,12 @@ fed() {
   [[ -n "$file" ]] && "${EDITOR:-vim}" "$file"
 }
 
+# fuzzy edit in vi
+ve() {
+  IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && vi "${files[@]}"
+}
+
 # fuzzy ripgrep open with line number
 vg() {
   read -r file line <<<"$(rg --no-heading --line-number --pretty $@ | fzf --exit-0 --select-1 --ansi | awk -F: '{print $1, $2}')"

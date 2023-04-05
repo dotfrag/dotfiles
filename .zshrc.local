@@ -21,6 +21,11 @@ lfd() {
   fi
 }
 
+# history grep
+hgrep() {
+  fc -Dlim "*$@*" 1
+}
+
 # man pages search
 mans() {
   man --pager="less -p '^\s+$2'" "$1"
@@ -74,12 +79,12 @@ glf() {
     column -t -s '|'
 }
 
+# git log
 glog() {
   selected=$(git log --oneline | fzf --multi --height 100% --preview-window 'down,80%' --preview 'git show -m --color=always {1}')
   commit=$(echo "${selected}" | awk '{print $1}')
   [[ -n "${commit}" ]] && git show -m "${commit}"
 }
-
 glogd() {
   selected=$(git log --oneline | fzf --multi --height 100% --preview-window 'down,80%' --preview 'git show -m --color=always {1} | delta')
   commit=$(echo "${selected}" | awk '{print $1}')

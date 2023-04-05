@@ -1,10 +1,10 @@
-config/lvim/*
-!config/lvim/config.lua
+config/i3/local.config
 
 config/lazygit/*
 !config/lazygit/config.yml
 
+config/lvim/*
+!config/lvim/config.lua
+
 config/tmux/*
 !config/tmux/tmux.conf
-
-config/i3/local.config

@@ -199,8 +199,8 @@ feb() {
   [[ -n "$files" ]] && "${EDITOR:-vim}" "${files[@]}"
 }
 fed() {
-  file=$(cat ${HOME}/.dots | fzf --query="$1" --select-1 --exit-0)
-  [[ -n "$file" ]] && "${EDITOR:-vim}" "$file"
+  IFS=$'\n' files=($(cat ${HOME}/.dots | fzf --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && "${EDITOR:-vim}" "${files[@]}"
 }
 
 # fuzzy edit in vi

@@ -27,7 +27,7 @@ lvim.keys.visual_mode["ga"] = "<Plug>(EasyAlign)"
 lvim.keys.normal_mode["dil"] = "0d$"
 lvim.keys.normal_mode["cae"] = "ggcG"
 lvim.keys.normal_mode["vae"] = "ggVG"
-lvim.keys.normal_mode["yae"] = "ggyG"
+lvim.keys.normal_mode["yae"] = "ggyG``"
 
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")

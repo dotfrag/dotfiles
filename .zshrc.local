@@ -233,7 +233,7 @@ fkill() {
 cmd() {
   local _cmd
   _cmd=$(fzf --query="$1" --select-1 --exit-0 <"${HOME}/.cmds")
-  [[ -n "${_cmd}" ]] && eval "$_cmd"
+  [[ -n "${_cmd}" ]] && eval "${_cmd}"
 }
 
 # ---------------------------------------------------------------------- WIDGETS

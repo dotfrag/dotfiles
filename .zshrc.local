@@ -40,6 +40,14 @@ touchx() {
   $EDITOR + "$1"
 }
 
+# backup/restore file
+bak() {
+  mv -v "$1" "$1.bak"
+}
+ubak() {
+  mv -v "$1" "${1%.bak}"
+}
+
 # ripgrep | less
 rgl() {
   rg --pretty "$@" | less -RFX

@@ -215,6 +215,13 @@ vg() {
   [[ -n $file ]] && "${EDITOR:-vim}" "$file" +"$line"
 }
 
+# fuzzy ripgrep dots open with line number
+vgd() {
+  IFS=$'\n' files=($(cat "${HOME}/.dots"))
+  read -r file line <<<"$(rg -uu --no-heading --line-number --pretty $@ ${files[@]} | fzf --exit-0 --select-1 --ansi | awk -F: '{print $1, $2}')"
+  [[ -n $file ]] && "${EDITOR:-vim}" "$file" +"$line"
+}
+
 # fkill - kill processes - list only the ones you can kill
 fkill() {
   local pid

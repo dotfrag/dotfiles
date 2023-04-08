@@ -129,7 +129,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Regex: Trailing spaces
-nmap <leader>ts :%s/\s\+$//<cr>
+nmap <leader>ts :%s/\s\+$//<cr>``
 
 " Fzf
 nmap <leader>f :Files<cr>

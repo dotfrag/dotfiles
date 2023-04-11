@@ -127,6 +127,7 @@ alias colors='bash -c "$(wget -qO- https://git.io/vQgMr)"'
 alias dfs="df -h | sort -n -k 5"
 alias dus="du -sh * 2>/dev/null | sort -h"
 alias exa="exa -l --group-directories-first"
+alias files='nautilus --browser $(pwd) &>/dev/null & disown'
 alias gpall="fd -td '^\.git$' -IHL -x git -C {//} pull"
 alias killsigs="kill -l | tr ' ' '\n' | nl"
 alias lg="lazygit"

@@ -23,16 +23,17 @@ lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<cr>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<cr>"
+
 lvim.keys.normal_mode["ga"] = "<Plug>(EasyAlign)"
 lvim.keys.visual_mode["ga"] = "<Plug>(EasyAlign)"
+
 lvim.keys.normal_mode["dil"] = "0d$"
 lvim.keys.normal_mode["yil"] = "0y$"
 lvim.keys.normal_mode["cae"] = "ggcG"
 lvim.keys.normal_mode["vae"] = "ggVG"
 lvim.keys.normal_mode["yae"] = "ggyG``"
 
--- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
--- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+lvim.keys.normal_mode["<leader>ts"] = ":%s/\\s\\+$//<cr>``"
 
 -- -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }

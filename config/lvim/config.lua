@@ -87,7 +87,8 @@ local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   {
     command = "shfmt",
-    extra_args = { "-i", "2" }
+    extra_args = { "-i", "2" },
+    -- filetypes = { "sh", "zsh" },
   },
   -- { command = "stylua" },
   -- {
@@ -96,14 +97,14 @@ formatters.setup {
   --   filetypes = { "typescript", "typescriptreact" },
   -- },
 }
-local linters = require "lvim.lsp.null-ls.linters"
-linters.setup {
-  -- { command = "flake8", filetypes = { "python" } },
-  {
-    command = "shellcheck",
-    args = { "--severity", "warning" },
-  },
-}
+-- local linters = require "lvim.lsp.null-ls.linters"
+-- linters.setup {
+--   {
+--     command = "shellcheck",
+--     args = { "--severity", "warning" },
+--     filetypes = { "sh", "zsh" },
+--   },
+-- }
 
 -- -- Additional Plugins <https://www.lunarvim.org/docs/plugins#user-plugins>
 lvim.plugins = {

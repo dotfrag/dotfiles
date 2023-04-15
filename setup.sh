@@ -21,8 +21,7 @@ if [ "$DISTRO" = "Ubuntu" ]; then
   command -v nala &>/dev/null && pacman=nala || pacman=apt
   sudo "${pacman}" update && sudo "${pacman}" install -y ranger ripgrep tmux tree zsh
 elif [ "$DISTRO" = "Fedora Linux" ]; then
-  sudo dnf check-update && sudo dnf install -y cargo exa golang neovim \
-    nodejs ranger ripgrep rust starship tmux tree vim-enhanced zoxide zsh
+  sudo dnf check-update && sudo dnf install -y cargo exa golang nodejs ranger ripgrep rust starship tmux tree vim-enhanced zoxide zsh
 fi
 printf '=%.0s' $(seq 1 ${COLUMNS})
 

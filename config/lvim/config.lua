@@ -2,6 +2,7 @@
  THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
  `lvim` is the global options object
 ]]
+
 -- vim options
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
@@ -100,10 +101,10 @@ formatters.setup {
 }
 -- local linters = require "lvim.lsp.null-ls.linters"
 -- linters.setup {
+--   { command = "flake8", filetypes = { "python" } },
 --   {
 --     command = "shellcheck",
 --     args = { "--severity", "warning" },
---     filetypes = { "sh", "zsh" },
 --   },
 -- }
 
@@ -112,7 +113,6 @@ lvim.plugins = {
   { "junegunn/vim-easy-align" },
   { "lambdalisue/suda.vim" },
   { "mg979/vim-visual-multi" },
-  { "navarasu/onedark.nvim" },
   { "tpope/vim-repeat" },
   { "tpope/vim-surround" },
   { "tpope/vim-unimpaired" },

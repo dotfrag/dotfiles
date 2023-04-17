@@ -1,3 +1,5 @@
+.luarc.json
+
 config/i3/local.config
 
 config/lazygit/*

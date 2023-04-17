@@ -88,6 +88,7 @@ formatters.setup {
     -- filetypes = { "sh", "zsh" },
   },
   { command = "black" },
+  { command = "isort" },
   -- { command = "stylua" },
   -- {
   --   command = "prettier",

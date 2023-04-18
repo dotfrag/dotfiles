@@ -87,6 +87,7 @@ formatters.setup {
     extra_args = { "-i", "2" },
     -- filetypes = { "sh", "zsh" },
   },
+  { command = "black" },
   -- { command = "stylua" },
   -- {
   --   command = "prettier",

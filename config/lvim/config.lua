@@ -79,7 +79,7 @@ lvim.builtin.treesitter.auto_install = true
 --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
 
--- -- linters and formatters <https://www.lunarvim.org/docs/languages#lintingformatting>
+-- linters and formatters <https://www.lunarvim.org/docs/languages#lintingformatting>
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   {
@@ -104,7 +104,7 @@ formatters.setup {
 --   },
 -- }
 
--- -- Additional Plugins <https://www.lunarvim.org/docs/plugins#user-plugins>
+-- Additional Plugins <https://www.lunarvim.org/docs/plugins#user-plugins>
 lvim.plugins = {
   { "junegunn/vim-easy-align" },
   { "lambdalisue/suda.vim" },
@@ -114,7 +114,7 @@ lvim.plugins = {
   { "tpope/vim-unimpaired" },
 }
 
--- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
+-- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "zsh",
   callback = function()

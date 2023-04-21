@@ -20,6 +20,8 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<cr>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<cr>"
 
+lvim.keys.normal_mode["n"] = "nzz"
+lvim.keys.normal_mode["N"] = "Nzz"
 lvim.keys.normal_mode["<C-d>"] = "<C-d>zz"
 lvim.keys.normal_mode["<C-u>"] = "<C-u>zz"
 lvim.keys.visual_mode["<leader>p"] = [["_dP]]

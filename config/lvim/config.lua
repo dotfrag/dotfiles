@@ -20,14 +20,18 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<cr>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<cr>"
 
-lvim.keys.normal_mode["ga"] = "<Plug>(EasyAlign)"
-lvim.keys.visual_mode["ga"] = "<Plug>(EasyAlign)"
+lvim.keys.normal_mode["<C-d>"] = "<C-d>zz"
+lvim.keys.normal_mode["<C-u>"] = "<C-u>zz"
+lvim.keys.visual_mode["<leader>p"] = [["_dP]]
 
 lvim.keys.normal_mode["dil"] = "0d$"
 lvim.keys.normal_mode["yil"] = "0y$"
 lvim.keys.normal_mode["cae"] = "ggcG"
 lvim.keys.normal_mode["vae"] = "ggVG"
 lvim.keys.normal_mode["yae"] = "ggyG``"
+
+lvim.keys.normal_mode["ga"] = "<Plug>(EasyAlign)"
+lvim.keys.visual_mode["ga"] = "<Plug>(EasyAlign)"
 
 lvim.keys.normal_mode["<leader>ts"] = ":%s/\\s\\+$//<cr>``"
 

@@ -94,12 +94,12 @@ formatters.setup {
     -- filetypes = { "sh", "zsh" },
   },
   { command = "black" },
+  {
+    command = "prettier",
+    extra_args = { "--print-width", "100" },
+    filetypes = { "css" },
+  },
   -- { command = "stylua" },
-  -- {
-  --   command = "prettier",
-  --   extra_args = { "--print-width", "100" },
-  --   filetypes = { "typescript", "typescriptreact" },
-  -- },
 }
 -- local linters = require "lvim.lsp.null-ls.linters"
 -- linters.setup {

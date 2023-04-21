@@ -123,7 +123,7 @@
 
     ### Text ###
 
-    font = Open Sans SemiCondensed Medium 12 
+    font = Open Sans SemiCondensed Medium 12
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -298,6 +298,13 @@
     mouse_left_click = close_current
     mouse_middle_click = do_action, close_current
     mouse_right_click = close_all
+
+    ### keyboard
+
+    close = ctrl+space
+    # close_all = ctrl+shift+space
+    history = ctrl+shift+space
+    context = ctrl+shift+period
 
 # Experimental features that may or may not work correctly. Do not expect them
 # to have a consistent behaviour across releases.

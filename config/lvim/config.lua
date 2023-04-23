@@ -90,13 +90,13 @@ local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   {
     command = "shfmt",
-    extra_args = { "-i", "2" },
+    args = { "-i", "2" },
     -- filetypes = { "sh", "zsh" },
   },
   { command = "black" },
   {
     command = "prettier",
-    extra_args = { "--print-width", "100" },
+    args = { "--print-width", "100" },
     filetypes = { "css" },
   },
   -- { command = "stylua" },

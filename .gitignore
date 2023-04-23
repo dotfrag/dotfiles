@@ -1,5 +1,7 @@
 .luarc.json
 
+config/kitty/*.session
+
 config/i3/local.config
 
 config/lazygit/*

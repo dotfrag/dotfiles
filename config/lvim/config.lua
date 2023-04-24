@@ -7,7 +7,7 @@ vim.opt.relativenumber = true
 lvim.log.level = "info"
 lvim.format_on_save = {
   enabled = true,
-  pattern = "*.lua",
+  pattern = { "*.lua", "*.astro" },
   timeout = 1000,
 }
 -- to disable icons and use a minimalist setup, uncomment the following
@@ -34,7 +34,7 @@ lvim.keys.normal_mode["cae"] = "ggcG"
 lvim.keys.normal_mode["vae"] = "ggVG"
 lvim.keys.normal_mode["yae"] = "ggyG``"
 
-lvim.keys.normal_mode["tt"] = ":TroubleToggle<CR>"
+lvim.keys.normal_mode["tt"] = ":Trouble<CR>"
 lvim.keys.normal_mode["ga"] = "<Plug>(EasyAlign)"
 lvim.keys.visual_mode["ga"] = "<Plug>(EasyAlign)"
 
@@ -46,8 +46,9 @@ lvim.keys.insert_mode["<C-j>"] = "<Down>"
 lvim.keys.insert_mode["<C-k>"] = "<Up>"
 
 -- -- Use which-key to add extra bindings with the leader-key prefix
--- lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }
--- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<CR>", "Save without formatting" }
+lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+lvim.builtin.which_key.mappings["tt"] = { "<cmd>Trouble<CR>", "Trouble" }
 
 -- -- Change theme settings
 -- lvim.colorscheme = "lunar"
@@ -128,7 +129,7 @@ lvim.plugins = {
   { "tpope/vim-unimpaired" },
   {
     "folke/trouble.nvim",
-    cmd = "TroubleToggle",
+    cmd = "Trouble",
   },
 }
 

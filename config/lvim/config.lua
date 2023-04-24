@@ -17,9 +17,9 @@ lvim.format_on_save = {
 lvim.leader = "space"
 
 -- add your own keymapping
-lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
-lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<cr>"
-lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<cr>"
+lvim.keys.normal_mode["<C-s>"] = ":w<CR>"
+lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
+lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["<Esc>"] = ":noh <CR>"
 
 lvim.keys.normal_mode["n"] = "nzz"
@@ -34,10 +34,11 @@ lvim.keys.normal_mode["cae"] = "ggcG"
 lvim.keys.normal_mode["vae"] = "ggVG"
 lvim.keys.normal_mode["yae"] = "ggyG``"
 
+lvim.keys.normal_mode["tt"] = ":TroubleToggle<CR>"
 lvim.keys.normal_mode["ga"] = "<Plug>(EasyAlign)"
 lvim.keys.visual_mode["ga"] = "<Plug>(EasyAlign)"
 
-lvim.keys.normal_mode["<leader>ts"] = ":%s/\\s\\+$//<cr>``"
+lvim.keys.normal_mode["<leader>ts"] = ":%s/\\s\\+$//<CR>``"
 
 lvim.keys.insert_mode["<C-h>"] = "<Left>"
 lvim.keys.insert_mode["<C-l>"] = "<Right>"
@@ -125,6 +126,10 @@ lvim.plugins = {
   { "tpope/vim-repeat" },
   { "tpope/vim-surround" },
   { "tpope/vim-unimpaired" },
+  {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+  },
 }
 
 -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>

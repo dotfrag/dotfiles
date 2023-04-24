@@ -9,6 +9,7 @@ if [ -f /etc/os-release ]; then
 elif type lsb_release >/dev/null 2>&1; then
   DISTRO=$(lsb_release -si)
 elif [ -f /etc/lsb-release ]; then
+  # shellcheck disable=SC1091
   . /etc/lsb-release
   DISTRO=$DISTRIB_ID
 else

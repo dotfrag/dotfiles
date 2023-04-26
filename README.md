@@ -6,12 +6,14 @@
 - [Fedora](#fedora)
   - [polybar](#polybar)
   - [rofi](#rofi)
+  - [dunst](#dunst)
   - [betterlockscreen](#betterlockscreen)
   - [picom](#picom)
 - [Ubuntu](#ubuntu)
   - [i3-gaps](#i3-gaps)
   - [polybar](#polybar-1)
   - [rofi](#rofi-1)
+  - [dunst](#dunst-1)
   - [betterlockscreen](#betterlockscreen-1)
   - [picom](#picom-1)
 
@@ -128,6 +130,17 @@ make
 sudo make install
 ```
 
+### dunst
+
+```shell
+ sudo dnf -y install dbus-devel libX11-devel libXrandr-devel glib2-devel pango-devel gtk3-devel libxdg-basedir-devel libXScrnSaver-devel libnotify-devel
+cd /tmp
+git clone https://github.com/dunst-project/dunst.git
+cd dunst
+make
+sudo make WAYLAND=0 install
+```
+
 ### betterlockscreen
 
 ```shell
@@ -206,6 +219,17 @@ mkdir -p build && cd build
 ../configure
 make
 sudo make install
+```
+
+### dunst
+
+```shell
+ sudo nala install -y libdbus-1-dev libx11-dev libxinerama-dev libxrandr-dev libxss-dev libglib2.0-dev libpango1.0-dev libgtk-3-dev libxdg-basedir-dev
+cd /tmp
+git clone https://github.com/dunst-project/dunst.git
+cd dunst
+make
+sudo make WAYLAND=0 install
 ```
 
 ### betterlockscreen

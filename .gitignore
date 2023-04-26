@@ -1,14 +1,14 @@
-.luarc.json
+config/i3/local.config
 
 config/kitty/*.session
-
-config/i3/local.config
 
 config/lazygit/*
 !config/lazygit/config.yml
 
 config/lvim/*
 !config/lvim/config.lua
+
+config/nvim/lazy-lock.json
 
 config/tmux/*
 !config/tmux/tmux.conf

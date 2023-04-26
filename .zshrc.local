@@ -153,7 +153,7 @@ alias gss='git status -s'
 
 # --------------------------------------------------------------- GLOBAL ALIASES
 alias -g C='|wc -l'
-alias -g F='|fzf'
+alias -g F='|fzf -m'
 alias -g G='|rg'
 alias -g L='|less'
 alias -g LL='|& less -r'

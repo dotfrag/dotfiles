@@ -64,6 +64,7 @@ return {
         ["o"] = "open",
         ["h"] = "parent_or_close",
         ["l"] = "child_or_open",
+        ["L"] = "focus_preview",
         ["Y"] = "copy_selector",
       },
     },

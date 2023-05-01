@@ -138,6 +138,7 @@ alias update-kitty="curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /d
 alias update-starship="curl -sS https://starship.rs/install.sh | sh"
 alias x="simple-extract"
 
+alias ga='git add'
 alias gauth='git shortlog --summary --numbered --email'
 alias gc='git commit'
 alias gcl='git config --local --list'

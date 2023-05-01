@@ -20,9 +20,9 @@ fi
 # packages
 if [ "$DISTRO" = "Ubuntu" ]; then
   command -v nala &>/dev/null && pacman=nala || pacman=apt
-  sudo "${pacman}" update && sudo "${pacman}" install -y ranger ripgrep tmux tree zsh
+  sudo "${pacman}" update && sudo "${pacman}" install -y ranger tmux tree zsh
 elif [ "$DISTRO" = "Fedora Linux" ]; then
-  sudo dnf check-update && sudo dnf install -y cargo exa golang nodejs ranger ripgrep rust tmux tree vim-enhanced zoxide zsh
+  sudo dnf check-update && sudo dnf install -y cargo exa golang nodejs ranger rust tmux tree vim-enhanced zoxide zsh
 fi
 printf '=%.0s' $(seq 1 ${COLUMNS})
 
@@ -39,8 +39,8 @@ sudo mkdir -p /usr/local/share/zsh/site-functions
 sudo wget -nv -O /usr/local/share/zsh/site-functions/_autorandr https://raw.githubusercontent.com/phillipberndt/autorandr/master/contrib/zsh_completion/_autorandr
 sudo wget -nv -O /usr/local/share/zsh/site-functions/_fd https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd
 sudo wget -nv -O /usr/local/share/zsh/site-functions/_docker https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
-sudo wget -nv -O /usr/local/share/zsh/site-functions/_dunst https://raw.githubusercontent.com/dunst-project/dunst/master/contrib/_dunst.zshcomp 
-sudo wget -nv -O /usr/local/share/zsh/site-functions/_dunstctl https://raw.githubusercontent.com/dunst-project/dunst/master/contrib/_dunstctl.zshcomp 
+sudo wget -nv -O /usr/local/share/zsh/site-functions/_dunst https://raw.githubusercontent.com/dunst-project/dunst/master/contrib/_dunst.zshcomp
+sudo wget -nv -O /usr/local/share/zsh/site-functions/_dunstctl https://raw.githubusercontent.com/dunst-project/dunst/master/contrib/_dunstctl.zshcomp
 printf '=%.0s' $(seq 1 ${COLUMNS})
 
 # tmux

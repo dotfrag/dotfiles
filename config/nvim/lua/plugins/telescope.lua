@@ -2,14 +2,14 @@ return {
   "nvim-telescope/telescope.nvim",
   keys = {
     {
-      "<leader>fp",
+      "<leader>fl",
       function()
         require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root })
       end,
       desc = "Find Plugin Files",
     },
     {
-      "<leader>fP",
+      "<leader>fL",
       function()
         require("telescope.builtin").live_grep({ cwd = require("lazy.core.config").options.root })
       end,

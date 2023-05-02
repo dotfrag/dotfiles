@@ -10,3 +10,5 @@
 vim.keymap.set("n", "<leader>d", function()
   require("mini.bufremove").delete(0, false)
 end, { desc = "Delete Buffer" })
+
+vim.keymap.set("n", "<leader>snt", "<cmd>NoiceTelescope<cr>", { desc = "Noice Telescope" })

@@ -18,7 +18,7 @@ shutdown=' Shutdown'
 reboot=' Reboot'
 lock=' Lock'
 suspend=' Sleep'
-logout=' Logout'
+logout='󰍃 Logout'
 yes=' Yes'
 no=' No'
 
@@ -84,19 +84,19 @@ run_cmd() {
 # Actions
 chosen="$(run_rofi)"
 case ${chosen} in
-"$shutdown")
-  run_cmd --shutdown
-  ;;
-"$reboot")
-  run_cmd --reboot
-  ;;
-"$lock")
-  loginctl lock-session
-  ;;
-"$suspend")
-  run_cmd --suspend
-  ;;
-"$logout")
-  run_cmd --logout
-  ;;
+  "$shutdown")
+    run_cmd --shutdown
+    ;;
+  "$reboot")
+    run_cmd --reboot
+    ;;
+  "$lock")
+    loginctl lock-session
+    ;;
+  "$suspend")
+    run_cmd --suspend
+    ;;
+  "$logout")
+    run_cmd --logout
+    ;;
 esac

@@ -3,14 +3,14 @@
 status() {
   if nmcli c show --active | grep -q vpn; then
     ip=$(ip -f inet addr show tun0 | awk '/inet / {print $2}' | cut -d'/' -f1)
-    echo "嬨 $ip"
+    echo "󰖂 $ip"
   else
     wired_intf=$(ip -br l | awk '$1 !~ "lo|tun|vir|wl" {print $1}')
     subnet_mask=$(ip -f inet addr show "${wired_intf}" | awk '/inet / {print $2}' | cut -d'/' -f2)
     if [[ "${subnet_mask}" == "22" ]]; then
-      echo "嬨"
+      echo "󰖂"
     else
-      echo "%{F#EBCB8B}嬨 VPN OFF%{F-}"
+      echo "%{F#EBCB8B}󰖂 VPN OFF%{F-}"
     fi
   fi
 }

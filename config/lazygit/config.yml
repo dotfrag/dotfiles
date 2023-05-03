@@ -4,5 +4,6 @@ gui:
       - reverse
     selectedRangeBgColor:
       - reverse
+  showFileTree: false
   showIcons: true
 notARepository: 'skip'

@@ -7,12 +7,10 @@ ROOT_DIR=/tmp/iosevka-nerd-font
 IN_DIR=/tmp/iosevka-nerd-font/in
 OUT_DIR=/tmp/iosevka-nerd-font/out
 
-start_docker() {
+init() {
   systemctl is-active --quiet docker || systemctl start docker || exit 1
-}
-
-make_dirs() {
   mkdir -p "${ROOT_DIR}" "${IN_DIR}" "${OUT_DIR}" "${FONTS_DIR}" >/dev/null || exit 1
+  rm -f "${SCRIPT_DIR}"/*.ttf
 }
 
 get_latest_version() {
@@ -45,9 +43,13 @@ patch_complete_variable_width_glyphs() {
   rm -f "${IN_DIR:?}"/* "${OUT_DIR:?}"/*
   cp -t "${IN_DIR}" "${ROOT_DIR}"/iosevka-ss08-{regular,medium}.ttf
   docker run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete --variable-width-glyphs
+  # rename_fonts # no longer needed
+  mv "${OUT_DIR:?}"/*.ttf "${SCRIPT_DIR}/"
+}
+
+rename_fonts() {
   ttx "${OUT_DIR}"/*.ttf
   rm -f "${OUT_DIR:?}"/*.ttf
-
   while read -r file; do
     new_file=${file/Iosevka/IosevkaVariableWidth}
     mv "${file}" "${new_file}"
@@ -55,18 +57,17 @@ patch_complete_variable_width_glyphs() {
     sed -i 's/Iosevka\( \?\)Nerd/IosevkaVariableWidth\1Nerd/g' "${new_file}"
     ttx "${new_file}"
   done < <(find "${OUT_DIR}" -name '*.ttx')
-  mv "${OUT_DIR:?}"/*.ttf "${SCRIPT_DIR}/"
 }
 
 install_fonts() {
+  rm -f "${FONTS_DIR:?}"/*
   cp "${SCRIPT_DIR}"/*.ttf "${FONTS_DIR}/"
   fc-cache -rf
   echo "${LATEST_VERSION}" >"${SCRIPT_DIR}/version.txt"
 }
 
 main() {
-  start_docker
-  make_dirs
+  init
   get_latest_version
   download_and_extract_font
   patch_complete

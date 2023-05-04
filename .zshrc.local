@@ -174,9 +174,6 @@ setopt histignoredups
 setopt histsavenodups
 setopt nosharehistory
 
-# ---------------------------------------------------------------------- PLUGINS
-source "${HOME}/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
 # -------------------------------------------------------------------------- FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -274,6 +271,9 @@ eval "$(zoxide init zsh --cmd cd)"
 # ----------------------------------------------------------------------- PROMPT
 prompt off
 eval "$(starship init zsh)"
+
+# ---------------------------------------------------------------------- PLUGINS
+source "${HOME}/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # ---------------------------------------------------------------- PRIVATE ZSHRC
 [ -f ~/.zshrc.local.private ] && source ~/.zshrc.local.private

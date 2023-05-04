@@ -1,9 +1,0 @@
-@theme "nord"
-
-configuration {
-  matching: "fuzzy";
-  sorting-method: "fzf";
-  terminal: "kitty";
-  run-shell-command: "{terminal} {cmd}";
-  ssh-command: "{terminal} --title {host} kitty +kitten ssh {host} -t tmux new-session -A -s main";
-}

@@ -101,7 +101,7 @@ glogd() {
 
 # run git command for all repos in directory
 gall() {
-  fd -td '^\.git$' -IHL -x echo {//} | sort | xargs -I{} zsh -c "echo {} && git -C {} $*"
+  fd -td '^\.git$' -IHL -x echo {//} | sort | xargs -I{} zsh -c "echo {} && git -C {} $* && echo"
 }
 
 # launch app and exit

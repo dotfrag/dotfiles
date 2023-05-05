@@ -6,7 +6,7 @@ configuration {
 	me-accept-entry: [MousePrimary];
 }
 *{
-	font: "Iosevka SS08 Medium 11";		//Font
+	font: "IosevkaSS08 Nerd Font Propo Medium 11";		//Font
 	//Colors
 	foreground:#D8DEE9;					//Text
 	background:#434C5E;					//Background

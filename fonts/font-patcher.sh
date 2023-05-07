@@ -24,6 +24,7 @@ download_and_extract_font() {
   file_list=(
     iosevka-ss08-bold.ttf
     iosevka-ss08-bolditalic.ttf
+    iosevka-ss08-italic.ttf
     iosevka-ss08-medium.ttf
     iosevka-ss08-mediumitalic.ttf
     iosevka-ss08-regular.ttf
@@ -34,15 +35,15 @@ download_and_extract_font() {
 
 patch_complete() {
   rm -f "${IN_DIR:?}"/* "${OUT_DIR:?}"/*
-  cp -t "${IN_DIR}" "${ROOT_DIR}"/iosevka-ss08-{medium,mediumitalic,bold,bolditalic}.ttf
-  docker run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete
+  cp -t "${IN_DIR}" "${ROOT_DIR}"/*.ttf
+  docker run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher
   mv "${OUT_DIR:?}"/*.ttf "${SCRIPT_DIR}/"
 }
 
 patch_complete_variable_width_glyphs() {
   rm -f "${IN_DIR:?}"/* "${OUT_DIR:?}"/*
   cp -t "${IN_DIR}" "${ROOT_DIR}"/iosevka-ss08-{regular,medium}.ttf
-  docker run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete --variable-width-glyphs
+  docker run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --variable-width-glyphs
   # rename_fonts # no longer needed
   mv "${OUT_DIR:?}"/*.ttf "${SCRIPT_DIR}/"
 }

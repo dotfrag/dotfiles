@@ -132,6 +132,7 @@ vnoremap > >gv
 nmap <leader>ts :%s/\s\+$//<cr>``
 
 " Fzf
+nmap <leader>b :Buffers<cr>
 nmap <leader>f :Files<cr>
 nmap <leader>l :Lines<cr>
 imap <c-x><c-k> <plug>(fzf-complete-word)

@@ -213,6 +213,7 @@ vg() {
   rg --color=always --line-number --no-heading --smart-case "${*:-}" |
     fzf --ansi \
         --color "hl:-1:underline,hl+:-1:underline:reverse" \
+        --height 30 \
         --delimiter : \
         --preview 'bat --color=always {1} --highlight-line {2} --theme=TwoDark' \
         --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
@@ -226,6 +227,7 @@ vgd() {
   rg --color=always --line-number --no-heading --smart-case "${*:-}" "${files[@]}" |
     fzf --ansi \
         --color "hl:-1:underline,hl+:-1:underline:reverse" \
+        --height 30 \
         --delimiter : \
         --preview 'bat --color=always {1} --highlight-line {2} --theme=TwoDark' \
         --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \

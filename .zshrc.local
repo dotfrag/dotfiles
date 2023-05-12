@@ -89,12 +89,12 @@ glf() {
 
 # git log
 glog() {
-  selected=$(git log --oneline "$@" | fzf --multi --height 100% --preview-window 'down,80%' --preview 'git show -m --color=always {1}')
+  selected=$(git log --oneline --decorate --color "$@" | fzf --ansi --multi --height 100% --preview-window 'down,80%' --preview 'git show -m --color {1}')
   commit=$(echo "${selected}" | awk '{print $1}')
   [[ -n "${commit}" ]] && git show -m "${commit}"
 }
 glogd() {
-  selected=$(git log --oneline "$@" | fzf --multi --height 100% --preview-window 'down,80%' --preview 'git show -m --color=always {1} | delta')
+  selected=$(git log --oneline --decorate --color "$@" | fzf --ansi --multi --height 100% --preview-window 'down,80%' --preview 'git show -m --color {1} | delta')
   commit=$(echo "${selected}" | awk '{print $1}')
   [[ -n "${commit}" ]] && git show -m "${commit}"
 }

@@ -199,37 +199,37 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #   - [b] bat preview
 #   - [d] dotfiles
 fe() {
-  IFS=$'\n' local files=($(fzf --query="$1" --multi --select-1 --exit-0))
-  [[ -n "${files}" ]] && "${EDITOR:-vim}" "${files[@]}"
+  fzf --query="$@" --multi --select-1 --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
 }
 feb() {
-  IFS=$'\n' local files=($(fzf --query="$1" --multi --select-1 --exit-0 --height 100 --preview "bat --color=always --theme=TwoDark {}"))
-  [[ -n "${files}" ]] && "${EDITOR:-vim}" "${files[@]}"
+  fzf --query="$@" --multi --select-1 --exit-0 --height 100% --preview "bat --color=always --theme=TwoDark {}"
 }
 fed() {
-  IFS=$'\n' local files=($(cat ${HOME}/.dots | fzf --query="$1" --multi --select-1 --exit-0))
-  [[ -n "${files}" ]] && "${EDITOR:-vim}" "${files[@]}"
-}
-
-# fuzzy edit in vi
-fv() {
-  IFS=$'\n' local files=($(fzf --query="$1" --multi --select-1 --exit-0))
-  [[ -n "${files}" ]] && vi "${files[@]}"
+  cat "${HOME}/.dots" | fzf --query="$@" --multi --select-1 --bind 'enter:become($EDITOR {+})'
 }
 
 # fuzzy ripgrep open with line number
 vg() {
-  local file line
-  read -r file line <<<$(rg --no-heading --line-number --pretty $@ | fzf --exit-0 --select-1 --ansi | awk -F':' '{print $1, $2}')
-  [[ -n ${file} ]] && "${EDITOR:-vim}" "${file}" +"${line}"
+  rg --color=always --line-number --no-heading --smart-case "${*:-}" |
+    fzf --ansi \
+        --color "hl:-1:underline,hl+:-1:underline:reverse" \
+        --delimiter : \
+        --preview 'bat --color=always {1} --highlight-line {2} --theme=TwoDark' \
+        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+        --bind 'enter:become($EDITOR {1} +{2})'
 }
 
 # fuzzy ripgrep dots open with line number
 vgd() {
-  local file line
+  local files
   IFS=$'\n' local files=($(cat "${HOME}/.dots"))
-  read file line <<<$(rg --no-heading --line-number --pretty $@ ${files[@]} | fzf --exit-0 --select-1 --ansi | awk -F':' '{print $1, $2}')
-  [[ -n ${file} ]] && "${EDITOR:-vim}" "${file}" +"${line}"
+  rg --color=always --line-number --no-heading --smart-case "${*:-}" "${files[@]}" |
+    fzf --ansi \
+        --color "hl:-1:underline,hl+:-1:underline:reverse" \
+        --delimiter : \
+        --preview 'bat --color=always {1} --highlight-line {2} --theme=TwoDark' \
+        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+        --bind 'enter:become($EDITOR {1} +{2})'
 }
 
 # fkill - kill processes - list only the ones you can kill

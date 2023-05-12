@@ -178,7 +178,7 @@ setopt nosharehistory
 # -------------------------------------------------------------------------- FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export FZF_DEFAULT_OPTS="--height 35% --reverse --border --inline-info --cycle --bind \
+export FZF_DEFAULT_OPTS="--height 35% --reverse --border --inline-info --bind \
 ctrl-y:preview-up,ctrl-e:preview-down,\
 ctrl-b:preview-page-up,ctrl-f:preview-page-down,\
 ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down \

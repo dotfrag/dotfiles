@@ -197,16 +197,22 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # fe[b|d] [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
+#   - [p] persistent fzf
 #   - [b] bat preview
 #   - [d] dotfiles
 fe() {
-  fzf --query="$@" --multi --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
+  fzf --query="$@" --multi --select-1 --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
+}
+fep() {
+  fzf --query="$@" --multi --select-1 --bind 'enter:execute($EDITOR {+}),ctrl-v:execute(vi {+})'
 }
 feb() {
-  fzf --query="$@" --multi --exit-0 --height 100% --preview "bat --color=always --theme=TwoDark {}"
+  fzf --query="$@" --multi --select-1 --height 100% \
+      --preview "bat --color=always --theme=TwoDark {}" \
+      --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
 }
 fed() {
-  cat "${HOME}/.dots" | fzf --query="$@" --multi --bind 'enter:become($EDITOR {+})'
+  cat "${HOME}/.dots" | fzf --query="$@" --multi --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
 }
 
 # fuzzy ripgrep open with line number
@@ -218,7 +224,7 @@ vg() {
         --delimiter : \
         --preview 'bat --color=always {1} --highlight-line {2} --theme=TwoDark' \
         --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-        --bind 'enter:become($EDITOR {1} +{2})'
+        --bind 'enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
 }
 
 # fuzzy ripgrep dots open with line number
@@ -232,7 +238,7 @@ vgd() {
         --delimiter : \
         --preview 'bat --color=always {1} --highlight-line {2} --theme=TwoDark' \
         --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-        --bind 'enter:become($EDITOR {1} +{2})'
+        --bind 'enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
 }
 
 # fkill - kill processes - list only the ones you can kill

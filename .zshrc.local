@@ -199,13 +199,13 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #   - [b] bat preview
 #   - [d] dotfiles
 fe() {
-  fzf --query="$@" --multi --select-1 --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
+  fzf --query="$@" --multi --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
 }
 feb() {
-  fzf --query="$@" --multi --select-1 --exit-0 --height 100% --preview "bat --color=always --theme=TwoDark {}"
+  fzf --query="$@" --multi --exit-0 --height 100% --preview "bat --color=always --theme=TwoDark {}"
 }
 fed() {
-  cat "${HOME}/.dots" | fzf --query="$@" --multi --select-1 --bind 'enter:become($EDITOR {+})'
+  cat "${HOME}/.dots" | fzf --query="$@" --multi --bind 'enter:become($EDITOR {+})'
 }
 
 # fuzzy ripgrep open with line number

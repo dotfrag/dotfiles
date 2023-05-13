@@ -201,13 +201,13 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #   - [b] bat preview
 #   - [d] dotfiles
 fe() {
-  fzf --query="$@" --multi --select-1 --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
+  fzf --query="$@" --multi --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
 }
 fep() {
-  fzf --query="$@" --multi --select-1 --bind 'enter:execute($EDITOR {+}),ctrl-v:execute(vi {+})'
+  fzf --query="$@" --multi --bind 'enter:execute($EDITOR {+}),ctrl-v:execute(vi {+})'
 }
 feb() {
-  fzf --query="$@" --multi --select-1 --height 100% \
+  fzf --query="$@" --multi --height 100% \
       --preview "bat --color=always --theme=TwoDark {}" \
       --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
 }

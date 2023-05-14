@@ -131,6 +131,8 @@ alias files='nautilus --browser $(pwd) &>/dev/null & disown'
 alias gpall="fd -td '^\.git$' -IHL -x git -C {//} pull"
 alias killsigs="kill -l | tr ' ' '\n' | nl"
 alias lg="lazygit"
+alias print-aliases='print -rl -- ${(k)aliases}'
+alias print-functions='print -rl -- ${(k)functions}'
 alias ran='ranger --choosedir=/tmp/.rangerdir; LASTDIR=$(cat /tmp/.rangerdir); cd "$LASTDIR"'
 alias tx="tmux has-session 2> /dev/null && tmux attach-session || start-tmux.sh"
 alias update-grml-zshrc="wget --no-verbose -O ${HOME}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc"

@@ -197,8 +197,9 @@ mode "resize" {
 }
 
 # redshift mode
-bindsym $mod+n mode "redshift"
-mode "redshift" {
+set $redshift redshift [0-9]
+bindsym $mod+n mode "$redshift"
+mode "$redshift" {
   bindsym 0 exec --no-startup-id "redshift -x"
   bindsym 1 exec --no-startup-id "redshift -P -O 6000"
   bindsym 2 exec --no-startup-id "redshift -P -O 5500"

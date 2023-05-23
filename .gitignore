@@ -1,5 +1,6 @@
 config/i3/local.config
 
+config/kitty/colors.conf
 config/kitty/*.session
 
 config/lazygit/*

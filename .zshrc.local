@@ -180,7 +180,7 @@ setopt nosharehistory
 # -------------------------------------------------------------------------- FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export FZF_DEFAULT_OPTS="--reverse --border --inline-info --bind \
+export FZF_DEFAULT_OPTS="--reverse --border --info=inline --bind \
 home:first,end:last,\
 ctrl-y:preview-up,ctrl-e:preview-down,\
 ctrl-b:preview-page-up,ctrl-f:preview-page-down,\

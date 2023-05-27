@@ -161,6 +161,7 @@ alias -g F='|fzf -m'
 alias -g G='|rg'
 alias -g L='|less'
 alias -g LL='|& less -r'
+alias -g S='|sk'
 alias -g TR="| tr ' ' '\n'"
 alias -g X='| perl -pe "chomp if eof" | xclip -sel p -f | xclip -sel c'
 alias -g XI='| fzf | tr -d "\n" | xclip -sel p -f | xclip -sel c'

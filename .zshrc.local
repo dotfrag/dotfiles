@@ -3,6 +3,7 @@
 # ---------------------------------------------------------------------- EXPORTS
 export EDITOR="vim"
 export VISUAL=$EDITOR
+export MANWIDTH=${MANWIDTH:-80}
 export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep/config"
 
 # -------------------------------------------------------------------- FUNCTIONS
@@ -109,6 +110,14 @@ launch() {
   nohup "$@" >/dev/null 2>/dev/null & disown && exit
 }
 
+# switching shell safely and efficiently? http://www.zsh.org/mla/workers/2001/msg02410.html
+bash() {
+   NO_SWITCH="yes" command bash "$@"
+}
+restart () {
+   exec $SHELL $SHELL_ARGS "$@"
+}
+
 # ---------------------------------------------------------------------- ALIASES
 alias agi="sudo nala install"
 alias aug="sudo nala update && sudo nala upgrade"
@@ -129,6 +138,7 @@ alias dus="du -sh * 2>/dev/null | sort -h"
 alias exa="exa -l --group-directories-first"
 alias files='nautilus --browser $(pwd) &>/dev/null & disown'
 alias gpall="fd -td '^\.git$' -IHL -x git -C {//} pull"
+alias insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" -o "PreferredAuthentications=keyboard-interactive"'
 alias killsigs="kill -l | tr ' ' '\n' | nl"
 alias lg="lazygit"
 alias print-aliases='print -rl -- ${(k)aliases}'
@@ -171,11 +181,13 @@ abk[f]='$(fzf)'
 abk[gall]="fd -td '^\.git$' -IHL -x echo {//} | sort | xargs -I{} git -C {} "
 
 # ---------------------------------------------------------------------- OPTIONS
+setopt histallowclobber
 setopt histexpiredupsfirst
 setopt histfindnodups
 setopt histignorealldups
 setopt histignoredups
 setopt histsavenodups
+setopt nonomatch
 setopt nosharehistory
 
 # -------------------------------------------------------------------------- FZF
@@ -280,6 +292,38 @@ bindkey "^[r" "repeat-last-cmd"
 
 # ------------------------------------------------------------------------- MISC
 eval "$(zoxide init zsh --cmd cd)"
+
+# use the vi navigation keys (hjkl) besides cursor keys in menu completion
+bindkey -M menuselect 'h' vi-backward-char        # left
+bindkey -M menuselect 'k' vi-up-line-or-history   # up
+bindkey -M menuselect 'l' vi-forward-char         # right
+bindkey -M menuselect 'j' vi-down-line-or-history # bottom
+
+# expand shell aliases
+zstyle ':completion:*' completer _expand_alias _complete _approximate
+
+# just type '...' to get '../..'
+rationalise-dot() {
+local MATCH
+if [[ $LBUFFER =~ '(^|/| |	|'$'\n''|\||;|&)\.\.$' ]]; then
+ LBUFFER+=/
+ zle self-insert
+ zle self-insert
+else
+ zle self-insert
+fi
+}
+zle -N rationalise-dot
+bindkey . rationalise-dot
+# without this, typing a . aborts incremental history search
+bindkey -M isearch . self-insert
+
+# set command prediction from history, see 'man 1 zshcontrib'
+is4 && zrcautoload predict-on && \
+zle -N predict-on         && \
+zle -N predict-off        && \
+bindkey "^X^Z" predict-on && \
+bindkey "^Z" predict-off
 
 # ----------------------------------------------------------------------- PROMPT
 prompt off

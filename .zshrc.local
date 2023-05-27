@@ -319,11 +319,9 @@ bindkey . rationalise-dot
 bindkey -M isearch . self-insert
 
 # set command prediction from history, see 'man 1 zshcontrib'
-is4 && zrcautoload predict-on && \
-zle -N predict-on         && \
-zle -N predict-off        && \
-bindkey "^X^Z" predict-on && \
-bindkey "^Z" predict-off
+zrcautoload predict-on
+zle -N predict-on
+zle -N predict-off
 
 # ----------------------------------------------------------------------- PROMPT
 prompt off

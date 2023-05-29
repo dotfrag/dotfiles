@@ -6,9 +6,22 @@ FONTS_DIR=${HOME}/.local/share/fonts/Iosevka_Nerd_Font
 ROOT_DIR=/tmp/iosevka-nerd-font
 IN_DIR=/tmp/iosevka-nerd-font/in
 OUT_DIR=/tmp/iosevka-nerd-font/out
+DOCKER=docker
+FILE_LIST=(
+  iosevka-ss08-bold.ttf
+  iosevka-ss08-bolditalic.ttf
+  iosevka-ss08-italic.ttf
+  iosevka-ss08-medium.ttf
+  iosevka-ss08-mediumitalic.ttf
+  iosevka-ss08-regular.ttf
+)
 
 init() {
-  systemctl is-active --quiet docker || systemctl start docker || exit 1
+  if command -v docker &>/dev/null; then
+    systemctl is-active --quiet docker || systemctl start docker || exit 1
+  else
+    DOCKER=podman
+  fi
   mkdir -p "${ROOT_DIR}" "${IN_DIR}" "${OUT_DIR}" "${FONTS_DIR}" >/dev/null || exit 1
   rm -f "${SCRIPT_DIR}"/*.ttf
 }
@@ -21,43 +34,22 @@ get_latest_version() {
 }
 
 download_and_extract_font() {
-  file_list=(
-    iosevka-ss08-bold.ttf
-    iosevka-ss08-bolditalic.ttf
-    iosevka-ss08-italic.ttf
-    iosevka-ss08-medium.ttf
-    iosevka-ss08-mediumitalic.ttf
-    iosevka-ss08-regular.ttf
-  )
   wget -nc -q --show-progress "${LATEST_VERSION_URL}" -P "${ROOT_DIR}/"
-  unzip -u "${ROOT_DIR}/ttf-iosevka-ss08-${LATEST_VERSION/v/}.zip" "${file_list[@]}" -d "${ROOT_DIR}/"
+  unzip -u "${ROOT_DIR}/ttf-iosevka-ss08-${LATEST_VERSION/v/}.zip" "${FILE_LIST[@]}" -d "${ROOT_DIR}/"
 }
 
 patch_complete() {
   rm -f "${IN_DIR:?}"/* "${OUT_DIR:?}"/*
   cp -t "${IN_DIR}" "${ROOT_DIR}"/*.ttf
-  docker run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete
+  "$DOCKER" run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete
   mv "${OUT_DIR:?}"/*.ttf "${SCRIPT_DIR}/"
 }
 
 patch_complete_variable_width_glyphs() {
   rm -f "${IN_DIR:?}"/* "${OUT_DIR:?}"/*
   cp -t "${IN_DIR}" "${ROOT_DIR}"/iosevka-ss08-{regular,medium}.ttf
-  docker run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete --variable-width-glyphs
-  # rename_fonts # no longer needed
+  "$DOCKER" run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete --variable-width-glyphs
   mv "${OUT_DIR:?}"/*.ttf "${SCRIPT_DIR}/"
-}
-
-rename_fonts() {
-  ttx "${OUT_DIR}"/*.ttf
-  rm -f "${OUT_DIR:?}"/*.ttf
-  while read -r file; do
-    new_file=${file/Iosevka/IosevkaVariableWidth}
-    mv "${file}" "${new_file}"
-    sed -i 's/Iosevka SS08/IosevkaVariableWidth SS08/g' "${new_file}"
-    sed -i 's/Iosevka\( \?\)Nerd/IosevkaVariableWidth\1Nerd/g' "${new_file}"
-    ttx "${new_file}"
-  done < <(find "${OUT_DIR}" -name '*.ttx')
 }
 
 install_fonts() {

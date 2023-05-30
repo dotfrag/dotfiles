@@ -56,6 +56,9 @@ install_fonts() {
   rm -f "${FONTS_DIR:?}"/*
   cp "${SCRIPT_DIR}"/*.ttf "${FONTS_DIR}/"
   fc-cache -rf
+}
+
+update_fonts_version() {
   echo "${LATEST_VERSION}" >"${SCRIPT_DIR}/version.txt"
 }
 
@@ -66,6 +69,13 @@ main() {
   patch_complete
   patch_complete_variable_width_glyphs
   install_fonts
+  update_fonts_version
 }
+
+if [[ $1 = "install" ]]; then
+  install_fonts
+  echo "Fonts installed."
+  exit
+fi
 
 main

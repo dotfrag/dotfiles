@@ -168,14 +168,11 @@ glf() {
 
 # git log
 glog() {
-  selected=$(git log --oneline --decorate --color "$@" | fzf --ansi --multi --height 100% --preview-window 'down,80%' --preview 'git show -m --color {1}')
-  commit=$(echo "${selected}" | awk '{print $1}')
-  [[ -n "${commit}" ]] && git show -m "${commit}"
-}
-glogd() {
-  selected=$(git log --oneline --decorate --color "$@" | fzf --ansi --multi --height 100% --preview-window 'down,80%' --preview 'git show -m --color {1} | delta')
-  commit=$(echo "${selected}" | awk '{print $1}')
-  [[ -n "${commit}" ]] && git show -m "${commit}"
+  git log --oneline --decorate --color "$@" |
+    fzf --ansi --multi --height 100% \
+    --preview-window 'down,80%' \
+    --preview 'git show -m --color {1}' \
+    --bind 'enter:become(git show -m {1})'
 }
 
 # run git command for all repos in directory
@@ -230,7 +227,9 @@ feb() {
       --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
 }
 fed() {
-  cat "${HOME}/.dots" | fzf --query="$@" --multi --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
+  cat "${HOME}/.dots" |
+    fzf --query="$@" --multi \
+    --bind 'one:become($EDITOR {+}),enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
 }
 
 # fuzzy ripgrep open with line number

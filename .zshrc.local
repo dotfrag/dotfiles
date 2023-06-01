@@ -123,6 +123,7 @@ alias gco='git checkout $(git branch | fzf)'
 alias gd='git diff'
 alias gdd='git diff | delta --line-numbers'
 alias gdu='git diff --no-ext-diff -U0'
+alias gfp="git ls-files --full-name"
 alias glg='git log --oneline -5'
 alias gp='git pull'
 alias gpall="fd -td '^\.git$' -IHL -x git -C {//} pull"

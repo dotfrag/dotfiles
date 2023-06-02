@@ -255,7 +255,7 @@ vgd() {
         --delimiter : \
         --preview 'bat --color=always {1} --highlight-line {2} --theme=TwoDark' \
         --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-        --bind 'enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
+        --bind 'one:become($EDITOR {1} +{2}),enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
 }
 
 # fkill - kill processes - list only the ones you can kill

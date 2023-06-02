@@ -23,13 +23,16 @@ init() {
     DOCKER=podman
   fi
   mkdir -p "${ROOT_DIR}" "${IN_DIR}" "${OUT_DIR}" "${FONTS_DIR}" >/dev/null || exit 1
-  rm -f "${SCRIPT_DIR}"/*.ttf
 }
 
 get_latest_version() {
   LATEST_RELEASE=$(curl -sLH 'Accept: application/json' https://github.com/be5invis/Iosevka/releases/latest)
   # shellcheck disable=SC2001
   LATEST_VERSION=$(echo "${LATEST_RELEASE}" | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+  if grep -qs "${LATEST_VERSION}" "${SCRIPT_DIR}/version.txt"; then
+    echo "Already on the latest version. No need to update."
+    exit
+  fi
   LATEST_VERSION_URL="https://github.com/be5invis/Iosevka/releases/download/${LATEST_VERSION}/ttf-iosevka-ss08-${LATEST_VERSION//v/}.zip"
 }
 

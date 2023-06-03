@@ -191,7 +191,7 @@ setopt nonomatch
 setopt nosharehistory
 
 # -------------------------------------------------------------------------- FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+xsource "${HOME}/.fzf.zsh"
 
 export FZF_DEFAULT_OPTS="--reverse --border --info=inline --bind \
 home:first,end:last,\
@@ -320,17 +320,17 @@ bindkey . rationalise-dot
 # without this, typing a . aborts incremental history search
 bindkey -M isearch . self-insert
 
-# set command prediction from history, see 'man 1 zshcontrib'
-zrcautoload predict-on
-zle -N predict-on
-zle -N predict-off
+# # set command prediction from history, see 'man 1 zshcontrib'
+# zrcautoload predict-on
+# zle -N predict-on
+# zle -N predict-off
 
 # ----------------------------------------------------------------------- PROMPT
 prompt off
 eval "$(starship init zsh)"
 
 # ---------------------------------------------------------------------- PLUGINS
-source "${HOME}/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+xsource "${HOME}/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # ---------------------------------------------------------------- PRIVATE ZSHRC
-[ -f ~/.zshrc.local.private ] && source ~/.zshrc.local.private
+xsource "${ZDOTDIR:-${HOME}}/.zshrc.local.private"

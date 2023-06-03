@@ -27,13 +27,14 @@ fi
 printf '=%.0s' $(seq 1 ${COLUMNS})
 
 # zsh
-wget -nv -O "${HOME}/.zshrc" https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
-wget -nv -O "${HOME}/.zshrc.skel" https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
-[ -f "${HOME}/.zshrc.pre" ] || printf "ls_options+=( --group-directories-first )" >"${HOME}/.zshrc.pre"
-ln -vsf "${SCRIPT_DIR}/.zshrc.local" "${HOME}/.zshrc.local"
-mkdir -p "${HOME}/.zsh"
+wget -nv -O "${ZDOTDIR:-${HOME}}/.zshrc" https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+wget -nv -O "${ZDOTDIR:-${HOME}}/.zshrc.skel" https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
+[ -f "${ZDOTDIR:-${HOME}}/.zshrc.pre" ] || printf "ls_options+=( --group-directories-first )" >"${ZDOTDIR:-${HOME}}/.zshrc.pre"
+ln -vsf "${SCRIPT_DIR}/.zshrc.local" "${ZDOTDIR:-${HOME}}/.zshrc.local"
+zsh_plugin_dir="${HOME}/.config/zsh/plugins"
+mkdir -p "${zsh_plugin_dir}"
 printf "[zsh-syntax-highlighting] "
-git -C "${HOME}/.zsh/zsh-syntax-highlighting" pull 2>/dev/null || git clone "https://github.com/zsh-users/zsh-syntax-highlighting" "${HOME}/.zsh/zsh-syntax-highlighting"
+git -C "${zsh_plugin_dir}/zsh-syntax-highlighting" pull 2>/dev/null || git clone "https://github.com/zsh-users/zsh-syntax-highlighting" "${zsh_plugin_dir}/zsh-syntax-highlighting"
 printf '=%.0s' $(seq 1 ${COLUMNS})
 sudo mkdir -p /usr/local/share/zsh/site-functions
 sudo wget -nv -O /usr/local/share/zsh/site-functions/_autorandr https://raw.githubusercontent.com/phillipberndt/autorandr/master/contrib/zsh_completion/_autorandr

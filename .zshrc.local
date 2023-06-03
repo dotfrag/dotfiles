@@ -191,7 +191,7 @@ setopt nonomatch
 setopt nosharehistory
 
 # -------------------------------------------------------------------------- FZF
-xsource "${HOME}/.fzf.zsh"
+xsource "${ZDOTDIR:-${HOME}}/.fzf.zsh"
 
 export FZF_DEFAULT_OPTS="--reverse --border --info=inline --bind \
 home:first,end:last,\

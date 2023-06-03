@@ -1,6 +1,8 @@
 #!/bin/bash
 
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+FZF_DIR="${HOME}/.local/bin/fzf"
+ZSH_PLUGINS_DIR="${HOME}/.config/zsh/plugins"
 
 # detect distro for package manager
 if [ -f /etc/os-release ]; then
@@ -31,10 +33,9 @@ wget -nv -O "${ZDOTDIR:-${HOME}}/.zshrc" https://git.grml.org/f/grml-etc-core/et
 wget -nv -O "${ZDOTDIR:-${HOME}}/.zshrc.skel" https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
 [ -f "${ZDOTDIR:-${HOME}}/.zshrc.pre" ] || printf "ls_options+=( --group-directories-first )" >"${ZDOTDIR:-${HOME}}/.zshrc.pre"
 ln -vsf "${SCRIPT_DIR}/.zshrc.local" "${ZDOTDIR:-${HOME}}/.zshrc.local"
-zsh_plugin_dir="${HOME}/.config/zsh/plugins"
-mkdir -p "${zsh_plugin_dir}"
+mkdir -p "${ZSH_PLUGINS_DIR}"
 printf "[zsh-syntax-highlighting] "
-git -C "${zsh_plugin_dir}/zsh-syntax-highlighting" pull 2>/dev/null || git clone "https://github.com/zsh-users/zsh-syntax-highlighting" "${zsh_plugin_dir}/zsh-syntax-highlighting"
+git -C "${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting" pull 2>/dev/null || git clone "https://github.com/zsh-users/zsh-syntax-highlighting" "${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting"
 printf '=%.0s' $(seq 1 ${COLUMNS})
 sudo mkdir -p /usr/local/share/zsh/site-functions
 sudo wget -nv -O /usr/local/share/zsh/site-functions/_autorandr https://raw.githubusercontent.com/phillipberndt/autorandr/master/contrib/zsh_completion/_autorandr
@@ -67,8 +68,9 @@ printf '=%.0s' $(seq 1 ${COLUMNS})
 
 # fzf
 printf "[fzf] "
-git -C "${HOME}/.fzf" pull || git clone --depth 1 https://github.com/junegunn/fzf "${HOME}/.fzf"
-"${HOME}/.fzf/install" --completion --key-bindings --no-update-rc >/dev/null
+git -C "${FZF_DIR}" pull 2>/dev/null || git clone --depth 1 https://github.com/junegunn/fzf "${FZF_DIR}"
+"${FZF_DIR}/install" --completion --key-bindings --no-bash --no-update-rc >/dev/null
+mv "${HOME}/.fzf.zsh" "${ZDOTDIR:-${HOME}}/" 2>/dev/null
 printf '=%.0s' $(seq 1 ${COLUMNS})
 
 # ripgrep

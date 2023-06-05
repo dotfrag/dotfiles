@@ -33,8 +33,11 @@ map sn :set sortby natural; set info size
 
 # bookmarks
 map gd cd ~/Downloads
+map gp cd ~/Projects
+map gP cd ~/Pictures
 map gr cd ~/repos
-map gt cd /tmp
+map gt cd ~/tmp
+map gT cd /tmp
 
 # use enter for shell commands
 map <enter> shell

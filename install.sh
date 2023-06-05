@@ -10,3 +10,5 @@ if [[ ! -d "dotfiles" ]]; then
 fi
 
 bash dotfiles/setup.sh
+
+chsh -s /bin/zsh

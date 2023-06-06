@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ -f "setup.sh" ]]; then
+  bash setup.sh
+  exit
+fi
+
 if ! command -v git &>/dev/null; then
   echo "Missing git command. Please install git first."
   exit 1

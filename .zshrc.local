@@ -325,12 +325,12 @@ bindkey -M isearch . self-insert
 # zle -N predict-on
 # zle -N predict-off
 
+# ---------------------------------------------------------------------- PLUGINS
+xsource "${HOME}/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
 # ----------------------------------------------------------------------- PROMPT
 prompt off
 eval "$(starship init zsh)"
-
-# ---------------------------------------------------------------------- PLUGINS
-xsource "${HOME}/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # ---------------------------------------------------------------- PRIVATE ZSHRC
 xsource "${ZDOTDIR:-${HOME}}/.zshrc.local.private"

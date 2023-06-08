@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ -f "setup.sh" ]]; then
-  bash setup.sh
+  exec bash setup.sh
   exit
 fi
 

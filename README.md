@@ -4,6 +4,7 @@
 - [Fonts](#fonts)
 - [Gnome](#gnome)
 - [Fedora](#fedora)
+  - [i3](#i3)
   - [polybar](#polybar)
   - [rofi](#rofi)
   - [dunst](#dunst)
@@ -108,6 +109,12 @@ gsettings set org.gnome.desktop.interface monospace-font-name "Iosevka SS08 11"
 sudo dnf groupinstall -y "Development Tools"
 ```
 
+### i3
+
+```shell
+sudo dnf install -y i3
+```
+
 ### polybar
 
 ```shell
@@ -117,28 +124,13 @@ sudo dnf install -y polybar
 ### rofi
 
 ```shell
- sudo dnf -y install xcb-util-wm-devel xcb-util-cursor-devel pango-devel startup-notification-devel gdk-pixbuf2-devel check-devel
-LATEST_RELEASE=$(curl -sLH 'Accept: application/json' https://github.com/davatorium/rofi/releases/latest)
-LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
-cd /tmp
-wget -nc "https://github.com/davatorium/rofi/releases/download/${LATEST_VERSION}/rofi-${LATEST_VERSION}.tar.gz"
-tar xzvf "rofi-${LATEST_VERSION}.tar.gz"
-cd "rofi-${LATEST_VERSION}"
-mkdir -p build && cd build
-../configure
-make
-sudo make install
+sudo dnf install -y rofi
 ```
 
 ### dunst
 
 ```shell
- sudo dnf -y install dbus-devel libX11-devel libXrandr-devel glib2-devel pango-devel gtk3-devel libxdg-basedir-devel libXScrnSaver-devel libnotify-devel
-cd /tmp
-git clone https://github.com/dunst-project/dunst.git
-cd dunst
-make
-sudo make WAYLAND=0 install
+sudo dnf install -y dunst
 ```
 
 ### betterlockscreen

@@ -34,7 +34,7 @@ printf '=%.0s' $(seq 1 ${COLUMNS})
 wget -nv -O "${ZDOTDIR:-${HOME}}/.zshrc" https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
 wget -nv -O "${ZDOTDIR:-${HOME}}/.zshrc.skel" https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
 [ -f "${ZDOTDIR:-${HOME}}/.zshrc.pre" ] || printf "ls_options+=( --group-directories-first )" >"${ZDOTDIR:-${HOME}}/.zshrc.pre"
-ln -vsf "${SCRIPT_DIR}/.zshrc.local" "${ZDOTDIR:-${HOME}}/.zshrc.local"
+ln -vsf "${SCRIPT_DIR}/config/zsh/.zshrc.local" "${ZDOTDIR:-${HOME}}/.zshrc.local"
 mkdir -p "${ZSH_PLUGINS_DIR}"
 printf "[zsh-syntax-highlighting] "
 git -C "${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting" pull 2>/dev/null || git clone "https://github.com/zsh-users/zsh-syntax-highlighting" "${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting"
@@ -52,7 +52,7 @@ ln -vsf "${SCRIPT_DIR}/config/tmux" "${HOME}/.config/"
 printf '=%.0s' $(seq 1 ${COLUMNS})
 
 # vim
-ln -vsf "${SCRIPT_DIR}/.vimrc" "${HOME}/.vimrc"
+ln -vsf "${SCRIPT_DIR}/config/vim/.vimrc" "${HOME}/.vimrc"
 vim_plugins=(
   "christoomey/vim-tmux-navigator" "junegunn/fzf" "junegunn/fzf.vim"
   "junegunn/vim-easy-align" "mg979/vim-visual-multi" "sheerun/vim-polyglot"

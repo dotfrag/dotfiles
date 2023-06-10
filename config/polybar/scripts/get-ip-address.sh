@@ -1,18 +1,18 @@
 #!/bin/bash
 
 case "$1" in
-wired)
-  filter="lo|tun|vir|wl"
-  ;;
-vpn)
-  filter="lo|en|vir|wl"
-  ;;
-wireless)
-  filter="lo|tun|vir|en"
-  ;;
-*)
-  exit 1
-  ;;
+  wired)
+    filter="lo|docker|br|tun|vir|wl"
+    ;;
+  vpn)
+    filter="lo|docker|br|en|vir|wl"
+    ;;
+  wireless)
+    filter="lo|docker|br|tun|vir|en"
+    ;;
+  *)
+    exit 1
+    ;;
 esac
 
 interface=$(ip -br l | awk '$1 !~ "'${filter}'" {print $1}')

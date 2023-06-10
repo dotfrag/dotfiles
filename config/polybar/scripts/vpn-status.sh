@@ -10,7 +10,7 @@ status() {
     if [[ "${subnet_mask}" == "22" ]]; then
       echo "󰖂"
     else
-      echo "%{F#EBCB8B}󰖂 VPN OFF%{F-}"
+      echo "󰖂 VPN OFF"
     fi
   fi
 }

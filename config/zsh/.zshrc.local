@@ -84,7 +84,7 @@ alias bat="bat --theme=TwoDark"
 alias colors='bash -c "$(wget -qO- https://git.io/vQgMr)"'
 alias dfs="df -h | sort -n -k 5"
 alias dus="du -sh * 2>/dev/null | sort -h"
-alias exa="exa -l --group-directories-first"
+alias exa="exa --long --git --group-directories-first"
 alias files='nautilus --browser $(pwd) &>/dev/null & disown'
 alias insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" -o "PreferredAuthentications=keyboard-interactive"'
 alias killsigs="kill -l | tr ' ' '\n' | nl"

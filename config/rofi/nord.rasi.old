@@ -1,7 +1,7 @@
 configuration {
 	display-drun:    " Apps";
 	display-run:     " Packages";
-	display-window:  "缾 Windows";
+	display-window:  "󰖲 Windows";
 	display-ssh:   	 " Ssh";
 	sidebar-mode:    true;
 	show-icons:true;

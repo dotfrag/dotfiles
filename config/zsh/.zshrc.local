@@ -105,8 +105,8 @@ alias -g L='|less'
 alias -g LL='|& less -r'
 alias -g S='|sk'
 alias -g TR="| tr ' ' '\n'"
-alias -g X='| perl -pe "chomp if eof" | xclip -sel p -f | xclip -sel c'
-alias -g XI='| fzf | tr -d "\n" | xclip -sel p -f | xclip -sel c'
+alias -g Y='| xclip -r -sel p -f | xclip -r -sel c'
+alias -g YI='| fzf | xclip -r -sel p -f | xclip -r -sel c'
 
 # ---------------------------------------------------------------- ABBREVIATIONS
 abk[f]='$(fzf)'
@@ -284,13 +284,13 @@ list_dir() { echo; exa -a; echo; echo; zle redisplay }
 zle -N list_dir
 bindkey "^[l" "list_dir"
 
-repeat-last-cmd() {
-  BUFFER=$(history -n -1)
-  zle clear-screen
-  zle accept-line
-}
-zle -N repeat-last-cmd
-bindkey "^[r" "repeat-last-cmd"
+repeat_last_cmd() { BUFFER=$(history -n -1); zle clear-screen; zle accept-line }
+zle -N repeat_last_cmd
+bindkey "^[r" "repeat_last_cmd"
+
+yank_buffer () { echo $BUFFER | xclip -r -sel p -f | xclip -r -sel c }
+zle -N yank_buffer
+bindkey "^X^Y" "yank_buffer"
 
 # ------------------------------------------------------------------------- MISC
 eval "$(zoxide init zsh --cmd cd)"

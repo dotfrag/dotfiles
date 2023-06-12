@@ -1,0 +1,18 @@
+right_format = "$status"
+
+[sudo]
+style = 'bold green'
+symbol = '👩‍💻 '
+disabled = false
+
+[git_metrics]
+disabled = false
+
+[memory_usage]
+style = 'bold dimmed yellow'
+disabled = false
+
+[status]
+format = '[$symbol $common_meaning$signal_name$maybe_int \[$status\]]($style) '
+symbol = '󰅖'
+disabled = false

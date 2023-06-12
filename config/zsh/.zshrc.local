@@ -101,12 +101,14 @@ alias x="simple-extract"
 alias -g C='|wc -l'
 alias -g F='|fzf -m'
 alias -g G='|rg'
+alias -g H='|head'
+alias -g HH='|head -$((LINES-4))'
 alias -g L='|less'
 alias -g LL='|& less -r'
 alias -g S='|sk'
-alias -g TR="| tr ' ' '\n'"
-alias -g Y='| xclip -r -sel p -f | xclip -r -sel c'
-alias -g YI='| fzf | xclip -r -sel p -f | xclip -r -sel c'
+alias -g TR="|tr ' ' '\n'"
+alias -g Y='|xclip -r -sel p -f | xclip -r -sel c'
+alias -g YI='|fzf | xclip -r -sel p -f | xclip -r -sel c'
 
 # ---------------------------------------------------------------- ABBREVIATIONS
 abk[f]='$(fzf)'
@@ -330,6 +332,7 @@ xsource "${HOME}/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highligh
 
 # ----------------------------------------------------------------------- PROMPT
 prompt off
+export STARSHIP_CONFIG=$HOME/.config/starship/config.toml
 eval "$(starship init zsh)"
 
 # ---------------------------------------------------------------- PRIVATE ZSHRC

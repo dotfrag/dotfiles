@@ -105,6 +105,7 @@ alias -g H='|head'
 alias -g HH='|head -$((LINES-4))'
 alias -g L='|less'
 alias -g LL='|& less -r'
+alias -g N='2>/dev/null'
 alias -g S='|sk'
 alias -g TR="|tr ' ' '\n'"
 alias -g Y='|xclip -r -sel p -f | xclip -r -sel c'

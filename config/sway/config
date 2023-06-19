@@ -258,20 +258,20 @@ default_border pixel 1
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    swaybar_command waybar
-    # position top
-    #
-    # # When the status_command prints a new line to stdout, swaybar updates.
-    # # The default just shows the current date and time.
-    # status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-    #
-    # colors {
-    #     statusline $text
-    #     background $base
-    #     inactive_workspace #32323200 #32323200 #5c5c5c
-    # }
-}
+# bar {
+#     position top
+#
+#     # When the status_command prints a new line to stdout, swaybar updates.
+#     # The default just shows the current date and time.
+#     status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+#
+#     colors {
+#         statusline $text
+#         background $base
+#         inactive_workspace #32323200 #32323200 #5c5c5c
+#     }
+# }
+bar swaybar_command waybar
 
 include /etc/sway/config.d/*
 exec gnome-keyring-daemon --start --components=pkcs11,secrets,ssh

@@ -1,5 +1,21 @@
-# mod key
+# Mod key
 set $mod Mod4
+
+# Colours
+include themes/catppuccin-macchiato
+# target                 title     bg    text   indicator  border
+client.focused           $pink     $base $text  $rosewater $pink
+client.focused_inactive  $mauve    $base $text  $rosewater $mauve
+client.unfocused         $mauve    $base $text  $rosewater $mauve
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
+
+# Font
+font pango:Iosevka SS08 11
+
+# Window title alignment
+title_align center
 
 # Home row direction keys, like vim
 set $left h
@@ -30,11 +46,11 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
+exec swayidle -w \
+        timeout 300 'swaylock -f -c 000000' \
+        timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+        before-sleep 'swaylock -f -c 000000'
+
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
@@ -120,17 +136,30 @@ input "type:touchpad" tap enabled
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
     bindsym $mod+0 workspace number 10
+
+    # Switch workspace next/previous
+    bindsym $mod+Ctrl+h     workspace prev
+    bindsym $mod+Ctrl+l     workspace next
+    bindsym $mod+Ctrl+Left  workspace prev
+    bindsym $mod+Ctrl+Right workspace next
+    bindsym Mod1+Ctrl+Left  workspace prev
+    bindsym Mod1+Ctrl+Right workspace next
+
+    # Switch workspaces back and forth
+    bindsym Mod1+Tab workspace back_and_forth
+    bindsym $mod+Tab workspace back_and_forth
+
     # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number 1
-    bindsym $mod+Shift+2 move container to workspace number 2
-    bindsym $mod+Shift+3 move container to workspace number 3
-    bindsym $mod+Shift+4 move container to workspace number 4
-    bindsym $mod+Shift+5 move container to workspace number 5
-    bindsym $mod+Shift+6 move container to workspace number 6
-    bindsym $mod+Shift+7 move container to workspace number 7
-    bindsym $mod+Shift+8 move container to workspace number 8
-    bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
+    bindsym $mod+Shift+1 move container to workspace number 1, workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2, workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3, workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4, workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5, workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6, workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7, workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8, workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9, workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10, workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 #
@@ -158,6 +187,19 @@ input "type:touchpad" tap enabled
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
+
+    # Move focus to the child container
+    bindsym $mod+Shift+a focus child
+#
+# Volume:
+#
+    bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.2
+    bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.2
+#
+# Backlight:
+#
+    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 10%-
+    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 10%+
 #
 # Scratchpad:
 #
@@ -196,6 +238,22 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #
+# Passthrough
+#
+mode "passthrough" {
+  bindsym $mod+p mode "default"
+}
+bindsym $mod+p mode "passthrough"
+
+#
+# Gaps:
+#
+gaps inner 10
+smart_gaps on
+smart_borders on
+default_border pixel 1
+
+#
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
@@ -207,8 +265,8 @@ bar {
     status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
 
     colors {
-        statusline #ffffff
-        background #323232
+        statusline $text
+        background $base
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }

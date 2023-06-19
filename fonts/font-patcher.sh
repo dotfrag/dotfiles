@@ -56,6 +56,7 @@ patch_complete_variable_width_glyphs() {
 }
 
 install_fonts() {
+  mkdir -p "${FONTS_DIR}"
   rm -f "${FONTS_DIR:?}"/*
   cp "${SCRIPT_DIR}"/*.ttf "${FONTS_DIR}/"
   fc-cache -rf

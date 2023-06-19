@@ -214,3 +214,4 @@ bar {
 }
 
 include /etc/sway/config.d/*
+exec gnome-keyring-daemon --start --components=pkcs11,secrets,ssh

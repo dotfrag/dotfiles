@@ -93,8 +93,7 @@ autocmd GUIEnter * set visualbell t_vb=
 
 " Colorscheme
 set termguicolors
-packadd! onedark.vim
-colorscheme onedark
+colorscheme catppuccin_macchiato
 
 " Mappings
 let mapleader = ' '

@@ -326,7 +326,7 @@ bindkey -M isearch . self-insert
 # zle -N predict-off
 
 # ---------------------------------------------------------------------- PLUGINS
-xsource "${HOME}/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+xsource "${HOME}/.local/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # ----------------------------------------------------------------------- PROMPT
 prompt off

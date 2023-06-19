@@ -194,17 +194,14 @@ setopt nonomatch
 setopt nosharehistory
 
 # -------------------------------------------------------------------------- FZF
-xsource "${ZDOTDIR:-${HOME}}/.fzf.zsh"
-
 export FZF_DEFAULT_OPTS="--reverse --border --info=inline --bind \
 home:first,end:last,\
 ctrl-y:preview-up,ctrl-e:preview-down,\
 ctrl-b:preview-page-up,ctrl-f:preview-page-down,\
 ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down \
---color=fg:#979eab,bg:#282c34,hl:#e5c07b \
---color=fg+:#abb2bf,bg+:#393e48,hl+:#e5c07b \
---color=info:#e5c07b,prompt:#61afef,pointer:#be5046 \
---color=marker:#e06c75,spinner:#e5c97b,header:#56b6c2"
+--color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
+--color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
+--color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
 
 export FZF_DEFAULT_COMMAND="fd --type file --hidden --follow"
 export FZF_ALT_C_COMMAND="fd --type directory . --hidden --follow"

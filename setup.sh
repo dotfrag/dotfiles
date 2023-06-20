@@ -29,10 +29,15 @@ elif [ "$DISTRO" = "Fedora Linux" ]; then
   sudo dnf install -y cargo exa golang nodejs ranger rust tmux tree vim-enhanced zoxide zsh
 elif [ "$DISTRO" = "Arch Linux" ]; then
   sudo pacman -Syu
-  sudo pacman -S --needed base-devel bat bitwarden exa fd fzf git kitty lf man-db man-pages neovim procs starship tmux tree ttc-iosevka-ss08 vim zoxide zsh
+  sudo pacman -S --needed base-devel bat bitwarden curl dua-cli duf exa fd fzf \
+    gammastep git git-delta gnome-keyring kitty lazygit lf man-db man-pages nemo \
+    neovim noto-fonts-emoji obsidian papirus-icon-theme procs reflector ripgrep \
+    seahorse skim starship tmux tree ttc-iosevka-ss08 ttf-opensans unzip vim wget \
+    zoxide zsh
   if ! command -v yay &>/dev/null; then
     git clone https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -si
   fi
+  yay -S --needed google-chrome lazydocker visual-studio-code-bin
 fi
 printf '=%.0s' $(seq 1 ${COLUMNS})
 

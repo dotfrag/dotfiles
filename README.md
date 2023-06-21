@@ -1,7 +1,5 @@
 # Dotfiles
 
----
-
 ## Setup guides
 
 [Fedora](guides/fedora.md)

@@ -1,7 +1,5 @@
 # Ubuntu
 
----
-
 - [nala](#nala)
 - [i3-gaps](#i3-gaps)
 - [polybar](#polybar)
@@ -9,8 +7,6 @@
 - [dunst](#dunst)
 - [betterlockscreen](#betterlockscreen)
 - [picom](#picom)
-
----
 
 ## nala
 

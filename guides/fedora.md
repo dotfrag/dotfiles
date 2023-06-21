@@ -1,7 +1,5 @@
 # Fedora
 
----
-
 - [devtools](#devtools)
 - [i3](#i3)
 - [polybar](#polybar)
@@ -9,8 +7,6 @@
 - [dunst](#dunst)
 - [betterlockscreen](#betterlockscreen)
 - [picom](#picom)
-
----
 
 ## devtools
 

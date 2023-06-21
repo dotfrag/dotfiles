@@ -284,4 +284,4 @@ default_border pixel 1
 bar swaybar_command waybar
 
 include /etc/sway/config.d/*
-exec gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
+exec gnome-keyring-daemon --start

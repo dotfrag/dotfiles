@@ -1,193 +1,107 @@
-/* =============================================================================
- *
- * Waybar configuration
- *
- * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
- *
- * =========================================================================== */
-
-/* -----------------------------------------------------------------------------
- * Keyframes
- * -------------------------------------------------------------------------- */
-
-/*
-Polar Night
-nord0  #2e3440
-nord1  #3b4252
-nord2  #434c5e
-nord3  #4c566a
-Snow Storm
-nord4  #d8dee9
-nord5  #e5e9f0
-nord6  #eceff4
-Frost
-nord7  #8fbcbb
-nord8  #88c0d0
-nord9  #81a1c1
-nord10 #5e81ac
-Aurora
-nord11 #bf616a
-nord12 #d08770
-nord13 #ebcb8b
-nord14 #a3be8c
-nord15 #b48ead
-*/
-
-/* -----------------------------------------------------------------------------
- * Base styles
- * -------------------------------------------------------------------------- */
-
-/* Reset all styles */
+@import "colors/macchiato.css";
 
 * {
-  color: #eceff4;
-  border: 0;
+  border: none;
   border-radius: 0;
-  padding: 0 0;
   font-family: "IosevkaSS08 Nerd Font Propo";
-  font-size: 15px;
-  margin-right: 5px;
-  margin-left: 5px;
-  padding-bottom: 3px;
+  font-weight: 500;
+  font-size: 16px;
+  color: @text;
 }
 
 window#waybar {
-  background: #2e3440;
+  background: alpha(@base, 0.8);
+  border-bottom: 1px solid @surface0;
+  color: @text;
+}
+
+#window {
+  padding-left: 12px;
+  margin-left: -24px;
+}
+
+tooltip {
+  background: @base;
+  border: 1px solid @lavender;
+}
+tooltip label {
+  color: @text;
 }
 
 #workspaces button {
-  padding: 2px 0px;
-  border-bottom: 2px;
-  color: #eceff4;
-  border-color: #d8dee9;
-  border-style: solid;
-  margin-top: 2px;
+  padding: 0 2px;
+  margin: 0 6px;
+  background: transparent;
+  border-bottom: 2px solid transparent;
 }
 
 #workspaces button.focused {
-  border-color: #81a1c1;
+  background: alpha(@base, 0.5);
+  border-bottom: 2px solid @rosewater;
+}
+
+#mode,
+#clock,
+#battery {
+  padding: 0 10px;
 }
 
 #mode {
-  color: #ebcb8b;
+  background: @yellow;
+  color: @crust;
 }
-
-#clock,
-#battery,
-#cpu,
-#memory,
-#idle_inhibitor,
-#temperature,
-#custom-keyboard-layout,
-#backlight,
-#network,
-#pulseaudio,
-#mode,
-#tray,
-#window,
-#custom-launcher,
-#custom-power,
-#custom-pacman,
-#custom-network_traffic {
-  padding: 0 3px;
-  border-bottom: 2px;
-  border-style: solid;
-}
-
-/* -----------------------------------------------------------------------------
- * Module styles
- * -------------------------------------------------------------------------- */
 
 #clock {
-  color: #a3be8c;
-}
-
-#backlight {
-  color: #ebcb8b;
+  background-color: alpha(@base, 0.5);
+  border-bottom: 2px solid @unfocused_borders;
 }
 
 #battery {
-  color: #d8dee9;
+  background-color: @mantel;
 }
 
-#battery.charging {
-  color: #81a1c1;
+#temperature.critical {
+  color: @red;
 }
 
-@keyframes blink {
+@keyframes blink-green {
   to {
-    color: #4c566a;
-    background-color: #eceff4;
+    background-color: alpha(@green, 0.25);
   }
 }
 
-#battery.critical:not(.charging) {
-  background: #bf616a;
-  color: #eceff4;
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: linear;
+@keyframes blink-lavender {
+  to {
+    background-color: alpha(@lavender, 0.25);
+  }
+}
+
+@keyframes blink-red {
+  to {
+    background-color: alpha(@red, 0.75);
+  }
+}
+
+#battery.charging {
+  animation-name: blink-green;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
 
-#cpu {
-  color: #a3be8c;
+#battery:not(.charging) {
+  animation-name: blink-lavender;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
-#memory {
-  color: #d3869b;
-}
-
-#network.disabled {
-  color: #bf616a;
-}
-
-#network {
-  color: #a3be8c;
-}
-
-#network.disconnected {
-  color: #bf616a;
-}
-
-#pulseaudio {
-  color: #b48ead;
-}
-
-#pulseaudio.muted {
-  color: #3b4252;
-}
-
-#temperature {
-  color: #8fbcbb;
-}
-
-#temperature.critical {
-  color: #bf616a;
-}
-
-#idle_inhibitor {
-  color: #ebcb8b;
-}
-
-#tray {
-}
-
-#custom-launcher,
-#custom-power {
-  border-style: hidden;
-  margin-top: 2px;
-}
-
-#window {
-  border-style: hidden;
-  margin-top: 8px;
-}
-#mode {
-  margin-bottom: 3px;
-}
-
-#custom-keyboard-layout {
-  color: #d08770;
+#battery.warning:not(.charging) {
+  animation-name: blink-red;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }

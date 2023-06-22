@@ -32,12 +32,20 @@ tooltip label {
   padding: 0 2px;
   margin: 0 6px;
   background: transparent;
-  border-bottom: 2px solid transparent;
 }
 
 #workspaces button.focused {
   background: alpha(@base, 0.5);
   border-bottom: 2px solid @rosewater;
+  padding-top: 2px;
+}
+
+#workspaces button.urgent {
+  animation-name: blink-red;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 #mode,

@@ -11,3 +11,5 @@
 [Fonts](guides/fonts.md)
 
 [Gnome](guides/gnome.md)
+
+[LaTeX](guides/latex.md)

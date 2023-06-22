@@ -7,7 +7,7 @@
     // Choose the order of the modules
     "modules-left": [ "sway/workspaces", "sway/mode", "sway/scratchpad", "sway/window" ],
     "modules-center": [ "clock" ],
-    "modules-right": [ "idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "battery", "tray" ],
+    "modules-right": [ "idle_inhibitor", "pulseaudio#mic", "pulseaudio", "network", "cpu", "memory", "temperature", "battery", "tray" ],
     // Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,
@@ -76,12 +76,14 @@
     },
     "battery": {
         "interval": 5,
+        // "full-at": 90,
         "states": {
             // "good": 95,
             "warning": 30,
             "critical": 15
         },
         "format": "{icon} {capacity}%",
+        "format-full": "{icon}",
         "format-charging": "⚡ {capacity}%",
         "format-plugged": " {capacity}%",
         "format-alt": "{time} {icon}",
@@ -100,12 +102,10 @@
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{icon} {volume}% {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": "󰆪 {icon} {format_source}",
-        "format-muted": "󰆪 {format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": "",
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-bluetooth-muted": "󰝟 {icon}",
+        "format-muted": "󰝟",
         "format-icons": {
             "headphone": "",
             "hands-free": "󰂑",
@@ -115,6 +115,13 @@
             "car": "",
             "default": [ "", "", "" ]
         },
+        "on-click": "pavucontrol"
+    },
+    "pulseaudio#mic": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{icon} {format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": "",
         "on-click": "pavucontrol"
     }
 }

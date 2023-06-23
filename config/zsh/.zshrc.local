@@ -292,7 +292,7 @@ zle -N yank_buffer
 bindkey "^X^Y" "yank_buffer"
 
 # ------------------------------------------------------------------------- MISC
-eval "$(zoxide init zsh --cmd cd)"
+eval "$(zoxide init zsh)"
 
 # use the vi navigation keys (hjkl) besides cursor keys in menu completion
 bindkey -M menuselect 'h' vi-backward-char        # left

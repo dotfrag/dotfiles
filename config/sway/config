@@ -94,6 +94,7 @@ input "type:touchpad" tap enabled
 
     # Start your launcher
     bindsym $mod+d exec $menu
+    bindsym $mod+Shift+p exec dmenu_path | $menu -d | xargs swaymsg exec --
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.

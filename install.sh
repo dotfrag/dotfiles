@@ -2,7 +2,6 @@
 
 if [[ -f "setup.sh" ]]; then
   exec bash setup.sh
-  exit
 fi
 
 if ! command -v git &>/dev/null; then

@@ -67,10 +67,6 @@ tooltip label {
   background-color: @mantel;
 }
 
-#temperature.critical {
-  color: @red;
-}
-
 #pulseaudio.mic:not(.source-muted) {
   color: @yellow;
 }
@@ -93,7 +89,8 @@ tooltip label {
 
 #battery:not(.charging):not(.full),
 #battery.charging,
-#battery.warning:not(.charging) {
+#battery.warning:not(.charging),
+#temperature.critical {
   animation-timing-function: ease-in;
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -108,6 +105,11 @@ tooltip label {
   animation-duration: 1s;
 }
 #battery.warning:not(.charging) {
+  animation-name: blink-red;
+  animation-duration: 0.5s;
+}
+
+#temperature.critical {
   animation-name: blink-red;
   animation-duration: 0.5s;
 }

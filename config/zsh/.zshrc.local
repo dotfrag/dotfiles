@@ -181,8 +181,8 @@ glf() {
 glog() {
   git log --oneline --decorate --color "$@" |
     fzf --ansi --multi --height 100% \
-    --preview-window 'down,80%' \
     --preview 'git show -m --color {1}' \
+    --preview-window 'down,80%' \
     --bind 'enter:become(git show -m {1})'
 }
 
@@ -202,19 +202,19 @@ setopt nonomatch
 setopt nosharehistory
 
 # -------------------------------------------------------------------------- FZF
-export FZF_DEFAULT_OPTS="--height 25% --reverse --info=inline --bind \
-home:first,end:last,\
-ctrl-y:preview-up,ctrl-e:preview-down,\
-ctrl-b:preview-page-up,ctrl-f:preview-page-down,\
-ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down \
+export FZF_DEFAULT_OPTS="--height 25% --reverse --border=bottom --info=inline \
+--bind 'home:first,end:last' \
+--bind 'ctrl-y:preview-up,ctrl-e:preview-down' \
+--bind 'ctrl-b:preview-page-up,ctrl-f:preview-page-down' \
+--bind 'ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down' \
+--bind 'ctrl-/:change-preview-window(hidden|)' \
 --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
 --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
 --color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
 
 export FZF_DEFAULT_COMMAND="fd --type file --hidden --follow"
 export FZF_ALT_C_COMMAND="fd --type directory . --hidden --follow"
-export FZF_ALT_C_OPTS="--preview 'tree -a -L 1 -C {} | head -200'"
-export FZF_CTRL_R_OPTS="--height 20%"
+export FZF_ALT_C_OPTS="--preview 'tree -a -L 1 -C {}'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # fe[b|d] [FUZZY PATTERN] - Open the selected file with the default editor

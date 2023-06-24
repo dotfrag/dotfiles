@@ -15,6 +15,9 @@ done
 printf "%s\n" "${output[@]}" | column -t && echo
 
 command -v betterlockscreen >/dev/null && ln -vsf "${SCRIPT_DIR}/betterlockscreenrc" "${HOME}/.config/betterlockscreenrc"
+command -v networkmanager_dmenu >/dev/null && ln -vsf "${SCRIPT_DIR}/networkmanager-dmenu" "${HOME}/.config/networkmanager-dmenu"
+
+echo
 
 ln -vsf "${SCRIPT_DIR}/zsh/.zshrc.local" "${ZDOTDIR:-${HOME}}/.zshrc.local"
 ln -vsf "${SCRIPT_DIR}/chrome-flags.conf" "${HOME}/.config/chrome-flags.conf"

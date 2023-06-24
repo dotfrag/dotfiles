@@ -88,6 +88,5 @@ if [ "$DISTRO" != "Arch Linux" ]; then
   printf '=%.0s' $(seq 1 ${COLUMNS})
 fi
 
-# ripgrep
-mkdir -p "${HOME}/.config/ripgrep"
-[ -f "${HOME}/.config/ripgrep/config" ] || printf -- "--max-columns=150\n--max-columns-preview\n--smart-case" >"${HOME}/.config/ripgrep/config"
+# install config dirs
+bash "${SCRIPT_DIR}/config/install.sh"

@@ -62,6 +62,7 @@
     },
     "temperature": {
         "interval": 5,
+        "tooltip": false,
         "thermal-zone": 10,
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 85,
@@ -97,7 +98,7 @@
         "format-ethernet": "{ipaddr}/{cidr} 󰊗",
         "tooltip-format": "{ifname} via {gwaddr} 󰊗 ({signalStrength}%)",
         "format-linked": "{ifname} (No IP) 󰊗",
-        "format-disconnected": "Disconnected ⚠",
+        "format-disconnected": "  Disconnected",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {

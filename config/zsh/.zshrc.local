@@ -20,6 +20,15 @@ lfd() {
   fi
 }
 
+# copy to clipboard
+copy() {
+  if [[ "$XDG_SESSION_TYPE" = "wayland" ]]; then
+    wl-copy --trim-newline
+  else
+    xclip -r -selection primary -filter | xclip -r -selection clipboard
+  fi
+}
+
 # history grep
 hgrep() {
   fc -Dlim "*$@*" 1
@@ -107,9 +116,8 @@ alias -g LL='|& less -r'
 alias -g N='2>/dev/null'
 alias -g S='|sk'
 alias -g TR="|tr ' ' '\n'"
-# TODO: Wayland supprt
-alias -g Y='|xclip -r -sel p -f | xclip -r -sel c'
-alias -g YI='|fzf | xclip -r -sel p -f | xclip -r -sel c'
+alias -g Y='|copy'
+alias -g YI='|fzf | copy'
 
 # ---------------------------------------------------------------- ABBREVIATIONS
 abk[f]='$(fzf)'
@@ -194,8 +202,7 @@ setopt nonomatch
 setopt nosharehistory
 
 # -------------------------------------------------------------------------- FZF
-# TODO: Height?
-export FZF_DEFAULT_OPTS="--reverse --border --info=inline --bind \
+export FZF_DEFAULT_OPTS="--height 25% --reverse --info=inline --bind \
 home:first,end:last,\
 ctrl-y:preview-up,ctrl-e:preview-down,\
 ctrl-b:preview-page-up,ctrl-f:preview-page-down,\
@@ -289,8 +296,7 @@ repeat_last_cmd() { BUFFER=$(history -n -1); zle clear-screen; zle accept-line }
 zle -N repeat_last_cmd
 bindkey "^[r" "repeat_last_cmd"
 
-# TODO: Wayland supprt
-yank_buffer () { echo $BUFFER | xclip -r -sel p -f | xclip -r -sel c }
+yank_buffer () { echo $BUFFER | copy }
 zle -N yank_buffer
 bindkey "^X^Y" "yank_buffer"
 

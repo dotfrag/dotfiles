@@ -2,6 +2,8 @@
 
 ## Setup guides
 
+[Arch](/guides/arch.md)
+
 [Fedora](guides/fedora.md)
 
 [Ubuntu](guides/ubuntu.md)

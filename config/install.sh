@@ -4,12 +4,12 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 output=()
 declare -A config_dirs=(
-  [betterlockscreen]=betterlockscreenrc
-  [google - chrome - stable]=chrome-flags.conf
-  [google - chrome]=chrome-flags.conf
-  [networkmanager_dmenu]=networkmanager-dmenu
-  [rg]=ripgrep
-  [zsh]=.zshrc.local
+  ["betterlockscreen"]="betterlockscreenrc"
+  ["google-chrome"]="chrome-flags.conf"
+  ["google-chrome-stable"]="chrome-flags.conf"
+  ["networkmanager_dmenu"]="networkmanager-dmenu"
+  ["rg"]="ripgrep"
+  ["zsh"]=".zshrc.local"
 )
 
 for i in $(git -C "${SCRIPT_DIR}" ls-tree --name-only main | grep -v "zsh"); do

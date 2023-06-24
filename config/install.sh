@@ -23,7 +23,13 @@ for i in $(git -C "${SCRIPT_DIR}" ls-tree --name-only main | grep -vP "vim|zsh")
 done
 
 for i in "${!config_dirs[@]}"; do
+  if [[ "$i" = zsh ]]; then
+    output+=("$(command -v zsh >/dev/null && ln -vsf "${SCRIPT_DIR}/zsh/${config_dirs[$i]}" "${ZDOTDIR:-${HOME}}/${config_dirs[$i]}")")
+    continue
+  fi
   output+=("$(command -v "${i}" >/dev/null && ln -vsf "${SCRIPT_DIR}/${config_dirs[$i]}" "${HOME}/.config/${config_dirs[$i]}")")
 done
 
+# shellcheck disable=SC2207
+IFS=$'\n' output=($(sort <<<"${output[*]}"))
 printf "%s\n" "${output[@]}" | column -t

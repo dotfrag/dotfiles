@@ -60,6 +60,9 @@ exec swayidle -w \
         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
         before-sleep 'swaylock -f'
 
+### Notification daemon
+exec swaync
+
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
@@ -95,6 +98,9 @@ input "type:touchpad" tap enabled
     # Start your launcher
     bindsym $mod+d exec $menu
     bindsym $mod+Shift+p exec dmenu_path | $menu -d | xargs swaymsg exec --
+
+    # Notification center
+    bindsym $mod+Shift+n exec swaync-client -t -sw
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.

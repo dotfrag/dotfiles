@@ -17,6 +17,8 @@ sudo pacman -S --needed udisks2
 ntfs_defaults=uid=$UID,gid=$GID,prealloc
 ```
 
+<https://wiki.archlinux.org/title/NTFS#udisks_support>
+
 ## thermald
 
 ```shell
@@ -30,6 +32,12 @@ echo "[Service]"
 echo "StandardOutput=null"
 } > /etc/systemd/system/thermald.service.d/nostdout.conf'
 ```
+
+```shell
+systemctl enable --now thermald
+```
+
+<https://www.reddit.com/r/archlinux/comments/3okrhl/thermald_anyone/>
 
 ## Hosts file
 
@@ -45,3 +53,21 @@ echo "StandardOutput=null"
 ::1       localhost
 127.0.0.1 xps
 ```
+
+<https://wiki.archlinux.org/title/Network_configuration#localhost_is_resolved_over_the_network>
+
+## Lid action
+
+```text
+/etc/systemd/logind.conf
+```
+
+```text
+HandleLidSwitch=ignore
+```
+
+```shell
+systemctl kill -s HUP systemd-logind
+```
+
+<https://wiki.archlinux.org/title/Power_management#ACPI_events>

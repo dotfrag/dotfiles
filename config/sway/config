@@ -256,6 +256,7 @@ assign {
 }
 
 for_window {
+  [app_id="imv"]         floating enable
   [app_id="mpv"]         floating enable
   [app_id="nemo"]        floating enable
   [app_id="pavucontrol"] floating enable

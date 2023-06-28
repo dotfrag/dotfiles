@@ -235,7 +235,7 @@ feb() {
       --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
 }
 fed() {
-  cat "${HOME}/.dots" |
+  cat "${XDG_STATE_HOME:-$HOME/.local/state}/dots" |
     fzf --query="$@" --multi \
     --bind 'one:become($EDITOR {+}),enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
 }
@@ -255,7 +255,7 @@ vg() {
 # fuzzy ripgrep dots open with line number
 vgd() {
   local files
-  IFS=$'\n' local files=($(cat "${HOME}/.dots"))
+  IFS=$'\n' local files=($(cat "${XDG_STATE_HOME:-$HOME/.local/state}/dots"))
   rg --color=always --line-number --no-heading --smart-case "${*:-}" "${files[@]}" |
     fzf --ansi \
         --color "hl:-1:underline,hl+:-1:underline:reverse" \

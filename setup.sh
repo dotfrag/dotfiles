@@ -2,7 +2,8 @@
 
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 FZF_DIR="${HOME}/.local/bin/fzf"
-ZSH_PLUGINS_DIR="${HOME}/.local/share/zsh/plugins"
+VIM_PACKPATH="${XDG_DATA_HOME:-${HOME}/.local/share}/vim/pack/plugins/start"
+ZSH_PLUGINS_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/plugins"
 
 # detect distro for package manager
 if [ -f /etc/os-release ]; then
@@ -65,7 +66,6 @@ ln -vsf "${SCRIPT_DIR}/config/tmux" "${HOME}/.config/"
 printf '=%.0s' $(seq 1 ${COLUMNS})
 
 # vim
-ln -vsf "${SCRIPT_DIR}/config/vim/.vimrc" "${HOME}/.vimrc"
 vim_plugins=(
   "catppuccin/vim" "christoomey/vim-tmux-navigator" "junegunn/fzf" "junegunn/fzf.vim"
   "junegunn/vim-easy-align" "mg979/vim-visual-multi" "sheerun/vim-polyglot"
@@ -75,7 +75,7 @@ vim_plugins=(
 for i in "${vim_plugins[@]}"; do
   name=$(echo "$i" | cut -d '/' -f2)
   printf "[%s] " "${name}"
-  git -C "${HOME}/.vim/pack/plugins/start/${name}" pull 2>/dev/null || git clone "https://github.com/${i}" "${HOME}/.vim/pack/plugins/start/${name}"
+  git -C "${VIM_PACKPATH}/${name}" pull 2>/dev/null || git clone "https://github.com/${i}" "${VIM_PACKPATH}/${name}"
 done
 printf '=%.0s' $(seq 1 ${COLUMNS})
 

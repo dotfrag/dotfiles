@@ -61,10 +61,6 @@ sudo wget -nv -O /usr/local/share/zsh/site-functions/_dunst https://raw.githubus
 sudo wget -nv -O /usr/local/share/zsh/site-functions/_dunstctl https://raw.githubusercontent.com/dunst-project/dunst/master/contrib/_dunstctl.zshcomp
 printf '=%.0s' $(seq 1 ${COLUMNS})
 
-# tmux
-ln -vsf "${SCRIPT_DIR}/config/tmux" "${HOME}/.config/"
-printf '=%.0s' $(seq 1 ${COLUMNS})
-
 # vim
 vim_plugins=(
   "catppuccin/vim" "christoomey/vim-tmux-navigator" "junegunn/fzf" "junegunn/fzf.vim"

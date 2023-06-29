@@ -290,7 +290,7 @@ fkill() {
 # command cheatsheet
 cmd() {
   local _cmd
-  _cmd=$(fzf --query="$1" --select-1 --exit-0 <"${HOME}/.cmds")
+  _cmd=$(fzf --query="$1" --select-1 --exit-0 <"${ZDOTDIR:-${HOME}}/.cmd")
   [[ -n "${_cmd}" ]] && eval "${_cmd}"
 }
 
@@ -303,7 +303,7 @@ repeat_last_cmd() { BUFFER=$(history -n -1); zle clear-screen; zle accept-line }
 zle -N repeat_last_cmd
 bindkey "^[r" "repeat_last_cmd"
 
-yank_buffer () { echo $BUFFER | copy }
+yank_buffer() { echo $BUFFER | copy }
 zle -N yank_buffer
 bindkey "^X^Y" "yank_buffer"
 

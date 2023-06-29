@@ -1,16 +1,6 @@
-" .vimrc
-
 " Basic config
 set nocompatible
 set encoding=utf-8
-
-" Create directories
-let $MYVIMPATH=$HOME . '/.vim'
-silent call mkdir($MYVIMPATH . "/backup", "p")
-silent call mkdir($MYVIMPATH . "/swap", "p")
-silent call mkdir($MYVIMPATH . "/undo", "p")
-silent call mkdir($MYVIMPATH . "/pack/plugins/opt", "p")
-silent call mkdir($MYVIMPATH . "/pack/plugins/start", "p")
 
 " XDG directories
 set runtimepath^=$XDG_CONFIG_HOME/vim

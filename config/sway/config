@@ -94,8 +94,8 @@ input "type:touchpad" tap enabled
     # Lock screen
     bindsym $mod+Ctrl+Mod1+l exec swaylock
 
-    # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    # Power menu
+    bindsym $mod+Ctrl+Shift+0 exec ~/.config/fuzzel/powermenu.sh
 #
 # Moving around:
 #

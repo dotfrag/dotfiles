@@ -170,6 +170,17 @@ git_main_branch() {
   echo master
 }
 
+# git gc all repos
+gitgc() {
+  fd -td '^.git' -IH -E '.local' -E 'node_modules' -E '.cargo' -x echo {//} | sort -u | while read -r line; do
+    if git -C "${line}" rev-parse --is-inside-work-tree &>/dev/null; then
+      print -P "%F{yellow}${line}%f"
+      git -C "${line}" gc
+      echo
+    fi
+  done
+}
+
 # dot commit and push
 gpp() {
   if ! git remote -v | grep -q "git@github.com:dotfrag"; then

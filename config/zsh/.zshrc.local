@@ -1,6 +1,7 @@
 # .zshrc.local
 
 # ---------------------------------------------------------------------- EXPORTS
+export BAT_THEME="TwoDark"
 export MANWIDTH=${MANWIDTH:-80}
 export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep/config"
 
@@ -73,6 +74,11 @@ launch() {
   nohup "$@" >/dev/null 2>/dev/null & disown && exit
 }
 
+# bat hightlight help messages
+help() {
+    "$@" --help 2>&1 | bat --plain --language=help
+}
+
 # switching shell safely and efficiently? http://www.zsh.org/mla/workers/2001/msg02410.html
 bash() {
    NO_SWITCH="yes" command bash "$@"
@@ -94,7 +100,8 @@ alias ln="ln -vi"
 alias mv="mv -vi"
 alias rm="rm -v"
 
-alias bat="bat --theme=TwoDark"
+alias bathelp='bat --plain --language=help'
+alias cat="bat"
 alias colors='bash -c "$(wget -qO- https://git.io/vQgMr)"'
 alias dfs="df -h | sort -n -k 5"
 alias dus="du -sh * 2>/dev/null | sort -h"
@@ -238,7 +245,7 @@ fep() {
 }
 feb() {
   fzf --query="$@" --multi --height 100% \
-      --preview "bat --color=always --theme=TwoDark {}" \
+      --preview "bat --color=always {}" \
       --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
 }
 fed() {
@@ -254,7 +261,7 @@ vg() {
         --color "hl:-1:underline,hl+:-1:underline:reverse" \
         --height 30 \
         --delimiter : \
-        --preview 'bat --color=always {1} --highlight-line {2} --theme=TwoDark' \
+        --preview 'bat --color=always {1} --highlight-line {2}' \
         --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
         --bind 'enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
 }
@@ -268,7 +275,7 @@ vgd() {
         --color "hl:-1:underline,hl+:-1:underline:reverse" \
         --height 30 \
         --delimiter : \
-        --preview 'bat --color=always {1} --highlight-line {2} --theme=TwoDark' \
+        --preview 'bat --color=always {1} --highlight-line {2}' \
         --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
         --bind 'one:become($EDITOR {1} +{2}),enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
 }

@@ -8,6 +8,3 @@ config/lazygit/*
 
 config/lvim/*
 !config/lvim/config.lua
-
-config/tmux/*
-!config/tmux/tmux.conf

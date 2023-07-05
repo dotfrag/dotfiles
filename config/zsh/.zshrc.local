@@ -1,7 +1,7 @@
 # .zshrc.local
 
 # ---------------------------------------------------------------------- EXPORTS
-export BAT_THEME="TwoDark"
+export BAT_THEME="OneHalfDark"
 export MANWIDTH=${MANWIDTH:-80}
 export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep/config"
 

@@ -121,6 +121,7 @@ alias x="simple-extract"
 
 # --------------------------------------------------------------- GLOBAL ALIASES
 alias -g C='|wc -l'
+alias -g D='|delta'
 alias -g F='|fzf -m'
 alias -g G='|rg'
 alias -g H='|head'

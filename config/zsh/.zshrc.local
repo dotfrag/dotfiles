@@ -153,6 +153,7 @@ alias gfp="git ls-files --full-name"
 alias glg='git log --oneline -5'
 alias gp='git pull'
 alias gpall="fd -td '^\.git$' -IHL -x git -C {//} pull"
+alias gpr='git pull --rebase'
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias gs='git status'
 alias gss='git status -s'

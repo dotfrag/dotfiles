@@ -2,7 +2,7 @@
 
 ## Setup guides
 
-[Arch](/guides/arch.md)
+[Arch](guides/arch.md)
 
 [Fedora](guides/fedora.md)
 

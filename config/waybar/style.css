@@ -34,7 +34,7 @@ tooltip label {
   background: transparent;
   border-bottom: 2px solid transparent;
   padding-top: 2px;
-  transition: all 0.5s ease-out;
+  transition: all 0.25s ease-out;
 }
 
 #workspaces button.focused {

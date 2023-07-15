@@ -1,0 +1,76 @@
+packages_pacman=(
+  base-devel
+  bat
+  bitwarden
+  brightnessctl
+  btop
+  curl
+  dua-cli
+  duf
+  entr
+  exa
+  fd
+  fuzzel
+  fzf
+  gammastep
+  git
+  git-delta
+  gnome-keyring
+  imagemagick
+  imv
+  jq
+  kitty
+  lazygit
+  lf
+  lm_sensors
+  man-db
+  man-pages
+  mdcat
+  miniserve
+  mpv
+  nemo
+  neovim
+  noto-fonts
+  noto-fonts-emoji
+  obsidian
+  papirus-icon-theme
+  parallel
+  plocate
+  procs
+  reflector
+  ripgrep
+  rsync
+  seahorse
+  skim
+  starship
+  tealdeer
+  thermald
+  tmux
+  tree
+  ttc-iosevka-ss08
+  ttf-opensans
+  unzip
+  vim
+  wget
+  wl-clipboard
+  yt-dlp
+  zoxide
+  zsh
+)
+
+packages_yay=(
+  google-chrome
+  lazydocker
+  networkmanager-dmenu-git
+  sublime-text-4
+  swaync
+  visual-studio-code-bin
+)
+
+packages_dnf=(
+  cargo exa golang nodejs ranger rust tmux tree vim-enhanced zoxide zsh
+)
+
+packages_apt=(
+  ranger tmux tree zsh
+)

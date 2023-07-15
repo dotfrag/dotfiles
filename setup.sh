@@ -5,7 +5,7 @@ FZF_DIR="${HOME}/.local/bin/fzf"
 VIM_PACKPATH="${XDG_DATA_HOME:-${HOME}/.local/share}/vim/pack/plugins/start"
 ZSH_PLUGINS_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/plugins"
 
-# detect distro for package manager
+# detect distro
 if [ -f /etc/os-release ]; then
   . /etc/os-release
   DISTRO=$NAME
@@ -21,25 +21,21 @@ else
 fi
 
 # packages
+. packages.sh
 if [ "$DISTRO" = "Arch Linux" ]; then
   sudo pacman -Syu
-  sudo pacman -S --needed base-devel bat bitwarden brightnessctl btop \
-    curl dua-cli duf exa fd fzf gammastep git git-delta gnome-keyring \
-    imv kitty lazygit lf lm_sensors man-db man-pages mpv nemo neovim \
-    noto-fonts noto-fonts-emoji obsidian papirus-icon-theme parallel \
-    plocate procs reflector ripgrep rsync seahorse skim starship tealdeer \
-    tmux tree ttc-iosevka-ss08 ttf-opensans unzip vim wget wl-clipboard zoxide zsh
+  sudo pacman -S --needed "${packages_pacman[@]}"
   if ! command -v yay &>/dev/null; then
     git clone https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -si
   fi
-  yay -S --needed google-chrome lazydocker visual-studio-code-bin
+  yay -S --needed "${packages_yay[@]}"
 elif [ "$DISTRO" = "Fedora Linux" ]; then
   sudo dnf check-update
-  sudo dnf install -y cargo exa golang nodejs ranger rust tmux tree vim-enhanced zoxide zsh
+  sudo dnf install -y "${packages_dnf[@]}"
 elif [ "$DISTRO" = "Ubuntu" ]; then
-  command -v nala &>/dev/null && pacman=nala || pacman=apt
-  sudo "${pacman}" update
-  sudo "${pacman}" install -y ranger tmux tree zsh
+  command -v nala &>/dev/null && apt=nala || apt=apt
+  sudo "${apt}" update
+  sudo "${apt}" install -y "${packages_apt[@]}"
 fi
 printf '=%.0s' $(seq 1 ${COLUMNS})
 

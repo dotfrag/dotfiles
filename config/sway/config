@@ -264,12 +264,13 @@ assign {
 }
 
 for_window {
-  [app_id="imv"]         floating enable
-  [app_id="mpv"]         floating enable
-  [app_id="nemo"]        floating enable
-  [app_id="pavucontrol"] floating enable
-  [app_id="spacekitty"]  floating enable
-  [class="Bitwarden"]    floating enable
+  [app_id="imv"]           floating enable
+  [app_id="mpv"]           floating enable
+  [app_id="nemo"]          floating enable
+  [app_id="pavucontrol"]   floating enable
+  [app_id="qalculate-gtk"] floating enable
+  [app_id="spacekitty"]    floating enable
+  [class="Bitwarden"]      floating enable
 }
 
 ### Gaps

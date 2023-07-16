@@ -61,7 +61,7 @@ tooltip label {
 }
 
 #clock {
-  background-color: alpha(@base, 0.5);
+  /* background-color: alpha(@base, 0.5); */
   border-bottom: 2px solid @unfocused_borders;
 }
 

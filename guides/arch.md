@@ -2,6 +2,31 @@
 
 Reference of one-off stuff that I will forget.
 
+## Gnome Keyring
+
+```shell
+sudo pacman -S --needed gnome-keyring
+```
+
+Add `auth optional pam_gnome_keyring.so` at the end of the `auth` section and
+`session optional pam_gnome_keyring.so auto_start` at the end of the `session` section.
+
+```text
+/etc/pam.d/login
+```
+
+```text
+auth required pam_securetty.so
+auth requisite pam_nologin.so
+auth include system-local-login
+auth optional pam_gnome_keyring.so
+account include system-local-login
+session include system-local-login
+session optional pam_gnome_keyring.so auto_start
+```
+
+<https://wiki.archlinux.org/title/GNOME/Keyring#PAM_step>
+
 ## Mounting NTFS with udisks
 
 ```shell
@@ -76,28 +101,3 @@ sudo systemctl enable --now paccache.timer
 ```
 
 <https://wiki.archlinux.org/title/pacman#Cleaning_the_package_cache>
-
-## Gnome Keyring
-
-```shell
-sudo pacman -S --needed gnome-keyring
-```
-
-Add `auth optional pam_gnome_keyring.so` at the end of the `auth` section and
-`session optional pam_gnome_keyring.so auto_start` at the end of the `session` section.
-
-```text
-/etc/pam.d/login
-```
-
-```text
-auth required pam_securetty.so
-auth requisite pam_nologin.so
-auth include system-local-login
-auth optional pam_gnome_keyring.so
-account include system-local-login
-session include system-local-login
-session optional pam_gnome_keyring.so auto_start
-```
-
-<https://wiki.archlinux.org/title/GNOME/Keyring#PAM_step>

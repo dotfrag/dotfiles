@@ -60,10 +60,10 @@ tooltip label {
   color: @crust;
 }
 
-#clock {
-  /* background-color: alpha(@base, 0.5); */
-  border-bottom: 2px solid @unfocused_borders;
-}
+/* #clock { */
+/*   background-color: alpha(@base, 0.5); */
+/*   border-bottom: 2px solid @unfocused_borders; */
+/* } */
 
 #battery {
   background-color: @mantel;

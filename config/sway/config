@@ -224,7 +224,7 @@ input "type:touchpad" drag_lock enabled
     bindsym $mod+Ctrl+Shift+b exec kitty --start-as fullscreen zsh -ic btop
     bindsym $mod+Ctrl+Shift+n exec networkmanager_dmenu
     bindsym $mod+Ctrl+Shift+p exec pavucontrol
-    bindsym $mod+Shift+e      exec kitty -T "neovim" zsh -ic vim
+    bindsym $mod+Shift+e      exec kitty --class "kitty-neovim" zsh -ic nvim
     bindsym $mod+c move position center
 #
 # Resizing containers:
@@ -285,3 +285,6 @@ bar swaybar_command waybar
 
 ### Inlcudes
 include /etc/sway/config.d/*
+
+### Autostart
+exec google-chrome-stable

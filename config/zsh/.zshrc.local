@@ -217,7 +217,8 @@ glog() {
 
 # run git command for all repos in directory
 gall() {
-  fd -td '^\.git$' -IHL -x echo {//} | sort | xargs -I{} zsh -c "echo {} && git -C {} $* && echo"
+  fd -td '^\.git$' -IHL -x echo {//} | sort |
+    xargs -I{} zsh -c "print -P '%F{yellow}{}%f' && git -C {} $* && echo"
 }
 
 # ---------------------------------------------------------------------- OPTIONS

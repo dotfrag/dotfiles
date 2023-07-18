@@ -1,7 +1,7 @@
 #!/bin/bash
 
 lock=' Lock'
-suspend=' Sleep'
+suspend=' Suspend'
 logout='󰍃 Logout'
 reboot=' Reboot'
 poweroff=' Poweroff'

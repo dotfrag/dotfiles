@@ -215,10 +215,15 @@ glog() {
     --bind 'enter:become(git show -m {1})'
 }
 
-# run git command for all repos in directory
+# run git command for all repos in directory (serial)
 gall() {
   fd -td '^\.git$' -IHL -x echo {//} | sort |
     xargs -I{} zsh -c "print -P '%F{yellow}{}%f' && git -C {} $* && echo"
+}
+
+# run git command for all repos in directory (parallel)
+gallp() {
+  fd -td '^\.git$' -IHL -x git -C {//} $*
 }
 
 # ---------------------------------------------------------------------- OPTIONS

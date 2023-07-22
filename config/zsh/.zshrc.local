@@ -57,6 +57,29 @@ function mvcd () {
   fi
 }
 
+# extract archive to directory based on filename
+x() {
+  if (( ARGC != 2 )); then
+    printf 'usage: x <file>\n'
+    return 1
+  fi
+  if [[ ! -e "$1" ]]; then
+    printf "error: file $1 doesn't exist\n"
+    return 1
+  fi
+  case "$1" in
+    *.tar.bz|*.tar.bz2) mkdir "${1%.*.*}" && tar xjvf "$1" -C "${1%.*.*}" ;;
+    *.tar.gz)           mkdir "${1%.*.*}" && tar xzvf "$1" -C "${1%.*.*}" ;;
+    *.tar.xz)           mkdir "${1%.*.*}" && tar xJvf "$1" -C "${1%.*.*}" ;;
+    *.tbz|*.tbz2)       mkdir "${1%.*}"   && tar xjvf "$1" -C "${1%.*}"   ;;
+    *.tgz)              mkdir "${1%.*}"   && tar xzvf "$1" -C "${1%.*}"   ;;
+    *.txz)              mkdir "${1%.*}"   && tar xJvf "$1" -C "${1%.*}"   ;;
+    *.7z) 7zx"$1" -o"${1%.*}" ;;
+    *.rar) unrar x"$1" "${1%.*}" ;;
+    *.zip) unzip "$1" -d "${1%.*}" ;;
+  esac
+}
+
 # copy to clipboard
 copy() {
   if [[ "$XDG_SESSION_TYPE" = "wayland" ]]; then
@@ -155,7 +178,6 @@ alias update-fnm='curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-
 alias update-grml-zshrc='wget -nv -O ${ZDOTDIR:-${HOME}}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc'
 alias update-kitty='curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin && exit'
 alias update-starship='curl -sS https://starship.rs/install.sh | sh'
-alias x='simple-extract'
 
 # --------------------------------------------------------------- GLOBAL ALIASES
 alias -g C='|wc -l'

@@ -21,6 +21,42 @@ lfd() {
   fi
 }
 
+# copy file and cd to destination directory
+function cpcd () {
+  if (( ARGC != 2 )); then
+    printf 'usage: cpcd <file> <destination>\n'
+    return 1
+  fi
+  if [[ ! -e "$1" ]]; then
+    printf "error: file $1 doesn't exist\n"
+    return 1
+  fi
+  cp -vi "$1" "$2"
+  if [[ -d "$2" ]]; then
+    builtin cd "$2"
+  else
+    builtin cd "$(dirname "$2")"
+  fi
+}
+
+# move file and cd to destination directory
+function mvcd () {
+  if (( ARGC != 2 )); then
+    printf 'usage: mvcd <file> <destination>\n'
+    return 1
+  fi
+  if [[ ! -e "$1" ]]; then
+    printf "error: file $1 doesn't exist\n"
+    return 1
+  fi
+  mv -vi "$1" "$2"
+  if [[ -d "$2" ]]; then
+    builtin cd "$2"
+  else
+    builtin cd "$(dirname "$2")"
+  fi
+}
+
 # copy to clipboard
 copy() {
   if [[ "$XDG_SESSION_TYPE" = "wayland" ]]; then

@@ -59,7 +59,7 @@ function mvcd () {
 
 # extract archive to directory based on filename
 x() {
-  if (( ARGC != 2 )); then
+  if (( ARGC != 1 )); then
     printf 'usage: x <file>\n'
     return 1
   fi
@@ -77,6 +77,7 @@ x() {
     *.7z) 7zx"$1" -o"${1%.*}" ;;
     *.rar) unrar x"$1" "${1%.*}" ;;
     *.zip) unzip "$1" -d "${1%.*}" ;;
+    *) printf 'archive format not supported\n' ;;
   esac
 }
 

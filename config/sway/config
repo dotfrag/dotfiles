@@ -272,10 +272,10 @@ bindsym $mod+p mode "passthrough"
 #
 set $powermenu "[e]xit [p]oweroff [r]eboot [s]uspend"
 mode  $powermenu {
-    bindsym e exec graceful exit
-    bindsym p exec graceful poweroff
-    bindsym r exec graceful reboot
-    bindsym s exec graceful suspend
+    bindsym e mode "default"; exec graceful exit
+    bindsym p mode "default"; exec graceful poweroff
+    bindsym r mode "default"; exec graceful reboot
+    bindsym s mode "default"; exec graceful suspend
 
     # Return to default mode
     bindsym Return mode "default"

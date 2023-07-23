@@ -190,6 +190,9 @@ input "type:touchpad" drag_lock enabled
 
     # Move focus to the child container
     bindsym $mod+Shift+a focus child
+
+    # Toggle waybar visibility
+    bindsym $mod+x exec killall -SIGUSR1 waybar
 #
 # Volume:
 #

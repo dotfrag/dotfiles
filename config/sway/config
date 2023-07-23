@@ -206,10 +206,9 @@ input "type:touchpad" drag_lock enabled
 #
 # Screenshot:
 #
-    bindsym Print            exec grimshot save
-    bindsym $mod+Print       exec grimshot save active
-    bindsym $mod+Ctrl+Print  exec grimshot save window
-    bindsym $mod+Shift+Print exec grimshot copy active
+    bindsym Print            exec wl-copy <$(grimshot save)
+    bindsym $mod+Print       exec wl-copy <$(grimshot save active)
+    bindsym $mod+Ctrl+Print  exec wl-copy <$(grimshot save window)
 #
 # Scratchpad:
 #

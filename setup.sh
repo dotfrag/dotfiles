@@ -84,6 +84,7 @@ fi
 
 # install config dirs
 bash "${SCRIPT_DIR}/config/install.sh"
+printf '=%.0s' $(seq 1 ${COLUMNS})
 
 # install bin files
 bash "${SCRIPT_DIR}/bin/install.sh"

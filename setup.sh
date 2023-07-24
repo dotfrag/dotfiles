@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# globals
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 FZF_DIR="${HOME}/.local/bin/fzf"
 VIM_PACKPATH="${XDG_DATA_HOME:-${HOME}/.local/share}/vim/pack/plugins/start"
@@ -61,9 +62,9 @@ fi
 
 # vim
 vim_plugins=(
-  "catppuccin/vim" "christoomey/vim-tmux-navigator" "junegunn/fzf" "junegunn/fzf.vim"
-  "junegunn/vim-easy-align" "mg979/vim-visual-multi" "sheerun/vim-polyglot"
-  "tpope/vim-commentary" "tpope/vim-commentary" "tpope/vim-repeat"
+  "catppuccin/vim" "christoomey/vim-tmux-navigator" "junegunn/fzf"
+  "junegunn/fzf.vim" "junegunn/vim-easy-align" "mg979/vim-visual-multi"
+  "sheerun/vim-polyglot" "tpope/vim-commentary" "tpope/vim-repeat"
   "tpope/vim-surround" "tpope/vim-unimpaired" "vim-airline/vim-airline"
 )
 for i in "${vim_plugins[@]}"; do

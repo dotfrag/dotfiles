@@ -27,7 +27,7 @@ if [ "$DISTRO" = "Arch Linux" ]; then
   sudo pacman -Syu
   sudo pacman -S --needed "${packages_pacman[@]}"
   if ! command -v yay &>/dev/null; then
-    git clone https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -si
+    git clone --depth 1 https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -si
   fi
   yay -S --needed "${packages_yay[@]}"
 elif [ "$DISTRO" = "Fedora Linux" ]; then
@@ -48,7 +48,7 @@ wget -nv -O "${ZDOTDIR:-${HOME}}/.zshrc.skel" https://git.grml.org/f/grml-etc-co
 ln -vsf "${SCRIPT_DIR}/config/zsh/.zshrc.local" "${ZDOTDIR:-${HOME}}/.zshrc.local"
 mkdir -p "${ZSH_PLUGINS_DIR}"
 printf "[zsh-syntax-highlighting] "
-git -C "${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting" pull 2>/dev/null || git clone "https://github.com/zsh-users/zsh-syntax-highlighting" "${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting"
+git -C "${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting" pull 2>/dev/null || git clone --depth 1 "https://github.com/zsh-users/zsh-syntax-highlighting" "${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting"
 printf '=%.0s' $(seq 1 ${COLUMNS})
 if [ "$DISTRO" != "Arch Linux" ]; then
   sudo mkdir -p /usr/local/share/zsh/site-functions
@@ -70,7 +70,7 @@ vim_plugins=(
 for i in "${vim_plugins[@]}"; do
   name=$(echo "$i" | cut -d '/' -f2)
   printf "[%s] " "${name}"
-  git -C "${VIM_PACKPATH}/${name}" pull 2>/dev/null || git clone "https://github.com/${i}" "${VIM_PACKPATH}/${name}"
+  git -C "${VIM_PACKPATH}/${name}" pull 2>/dev/null || git clone --depth 1 "https://github.com/${i}" "${VIM_PACKPATH}/${name}"
 done
 printf '=%.0s' $(seq 1 ${COLUMNS})
 

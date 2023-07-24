@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# Mark all urgent windows as read.
 
 for ((n = 0; n < 10; n++)); do
   for win in $(wmctrl -l | awk -F' ' '{print $1}'); do

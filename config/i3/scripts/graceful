@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# Graceful exit for i3 window manager.
+
+TIMEOUT=10
+
+# close all windows
+i3-msg '[all] kill'
+sleep 1
+
+# check if windows are still running
+for i in $(seq 0 $((TIMEOUT - 1))); do
+  [[ -z $(wmctrl -l) ]] && break
+  echo "Forceful termination in $((TIMEOUT - i)).."
+  notify-send "Graceful $1" "Forceful termination in $((TIMEOUT - i)).."
+  sleep 1
+done
+
+# bye
+case "$1" in
+  exit) i3-msg exit ;;
+  poweroff) systemctl poweroff ;;
+  reboot) systemctl reboot ;;
+  *) exit 1 ;;
+esac

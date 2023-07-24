@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# Screenshot active window and copy to clipboard.
+
+DIR=$HOME/Pictures/Screenshots
+FILE="$(date +'%Y%m%d_%H%M%S').png"
+
+scrot -u "${DIR}/${FILE}" -e 'xclip -sel c -t image/png -i $f'
+
+notify-send "Screenshot" "Filename: $FILE"

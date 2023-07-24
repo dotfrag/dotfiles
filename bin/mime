@@ -1,0 +1,61 @@
+#!/bin/bash
+#
+# Get and set application for filetype.
+
+INFO=0
+
+if (($# == 0)); then
+  echo "Provide a file. Use -i or -v for info only."
+  exit 1
+fi
+
+if [[ "$1" = "-i" || "$1" = "-v" ]]; then
+  INFO=1
+  f=$2
+else
+  f=$1
+fi
+
+if [ ! -e "$f" ]; then
+  echo "$f is not a file."
+  exit 1
+fi
+
+filetype=$(xdg-mime query filetype "$f")
+application=$(xdg-mime query default "$filetype")
+
+echo "Filetype: $filetype"
+echo "Application: $application"
+
+if ((INFO == 1)); then
+  exit
+fi
+
+new_application=$(locate -- *.desktop | fzf --height 10 \
+  --header "Select application for $filetype (current: $application)")
+new_application=$(basename "$new_application")
+
+if [[ -z "$new_application" ]]; then
+  exit
+fi
+
+printf "\nReplace [%s] with [%s] (y/n)? " "$application" "${new_application##/}"
+read -rn 1 yn
+printf "\n\n"
+
+if [[ "$yn" != "y" ]]; then
+  exit
+fi
+
+xdg-mime default "$new_application" "$filetype"
+
+result=$(xdg-mime query default "$filetype")
+
+if [[ "$result" != "$new_application" ]]; then
+  echo "Failed to change default application, reverting to [$application]."
+  xdg-mime default "$application" "$filetype"
+  exit 1
+fi
+
+echo "Filetype: $filetype"
+echo "Application: $new_application"

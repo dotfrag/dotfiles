@@ -169,9 +169,6 @@ bindsym $mod+Shift+9 move container to workspace number $ws9, workspace $ws9, fo
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+Ctrl+Shift+0 exec --no-startup-id ~/.config/rofi/powermenu.sh
 
 # gaps
 gaps inner 10
@@ -220,6 +217,19 @@ mode "$redshift" {
 bindsym $mod+p mode "passthrough"
 mode "passthrough" {
   bindsym $mod+p mode "default"
+}
+
+# powermenu mode
+set $powermenu "[e]xit [p]oweroff [r]eboot [s]uspend"
+bindsym $mod+Escape mode $powermenu
+mode $powermenu {
+    bindsym e mode "default"; exec graceful exit
+    bindsym p mode "default"; exec graceful poweroff
+    bindsym r mode "default"; exec graceful reboot
+    bindsym s mode "default"; exec systemctl suspend
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 # colors                border  backgr. text    indictr child_border

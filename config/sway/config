@@ -95,9 +95,6 @@ input "type:touchpad" drag_lock enabled
 
     # Lock screen
     bindsym $mod+Ctrl+Mod1+l exec swaylock
-
-    # Power menu
-    # bindsym $mod+Ctrl+Shift+0 exec ~/.config/fuzzel/powermenu.sh
 #
 # Moving around:
 #
@@ -273,17 +270,19 @@ bindsym $mod+p mode "passthrough"
 # Powermenu:
 #
 set $powermenu "[e]xit [p]oweroff [r]eboot [s]uspend"
-mode  $powermenu {
-    bindsym e mode "default"; exec graceful exit
-    bindsym p mode "default"; exec graceful poweroff
-    bindsym r mode "default"; exec graceful reboot
-    bindsym s mode "default"; exec graceful suspend
+set $graceful ~/.config/sway/scripts/graceful
+mode $powermenu {
+    # Exit/Poweroff/Reboot/Supend
+    bindsym e mode "default"; exec $graceful exit
+    bindsym p mode "default"; exec $graceful poweroff
+    bindsym r mode "default"; exec $graceful reboot
+    bindsym s mode "default"; exec systemctl suspend
 
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Ctrl+Shift+0 mode $powermenu
+bindsym $mod+Escape mode $powermenu
 
 ### Window rules
 assign {

@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# Synchronise all clipboards in X.
+
+while clipnotify; do
+  xclip -o -selection clipboard | xclip -i -selection primary
+  xclip -o -selection clipboard | xclip -i -selection secondary
+done

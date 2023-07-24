@@ -44,7 +44,7 @@ bindsym $mod+Ctrl+Shift+minus exec --no-startup-id ~/.config/i3/scripts/brightne
 
 # Screenshot
 bindsym Print      exec --no-startup-id flameshot gui
-bindsym $mod+Print exec --no-startup-id scrot-active-window
+bindsym $mod+Print exec --no-startup-id ~/.config/i3/scripts/scrot-active-window
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -221,11 +221,12 @@ mode "passthrough" {
 
 # powermenu mode
 set $powermenu "[e]xit [p]oweroff [r]eboot [s]uspend"
+set $graceful ~/.config/sway/scripts/graceful
 bindsym $mod+Escape mode $powermenu
 mode $powermenu {
-    bindsym e mode "default"; exec graceful exit
-    bindsym p mode "default"; exec graceful poweroff
-    bindsym r mode "default"; exec graceful reboot
+    bindsym e mode "default"; exec $graceful exit
+    bindsym p mode "default"; exec $graceful poweroff
+    bindsym r mode "default"; exec $graceful reboot
     bindsym s mode "default"; exec systemctl suspend
 
     bindsym Return mode "default"

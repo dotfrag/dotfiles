@@ -84,3 +84,6 @@ fi
 
 # install config dirs
 bash "${SCRIPT_DIR}/config/install.sh"
+
+# install bin files
+bash "${SCRIPT_DIR}/bin/install.sh"

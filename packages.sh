@@ -68,9 +68,22 @@ packages_yay=(
 )
 
 packages_dnf=(
-  cargo exa golang nodejs ranger rust tmux tree vim-enhanced zoxide zsh
+  cargo
+  exa
+  golang
+  nodejs
+  ranger
+  rust
+  tmux
+  tree
+  vim-enhanced
+  zoxide
+  zsh
 )
 
 packages_apt=(
-  ranger tmux tree zsh
+  ranger
+  tmux
+  tree
+  zsh
 )

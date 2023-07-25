@@ -281,7 +281,7 @@ gall() {
 }
 
 # run git command for all repos in directory (parallel)
-gallp() {
+gallx() {
   fd -td '^\.git$' -IHL -x git -C {//} $*
 }
 

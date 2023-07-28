@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+# Neovim config switcher, inspired by:
+# https://gist.github.com/elijahmanor/b279553c0132bfad7eae23e34ceb593b
+# https://github.com/Traap/dotfiles/blob/master/bash/bin/nvims
+
+declare -A neovim_configs=(
+  [AstroNvim]="AstroNvim/AstroNvim"
+  [LazyVim]="LazyVim/starter"
+  [NvChad]="NvChad/NvChad"
+)
+
+clone_repository() {
+  local name="$1"
+  local url="$2"
+  local location="${HOME}/.config/${name}"
+  git clone --depth 1 "https://github.com/${url}" "${location}"
+}
+
+delete_config() {
+  local config=$1
+  rm -rf "${HOME}/.cache/${config}" 2>/dev/null
+  rm -rf "${HOME}/.config/${config}" 2>/dev/null
+  rm -rf "${HOME}/.local/share/${config}" 2>/dev/null
+  rm -rf "${HOME}/.local/state/${config}" 2>/dev/null
+}
+
+select_config() {
+  local config
+  config=$(printf "%s\n" "${!neovim_configs[@]}" | fzf --prompt=" Neovim Config » " --height=~50%)
+  echo "${config}"
+}
+
+main() {
+  selected=$(select_config)
+  [[ -z ${selected} ]] && exit 1
+
+  if [[ ${delete_config_flag} == true ]]; then
+    while true; do
+      read -n1 -rp "Delete ${selected} config? (y/n) " yn
+      echo
+      case $yn in
+        [Yy]*)
+          delete_config "${selected}"
+          echo "Deleted ${selected} config."
+          return
+          ;;
+        [Nn]*) return ;;
+      esac
+    done
+  fi
+
+  if [[ ! -d "${HOME}/.config/${selected}" ]]; then
+    clone_repository "${selected}" "${neovim_configs[$selected]}"
+  fi
+
+  unset VIMINIT GVIMINIT
+  NVIM_APPNAME="${selected}" nvim "$@"
+}
+
+delete_config_flag=false
+while getopts 'dh' option; do
+  case "${option}" in
+    d)
+      delete_config_flag=true
+      ;;
+    h)
+      echo "Usage: nvims [config] [-d] [-h]"
+      exit 1
+      ;;
+    *)
+      echo "Usage: nvims [config] [-d] [-h]"
+      exit 1
+      ;;
+  esac
+done
+
+main "$@"

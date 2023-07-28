@@ -216,6 +216,7 @@ alias gp='git pull'
 alias gpall="fd -td '^\.git$' -IHL -x git -C {//} pull"
 alias gpr='git pull --rebase'
 alias gr='cd $(git rev-parse --show-toplevel)'
+alias grv='git remote -v'
 alias gs='git status'
 alias gss='git status -s'
 alias lg='lazygit'

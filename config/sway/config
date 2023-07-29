@@ -91,7 +91,7 @@ input "type:touchpad" drag_lock enabled
     floating_modifier $mod normal
 
     # Reload the configuration file
-    bindsym $mod+Shift+c reload
+    bindsym $mod+Shift+r reload
 
     # Lock screen
     bindsym $mod+Ctrl+Mod1+l exec swaylock
@@ -224,6 +224,7 @@ input "type:touchpad" drag_lock enabled
     bindsym $mod+Ctrl+Shift+b exec kitty --start-as fullscreen zsh -ic btop
     bindsym $mod+Ctrl+Shift+n exec networkmanager_dmenu
     bindsym $mod+Ctrl+Shift+p exec pavucontrol
+    bindsym $mod+Shift+c      exec kitty --class "spacekitty" zsh -ic qalc
     bindsym $mod+Shift+e      exec kitty --class "kitty-neovim" zsh -ic nvim
     bindsym $mod+c move position center
 #

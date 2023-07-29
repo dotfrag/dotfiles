@@ -2,7 +2,7 @@
 
 # globals
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-FZF_DIR="${HOME}/.local/bin/fzf"
+FZF_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/fzf"
 VIM_PACKPATH="${XDG_DATA_HOME:-${HOME}/.local/share}/vim/pack/plugins/start"
 ZSH_PLUGINS_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/plugins"
 
@@ -78,8 +78,7 @@ printf '=%.0s' $(seq 1 ${COLUMNS})
 if [ "$DISTRO" != "Arch Linux" ]; then
   printf "[fzf] "
   git -C "${FZF_DIR}" pull 2>/dev/null || git clone --depth 1 https://github.com/junegunn/fzf "${FZF_DIR}"
-  "${FZF_DIR}/install" --completion --key-bindings --no-bash --no-update-rc >/dev/null
-  mv "${HOME}/.fzf.zsh" "${ZDOTDIR:-${HOME}}/" 2>/dev/null
+  "${FZF_DIR}/install" --completion --key-bindings --no-bash --no-update-rc --xdg >/dev/null
   printf '=%.0s' $(seq 1 ${COLUMNS})
 fi
 

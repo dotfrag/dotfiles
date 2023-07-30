@@ -50,6 +50,10 @@ tooltip label {
   animation-direction: alternate;
 }
 
+.modules-right {
+  padding-right: 16px;
+}
+
 #mode,
 #clock {
   padding: 0 8px;

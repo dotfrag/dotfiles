@@ -104,7 +104,7 @@ hgrep() {
 
 # man pages search
 mans() {
-  man --pager="less -p '^\s+$2'" "$1"
+  man --pager="less -G -p '^\s+$2'" "$1"
 }
 
 # touch executable and edit

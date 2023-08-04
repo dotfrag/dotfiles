@@ -12,13 +12,8 @@ declare -A config_dirs=(
   ["zsh"]=".zshrc.local"
 )
 
-for i in $(git -C "${SCRIPT_DIR}" ls-tree --name-only main | grep -v "zsh"); do
-  rm -vrf "${HOME}/.config/${i}"
-done
-
-echo
-
-for i in $(git -C "${SCRIPT_DIR}" ls-tree --name-only main | grep -v "zsh"); do
+for i in $(git -C "${SCRIPT_DIR}" ls-tree --name-only main | grep -vP "install|zsh"); do
+  rm -rf "${HOME}/.config/${i}"
   output+=("$(command -v "${i}" >/dev/null && ln -vsf "${SCRIPT_DIR}/${i}" "${HOME}/.config/${i}")")
 done
 

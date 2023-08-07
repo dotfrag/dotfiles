@@ -50,7 +50,7 @@ mvcd () {
   fi
 }
 
-# extract archive to directory based on filename
+# extract archive to subdirectory
 x() {
   if (( ARGC != 1 )); then
     printf 'usage: x <file>\n'

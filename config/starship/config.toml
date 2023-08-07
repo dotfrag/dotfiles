@@ -5,11 +5,14 @@ style = 'bold green'
 symbol = '👩‍💻 '
 disabled = false
 
-[git_metrics]
-disabled = false
-
 [memory_usage]
 style = 'bold dimmed yellow'
+disabled = false
+
+[hostname]
+ssh_symbol = '  '
+
+[git_metrics]
 disabled = false
 
 [status]

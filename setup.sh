@@ -10,7 +10,7 @@ ZSH_PLUGINS_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/plugins"
 if [ -f /etc/os-release ]; then
   . /etc/os-release
   DISTRO=$NAME
-elif type lsb_release >/dev/null 2>&1; then
+elif command -v lsb_release &>/dev/null; then
   DISTRO=$(lsb_release -si)
 elif [ -f /etc/lsb-release ]; then
   # shellcheck disable=SC1091

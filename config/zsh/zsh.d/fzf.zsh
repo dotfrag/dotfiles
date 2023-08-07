@@ -1,0 +1,85 @@
+# -------------------------------------------------------------------------- FZF
+export FZF_DEFAULT_OPTS="--height 25% --reverse --border=bottom --info=inline \
+--bind 'home:first,end:last' \
+--bind 'ctrl-y:preview-up,ctrl-e:preview-down' \
+--bind 'ctrl-b:preview-page-up,ctrl-f:preview-page-down' \
+--bind 'ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down' \
+--bind 'ctrl-/:change-preview-window(hidden|)' \
+--color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
+--color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
+--color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
+
+export FZF_DEFAULT_COMMAND="fd --type file --hidden --follow"
+export FZF_ALT_C_COMMAND="fd --type directory . --hidden --follow"
+export FZF_ALT_C_OPTS="--preview 'tree -a -L 1 -C {}'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# fe[b|d] [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+#   - [p] persistent fzf
+#   - [b] bat preview
+#   - [d] dotfiles
+fe() {
+  fzf --query="$@" --multi --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
+}
+fep() {
+  fzf --query="$@" --multi --bind 'enter:execute($EDITOR {+}),ctrl-v:execute(vi {+})'
+}
+feb() {
+  fzf --query="$@" --multi --height 100% \
+      --preview "bat --color=always {}" \
+      --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
+}
+fed() {
+  cat "${XDG_STATE_HOME:-$HOME/.local/state}/dots" |
+    fzf --query="$@" --multi \
+    --bind 'one:become($EDITOR {+}),enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
+}
+
+# fuzzy ripgrep open with line number
+vg() {
+  rg --color=always --line-number --no-heading --smart-case "${*:-}" |
+    fzf --ansi \
+        --color "hl:-1:underline,hl+:-1:underline:reverse" \
+        --height 30 \
+        --delimiter : \
+        --preview 'bat --color=always {1} --highlight-line {2}' \
+        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+        --bind 'enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
+}
+
+# fuzzy ripgrep dots open with line number
+vgd() {
+  local files
+  IFS=$'\n' local files=($(cat "${XDG_STATE_HOME:-$HOME/.local/state}/dots"))
+  rg --color=always --line-number --no-heading --smart-case "${*:-}" "${files[@]}" |
+    fzf --ansi \
+        --color "hl:-1:underline,hl+:-1:underline:reverse" \
+        --height 30 \
+        --delimiter : \
+        --preview 'bat --color=always {1} --highlight-line {2}' \
+        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+        --bind 'one:become($EDITOR {1} +{2}),enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
+}
+
+# fkill - kill processes - list only the ones you can kill
+fkill() {
+  local pid
+  if [ "$UID" != "0" ]; then
+    pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+  else
+    pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+  fi
+
+  if [ "x$pid" != "x" ]; then
+    echo $pid | xargs kill -${1:-9}
+  fi
+}
+
+# command cheatsheet
+cmd() {
+  local _cmd
+  _cmd=$(fzf --query="$1" --select-1 --exit-0 <"${ZDOTDIR:-${HOME}}/.cmd")
+  [[ -n "${_cmd}" ]] && eval "${_cmd}"
+}

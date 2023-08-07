@@ -1,291 +1,12 @@
 # .zshrc.local
 
-# ---------------------------------------------------------------------- EXPORTS
-export BAT_THEME="OneHalfDark"
-export MANWIDTH=${MANWIDTH:-80}
-export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep/config"
-
-# -------------------------------------------------------------------- FUNCTIONS
-# change working dir in shell to last dir in lf on exit
-lfd() {
-  tmp="$(mktemp)"
-  lf -last-dir-path="$tmp" "$@"
-  if [ -f "$tmp" ]; then
-    dir="$(cat "$tmp")"
-    rm -f "$tmp"
-    if [ -d "$dir" ]; then
-      if [ "$dir" != "$(pwd)" ]; then
-        cd "$dir"
-      fi
-    fi
-  fi
-}
-
-# copy file and cd to destination directory
-function cpcd () {
-  if (( ARGC != 2 )); then
-    printf 'usage: cpcd <file> <destination>\n'
-    return 1
-  fi
-  if [[ ! -e "$1" ]]; then
-    printf "error: file $1 doesn't exist\n"
-    return 1
-  fi
-  cp -vi "$1" "$2"
-  if [[ -d "$2" ]]; then
-    builtin cd "$2"
-  else
-    builtin cd "$(dirname "$2")"
-  fi
-}
-
-# move file and cd to destination directory
-function mvcd () {
-  if (( ARGC != 2 )); then
-    printf 'usage: mvcd <file> <destination>\n'
-    return 1
-  fi
-  if [[ ! -e "$1" ]]; then
-    printf "error: file $1 doesn't exist\n"
-    return 1
-  fi
-  mv -vi "$1" "$2"
-  if [[ -d "$2" ]]; then
-    builtin cd "$2"
-  else
-    builtin cd "$(dirname "$2")"
-  fi
-}
-
-# extract archive to directory based on filename
-x() {
-  if (( ARGC != 1 )); then
-    printf 'usage: x <file>\n'
-    return 1
-  fi
-  if [[ ! -e "$1" ]]; then
-    printf "error: file $1 doesn't exist\n"
-    return 1
-  fi
-  case "$1" in
-    *.tar.bz|*.tar.bz2) mkdir "${1%.*.*}" && tar xjvf "$1" -C "${1%.*.*}" ;;
-    *.tar.gz)           mkdir "${1%.*.*}" && tar xzvf "$1" -C "${1%.*.*}" ;;
-    *.tar.xz)           mkdir "${1%.*.*}" && tar xJvf "$1" -C "${1%.*.*}" ;;
-    *.tbz|*.tbz2)       mkdir "${1%.*}"   && tar xjvf "$1" -C "${1%.*}"   ;;
-    *.tgz)              mkdir "${1%.*}"   && tar xzvf "$1" -C "${1%.*}"   ;;
-    *.txz)              mkdir "${1%.*}"   && tar xJvf "$1" -C "${1%.*}"   ;;
-    *.7z) 7zx"$1" -o"${1%.*}" ;;
-    *.rar) unrar x"$1" "${1%.*}" ;;
-    *.zip) unzip "$1" -d "${1%.*}" ;;
-    *) printf 'archive format not supported\n' ;;
-  esac
-}
-
-# copy to clipboard
-copy() {
-  if [[ "$XDG_SESSION_TYPE" = "wayland" ]]; then
-    wl-copy --trim-newline
-  else
-    xclip -r -selection primary -filter | xclip -r -selection clipboard
-  fi
-}
-
-update-dots() {
-  local dots="${XDG_STATE_HOME:-${HOME}/.local/state}/dots"
-  git -C "${HOME}/repos/dotfiles" ls-files | rg -v 'ttf$' | while read line; do realpath "${HOME}/repos/dotfiles/${line}"; done >"${dots}"
-  git -C "${HOME}/repos/dotfiles-private" ls-files | while read line; do realpath "${HOME}/repos/dotfiles-private/${line}"; done >>"${dots}"
-  sort -o "${dots}" -u "${dots}"
-}
-
-# history grep
-hgrep() {
-  fc -Dlim "*$@*" 1
-}
-
-# man pages search
-mans() {
-  man --pager="less -G -p '^\s+$2'" "$1"
-}
-
-# touch executable and edit
-touchx() {
-  if ! [[ -e "$1" ]]; then
-    echo -e "#!/bin/bash\n\n" > "$1"
-  fi
-  chmod +x "$1" >/dev/null
-  $EDITOR + "$1"
-}
-
-# backup/restore file
-bak() {
-  mv -v "$1" "$1.bak"
-}
-ubak() {
-  mv -v "$1" "${1%.bak}"
-}
-
-# ripgrep | less
-rgl() {
-  rg --pretty "$@" | less -RFX
-}
-
-# launch app and exit
-launch() {
-  nohup "$@" >/dev/null 2>/dev/null & disown && exit
-}
-
-# bat hightlight help messages
-help() {
-    "$@" --help 2>&1 | bat --plain --language=help
-}
-
-# switching shell safely and efficiently? http://www.zsh.org/mla/workers/2001/msg02410.html
-bash() {
-   NO_SWITCH="yes" command bash "$@"
-}
-restart () {
-   exec $SHELL $SHELL_ARGS "$@"
-}
-
-# ---------------------------------------------------------------------- ALIASES
-alias agi='sudo nala install'
-alias aug='sudo nala update && sudo nala upgrade'
-alias di='sudo dnf install'
-alias dug='sudo dnf check-update && sudo dnf upgrade'
-
-alias chmod='chmod -v'
-alias chown='chown -v'
-alias cp='cp -vi'
-alias ln='ln -vi'
-alias mv='mv -vi'
-alias rm='rm -v'
-
-alias bathelp='bat --plain --language=help'
-alias cat='bat'
-alias colors='bash -c "$(wget -qO- https://git.io/vQgMr)"'
-alias dfs='df -h | sort -n -k 5'
-alias dus='du -sh * 2>/dev/null | sort -h'
-alias exa='exa --long --git --group-directories-first'
-alias files='nautilus --browser $(pwd) &>/dev/null & disown'
-alias glow='glow -p'
-alias insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" -o "PreferredAuthentications=keyboard-interactive"'
-alias killsigs="kill -l | tr ' ' '\n' | nl"
-alias mdcat='mdcat -p'
-alias print-aliases='print -rl -- ${(k)aliases}'
-alias print-functions='print -rl -- ${(k)functions}'
-alias ran='ranger --choosedir=/tmp/.rangerdir; LASTDIR=$(cat /tmp/.rangerdir); cd "$LASTDIR"'
-alias tx='tmux attach-session || start-tmux.sh'
-alias update-fnm='curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell'
-alias update-grml-zshrc='wget -nv -O ${ZDOTDIR:-${HOME}}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc'
-alias update-kitty='curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin && exit'
-alias update-starship='curl -sS https://starship.rs/install.sh | sh'
-
-# --------------------------------------------------------------- GLOBAL ALIASES
-alias -g C='|wc -l'
-alias -g D='|delta'
-alias -g F='|fzf -m'
-alias -g G='|rg'
-alias -g H='|head'
-alias -g HH='|head -$((LINES-4))'
-alias -g L='|less'
-alias -g LL='|& less -r'
-alias -g N='2>/dev/null'
-alias -g S='|sk'
-alias -g TR="|tr ' ' '\n'"
-alias -g Y='|copy'
-alias -g YI='|fzf | copy'
-
-# ---------------------------------------------------------------- ABBREVIATIONS
-abk[f]='$(fzf)'
-abk[gall]="fd -td '^\.git$' -IHL -x echo {//} | sort | xargs -I{} git -C {} "
-
-# -------------------------------------------------------------------------- GIT
-alias ga='git add'
-alias gauth='git shortlog --summary --numbered --email'
-alias gc='git commit'
-alias gcl='git config --local --list'
-alias gcm='gr && git checkout $(git_main_branch)'
-alias gco='git checkout $(git branch | fzf)'
-alias gd='git diff'
-alias gdd='git diff | delta'
-alias gdu='git diff --no-ext-diff -U0'
-alias gdw='git diff -w'
-alias gfp="git ls-files --full-name"
-alias glg='git log --oneline -5'
-alias gp='git pull'
-alias gpall="fd -td '^\.git$' -IHL -x git -C {//} pull"
-alias gpr='git pull --rebase'
-alias gr='cd $(git rev-parse --show-toplevel)'
-alias grv='git remote -v'
-alias gs='git status'
-alias gss='git status -s'
-alias lg='lazygit'
-
-# check if main exists and use instead of master
-git_main_branch() {
-  command git rev-parse --git-dir &>/dev/null || return
-  local ref
-  for ref in refs/{heads,remotes/{origin,upstream}}/{main,trunk,mainline,default}; do
-    if command git show-ref -q --verify $ref; then
-      echo ${ref:t}
-      return
-    fi
-  done
-  echo master
-}
-
-# git gc all repos
-gitgc() {
-  fd -td '^.git' -IH -E '.cache' -E '.cargo' -E '.local' -E 'node_modules' \
-    -x echo {//} | sort -u | while read -r line; do
-    if git -C "${line}" rev-parse --is-inside-work-tree &>/dev/null; then
-      print -P "%F{yellow}${line}%f"
-      git -C "${line}" gc
-      echo
-    fi
-  done
-}
-
-# dot commit and push
-gpp() {
-  if ! git remote -v | grep -q "git@github.com:dotfrag"; then
-    echo "Invalid repository."
-    return
-  fi
-  git commit -am "$(date '+%Y-%m-%d %H:%M:%S')"
-  git push
-}
-
-# find branches that have modified a file
-glf() {
-  git log --all --source -- $1 |
-    rg -o "refs/.*" |
-    awk '!x[$0]++' |
-    head -10 |
-    xargs -I '{}' git log -1 --format='%S|%ai%x20(%ar)' '{}' -- $1 |
-    sed -E 's|refs/(remotes\|tags)(/origin)?/||' |
-    column -t -s '|'
-}
-
-# git log
-glog() {
-  git log --oneline --decorate --color "$@" |
-    fzf --ansi --multi --height 100% \
-    --preview 'git show -m --color {1}' \
-    --preview-window 'down,80%' \
-    --bind 'enter:become(git show -m {1})'
-}
-
-# run git command for all repos in directory (serial)
-gall() {
-  fd -td '^\.git$' -IHL -x echo {//} | sort |
-    xargs -I{} zsh -c "print -P '%F{yellow}{}%f' && git -C {} $* && echo"
-}
-
-# run git command for all repos in directory (parallel)
-gallx() {
-  fd -td '^\.git$' -IHL -x git -C {//} $*
-}
+# --------------------------------------------------------------------- INCLUDES
+if test -d "${ZDOTDIR:-${HOME}}/zsh.d"; then
+	for file in "${ZDOTDIR:-${HOME}}/zsh.d"/*; do
+		xsource "${file}"
+	done
+	unset file
+fi
 
 # ---------------------------------------------------------------------- OPTIONS
 setopt histallowclobber
@@ -297,119 +18,19 @@ setopt histsavenodups
 setopt nonomatch
 setopt nosharehistory
 
-# -------------------------------------------------------------------------- FZF
-export FZF_DEFAULT_OPTS="--height 25% --reverse --border=bottom --info=inline \
---bind 'home:first,end:last' \
---bind 'ctrl-y:preview-up,ctrl-e:preview-down' \
---bind 'ctrl-b:preview-page-up,ctrl-f:preview-page-down' \
---bind 'ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down' \
---bind 'ctrl-/:change-preview-window(hidden|)' \
---color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
---color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
---color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
-
-export FZF_DEFAULT_COMMAND="fd --type file --hidden --follow"
-export FZF_ALT_C_COMMAND="fd --type directory . --hidden --follow"
-export FZF_ALT_C_OPTS="--preview 'tree -a -L 1 -C {}'"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-# fe[b|d] [FUZZY PATTERN] - Open the selected file with the default editor
-#   - Bypass fuzzy finder if there's only one match (--select-1)
-#   - Exit if there's no match (--exit-0)
-#   - [p] persistent fzf
-#   - [b] bat preview
-#   - [d] dotfiles
-fe() {
-  fzf --query="$@" --multi --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
-}
-fep() {
-  fzf --query="$@" --multi --bind 'enter:execute($EDITOR {+}),ctrl-v:execute(vi {+})'
-}
-feb() {
-  fzf --query="$@" --multi --height 100% \
-      --preview "bat --color=always {}" \
-      --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
-}
-fed() {
-  cat "${XDG_STATE_HOME:-$HOME/.local/state}/dots" |
-    fzf --query="$@" --multi \
-    --bind 'one:become($EDITOR {+}),enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
-}
-
-# fuzzy ripgrep open with line number
-vg() {
-  rg --color=always --line-number --no-heading --smart-case "${*:-}" |
-    fzf --ansi \
-        --color "hl:-1:underline,hl+:-1:underline:reverse" \
-        --height 30 \
-        --delimiter : \
-        --preview 'bat --color=always {1} --highlight-line {2}' \
-        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-        --bind 'enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
-}
-
-# fuzzy ripgrep dots open with line number
-vgd() {
-  local files
-  IFS=$'\n' local files=($(cat "${XDG_STATE_HOME:-$HOME/.local/state}/dots"))
-  rg --color=always --line-number --no-heading --smart-case "${*:-}" "${files[@]}" |
-    fzf --ansi \
-        --color "hl:-1:underline,hl+:-1:underline:reverse" \
-        --height 30 \
-        --delimiter : \
-        --preview 'bat --color=always {1} --highlight-line {2}' \
-        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-        --bind 'one:become($EDITOR {1} +{2}),enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
-}
-
-# fkill - kill processes - list only the ones you can kill
-fkill() {
-  local pid
-  if [ "$UID" != "0" ]; then
-    pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
-  else
-    pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-  fi
-
-  if [ "x$pid" != "x" ]; then
-    echo $pid | xargs kill -${1:-9}
-  fi
-}
-
-# command cheatsheet
-cmd() {
-  local _cmd
-  _cmd=$(fzf --query="$1" --select-1 --exit-0 <"${ZDOTDIR:-${HOME}}/.cmd")
-  [[ -n "${_cmd}" ]] && eval "${_cmd}"
-}
-
 # ---------------------------------------------------------------------- WIDGETS
-list_dir() { echo; exa -a; echo; echo; zle redisplay }
-zle -N list_dir
-bindkey "^[l" "list_dir"
+list-dir() { echo; exa -a; echo; echo; zle redisplay }
+zle -N list-dir
+bindkey "^[l" "list-dir"
 
-repeat_last_cmd() { BUFFER=$(history -n -1); zle clear-screen; zle accept-line }
-zle -N repeat_last_cmd
-bindkey "^[r" "repeat_last_cmd"
+repeat-last-cmd() { BUFFER=$(history -n -1); zle clear-screen; zle accept-line }
+zle -N repeat-last-cmd
+bindkey "^[r" "repeat-last-cmd"
 
-yank_buffer() { echo $BUFFER | copy }
-zle -N yank_buffer
-bindkey "^X^Y" "yank_buffer"
+yank-buffer() { echo $BUFFER | copy }
+zle -N yank-buffer
+bindkey "^X^Y" "yank-buffer"
 
-# ------------------------------------------------------------------------- MISC
-eval "$(zoxide init zsh)"
-alias zedit='FZF_DEFAULT_OPTS=${FZF_DEFAULT_OPTS/--height 25%/} zoxide edit'
-
-# use the vi navigation keys (hjkl) besides cursor keys in menu completion
-bindkey -M menuselect 'h' vi-backward-char        # left
-bindkey -M menuselect 'k' vi-up-line-or-history   # up
-bindkey -M menuselect 'l' vi-forward-char         # right
-bindkey -M menuselect 'j' vi-down-line-or-history # bottom
-
-# expand shell aliases
-zstyle ':completion:*' completer _expand_alias _complete _approximate
-
-# just type '...' to get '../..'
 rationalise-dot() {
 local MATCH
 if [[ $LBUFFER =~ '(^|/| |	|'$'\n''|\||;|&)\.\.$' ]]; then
@@ -425,18 +46,28 @@ bindkey . rationalise-dot
 # without this, typing a . aborts incremental history search
 bindkey -M isearch . self-insert
 
+# ------------------------------------------------------------------------- MISC
+eval "$(zoxide init zsh)"
+alias zedit='FZF_DEFAULT_OPTS=${FZF_DEFAULT_OPTS/--height 25%/} zoxide edit'
+
+# use the vi navigation keys (hjkl) besides cursor keys in menu completion
+bindkey -M menuselect 'h' vi-backward-char        # left
+bindkey -M menuselect 'k' vi-up-line-or-history   # up
+bindkey -M menuselect 'l' vi-forward-char         # right
+bindkey -M menuselect 'j' vi-down-line-or-history # bottom
+
+# expand shell aliases
+zstyle ':completion:*' completer _expand_alias _complete _approximate
+
 # # set command prediction from history, see 'man 1 zshcontrib'
 # zrcautoload predict-on
 # zle -N predict-on
 # zle -N predict-off
 
 # ---------------------------------------------------------------------- PLUGINS
-xsource "${HOME}/.local/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+xsource "${XDG_DATA_HOME}/zsh/plugins/fsh/fast-syntax-highlighting.plugin.zsh"
 
 # ----------------------------------------------------------------------- PROMPT
 prompt off
 export STARSHIP_CONFIG=$HOME/.config/starship/config.toml
 eval "$(starship init zsh)"
-
-# ---------------------------------------------------------------- PRIVATE ZSHRC
-xsource "${ZDOTDIR:-${HOME}}/.zshrc.local.private"

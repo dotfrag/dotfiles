@@ -1,6 +1,6 @@
 gui:
+  nerdFontsVersion: "3"
   theme:
-    lightTheme: false
     activeBorderColor:
       - "#a6da95" # Green
       - bold

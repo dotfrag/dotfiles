@@ -43,8 +43,7 @@ fi
 }
 zle -N rationalise-dot
 bindkey . rationalise-dot
-# without this, typing a . aborts incremental history search
-bindkey -M isearch . self-insert
+bindkey -M isearch . self-insert # without this, typing a . aborts incremental history search
 
 # ------------------------------------------------------------------------- MISC
 eval "$(zoxide init zsh)"

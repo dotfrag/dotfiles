@@ -300,6 +300,7 @@ for_window {
   [app_id="qalculate-gtk"]        floating enable
   [app_id="spacekitty"]           floating enable
   [class="Bitwarden"]             floating enable
+  [urgent=latest]                 focus
 }
 
 ### Gaps
@@ -313,6 +314,7 @@ bar swaybar_command waybar
 
 ### Inlcudes
 include /etc/sway/config.d/*
+include local.config
 
 ### Autostart
 exec google-chrome-stable

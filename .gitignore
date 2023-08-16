@@ -1,4 +1,5 @@
 config/i3/local.config
+config/sway/local.config
 
 config/kitty/local.conf
 config/kitty/*.session

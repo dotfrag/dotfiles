@@ -99,7 +99,7 @@ setup_bin() {
   bash "${SCRIPT_DIR}/bin/install.sh"
 }
 
-setup_packages
+# setup_packages
 setup_zsh
 setup_vim
 setup_fzf

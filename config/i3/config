@@ -229,11 +229,12 @@ mode "passthrough" {
 }
 
 # powermenu mode
-set $powermenu "[e]xit [p]oweroff [r]eboot [s]uspend"
+set $powermenu "[e]xit [l]ock [p]oweroff [r]eboot [s]uspend"
 set $graceful ~/.config/i3/scripts/graceful
 bindsym $mod+Escape mode $powermenu
 mode $powermenu {
     bindsym e mode "default"; exec --no-startup-id $graceful exit
+    bindsym l mode "default"; exec --no-startup-id loginctl lock-session
     bindsym p mode "default"; exec --no-startup-id $graceful poweroff
     bindsym r mode "default"; exec --no-startup-id $graceful reboot
     bindsym s mode "default"; exec --no-startup-id systemctl suspend

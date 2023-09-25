@@ -329,6 +329,3 @@ bar swaybar_command waybar
 ### Inlcudes
 include /etc/sway/config.d/*
 include local.config
-
-### Autostart
-exec google-chrome-stable

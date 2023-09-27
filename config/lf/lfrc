@@ -18,16 +18,20 @@ set shellopts '-eu'
 set ifs "\n"
 
 # show hidden files
-set hidden
+set hidden true
+setlocal ~ hidden false
 
 # enable icons
 set icons
 
+# show borders
+set drawbox
+
 # leave some space at the top and the bottom of the screen
 set scrolloff 10
 
-# Use the `dim` attribute instead of underline for the cursor in the preview pane
-set cursorpreviewfmt "\033[7m"
+# # use the `dim` attribute instead of underline for the cursor in the preview pane
+# set cursorpreviewfmt "\033[7m"
 
 # set display info
 set info size
@@ -59,11 +63,20 @@ map O $mimeopen --ask $f
 # filter
 map zf filter
 
+# move to next/previous sibling directory
+map J :updir; set dironly true; down; set dironly false; open
+map K :updir; set dironly true; up; set dironly false; open
+
 # file previewer (ctpv)
 set previewer ctpv
 set cleaner ctpvclear
 &ctpv -s $id
 &ctpvquit $id
+
+# exa can be used to provide the file information shown in the bottom left corner
+cmd on-select &{{
+  lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
+}}
 
 # define a custom 'open' command
 # This command is called when current file is not a directory. You may want to
@@ -76,8 +89,21 @@ cmd open &{{
   esac
 }}
 
-# mkdir command. See wiki if you want it to select created dir
-map a :push %mkdir<space>
+# custom mkdir command
+cmd mkdir %{{
+    IFS=" "
+    mkdir -p -- "$*"
+    lf -remote "send $id select \"$*\""
+}}
+map a push :mkdir<space>
+
+# custom touch command
+cmd touch %{{
+    IFS=" "
+    touch -- "$*"
+    lf -remote "send $id select \"$*\""
+}}
+map A push :touch<space>
 
 # define a custom 'rename' command without prompt for overwrite
 # cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
@@ -141,23 +167,25 @@ cmd zip ${{
 
 # zoxide
 cmd z %{{
-  result="$(zoxide query --exclude $PWD $@)"
-  lf -remote "send $id cd $result"
+  result="$(zoxide query --exclude $PWD $@ | sed 's/\\/\\\\/g;s/"/\\"/g')"
+  lf -remote "send $id cd \"$result\""
 }}
 cmd zi ${{
-  result="$(zoxide query -i)"
-  lf -remote "send $id cd $result"
+  result="$(zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
+  lf -remote "send $id cd \"$result\""
 }}
 
+# new folder with selected item(s)
 cmd newdir ${{
-    set -f
-    printf "Directory name: "
-    read newd
-    mkdir -- "$newd"
-    mv -- $fx "$newd"
+  set -f
+  printf "Directory name: "
+  read newd
+  mkdir -- "$newd"
+  mv -- $fx "$newd"
 }}
 map <a-n> newdir
 
+# bulk rename multiple files
 cmd bulk-rename ${{
   old="$(mktemp)"
   new="$(mktemp)"
@@ -208,3 +236,37 @@ cmd link %{{
   lf -remote "send clear"
 }}
 map P :link
+
+# toggle preview column
+cmd toggle_preview %{{
+    if [ "$lf_preview" = "true" ]; then
+        lf -remote "send $id :set preview false; set ratios 1:5"
+    else
+        lf -remote "send $id :set preview true; set ratios 1:2:3"
+    fi
+}}
+map zp toggle_preview
+
+# select all files or directories in the current directory
+cmd select-files &{{
+  get_files() {
+    if [ "$lf_hidden" = 'false' ]; then
+      find "$PWD" -mindepth 1 -maxdepth 1 -type f -not -name '.*' -print0
+    else
+      find "$PWD" -mindepth 1 -maxdepth 1 -type f -print0
+    fi |
+    xargs -0 printf ' %q'
+  }
+  lf -remote "send $id :unselect; toggle $(get_files)"
+}}
+cmd select-dirs &{{
+  get_dirs() {
+    if [ "$lf_hidden" = 'false' ]; then
+      find "$PWD" -mindepth 1 -maxdepth 1 -type d -not -name '.*' -print0
+    else
+      find "$PWD" -mindepth 1 -maxdepth 1 -type d -print0
+    fi |
+    xargs -0 printf ' %q'
+  }
+  lf -remote "send $id :unselect; toggle $(get_dirs)"
+}}

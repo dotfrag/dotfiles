@@ -17,6 +17,9 @@ set shellopts '-eu'
 # commands accordingly.
 set ifs "\n"
 
+# show hidden files
+set hidden
+
 # enable icons
 set icons
 

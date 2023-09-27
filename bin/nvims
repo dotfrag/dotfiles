@@ -6,6 +6,7 @@
 
 declare -A neovim_configs=(
   [AstroNvim]="AstroNvim/AstroNvim"
+  [KickStart]="nvim-lua/kickstart.nvim"
   [LazyVim]="LazyVim/starter"
   [NvChad]="NvChad/NvChad"
 )

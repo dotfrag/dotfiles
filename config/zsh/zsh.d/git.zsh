@@ -4,7 +4,6 @@ alias gauth='git shortlog --summary --numbered --email'
 alias gc='git commit'
 alias gcl='git config --local --list'
 alias gcm='gr && git checkout $(git_main_branch)'
-alias gco='git checkout $(git branch | fzf)'
 alias gd='git diff'
 alias gdd='git diff | delta'
 alias gdu='git diff --no-ext-diff -U0'
@@ -19,6 +18,16 @@ alias grv='git remote -v'
 alias gs='git status'
 alias gss='git status -s'
 alias lg='lazygit'
+
+# git checkout
+gco() {
+  git branch -a |
+    tr -d '[:blank:]' |
+    rg -v '^\*' |
+    awk -F'/' '{print $NF}' |
+    sort -u |
+    fzf --bind 'enter:become(git checkout {})'
+}
 
 # check if main exists and use instead of master
 git_main_branch() {

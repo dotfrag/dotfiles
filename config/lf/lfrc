@@ -19,7 +19,7 @@ set ifs "\n"
 
 # show hidden files
 set hidden true
-setlocal ~ hidden false
+# setlocal ~ hidden false
 
 # enable icons
 set icons

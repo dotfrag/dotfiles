@@ -2,6 +2,7 @@
 alias ga='git add'
 alias gauth='git shortlog --summary --numbered --email'
 alias gc='git commit'
+alias gcb='git checkout -b'
 alias gcl='git config --local --list'
 alias gcm='gr && git checkout $(git_main_branch)'
 alias gd='git diff'

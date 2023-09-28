@@ -237,7 +237,7 @@ input {
     bindsym $mod+Ctrl+Shift+n exec networkmanager_dmenu
     bindsym $mod+Ctrl+Shift+p exec pavucontrol
     bindsym $mod+Shift+c      exec kitty --class "spacekitty" zsh -ic qalc
-    bindsym $mod+Shift+e      exec kitty --class "kitty-neovim" zsh -ic nvim
+    bindsym $mod+Shift+e      exec kitty -o confirm_os_window_close=0 --class "kitty-neovim" zsh -ic nvim
     bindsym $mod+c move position center
 #
 # Resizing containers:

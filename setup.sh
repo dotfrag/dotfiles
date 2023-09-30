@@ -49,8 +49,6 @@ setup_zsh() {
   ln -vsf "${SCRIPT_DIR}/config/zsh/.zshrc.local" "${ZDOTDIR:-${HOME}}/.zshrc.local"
   ln -vsf "${SCRIPT_DIR}/config/zsh/zsh.d" "${ZDOTDIR:-${HOME}}/"
   mkdir -p "${ZSH_PLUGINS_DIR}"
-  printf "[zsh-syntax-highlighting] "
-  git -C "${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting" pull 2>/dev/null || git clone --depth 1 "https://github.com/zsh-users/zsh-syntax-highlighting" "${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting"
   printf "[fast-syntax-highlighting] "
   git -C "${ZSH_PLUGINS_DIR}/fsh" pull 2>/dev/null || git clone --depth 1 "https://github.com/zdharma-continuum/fast-syntax-highlighting" "${ZSH_PLUGINS_DIR}/fsh"
   printf '=%.0s' $(seq 1 ${COLUMNS})

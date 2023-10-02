@@ -5,17 +5,17 @@
 # https://github.com/Traap/dotfiles/blob/master/bash/bin/nvims
 
 declare -A neovim_configs=(
-  [AstroNvim]="AstroNvim/AstroNvim"
-  [KickStart]="nvim-lua/kickstart.nvim"
-  [LazyVim]="LazyVim/starter"
-  [NvChad]="NvChad/NvChad"
+  [AstroNvim]="https://github.com/AstroNvim/AstroNvim"
+  [KickStart]="git@github.com:dotfrag/kickstart.nvim.git"
+  [LazyVim]="git@github.com:dotfrag/lazyvim.nvim.git"
+  [NvChad]="https://github.com/NvChad/NvChad"
 )
 
 clone_repository() {
   local name="$1"
   local url="$2"
   local location="${HOME}/.config/${name}"
-  git clone --depth 1 "https://github.com/${url}" "${location}"
+  git clone --depth 1 "${url}" "${location}"
 }
 
 delete_config() {

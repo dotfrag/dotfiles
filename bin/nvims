@@ -6,7 +6,7 @@
 
 declare -A neovim_configs=(
   [AstroNvim]="https://github.com/AstroNvim/AstroNvim"
-  [KickStart]="git@github.com:dotfrag/kickstart.nvim.git"
+  [Kickstart]="git@github.com:dotfrag/kickstart.nvim.git"
   [LazyVim]="git@github.com:dotfrag/lazyvim.nvim.git"
   [NvChad]="https://github.com/NvChad/NvChad"
 )
@@ -15,6 +15,12 @@ clone_repository() {
   local name="$1"
   local url="$2"
   local location="${HOME}/.config/${name}"
+
+  if [ "${name}" = "LazyVim" ]; then
+    git clone "${url}" "${HOME}/.config/nvim"
+    exit
+  fi
+
   git clone --depth 1 "${url}" "${location}"
 }
 
@@ -37,6 +43,7 @@ main() {
   [[ -z ${selected} ]] && exit 1
 
   if [[ ${delete_config_flag} == true ]]; then
+    [ "${selected}" = "LazyVim" ] && exit
     while true; do
       read -n1 -rp "Delete ${selected} config? (y/n) " yn
       echo

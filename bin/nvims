@@ -18,7 +18,11 @@ clone_repository() {
 
   if [ "${name}" = "LazyVim" ]; then
     git clone "${url}" "${HOME}/.config/nvim"
-    exit
+    return
+  elif [ "${name}" = "NvChad" ]; then
+    git clone --depth 1 "${url}" "${location}"
+    git clone git@github.com:dotfrag/nvchad.nvim.git "${location}/lua/custom"
+    return
   fi
 
   git clone --depth 1 "${url}" "${location}"
@@ -43,7 +47,17 @@ main() {
   [[ -z ${selected} ]] && exit 1
 
   if [[ ${delete_config_flag} == true ]]; then
-    [ "${selected}" = "LazyVim" ] && exit
+    if [ "${selected}" = "LazyVim" ]; then
+      echo -e "This is the default NeoVim config. Handle it manually:\n"
+      cat <<-EOF
+				rm -rf ~/.config/nvim
+				rm -rf ~/.local/share/nvim
+				rm -rf ~/.local/state/nvim
+				rm -rf ~/.cache/nvim
+			EOF
+      exit
+    fi
+
     while true; do
       read -n1 -rp "Delete ${selected} config? (y/n) " yn
       echo
@@ -61,6 +75,8 @@ main() {
   if [[ ! -d "${HOME}/.config/${selected}" ]]; then
     clone_repository "${selected}" "${neovim_configs[$selected]}"
   fi
+
+  [ "${selected}" = "LazyVim" ] && exec nvim "$@"
 
   unset VIMINIT GVIMINIT
   NVIM_APPNAME="${selected}" nvim "$@"

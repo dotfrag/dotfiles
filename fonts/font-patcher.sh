@@ -2,7 +2,7 @@
 
 # Globals
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-FONTS_DIR=${HOME}/.local/share/fonts/Iosevka_Nerd_Font
+FONTS_DIR=${HOME}/.local/share/fonts/IosevkaSS08NerdFont
 ROOT_DIR=/tmp/iosevka-nerd-font
 IN_DIR=/tmp/iosevka-nerd-font/in
 OUT_DIR=/tmp/iosevka-nerd-font/out

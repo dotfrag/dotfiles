@@ -17,8 +17,8 @@ clone_repository() {
   local location="${HOME}/.config/${name}"
 
   if [ "${name}" = "LazyVim" ]; then
-    git clone "${url}" "${HOME}/.config/nvim"
-    return
+    git -C "${HOME}/.config/nvim" pull || git clone "${url}" "${HOME}/.config/nvim"
+    exit
   elif [ "${name}" = "NvChad" ]; then
     git clone --depth 1 "${url}" "${location}"
     git clone git@github.com:dotfrag/nvchad.nvim.git "${location}/lua/custom"
@@ -75,8 +75,6 @@ main() {
   if [[ ! -d "${HOME}/.config/${selected}" ]]; then
     clone_repository "${selected}" "${neovim_configs[$selected]}"
   fi
-
-  [ "${selected}" = "LazyVim" ] && exec nvim "$@"
 
   unset VIMINIT GVIMINIT
   NVIM_APPNAME="${selected}" nvim "$@"

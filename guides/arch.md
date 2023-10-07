@@ -101,3 +101,26 @@ sudo systemctl enable --now paccache.timer
 ```
 
 <https://wiki.archlinux.org/title/pacman#Cleaning_the_package_cache>
+
+## Reflector
+
+```shell
+sudo pacman -S --needed reflector
+```
+
+```text
+/etc/xdg/reflector/reflector.conf
+```
+
+```text
+--save /etc/pacman.d/mirrorlist
+--protocol https
+--latest 20
+--sort rate
+```
+
+```shell
+sudo systemctl enable --now reflector.timer
+```
+
+<https://wiki.archlinux.org/title/reflector>

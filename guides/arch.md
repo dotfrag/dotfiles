@@ -2,6 +2,14 @@
 
 Reference of one-off stuff that I will forget.
 
+- [Gnome Keyring](#gnome-keyring)
+- [Mounting NTFS with udisks](#mounting-ntfs-with-udisks)
+- [thermald](#thermald)
+- [Hosts file](#hosts-file)
+- [Lid action](#lid-action)
+- [Package cache](#package-cache)
+- [Reflector](#reflector)
+
 ## Gnome Keyring
 
 ```shell

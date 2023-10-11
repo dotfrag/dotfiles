@@ -17,7 +17,7 @@ clone_repository() {
   local location="${HOME}/.config/${name}"
 
   if [ "${name}" = "LazyVim" ]; then
-    git -C "${HOME}/.config/nvim" pull || git clone "${url}" "${HOME}/.config/nvim"
+    git -C "${HOME}/.config/nvim" pull 2>/dev/null || git clone "${url}" "${HOME}/.config/nvim"
     exit
   elif [ "${name}" = "NvChad" ]; then
     git clone --depth 1 "${url}" "${location}"

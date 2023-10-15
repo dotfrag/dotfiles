@@ -12,7 +12,6 @@ alias gdw='git diff -w'
 alias gfp="git ls-files --full-name"
 alias glg='git log --oneline -5'
 alias gp='git pull'
-alias gpall="fd -td '^\.git$' -IHL -x git -C {//} pull"
 alias gpr='git pull --rebase'
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias grv='git remote -v'
@@ -43,6 +42,10 @@ git_main_branch() {
   echo master
 }
 
+gpall() {
+  fd -IHL -d "${1:=2}" -td '^\.git$' -x git -C {//} pull
+}
+
 # git gc all repos
 gitgc() {
   fd -td '^.git' -IH -E '.cache' -E '.cargo' -E '.local' -E 'node_modules' \
@@ -56,12 +59,20 @@ gitgc() {
 }
 
 # dot commit and push
-gpp() {
+_gp() {
   if ! git remote -v | grep -q "git@github.com:dotfrag"; then
     echo "Invalid repository."
-    return
+    return 1
   fi
-  git commit -am "$(date '+%Y-%m-%d %H:%M:%S')"
+}
+gpc() {
+  _gp || return
+  git commit -m "$(date '+%Y-%m-%d %H:%M:%S')"
+}
+gpp() {
+  _gp || return
+  git add -u
+  gpc
   git push
 }
 

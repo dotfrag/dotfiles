@@ -22,6 +22,7 @@ init() {
   else
     DOCKER=podman
   fi
+  ${DOCKER} image pull nerdfonts/patcher
   mkdir -p "${ROOT_DIR}" "${IN_DIR}" "${OUT_DIR}" "${FONTS_DIR}" >/dev/null || exit 1
 }
 

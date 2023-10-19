@@ -98,7 +98,7 @@ setup_bin() {
   bash "${SCRIPT_DIR}/bin/install.sh"
 }
 
-sudo -v
+[ "$DISTRO" != "Arch Linux" ] && sudo -v
 [ "$1" = "pac" ] && setup_packages
 setup_zsh
 setup_vim

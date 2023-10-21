@@ -42,26 +42,33 @@ mvcd () {
 
 # extract archive to subdirectory
 x() {
-  if (( ARGC != 1 )); then
-    printf 'usage: x <file>\n'
+  if (( ARGC < 1 )); then
+    echo "usage: x[rm] <file..>"
     return 1
   fi
-  if [[ ! -e "$1" ]]; then
-    printf "error: file $1 doesn't exist\n"
-    return 1
-  fi
-  case "$1" in
-    *.tar.bz|*.tar.bz2) mkdir "${1%.*.*}" && tar xjvf "$1" -C "${1%.*.*}" ;;
-    *.tar.gz)           mkdir "${1%.*.*}" && tar xzvf "$1" -C "${1%.*.*}" ;;
-    *.tar.xz)           mkdir "${1%.*.*}" && tar xJvf "$1" -C "${1%.*.*}" ;;
-    *.tbz|*.tbz2)       mkdir "${1%.*}"   && tar xjvf "$1" -C "${1%.*}"   ;;
-    *.tgz)              mkdir "${1%.*}"   && tar xzvf "$1" -C "${1%.*}"   ;;
-    *.txz)              mkdir "${1%.*}"   && tar xJvf "$1" -C "${1%.*}"   ;;
-    *.7z) 7zx"$1" -o"${1%.*}" ;;
-    *.rar) unrar x"$1" "${1%.*}" ;;
-    *.zip) unzip "$1" -d "${1%.*}" ;;
-    *) printf 'archive format not supported\n' ;;
-  esac
+  for f in "$@"; do
+    if [[ ! -e "$f" ]]; then
+      echo "error: file ${f} doesn't exist"
+      return 1
+    fi
+  done
+  for f in "$@"; do
+    case "$f" in
+      *.tar.bz|*.tar.bz2) mkdir "${f%.*.*}" && tar xjvf "$f" -C "${f%.*.*}" ;;
+      *.tar.gz)           mkdir "${f%.*.*}" && tar xzvf "$f" -C "${f%.*.*}" ;;
+      *.tar.xz)           mkdir "${f%.*.*}" && tar xJvf "$f" -C "${f%.*.*}" ;;
+      *.tbz|*.tbz2)       mkdir "${f%.*}"   && tar xjvf "$f" -C "${f%.*}"   ;;
+      *.tgz)              mkdir "${f%.*}"   && tar xzvf "$f" -C "${f%.*}"   ;;
+      *.txz)              mkdir "${f%.*}"   && tar xJvf "$f" -C "${f%.*}"   ;;
+      *.7z) 7zx"$f" -o"${f%.*}" ;;
+      *.rar) unrar x"$f" "${f%.*}" ;;
+      *.zip) unzip "$f" -d "${f%.*}" ;;
+      *) echo 'archive format not supported' ;;
+    esac
+  done
+}
+xrm() {
+  x "$@" && rm "$@"
 }
 
 # copy to clipboard

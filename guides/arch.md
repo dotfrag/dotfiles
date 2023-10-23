@@ -105,6 +105,10 @@ systemctl kill -s HUP systemd-logind
 ## Package cache
 
 ```shell
+sudo pacman -S --needed pacman-contrib
+```
+
+```shell
 sudo systemctl enable --now paccache.timer
 ```
 

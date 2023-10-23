@@ -12,7 +12,7 @@ declare -A config_dirs=(
   ["google-chrome-stable"]="chrome-flags.conf"
   ["networkmanager_dmenu"]="networkmanager-dmenu"
   ["rg"]="ripgrep"
-  ["thorium-browser"]="chromium-flags.conf"
+  ["thorium-browser"]="thorium-flags.conf"
   ["zsh"]=".zshrc.local"
 )
 

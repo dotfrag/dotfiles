@@ -33,6 +33,7 @@ packages_pacman=(
   noto-fonts
   noto-fonts-emoji
   obsidian
+  pacman-contrib
   papirus-icon-theme
   parallel
   plocate

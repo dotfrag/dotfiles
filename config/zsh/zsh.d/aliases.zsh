@@ -29,7 +29,6 @@ alias tx='tmux attach-session || start-tmux.sh'
 
 alias update-fnm='curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell'
 alias update-grml-zshrc='wget -nv -O ${ZDOTDIR:-${HOME}}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc'
-alias update-lazyvim='nvim --headless "+Lazy! sync" "+TSUpdateSync" +qa'
 
 # --------------------------------------------------------------- GLOBAL ALIASES
 alias -g C='|wc -l'

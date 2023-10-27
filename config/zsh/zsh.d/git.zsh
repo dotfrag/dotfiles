@@ -64,10 +64,10 @@ _gp() {
     echo "Invalid repository."
     return 1
   fi
-  git pull
 }
 gpc() {
   _gp || return
+  git pull
   git commit -m "$(date '+%Y-%m-%d %H:%M:%S')"
 }
 gpp() {

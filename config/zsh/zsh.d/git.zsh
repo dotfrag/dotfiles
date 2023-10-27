@@ -64,6 +64,7 @@ _gp() {
     echo "Invalid repository."
     return 1
   fi
+  git pull
 }
 gpc() {
   _gp || return

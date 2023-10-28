@@ -9,6 +9,7 @@ Reference of one-off stuff that I will forget.
 - [Lid action](#lid-action)
 - [Package cache](#package-cache)
 - [Reflector](#reflector)
+- [GPG](#gpg)
 
 ## Gnome Keyring
 
@@ -136,3 +137,14 @@ sudo systemctl enable --now reflector.timer
 ```
 
 <https://wiki.archlinux.org/title/reflector>
+
+## GPG
+
+```shell
+mkdir -p $GNUPGHOME
+chown -R $(whoami) $GNUPGHOME
+chmod 600 $GNUPGHOME/*
+chmod 700 $GNUPGHOME
+```
+
+<https://wiki.archlinux.org/title/GnuPG#Keyblock_resource_does_not_exist>, <https://gist.github.com/oseme-techguy/bae2e309c084d93b75a9b25f49718f85>

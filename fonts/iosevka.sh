@@ -1,7 +1,6 @@
 #!/bin/bash
 
-LATEST_RELEASE=$(curl -sLH 'Accept: application/json' https://github.com/be5invis/Iosevka/releases/latest)
-LATEST_VERSION=$(echo "$LATEST_RELEASE" | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+LATEST_VERSION=$(curl -sLH 'Accept: application/json' 'https://api.github.com/repos/be5invis/Iosevka/releases/latest' | grep -Po '"tag_name": "\Kv[^"]*')
 FILENAME="super-ttc-iosevka-ss08-${LATEST_VERSION//v/}.zip"
 
 mkdir -p "${HOME}/.local/share/fonts"

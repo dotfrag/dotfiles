@@ -136,3 +136,8 @@ bash() {
 restart () {
    exec $SHELL $SHELL_ARGS "$@"
 }
+
+# get latest version of git repo release
+get_latest_version() {
+  curl -sLH "Accept: application/json" "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\Kv[^"]*'
+}

@@ -2,10 +2,10 @@
 
 # --------------------------------------------------------------------- INCLUDES
 if test -d "${ZDOTDIR:-${HOME}}/zsh.d"; then
-	for file in "${ZDOTDIR:-${HOME}}/zsh.d"/*; do
-		xsource "${file}"
-	done
-	unset file
+  for file in "${ZDOTDIR:-${HOME}}/zsh.d"/*; do
+    xsource "${file}"
+  done
+  unset file
 fi
 
 # ---------------------------------------------------------------------- OPTIONS
@@ -19,7 +19,7 @@ setopt nonomatch
 setopt nosharehistory
 
 # ---------------------------------------------------------------------- WIDGETS
-list-dir() { echo; exa -a; echo; echo; zle redisplay }
+list-dir() { echo; exa -a; printf '\n\n'; zle redisplay }
 zle -N list-dir
 bindkey "^[l" "list-dir"
 
@@ -32,14 +32,14 @@ zle -N yank-buffer
 bindkey "^X^Y" "yank-buffer"
 
 rationalise-dot() {
-local MATCH
-if [[ $LBUFFER =~ '(^|/| |	|'$'\n''|\||;|&)\.\.$' ]]; then
- LBUFFER+=/
- zle self-insert
- zle self-insert
-else
- zle self-insert
-fi
+  local MATCH
+  if [[ $LBUFFER =~ '(^|/| |  |'$'\n''|\||;|&)\.\.$' ]]; then
+    LBUFFER+=/
+    zle self-insert
+    zle self-insert
+  else
+    zle self-insert
+  fi
 }
 zle -N rationalise-dot
 bindkey . rationalise-dot

@@ -63,6 +63,7 @@ x() {
       *.7z) 7zx"$f" -o"${f%.*}" ;;
       *.rar) unrar x"$f" "${f%.*}" ;;
       *.zip) unzip "$f" -d "${f%.*}" ;;
+      *.zst) zstd -d "$f" --output-dir-mirror "${f%.*}" ;;
       *) echo 'archive format not supported' ;;
     esac
   done

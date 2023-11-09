@@ -306,16 +306,48 @@ assign {
   [class="obsidian"] workspace number 5
 }
 
+set {
+  $inhibit_focus inhibit_idle focus
+  $inhibit_fullscreen inhibit_idle fullscreen
+  $float floating enable
+  $popup floating enable; sticky enable
+  $identify border pixel 10
+}
+
 for_window {
-  [app_id="imv"]                  floating enable
-  [app_id="mpv"]                  floating enable
-  [app_id="nemo"]                 floating enable
-  [app_id="nm-connection-editor"] floating enable
-  [app_id="pavucontrol"]          floating enable
-  [app_id="qalculate-gtk"]        floating enable
-  [app_id="spacekitty"]           floating enable
-  [class="Bitwarden"]             floating enable
-  [urgent=latest]                 focus
+  # inhibit_focus - inhibit_idle focus
+  [app_id="mpv"] $inhibit_focus
+
+  # inhibit_fullscreen - inhibit_idle fullscreen
+  [instance="thorium-browser"] $inhibit_fullscreen
+  [instance="chromium"] $inhibit_fullscreen
+
+  # float - floating enable
+  [app_id="imv"] $float
+  [app_id="mpv"] $float
+  [app_id="nemo"] $float
+  [app_id="nm-connection-editor"] $float
+  [app_id="pavucontrol"] $float
+  [app_id="qalculate-gtk"] $float
+  [app_id="spacekitty"] $float
+  [class="Bitwarden"] $float
+  [window_role="pop-up,task_dialog,About"] $float; $identify
+  [window_type="dialog"] $float; $identify
+  [window_type="utility"] $float; $identify
+  [window_type="toolbar"] $float; $identify
+  [window_type="splash"] $float; $identify
+  [window_type="menu"] $float; $identify
+  [window_type="dropdown_menu"] $float; $identify
+  [window_type="popup_menu"] $float; $identify
+  [window_type="tooltip"] $float; $identify
+  [window_type="notification"] $float; $identify
+
+  # popup - floating enable; sticky enable
+  [title="(?:Open|Save) (?:File|Folder|As)"] $popup; $identify
+  [app_id="pavucontrol"] $popup
+
+  # misc
+  [urgent=latest] focus
 }
 
 ### Gaps

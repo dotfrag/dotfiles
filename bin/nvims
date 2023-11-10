@@ -14,7 +14,7 @@ declare -A neovim_configs=(
 clone_repository() {
   local name="$1"
   local url="$2"
-  local location="${HOME}/.config/${name}"
+  local location="${HOME}/.config/nvim-${name,,}"
 
   if [ "${name}" = "LazyVim" ]; then
     git -C "${HOME}/.config/nvim" pull 2>/dev/null || git clone "${url}" "${HOME}/.config/nvim"
@@ -30,10 +30,10 @@ clone_repository() {
 
 delete_config() {
   local config=$1
-  rm -rf "${HOME}/.cache/${config}" 2>/dev/null
-  rm -rf "${HOME}/.config/${config}" 2>/dev/null
-  rm -rf "${HOME}/.local/share/${config}" 2>/dev/null
-  rm -rf "${HOME}/.local/state/${config}" 2>/dev/null
+  rm -rf "${HOME}/.cache/nvim-${config,,}" 2>/dev/null
+  rm -rf "${HOME}/.config/nvim-${config,,}" 2>/dev/null
+  rm -rf "${HOME}/.local/share/nvim-${config,,}" 2>/dev/null
+  rm -rf "${HOME}/.local/state/nvim-${config,,}" 2>/dev/null
 }
 
 select_config() {
@@ -72,12 +72,12 @@ main() {
     done
   fi
 
-  if [[ ! -d "${HOME}/.config/${selected}" ]]; then
+  if [[ ! -d "${HOME}/.config/nvim-${selected,,}" ]]; then
     clone_repository "${selected}" "${neovim_configs[$selected]}"
   fi
 
   unset VIMINIT GVIMINIT
-  NVIM_APPNAME="${selected}" nvim "$@"
+  exec env NVIM_APPNAME="nvim-${selected,,}" nvim "$@"
 }
 
 delete_config_flag=false
@@ -86,11 +86,7 @@ while getopts 'dh' option; do
     d)
       delete_config_flag=true
       ;;
-    h)
-      echo "Usage: nvims [config] [-d] [-h]"
-      exit 1
-      ;;
-    *)
+    h | *)
       echo "Usage: nvims [config] [-d] [-h]"
       exit 1
       ;;

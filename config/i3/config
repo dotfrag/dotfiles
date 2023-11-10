@@ -89,8 +89,8 @@ bindsym Mod1+Ctrl+Left  workspace prev
 bindsym Mod1+Ctrl+Right workspace next
 
 # focus output left/right
-bindsym $mod+Ctrl+Shift+h     focus output left
-bindsym $mod+Ctrl+Shift+l     focus output right
+# bindsym $mod+Ctrl+Shift+h     focus output left
+# bindsym $mod+Ctrl+Shift+l     focus output right
 bindsym $mod+Ctrl+Shift+Left  focus output left
 bindsym $mod+Ctrl+Shift+Right focus output right
 

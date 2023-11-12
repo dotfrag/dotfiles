@@ -8,7 +8,7 @@ declare -A neovim_configs=(
   [AstroNvim]="https://github.com/AstroNvim/AstroNvim"
   [Kickstart]="git@github.com:dotfrag/kickstart.nvim.git"
   [LazyVim]="git@github.com:dotfrag/lazyvim.nvim.git"
-  [NvChad]="https://github.com/NvChad/NvChad"
+  # [NvChad]="https://github.com/NvChad/NvChad"
 )
 
 clone_repository() {
@@ -87,7 +87,7 @@ while getopts 'dh' option; do
       delete_config_flag=true
       ;;
     h | *)
-      echo "Usage: nvims [config] [-d] [-h]"
+      echo "Usage: nvims [-d] [-h]"
       exit 1
       ;;
   esac

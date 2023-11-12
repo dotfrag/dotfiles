@@ -7,7 +7,7 @@
   // Choose the order of the modules
   "modules-left": ["sway/workspaces", "sway/scratchpad", "sway/window"],
   "modules-center": ["clock", "sway/mode"],
-  "modules-right": ["tray", "idle_inhibitor", "pulseaudio#mic", "pulseaudio", "network", "cpu", "memory", "temperature", "battery"],
+  "modules-right": ["tray", "idle_inhibitor", "bluetooth", "pulseaudio#mic", "pulseaudio", "network", "cpu", "memory", "temperature", "battery"],
   // Modules configuration
   "sway/workspaces": {
     "enable-bar-scroll": true,
@@ -46,6 +46,9 @@
       "activated": "",
       "deactivated": ""
     }
+  },
+  "bluetooth": {
+    "format-off": "",
   },
   "tray": {
     "icon-size": 24,

@@ -60,6 +60,7 @@ setup_zsh() {
     sudo wget -nv -O /usr/local/share/zsh/site-functions/_dunstctl https://raw.githubusercontent.com/dunst-project/dunst/master/contrib/_dunstctl.zshcomp
     sudo wget -nv -O /usr/local/share/zsh/site-functions/_exa https://raw.githubusercontent.com/ogham/exa/master/completions/zsh/_exa
     sudo wget -nv -O /usr/local/share/zsh/site-functions/_fd https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd
+    sudo wget -nv -O /usr/local/share/zsh/site-functions/_gita https://raw.githubusercontent.com/nosarthur/gita/master/auto-completion/zsh/_gita
     sudo wget -nv -O /usr/local/share/zsh/site-functions/_lf https://raw.githubusercontent.com/gokcehan/lf/master/etc/lf.zsh
     printf '=%.0s' $(seq 1 ${COLUMNS})
   fi

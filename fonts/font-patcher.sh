@@ -27,14 +27,12 @@ init() {
 }
 
 get_latest_version() {
-  LATEST_RELEASE=$(curl -sLH 'Accept: application/json' https://github.com/be5invis/Iosevka/releases/latest)
-  # shellcheck disable=SC2001
-  LATEST_VERSION=$(echo "${LATEST_RELEASE}" | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+  LATEST_VERSION=$(curl -sLH 'Accept: application/json' 'https://api.github.com/repos/be5invis/Iosevka/releases/latest' | grep -Po '"tag_name": "\Kv[^"]*')
+  LATEST_VERSION_URL="https://github.com/be5invis/Iosevka/releases/download/${LATEST_VERSION}/ttf-iosevka-ss08-${LATEST_VERSION/v/}.zip"
   if grep -qs "${LATEST_VERSION}" "${SCRIPT_DIR}/version.txt"; then
     echo "Already on the latest version. No need to update."
     exit
   fi
-  LATEST_VERSION_URL="https://github.com/be5invis/Iosevka/releases/download/${LATEST_VERSION}/ttf-iosevka-ss08-${LATEST_VERSION//v/}.zip"
 }
 
 download_and_extract_font() {

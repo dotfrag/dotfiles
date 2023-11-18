@@ -1,0 +1,2 @@
+enable=require-variable-braces,check-unassigned-uppercase
+external-sources=true

@@ -5,7 +5,7 @@
 killall -q -9 polybar
 
 # Wait until the processes have been shut down
-while pgrep -u $UID -x polybar >/dev/null; do sleep 0; done
+while pgrep -u ${UID} -x polybar >/dev/null; do sleep 0; done
 
 # Variables
 mapfile -t MONITORS < <(polybar --list-monitors | cut -d":" -f1)
@@ -20,12 +20,13 @@ fi
 # Launch the bar
 printf "\n-------------------\n" | tee -a /tmp/polybar_top.log /tmp/polybar_bottom.log
 for m in "${MONITORS[@]}"; do
-  export MONITOR=$m
+  export MONITOR=${m}
   if [ "${m}" = "${PRIMARY_MONITOR}" ]; then
     export TRAY_POS="right"
   fi
   for bar in top bottom; do
-    polybar --log=warning --reload "${bar}" 2>&1 | tee -a "/tmp/polybar_${bar}.log" & disown
+    polybar --log=warning --reload "${bar}" 2>&1 | tee -a "/tmp/polybar_${bar}.log" &
+    disown
   done
   unset TRAY_POS
 done

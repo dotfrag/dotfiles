@@ -1,3 +1,5 @@
+# shellcheck disable=SC2034
+
 packages_pacman=(
   base-devel
   bat

@@ -10,7 +10,7 @@ packages_pacman=(
   dua-cli
   duf
   entr
-  exa
+  eza
   fd
   fuzzel
   fzf

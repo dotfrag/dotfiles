@@ -7,7 +7,4 @@ config/kitty/*.session
 config/lazygit/*
 !config/lazygit/config.yml
 
-config/lvim/*
-!config/lvim/config.lua
-
 config/zsh/zsh.d/private.zsh

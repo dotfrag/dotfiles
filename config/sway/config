@@ -331,19 +331,19 @@ for_window {
   [app_id="qalculate-gtk"] $float
   [app_id="spacekitty"] $float
   [class="Bitwarden"] $float
-  [window_role="pop-up,task_dialog,About"] $float; $identify
-  [window_type="dialog"] $float; $identify
-  [window_type="utility"] $float; $identify
-  [window_type="toolbar"] $float; $identify
-  [window_type="splash"] $float; $identify
-  [window_type="menu"] $float; $identify
-  [window_type="dropdown_menu"] $float; $identify
-  [window_type="popup_menu"] $float; $identify
-  [window_type="tooltip"] $float; $identify
-  [window_type="notification"] $float; $identify
+  [window_role="pop-up,task_dialog,About"] $float
+  [window_type="dialog"] $float
+  [window_type="utility"] $float
+  [window_type="toolbar"] $float
+  [window_type="splash"] $float
+  [window_type="menu"] $float
+  [window_type="dropdown_menu"] $float
+  [window_type="popup_menu"] $float
+  [window_type="tooltip"] $float
+  [window_type="notification"] $float
 
   # popup - floating enable; sticky enable
-  [title="(?:Open|Save) (?:File|Folder|As)"] $popup; $identify
+  [title="(?:Open|Save) (?:File|Folder|As)"] $popup
   [app_id="pavucontrol"] $popup
 
   # misc

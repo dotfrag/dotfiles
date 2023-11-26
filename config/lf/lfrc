@@ -40,7 +40,7 @@ map sn :set sortby natural; set info size
 
 # bookmarks
 map gd cd ~/Downloads
-map gp cd ~/Projects
+map gp cd ~/projects
 map gP cd ~/Pictures
 map gr cd ~/repos
 map gt cd ~/tmp

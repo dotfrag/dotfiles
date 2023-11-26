@@ -19,7 +19,7 @@ setopt nonomatch
 setopt nosharehistory
 
 # ---------------------------------------------------------------------- WIDGETS
-list-dir() { echo; exa -a; printf '\n\n'; zle redisplay }
+list-dir() { echo; eza -a; printf '\n\n'; zle redisplay }
 zle -N list-dir
 bindkey "^[l" "list-dir"
 

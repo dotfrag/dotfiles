@@ -4,6 +4,7 @@
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 FZF_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/fzf"
 VIM_PACKPATH="${XDG_DATA_HOME:-${HOME}/.local/share}/vim/pack/plugins/start"
+ZSH_COMP_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/completions"
 ZSH_PLUGINS_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/plugins"
 
 # detect distro
@@ -54,15 +55,16 @@ setup_zsh() {
   git -C "${ZSH_PLUGINS_DIR}/fsh" pull 2>/dev/null || git clone --depth 1 "https://github.com/zdharma-continuum/fast-syntax-highlighting" "${ZSH_PLUGINS_DIR}/fsh"
   printf '=%.0s' $(seq 1 ${COLUMNS})
   if [ "${DISTRO}" != "Arch Linux" ]; then
-    sudo mkdir -p /usr/local/share/zsh/site-functions
-    sudo wget -nv -O /usr/local/share/zsh/site-functions/_autorandr https://raw.githubusercontent.com/phillipberndt/autorandr/master/contrib/zsh_completion/_autorandr
-    sudo wget -nv -O /usr/local/share/zsh/site-functions/_docker https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
-    sudo wget -nv -O /usr/local/share/zsh/site-functions/_dunst https://raw.githubusercontent.com/dunst-project/dunst/master/contrib/_dunst.zshcomp
-    sudo wget -nv -O /usr/local/share/zsh/site-functions/_dunstctl https://raw.githubusercontent.com/dunst-project/dunst/master/contrib/_dunstctl.zshcomp
-    sudo wget -nv -O /usr/local/share/zsh/site-functions/_exa https://raw.githubusercontent.com/ogham/exa/master/completions/zsh/_exa
-    sudo wget -nv -O /usr/local/share/zsh/site-functions/_fd https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd
-    sudo wget -nv -O /usr/local/share/zsh/site-functions/_gita https://raw.githubusercontent.com/nosarthur/gita/master/auto-completion/zsh/_gita
-    sudo wget -nv -O /usr/local/share/zsh/site-functions/_lf https://raw.githubusercontent.com/gokcehan/lf/master/etc/lf.zsh
+    # TODO: Extract completions to separate script.
+    mkdir -p "${ZSH_COMP_DIR}"
+    wget -nv -O "${ZSH_COMP_DIR}/_autorandr" https://raw.githubusercontent.com/phillipberndt/autorandr/master/contrib/zsh_completion/_autorandr
+    wget -nv -O "${ZSH_COMP_DIR}/_docker" https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
+    wget -nv -O "${ZSH_COMP_DIR}/_dunst" https://raw.githubusercontent.com/dunst-project/dunst/master/contrib/_dunst.zshcomp
+    wget -nv -O "${ZSH_COMP_DIR}/_dunstctl" https://raw.githubusercontent.com/dunst-project/dunst/master/contrib/_dunstctl.zshcomp
+    wget -nv -O "${ZSH_COMP_DIR}/_eza" https://raw.githubusercontent.com/eza-community/eza/main/completions/zsh/_eza
+    wget -nv -O "${ZSH_COMP_DIR}/_fd" https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd
+    wget -nv -O "${ZSH_COMP_DIR}/_gita" https://raw.githubusercontent.com/nosarthur/gita/master/auto-completion/zsh/_gita
+    wget -nv -O "${ZSH_COMP_DIR}/_lf" https://raw.githubusercontent.com/gokcehan/lf/master/etc/lf.zsh
     printf '=%.0s' $(seq 1 ${COLUMNS})
   fi
 }
@@ -100,8 +102,7 @@ setup_bin() {
   bash "${SCRIPT_DIR}/bin/install.sh"
 }
 
-[ "${DISTRO}" != "Arch Linux" ] && sudo -v
-[ "$1" = "pac" ] && setup_packages
+[ "$1" = "pac" ] && sudo -v && setup_packages
 setup_zsh
 setup_vim
 setup_fzf

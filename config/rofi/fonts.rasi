@@ -1,12 +1,3 @@
-/**
- *
- * Author : Aditya Shakya (adi1090x)
- * Github : @adi1090x
- * 
- * Fonts
- *
- **/
-
 * {
-    font: "IosevkaSS08 Nerd Font Propo Medium 11";
+  font: "IosevkaSS08 Nerd Font Propo Medium 11";
 }

@@ -1,0 +1,82 @@
+/*****----- Global Properties -----*****/
+@import "colors.rasi"
+@import "fonts.rasi"
+
+/*****----- Main Window -----*****/
+window {
+  /* properties for window widget */
+  transparency: "real";
+  location:     center;
+  anchor:       center;
+  fullscreen:   false;
+  width:        300px;
+  x-offset:     0px;
+  y-offset:     0px;
+
+  /* properties for all widgets */
+  enabled:          true;
+  margin:           0px;
+  padding:          0px;
+  border:           1px solid;
+  border-radius:    4px;
+  border-color:     @selected;
+  cursor:           "default";
+  background-color: @background;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+  enabled:          true;
+  spacing:          10px;
+  margin:           0px;
+  padding:          20px;
+  border:           0px solid;
+  border-radius:    0px;
+  border-color:     @selected;
+  background-color: transparent;
+  children:         [ "message", "inputbar", "listview" ];
+}
+
+/*****----- Inputbar -----*****/
+inputbar {
+  enabled:          true;
+  spacing:          10px;
+  background-color: transparent;
+  text-color:       @foreground;
+  children:         [ "entry" ];
+}
+
+entry {
+  enabled:          true;
+  padding:          4px;
+  vertical-align:   0.5;
+  horizontal-align: 0.5;
+  background-color: inherit;
+  text-color:       inherit;
+  cursor:           text;
+}
+
+/*****----- Message -----*****/
+message {
+  enabled:          true;
+  margin:           0px;
+  padding:          4px;
+  border-radius:    4px;
+  background-color: @background-alt;
+  text-color:       @foreground;
+}
+textbox {
+  text-transform:    uppercase;
+  background-color:  inherit;
+  text-color:        inherit;
+  vertical-align:    0.5;
+  horizontal-align:  0.5;
+  placeholder-color: @foreground;
+  blink:             true;
+  markup:            true;
+}
+
+/*****----- Listview -----*****/
+listview {
+  enabled: false;
+}

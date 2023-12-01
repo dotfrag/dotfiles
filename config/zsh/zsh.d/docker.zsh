@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------- DOCKER
-# copied from oh-my-zsh docker plugins
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/docker/docker.plugin.zsh
 alias dbl='docker build'
 alias dcin='docker container inspect'
 alias dcls='docker container ls'
@@ -34,6 +34,7 @@ alias dvprune='docker volume prune'
 alias dxc='docker container exec'
 alias dxcit='docker container exec -it'
 
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/docker-compose/docker-compose.plugin.zsh
 # support Compose v2 as docker CLI plugin
 (( ${+commands[docker-compose]} )) && dccmd='docker-compose' || dccmd='docker compose'
 

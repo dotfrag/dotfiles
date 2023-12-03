@@ -317,6 +317,7 @@ set {
 for_window {
   # inhibit_focus - inhibit_idle focus
   [app_id="mpv"] $inhibit_focus
+  [class="discord"] $inhibit_focus
 
   # inhibit_fullscreen - inhibit_idle fullscreen
   [instance="thorium-browser"] $inhibit_fullscreen

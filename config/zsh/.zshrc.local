@@ -19,6 +19,9 @@ setopt histsavenodups
 setopt nonomatch
 setopt nosharehistory
 
+HISTSIZE=100000
+SAVEHIST=100000
+
 # ---------------------------------------------------------------------- WIDGETS
 list-dir() { echo; eza -a; printf '\n\n'; zle redisplay }
 zle -N list-dir

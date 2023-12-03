@@ -14,6 +14,7 @@ setopt histexpiredupsfirst
 setopt histfindnodups
 setopt histignorealldups
 setopt histignoredups
+setopt histreduceblanks
 setopt histsavenodups
 setopt nonomatch
 setopt nosharehistory

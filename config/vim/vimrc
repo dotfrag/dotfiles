@@ -184,8 +184,9 @@ vnoremap <silent> <C-S> <C-C>:update<cr>
 inoremap <silent> <C-S> <C-O>:update<cr>
 
 " Visual
-nmap <leader>h :set hlsearch! hlsearch?<cr>
 nmap <leader>cc :call ColorColumnToggle()<cr>
+nmap <leader>h :set hlsearch! hlsearch?<cr>
+nmap <leader>z :set wrap!<cr>
 nmap <leader>n nzz
 nmap <leader>N Nzz
 nmap cae ggcG

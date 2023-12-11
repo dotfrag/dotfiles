@@ -19,3 +19,6 @@ disabled = false
 format = '[$symbol $common_meaning$signal_name$maybe_int \[$status\]]($style) '
 symbol = '󰅖'
 disabled = false
+
+[[battery.display]]
+threshold = 25

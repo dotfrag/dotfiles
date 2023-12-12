@@ -68,7 +68,7 @@ echo "StandardOutput=null"
 ```
 
 ```shell
-systemctl enable --now thermald
+sudo systemctl enable --now thermald
 ```
 
 <https://www.reddit.com/r/archlinux/comments/3okrhl/thermald_anyone/>
@@ -89,12 +89,12 @@ systemctl enable --now thermald
 
 ## Lid action
 
-```text
-/etc/systemd/logind.conf
-```
-
-```text
-HandleLidSwitch=ignore
+```shell
+sudo mkdir -p /etc/systemd/logind.conf.d
+sudo bash -c '{
+echo "[Login]"
+echo "HandleLidSwitch=ignore"
+} > /etc/systemd/logind.conf.d/HandleLidSwitch.conf'
 ```
 
 ```shell

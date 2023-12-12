@@ -119,15 +119,13 @@ sudo systemctl enable --now paccache.timer
 sudo pacman -S --needed reflector
 ```
 
-```text
-/etc/xdg/reflector/reflector.conf
-```
-
-```text
+```shell
+sudo bash -c 'cat <<EOF>/etc/xdg/reflector/reflector.conf
 --save /etc/pacman.d/mirrorlist
 --protocol https
 --latest 20
 --sort rate
+EOF'
 ```
 
 ```shell

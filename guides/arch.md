@@ -43,12 +43,10 @@ sudo pacman -S --needed udisks2
 ```
 
 ```text
-/etc/udisks2/mount_options.conf
-```
-
-```ini
+sudo bash -c 'cat <<EOF>/etc/udisks2/mount_options.conf
 [defaults]
-ntfs_defaults=uid=$UID,gid=$GID,prealloc
+ntfs_defaults=uid=\$UID,gid=\$GID,prealloc
+EOF'
 ```
 
 <https://wiki.archlinux.org/title/NTFS#udisks_support>
@@ -61,10 +59,10 @@ sudo pacman -S --needed thermald
 
 ```shell
 sudo mkdir -p /etc/systemd/system/thermald.service.d
-sudo bash -c '{
-echo "[Service]"
-echo "StandardOutput=null"
-} > /etc/systemd/system/thermald.service.d/nostdout.conf'
+sudo bash -c 'cat <<EOF>/etc/systemd/system/thermald.service.d/nostdout.conf
+[Service]
+StandardOutput=null
+EOF'
 ```
 
 ```shell
@@ -91,14 +89,14 @@ sudo systemctl enable --now thermald
 
 ```shell
 sudo mkdir -p /etc/systemd/logind.conf.d
-sudo bash -c '{
-echo "[Login]"
-echo "HandleLidSwitch=ignore"
-} > /etc/systemd/logind.conf.d/HandleLidSwitch.conf'
+sudo bash -c 'cat <<EOF>/etc/systemd/logind.conf.d/HandleLidSwitch.conf
+[Login]
+HandleLidSwitch=ignore
+EOF'
 ```
 
 ```shell
-systemctl kill -s HUP systemd-logind
+sudo systemctl kill -s HUP systemd-logind
 ```
 
 <https://wiki.archlinux.org/title/Power_management#ACPI_events>

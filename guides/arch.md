@@ -42,7 +42,7 @@ session optional pam_gnome_keyring.so auto_start
 sudo pacman -S --needed udisks2
 ```
 
-```text
+```shell
 sudo bash -c 'cat <<EOF>/etc/udisks2/mount_options.conf
 [defaults]
 ntfs_defaults=uid=\$UID,gid=\$GID,prealloc

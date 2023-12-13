@@ -15,7 +15,7 @@ border_top=2
 border_bottom=2
 
 [microphone]
-command=~/.config/i3/scripts/microphone.sh
+command=~/.config/i3/scripts/i3blocks/microphone.sh
 interval=once
 signal=10
 color=#eceff4
@@ -39,7 +39,7 @@ border_bottom=2
 ############
 
 [volume]
-command=~/.config/i3/scripts/volume.sh
+command=~/.config/i3/scripts/i3blocks/volume.sh
 interval=once
 signal=10
 color=#eceff4
@@ -63,7 +63,7 @@ border_bottom=2
 # ############
 
 # [mediaplayer]
-# command=~/.config/i3/scripts/media.sh
+# command=~/.config/i3/scripts/i3blocks/media.sh
 # interval=2
 # signal=6
 # color=#eceff4
@@ -87,7 +87,7 @@ border_bottom=2
 # ############
 
 # [checkupdates]
-# command=~/.config/i3/scripts/archupdates.sh
+# command=~/.config/i3/scripts/i3blocks/archupdates.sh
 # interval=once
 # signal=9
 # color=#eceff4
@@ -108,7 +108,7 @@ border_top=2
 border_bottom=2
 
 [vpn]
-command=~/.config/i3/scripts/vpn.sh
+command=~/.config/i3/scripts/i3blocks/vpn.sh
 interval=10
 color=#2e3440
 background=#81a1c1
@@ -128,7 +128,7 @@ border_top=2
 border_bottom=2
 
 [wifi]
-command=~/.config/i3/scripts/wifi.sh
+command=~/.config/i3/scripts/i3blocks/wifi.sh
 interval=once
 signal=8
 color=#2e3440
@@ -160,7 +160,7 @@ border_top=2
 border_bottom=2
 
 [battery]
-command=~/.config/i3/scripts/battery.sh
+command=~/.config/i3/scripts/i3blocks/battery.sh
 interval=5
 color=#eceff4
 background=#4c566a
@@ -180,7 +180,7 @@ border_top=2
 border_bottom=2
 
 [date]
-command=~/.config/i3/scripts/date.sh
+command=~/.config/i3/scripts/i3blocks/date.sh
 interval=60
 color=#2e3440
 background=#81a1c1
@@ -200,7 +200,7 @@ border_top=2
 border_bottom=2
 
 [time]
-command=~/.config/i3/scripts/time.sh
+command=~/.config/i3/scripts/i3blocks/time.sh
 interval=5
 color=#2e3440
 background=#88c0d0

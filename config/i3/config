@@ -148,10 +148,10 @@ bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 
 # Move current container to the next output
-bindsym $mod+x move container to output right, focus output right
+bindsym $mod+Ctrl+x move container to output right, focus output right
 
 # Move current workspace to the next output
-bindsym $mod+Ctrl+x move workspace to output right
+bindsym $mod+Shift+x move workspace to output right
 
 # Move focused container to workspace
 bindsym $mod+Shift+0 move container to workspace number 0, workspace 0, focus

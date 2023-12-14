@@ -120,32 +120,32 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+a focus child
 bindsym $mod+Shift+d exec --no-startup-id ~/.config/i3/scripts/i3-helper moveToParent
 
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
-set $ws0 "0"
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
+# # Define names for default workspaces for which we configure key bindings later on.
+# # We use variables to avoid repeating the names in multiple places.
+# set $ws0 "0"
+# set $ws1 "1"
+# set $ws2 "2"
+# set $ws3 "3"
+# set $ws4 "4"
+# set $ws5 "5"
+# set $ws6 "6"
+# set $ws7 "7"
+# set $ws8 "8"
+# set $ws9 "9"
 
 # Switch to workspace
 bindsym Mod1+Tab workspace back_and_forth
 bindsym $mod+Tab workspace back_and_forth
-bindsym $mod+0 workspace number $ws0
-bindsym $mod+1 workspace number $ws1
-bindsym $mod+2 workspace number $ws2
-bindsym $mod+3 workspace number $ws3
-bindsym $mod+4 workspace number $ws4
-bindsym $mod+5 workspace number $ws5
-bindsym $mod+6 workspace number $ws6
-bindsym $mod+7 workspace number $ws7
-bindsym $mod+8 workspace number $ws8
-bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number 0
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
 
 # Move current container to the next output
 bindsym $mod+x move container to output right, focus output right
@@ -154,16 +154,16 @@ bindsym $mod+x move container to output right, focus output right
 bindsym $mod+Ctrl+x move workspace to output right
 
 # Move focused container to workspace
-bindsym $mod+Shift+0 move container to workspace number $ws0, workspace $ws0, focus
-bindsym $mod+Shift+1 move container to workspace number $ws1, workspace $ws1, focus
-bindsym $mod+Shift+2 move container to workspace number $ws2, workspace $ws2, focus
-bindsym $mod+Shift+3 move container to workspace number $ws3, workspace $ws3, focus
-bindsym $mod+Shift+4 move container to workspace number $ws4, workspace $ws4, focus
-bindsym $mod+Shift+5 move container to workspace number $ws5, workspace $ws5, focus
-bindsym $mod+Shift+6 move container to workspace number $ws6, workspace $ws6, focus
-bindsym $mod+Shift+7 move container to workspace number $ws7, workspace $ws7, focus
-bindsym $mod+Shift+8 move container to workspace number $ws8, workspace $ws8, focus
-bindsym $mod+Shift+9 move container to workspace number $ws9, workspace $ws9, focus
+bindsym $mod+Shift+0 move container to workspace number 0, workspace 0, focus
+bindsym $mod+Shift+1 move container to workspace number 1, workspace 1, focus
+bindsym $mod+Shift+2 move container to workspace number 2, workspace 2, focus
+bindsym $mod+Shift+3 move container to workspace number 3, workspace 3, focus
+bindsym $mod+Shift+4 move container to workspace number 4, workspace 4, focus
+bindsym $mod+Shift+5 move container to workspace number 5, workspace 5, focus
+bindsym $mod+Shift+6 move container to workspace number 6, workspace 6, focus
+bindsym $mod+Shift+7 move container to workspace number 7, workspace 7, focus
+bindsym $mod+Shift+8 move container to workspace number 8, workspace 8, focus
+bindsym $mod+Shift+9 move container to workspace number 9, workspace 9, focus
 
 # reload the configuration file
 # bindsym $mod+Shift+c reload

@@ -8,12 +8,12 @@ IN_DIR=/tmp/iosevka-nerd-font/in
 OUT_DIR=/tmp/iosevka-nerd-font/out
 DOCKER=docker
 FILE_LIST=(
-  iosevka-ss08-bold.ttf
-  iosevka-ss08-bolditalic.ttf
-  iosevka-ss08-italic.ttf
-  iosevka-ss08-medium.ttf
-  iosevka-ss08-mediumitalic.ttf
-  iosevka-ss08-regular.ttf
+  IosevkaSS08-Bold.ttf
+  IosevkaSS08-BoldItalic.ttf
+  IosevkaSS08-Italic.ttf
+  IosevkaSS08-Medium.ttf
+  IosevkaSS08-MediumItalic.ttf
+  IosevkaSS08-Regular.ttf
 )
 
 init() {
@@ -28,7 +28,7 @@ init() {
 
 get_latest_version() {
   LATEST_VERSION=$(curl -sLH 'Accept: application/json' 'https://api.github.com/repos/be5invis/Iosevka/releases/latest' | grep -Po '"tag_name": "\Kv[^"]*')
-  LATEST_VERSION_URL="https://github.com/be5invis/Iosevka/releases/download/${LATEST_VERSION}/ttf-iosevka-ss08-${LATEST_VERSION/v/}.zip"
+  LATEST_VERSION_URL="https://github.com/be5invis/Iosevka/releases/download/${LATEST_VERSION}/PkgTTF-IosevkaSS08-${LATEST_VERSION/v/}.zip"
   if grep -qs "${LATEST_VERSION}" "${SCRIPT_DIR}/version.txt"; then
     echo "Already on the latest version. No need to update."
     exit
@@ -37,20 +37,20 @@ get_latest_version() {
 
 download_and_extract_font() {
   wget -nc -q --show-progress "${LATEST_VERSION_URL}" -P "${ROOT_DIR}/"
-  unzip -u "${ROOT_DIR}/ttf-iosevka-ss08-${LATEST_VERSION/v/}.zip" "${FILE_LIST[@]}" -d "${ROOT_DIR}/"
+  unzip -u "${ROOT_DIR}/PkgTTF-IosevkaSS08-${LATEST_VERSION/v/}.zip" "${FILE_LIST[@]}" -d "${ROOT_DIR}/"
 }
 
 patch_complete() {
   rm -f "${IN_DIR:?}"/* "${OUT_DIR:?}"/*
   cp -t "${IN_DIR}" "${ROOT_DIR}"/*.ttf
-  "${DOCKER}" run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete
+  ${DOCKER} run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete
   mv "${OUT_DIR:?}"/*.ttf "${SCRIPT_DIR}/"
 }
 
 patch_complete_variable_width_glyphs() {
   rm -f "${IN_DIR:?}"/* "${OUT_DIR:?}"/*
-  cp -t "${IN_DIR}" "${ROOT_DIR}"/iosevka-ss08-{regular,medium}.ttf
-  "${DOCKER}" run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete --variable-width-glyphs
+  cp -t "${IN_DIR}" "${ROOT_DIR}"/IosevkaSS08-{Regular,Medium}.ttf
+  ${DOCKER} run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete --variable-width-glyphs
   mv "${OUT_DIR:?}"/*.ttf "${SCRIPT_DIR}/"
 }
 

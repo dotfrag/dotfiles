@@ -26,7 +26,7 @@ gco() {
     rg -v '^\*' |
     awk -F'/' '{print $NF}' |
     sort -u |
-    fzf --bind 'enter:become(git checkout {})'
+    fzf -q "$1" --bind 'enter:become(git checkout {})'
 }
 
 # check if main exists and use instead of master

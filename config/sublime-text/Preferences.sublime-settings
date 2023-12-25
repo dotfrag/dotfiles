@@ -1,0 +1,12 @@
+{
+	"color_scheme": "Catppuccin Macchiato.sublime-color-scheme",
+	"theme": "Adaptive.sublime-theme",
+	"font_face": "Iosevka SS08 Medium",
+	"remember_workspace": false,
+	"ignored_packages":
+	[
+		"Vintage",
+	],
+	"font_size": 11,
+	"index_files": true,
+}

@@ -15,11 +15,13 @@ declare -A config_dirs=(
   ["zsh"]=".zshrc.local"
 )
 
-for i in $(git -C "${SCRIPT_DIR}" ls-tree --name-only main | grep -vP "install|zsh"); do
+# straightforward configs
+for i in $(git -C "${SCRIPT_DIR}" ls-tree --name-only main | grep -vP "install|zsh|sublime-text"); do
   rm -rf "${CONFIG_DIR:?}/${i}"
   output+=("$(command -v "${i}" >/dev/null && ln -vsf "${SCRIPT_DIR}/${i}" "${CONFIG_DIR}/${i}")")
 done
 
+# custom config dirs
 for i in "${!config_dirs[@]}"; do
   if [[ "${i}" = zsh ]]; then
     output+=("$(command -v zsh >/dev/null && ln -vsf "${SCRIPT_DIR}/zsh/${config_dirs[${i}]}" "${ZSH_DIR}/${config_dirs[${i}]}")")
@@ -29,6 +31,9 @@ for i in "${!config_dirs[@]}"; do
   fi
   output+=("$(command -v "${i}" >/dev/null && ln -vsf "${SCRIPT_DIR}/${config_dirs[${i}]}" "${CONFIG_DIR}/${config_dirs[${i}]}")")
 done
+
+# sublime-text
+output+=("$(command -v subl >/dev/null && ln -vsfT "${SCRIPT_DIR}/sublime-text" "${CONFIG_DIR}/sublime-text/Packages/User")")
 
 # shellcheck disable=SC2207
 IFS=$'\n' output=($(sort <<<"${output[*]}"))

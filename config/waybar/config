@@ -51,8 +51,8 @@
     "format-off": "",
   },
   "tray": {
-    "icon-size": 24,
-    "spacing": 10
+    "icon-size": 20,
+    "spacing": 16
   },
   "clock": {
     "tooltip-format": "{calendar}",

@@ -159,7 +159,7 @@ sudo gunzip -f /usr/local/share/kbd/keymaps/personal.map.gz
 sudo sed -i 's/Caps_Lock/Escape/g' /usr/local/share/kbd/keymaps/personal.map
 ```
 
-Add relative lines to `/etc/vconsole.conf`:
+Add related lines to `/etc/vconsole.conf`:
 
 ```text
 KEYMAP=/usr/local/share/kbd/keymaps/personal.map

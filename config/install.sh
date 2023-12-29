@@ -24,7 +24,7 @@ done
 for i in "${!config_dirs[@]}"; do
   if [[ "${i}" = zsh ]]; then
     output+=("$(command -v zsh >/dev/null && ln -vsfT "${SCRIPT_DIR}/zsh/${config_dirs[${i}]}" "${ZSH_DIR}/${config_dirs[${i}]}")")
-    output+=("$(ln -vsf "${SCRIPT_DIR}/${config_dirs['fast-theme']}" "${HOME}/.config/${config_dirs['fast-theme']}")")
+    output+=("$(ln -vsfT "${SCRIPT_DIR}/${config_dirs['fast-theme']}" "${HOME}/.config/${config_dirs['fast-theme']}")")
     zsh -ic 'fast-theme XDG:catppuccin-macchiato; bat cache --build' >/dev/null
     continue
   fi

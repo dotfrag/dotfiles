@@ -10,6 +10,7 @@ Reference of one-off stuff that I will forget.
 - [Package cache](#package-cache)
 - [Reflector](#reflector)
 - [GPG](#gpg)
+- [TTY keymap and font](#tty-keymap-and-font)
 
 ## Gnome Keyring
 
@@ -144,3 +145,23 @@ chmod 700 $GNUPGHOME
 ```
 
 <https://wiki.archlinux.org/title/GnuPG#Keyblock_resource_does_not_exist>, <https://gist.github.com/oseme-techguy/bae2e309c084d93b75a9b25f49718f85>
+
+## TTY keymap and font
+
+```shell
+sudo pacman -S --needed terminus-font
+```
+
+```shell
+sudo mkdir -p /usr/local/share/kbd/keymaps
+sudo cp /usr/share/kbd/keymaps/i386/qwerty/us.map.gz /usr/local/share/kbd/keymaps/personal.map.gz
+sudo gunzip -f /usr/local/share/kbd/keymaps/personal.map.gz
+sudo sed -i 's/Caps_Lock/Escape/g' /usr/local/share/kbd/keymaps/personal.map
+```
+
+Add relative lines to `/etc/vconsole.conf`:
+
+```text
+KEYMAP=/usr/local/share/kbd/keymaps/personal.map
+FONT=ter-d20b.psf.gz
+```

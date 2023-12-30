@@ -336,17 +336,17 @@ for_window {
   [app_id="pavucontrol"] $float
   [app_id="qalculate-gtk"] $float
   [app_id="spacekitty"] $float
-  [class="Bitwarden"] $float
+  [class="Google-chrome" title="Bitwarden"] $float
   [window_role="pop-up,task_dialog,About"] $float
   [window_type="dialog"] $float
-  [window_type="utility"] $float
-  [window_type="toolbar"] $float
-  [window_type="splash"] $float
-  [window_type="menu"] $float
   [window_type="dropdown_menu"] $float
-  [window_type="popup_menu"] $float
-  [window_type="tooltip"] $float
+  [window_type="menu"] $float
   [window_type="notification"] $float
+  [window_type="popup_menu"] $float
+  [window_type="splash"] $float
+  [window_type="toolbar"] $float
+  [window_type="tooltip"] $float
+  [window_type="utility"] $float
 
   # popup - floating enable; sticky enable
   [title="(?:Open|Save) (?:File|Folder|As)"] $popup

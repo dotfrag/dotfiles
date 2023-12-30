@@ -12,6 +12,7 @@ declare -A config_dirs=(
   ["google-chrome-stable"]="chrome-flags.conf"
   ["networkmanager_dmenu"]="networkmanager-dmenu"
   ["rg"]="ripgrep"
+  ["sway"]="xdg-desktop-portals"
   ["zsh"]=".zshrc.local"
 )
 

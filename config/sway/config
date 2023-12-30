@@ -226,6 +226,7 @@ input {
     bindsym Print            exec wl-copy <$(grimshot save)
     bindsym $mod+Print       exec wl-copy <$(grimshot save active)
     bindsym $mod+Ctrl+Print  exec wl-copy <$(grimshot save window)
+    bindsym $mod+Shift+Print exec flameshot gui
 #
 # Scratchpad:
 #

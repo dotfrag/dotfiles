@@ -109,10 +109,10 @@ touchx() {
 
 # backup/restore file
 bak() {
-  mv -v "$1" "$1.bak"
+  mv "$1" "$1.bak"
 }
 ubak() {
-  mv -v "$1" "${1%.bak}"
+  mv "$1" "${1%.bak}"
 }
 
 # ripgrep | less

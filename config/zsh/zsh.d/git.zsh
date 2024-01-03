@@ -8,6 +8,7 @@ alias gcm='gr && git checkout $(git_main_branch)'
 alias gd='git diff'
 alias gdd='git diff | delta'
 alias gdu='git diff --no-ext-diff -U0'
+alias gdud='gdu | delta'
 alias gdw='git diff -w'
 alias gfp="git ls-files --full-name"
 alias glg='git log --oneline -5'

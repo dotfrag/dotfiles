@@ -73,9 +73,9 @@ set cleaner ctpvclear
 &ctpv -s $id
 &ctpvquit $id
 
-# exa can be used to provide the file information shown in the bottom left corner
+# eza can be used to provide the file information shown in the bottom left corner
 cmd on-select &{{
-  lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
+  lf -remote "send $id set statfmt \"$(eza -ld --color=always "$f")\""
 }}
 
 # define a custom 'open' command

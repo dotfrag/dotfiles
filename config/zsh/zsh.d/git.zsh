@@ -93,9 +93,9 @@ glf() {
 glog() {
   git log --oneline --decorate --color "$@" |
     fzf --ansi --multi --height 100% \
-    --preview 'git show -m --color {1}' \
+    --preview 'git show --stat -p -m --color {1}' \
     --preview-window 'down,80%' \
-    --bind 'enter:become(git show -m {1})'
+    --bind 'enter:become(git show --stat -p -m {1})'
 }
 
 # run git command for all repos in directory (serial)

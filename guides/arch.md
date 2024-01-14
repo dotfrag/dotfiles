@@ -3,13 +3,14 @@
 Reference of one-off stuff that I will forget.
 
 - [Gnome Keyring](#gnome-keyring)
-- [Mounting NTFS with udisks](#mounting-ntfs-with-udisks)
-- [thermald](#thermald)
+- [GPG](#gpg)
 - [Hosts file](#hosts-file)
 - [Lid action](#lid-action)
+- [Mounting NTFS with udisks](#mounting-ntfs-with-udisks)
 - [Package cache](#package-cache)
 - [Reflector](#reflector)
-- [GPG](#gpg)
+- [Sudoers](#sudoers)
+- [thermald](#thermald)
 - [TTY keymap and font](#tty-keymap-and-font)
 
 ## Gnome Keyring
@@ -37,40 +38,16 @@ session optional pam_gnome_keyring.so auto_start
 
 <https://wiki.archlinux.org/title/GNOME/Keyring#PAM_step>
 
-## Mounting NTFS with udisks
+## GPG
 
 ```shell
-sudo pacman -S --needed udisks2
+mkdir -p $GNUPGHOME
+chown -R $(whoami) $GNUPGHOME
+chmod 600 $GNUPGHOME/*
+chmod 700 $GNUPGHOME
 ```
 
-```shell
-sudo bash -c 'cat <<EOF>/etc/udisks2/mount_options.conf
-[defaults]
-ntfs_defaults=uid=\$UID,gid=\$GID,prealloc
-EOF'
-```
-
-<https://wiki.archlinux.org/title/NTFS#udisks_support>
-
-## thermald
-
-```shell
-sudo pacman -S --needed thermald
-```
-
-```shell
-sudo mkdir -p /etc/systemd/system/thermald.service.d
-sudo bash -c 'cat <<EOF>/etc/systemd/system/thermald.service.d/nostdout.conf
-[Service]
-StandardOutput=null
-EOF'
-```
-
-```shell
-sudo systemctl enable --now thermald
-```
-
-<https://www.reddit.com/r/archlinux/comments/3okrhl/thermald_anyone/>
+<https://wiki.archlinux.org/title/GnuPG#Keyblock_resource_does_not_exist>, <https://gist.github.com/oseme-techguy/bae2e309c084d93b75a9b25f49718f85>
 
 ## Hosts file
 
@@ -101,6 +78,21 @@ sudo systemctl kill -s HUP systemd-logind
 ```
 
 <https://wiki.archlinux.org/title/Power_management#ACPI_events>
+
+## Mounting NTFS with udisks
+
+```shell
+sudo pacman -S --needed udisks2
+```
+
+```shell
+sudo bash -c 'cat <<EOF>/etc/udisks2/mount_options.conf
+[defaults]
+ntfs_defaults=uid=\$UID,gid=\$GID,prealloc
+EOF'
+```
+
+<https://wiki.archlinux.org/title/NTFS#udisks_support>
 
 ## Package cache
 
@@ -135,16 +127,32 @@ sudo systemctl enable --now reflector.timer
 
 <https://wiki.archlinux.org/title/reflector>
 
-## GPG
+## Sudoers
 
-```shell
-mkdir -p $GNUPGHOME
-chown -R $(whoami) $GNUPGHOME
-chmod 600 $GNUPGHOME/*
-chmod 700 $GNUPGHOME
+```text
+Defaults editor=/usr/bin/vim
+Defaults env_keep += "SYSTEMD_EDITOR"
 ```
 
-<https://wiki.archlinux.org/title/GnuPG#Keyblock_resource_does_not_exist>, <https://gist.github.com/oseme-techguy/bae2e309c084d93b75a9b25f49718f85>
+## thermald
+
+```shell
+sudo pacman -S --needed thermald
+```
+
+```shell
+sudo mkdir -p /etc/systemd/system/thermald.service.d
+sudo bash -c 'cat <<EOF>/etc/systemd/system/thermald.service.d/nostdout.conf
+[Service]
+StandardOutput=null
+EOF'
+```
+
+```shell
+sudo systemctl enable --now thermald
+```
+
+<https://www.reddit.com/r/archlinux/comments/3okrhl/thermald_anyone/>
 
 ## TTY keymap and font
 

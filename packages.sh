@@ -7,6 +7,7 @@ packages_pacman=(
   brightnessctl
   btop
   curl
+  difftastic
   dua-cli
   duf
   entr

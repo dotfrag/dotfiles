@@ -40,11 +40,6 @@ set $term kitty
 # on the original workspace that the command was run on.
 set $menu fuzzel
 
-### D-Bus
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-
 ### Output configuration
 output * bg ~/Pictures/wallpapers/current fill
 exec gammastep
@@ -60,6 +55,9 @@ exec swayidle -w \
 
 ### Notification daemon
 exec swaync
+
+### IBus daemon
+exec ibus-daemon -rxRd
 
 ### Input configuration
 input {
@@ -208,13 +206,13 @@ input {
 #
 # Volume:
 #
+    exec_always wpctl set-volume @DEFAULT_AUDIO_SINK@   40%
+    exec_always wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 10%
+    exec_always wpctl set-mute   @DEFAULT_AUDIO_SOURCE@ 1
     bindsym --locked XF86AudioMute        exec wpctl set-mute   @DEFAULT_AUDIO_SINK@   toggle
     bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@   5%- -l 1.2
     bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@   5%+ -l 1.2
     bindsym --locked $mod+m               exec wpctl set-mute   @DEFAULT_AUDIO_SOURCE@ toggle
-    exec_always wpctl set-volume @DEFAULT_AUDIO_SINK@   40%
-    exec_always wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 10%
-    exec_always wpctl set-mute   @DEFAULT_AUDIO_SOURCE@ 1
 #
 # Backlight:
 #
@@ -330,6 +328,7 @@ for_window {
   [instance="chromium"] $inhibit_fullscreen
 
   # float - floating enable
+  [app_id="ibus-extension-gtk3"] $float
   [app_id="imv"] $float
   [app_id="mpv"] $float
   [app_id="nemo"] $float

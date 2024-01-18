@@ -84,7 +84,9 @@ input {
     bindsym $mod+Return exec $term
 
     # Start a floating terminal
-    bindsym $mod+Ctrl+Return exec kitty --class "spacekitty"
+    set $spacekitty kitty --class "spacekitty"
+    bindsym $mod+Ctrl+Return exec $spacekitty
+    bindsym $mod+Shift+Return exec $spacekitty
 
     # Kill focused window
     bindsym $mod+Shift+q kill

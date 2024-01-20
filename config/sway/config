@@ -273,6 +273,9 @@ mode "resize" {
     bindsym Shift+Up    resize shrink height 40px
     bindsym Shift+Right resize grow   width  40px
 
+    # Move window to center
+    bindsym $mod+c move position center
+
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"

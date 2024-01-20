@@ -307,6 +307,8 @@ mode $powermenu {
 bindsym $mod+Escape mode $powermenu
 
 ### Window rules
+focus_on_window_activation focus
+
 assign {
   # [class="Code"]     workspace number 4
   [class="obsidian"] workspace number 5

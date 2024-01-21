@@ -1,6 +1,5 @@
 configuration {
   /*---------- General setting ----------*/
-  modi: "drun,run,filebrowser,window";
   case-sensitive: false;
   cycle: true;
   filter: "";
@@ -54,24 +53,14 @@ configuration {
   window-thumbnail: false;
 
   /*---------- Combi settings ----------*/
-/*  combi-modi: "window,run";*/
-/*  combi-hide-mode-prefix: false;*/
-/*  combi-display-format: "{mode} {text}";*/
+  /* combi-modi: "window,run";*/
+  /* combi-hide-mode-prefix: false;*/
+  /* combi-display-format: "{mode} {text}";*/
 
   /*---------- History and Sorting ----------*/
   disable-history: false;
   sorting-method: "fzf";
   max-history-size: 25;
-
-  /*---------- Display setting ----------*/
-  display-window: "Windows";
-  display-windowcd: "Window CD";
-  display-run: "Run";
-  display-ssh: "SSH";
-  display-drun: "Apps";
-  display-combi: "Combi";
-  display-keys: "Keys";
-  display-filebrowser: "Files";
 
   /*---------- Misc setting ----------*/
   terminal: "rofi-sensible-terminal";

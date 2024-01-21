@@ -6,6 +6,7 @@ ZSH_DIR=${ZDOTDIR:-${HOME}}
 
 output=()
 declare -A config_dirs=(
+  ["Hyprland"]="hypr"
   ["betterlockscreen"]="betterlockscreenrc"
   ["fast-theme"]="fsh"
   ["google-chrome"]="chrome-flags.conf"

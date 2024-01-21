@@ -240,13 +240,24 @@ map P :link
 
 # toggle preview column
 cmd toggle_preview %{{
-    if [ "$lf_preview" = "true" ]; then
-        lf -remote "send $id :set preview false; set ratios 1:5"
-    else
-        lf -remote "send $id :set preview true; set ratios 1:2:3"
-    fi
+  if [ "$lf_preview" = "true" ]; then
+    lf -remote "send $id :set preview false; set ratios 1:5"
+  else
+    lf -remote "send $id :set preview true; set ratios 1:2:3"
+  fi
 }}
 map zp toggle_preview
+
+# toggle preview mode
+set user_preview_mode false
+cmd toggle_preview_mode %{{
+  if [ "$lf_user_preview_mode" = "false" ]; then
+    lf -remote "send $id :set ratios 1:5; set user_preview_mode true"
+  else
+    lf -remote "send $id :set ratios 1:2:3; set user_preview_mode false"
+  fi
+}}
+map zP toggle_preview_mode
 
 # select all files or directories in the current directory
 cmd select-files &{{

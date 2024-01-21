@@ -49,7 +49,7 @@ bindsym Print      exec --no-startup-id flameshot gui
 bindsym $mod+Print exec --no-startup-id ~/.config/i3/scripts/scrot-active-window
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # rofi
 bindsym $mod+d       exec --no-startup-id "rofi -show drun"

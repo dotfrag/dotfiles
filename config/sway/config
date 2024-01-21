@@ -84,7 +84,7 @@ input {
     bindsym $mod+Shift+Return exec $spacekitty
 
     # Kill focused window
-    bindsym $mod+Shift+q kill
+    bindsym $mod+q kill
 
     # Start your launcher
     bindsym $mod+d       exec rofi -show drun

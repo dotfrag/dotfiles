@@ -87,8 +87,8 @@ input {
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+d       exec "rofi -show drun"
-    bindsym $mod+Shift+p exec "rofi -show run"
+    bindsym $mod+d       exec rofi -show drun
+    bindsym $mod+Shift+p exec rofi -show run
 
     # Notification center
     bindsym $mod+Shift+n exec swaync-client -t -sw

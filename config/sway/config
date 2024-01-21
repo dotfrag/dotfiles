@@ -326,8 +326,9 @@ for_window {
   [class="discord"] $inhibit_focus
 
   # inhibit_fullscreen - inhibit_idle fullscreen
-  [instance="google-chrome"] $inhibit_fullscreen
   [instance="chromium"] $inhibit_fullscreen
+  [instance="google-chrome"] $inhibit_fullscreen
+  [instance="thorium-browser"] $inhibit_fullscreen
 
   # float - floating enable
   [app_id="ibus-extension-gtk3"] $float

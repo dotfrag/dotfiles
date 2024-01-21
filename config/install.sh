@@ -15,6 +15,7 @@ declare -A config_dirs=(
   ["rg"]="ripgrep"
   ["subl"]="sublime-text"
   ["sway"]="xdg-desktop-portal"
+  ["thorium-browser"]="thorium-flags.conf"
   ["zsh"]=".zshrc.local"
 )
 

@@ -1,6 +1,5 @@
 /*****----- Global Properties -----*****/
 @import "colors.rasi"
-@import "fonts.rasi"
 
 /*****----- Main Window -----*****/
 window {
@@ -80,3 +79,5 @@ textbox {
 listview {
   enabled: false;
 }
+
+// vim: ft=rasi

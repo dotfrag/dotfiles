@@ -13,7 +13,6 @@ packages_pacman=(
   entr
   eza
   fd
-  fuzzel
   fzf
   gammastep
   git
@@ -43,6 +42,7 @@ packages_pacman=(
   procs
   reflector
   ripgrep
+  rofi
   rsync
   seahorse
   skim

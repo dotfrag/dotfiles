@@ -35,11 +35,6 @@ set $right l
 # Your preferred terminal emulator
 set $term kitty
 
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-set $menu fuzzel
-
 ### Output configuration
 output * bg ~/Pictures/wallpapers/current fill
 exec gammastep
@@ -92,8 +87,8 @@ input {
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu
-    bindsym $mod+Shift+p exec dmenu_path | $menu -d | xargs swaymsg exec --
+    bindsym $mod+d       exec "rofi -show drun"
+    bindsym $mod+Shift+p exec "rofi -show run"
 
     # Notification center
     bindsym $mod+Shift+n exec swaync-client -t -sw

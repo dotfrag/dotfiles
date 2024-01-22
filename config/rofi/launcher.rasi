@@ -93,9 +93,9 @@ prompt {
 }
 textbox-prompt-colon {
   enabled:          true;
-  padding:          6px 0 12px 0;
+  padding:          6px 0 12px 4px;
   expand:           false;
-  str:              "";
+  str:              "❯";
   background-color: inherit;
   text-color:       inherit;
 }

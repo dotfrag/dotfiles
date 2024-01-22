@@ -64,7 +64,7 @@ configuration {
 
   /*---------- Misc setting ----------*/
   terminal: "rofi-sensible-terminal";
-  font: "Iosevka SS08 Medium 12";
+  font: "Iosevka SS08 Medium 11";
   sort: true;
   threads: 0;
   click-to-exit: true;

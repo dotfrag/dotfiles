@@ -85,7 +85,7 @@ nmap dil 0d$
 cmap w!! w !sudo tee > /dev/null %
 
 " Regex: Trailing spaces
-nmap <leader>ts :%s/\s\+$//<cr>
+nmap <leader>rt :%s/\s\+$//<cr>``
 
 " File specific settings
 autocmd BufEnter *.log* set nonumber norelativenumber nolist

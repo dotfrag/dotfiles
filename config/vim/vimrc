@@ -196,7 +196,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Regex: Trailing spaces
-nmap <leader>ts :%s/\s\+$//<cr>``
+nmap <leader>rt :%s/\s\+$//<cr>``
 
 " Fzf
 nmap <leader>b :Buffers<cr>

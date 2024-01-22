@@ -5,7 +5,7 @@ configuration {
   filter: "";
   scroll-method: 0;
   normalize-match: true;
-  show-icons: true;
+  // show-icons: true;
   icon-theme: "NordArc-Icons";
   /*  cache-dir: ;*/
   steal-focus: false;

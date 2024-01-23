@@ -67,6 +67,9 @@ map zf filter
 map J :updir; set dironly true; down; set dironly false; open
 map K :updir; set dironly true; up; set dironly false; open
 
+# pager
+map i $bat --paging=always $f
+
 # file previewer (ctpv)
 set previewer ctpv
 set cleaner ctpvclear

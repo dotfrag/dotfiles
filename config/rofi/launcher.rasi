@@ -34,7 +34,7 @@ window {
   location:     center;
   anchor:       center;
   fullscreen:   false;
-  width:        540px;
+  width:        360px;
   x-offset:     0px;
   y-offset:     0px;
 

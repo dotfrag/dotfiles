@@ -67,6 +67,10 @@ nmap <leader>x :x<cr>
 nmap <leader>d :bd<cr>
 nmap <leader>q :q<cr>
 
+noremap  <silent> <C-S> :update<cr>
+vnoremap <silent> <C-S> <C-C>:update<cr>
+inoremap <silent> <C-S> <C-O>:update<cr>
+
 nmap <leader>n :set number! relativenumber!<cr>
 nmap <leader>r :set relativenumber!<cr>
 

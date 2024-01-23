@@ -326,9 +326,7 @@ for_window {
   [class="discord"] $inhibit_focus
 
   # inhibit_fullscreen - inhibit_idle fullscreen
-  [instance="chromium"] $inhibit_fullscreen
-  [instance="google-chrome"] $inhibit_fullscreen
-  [instance="thorium-browser"] $inhibit_fullscreen
+  [instance="chromium|google-chrome|thorium-browser"] $inhibit_fullscreen
 
   # float - floating enable
   [app_id="ibus-extension-gtk3"] $float
@@ -339,8 +337,8 @@ for_window {
   [app_id="pavucontrol"] $float
   [app_id="qalculate-gtk"] $float
   [app_id="spacekitty"] $float
-  [class="Google-chrome" title="Bitwarden"] $float
   [class="qBittorrent" title="^(?!qBittorrent)"] $float
+  [instance="chromium|google-chrome|thorium-browser" title="Bitwarden"] $float
   [window_role="pop-up,task_dialog,About"] $float
   [window_type="dialog"] $float
   [window_type="dropdown_menu"] $float

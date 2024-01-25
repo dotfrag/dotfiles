@@ -13,6 +13,7 @@ declare -A config_dirs=(
   ["google-chrome-stable"]="chrome-flags.conf"
   ["networkmanager_dmenu"]="networkmanager-dmenu"
   ["rg"]="ripgrep"
+  ["setxkbmap"]="xkb"
   ["subl"]="sublime-text"
   ["sway"]="xdg-desktop-portal"
   ["thorium-browser"]="thorium-flags.conf"

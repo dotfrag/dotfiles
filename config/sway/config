@@ -57,7 +57,7 @@ exec ibus-daemon -rxRd
 ### Input configuration
 input {
   type:keyboard {
-    xkb_options caps:escape
+    xkb_file ~/.config/xkb/keymap.xkb
     repeat_delay 250
     repeat_rate 50
   }

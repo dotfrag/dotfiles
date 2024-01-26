@@ -7,5 +7,4 @@ xkb_keymap {
       replace key <CAPS> { [ Escape ] };
       replace key <COMP> { [ Super_R ] };
   };
-  xkb_geometry  { include "pc(pc105)" };
 };

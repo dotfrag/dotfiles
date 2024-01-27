@@ -28,7 +28,6 @@ alias ran='ranger --choosedir=/tmp/.rangerdir; LASTDIR=$(cat /tmp/.rangerdir); c
 alias tx='tmux attach-session || start-tmux.sh'
 
 alias update-fnm='curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell'
-alias update-grml-zshrc='wget -nv -O ${ZDOTDIR:-${HOME}}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc'
 
 # --------------------------------------------------------------- GLOBAL ALIASES
 alias -g C='|wc -l'

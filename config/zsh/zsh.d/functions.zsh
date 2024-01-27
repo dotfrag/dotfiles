@@ -81,11 +81,18 @@ copy() {
   fi
 }
 
+# update dotfiles list
 update-dots() {
   local dots="${XDG_STATE_HOME:-${HOME}/.local/state}/dots"
   git -C "${HOME}/repos/dotfiles" ls-files | rg -v 'ttf$' | while read line; do realpath "${HOME}/repos/dotfiles/${line}"; done >"${dots}"
   git -C "${HOME}/repos/dotfiles-private" ls-files | while read line; do realpath "${HOME}/repos/dotfiles-private/${line}"; done >>"${dots}"
   sort -o "${dots}" -u "${dots}"
+}
+
+# update grml zsh config files
+update-grml-zshrc() {
+  wget -nv -O "${ZDOTDIR:-${HOME}}/.zshrc" https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+  wget -nv -O "${ZDOTDIR:-${HOME}}/.zshrc.skel" https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
 }
 
 # history grep

@@ -4,7 +4,6 @@
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 FZF_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/fzf"
 VIM_PACKPATH="${XDG_DATA_HOME:-${HOME}/.local/share}/vim/pack/plugins/start"
-ZSH_COMP_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/completions"
 ZSH_PLUGINS_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/plugins"
 
 # detect distro
@@ -23,6 +22,10 @@ else
   exit 1
 fi
 
+println() {
+  printf '=%.0s' $(seq 1 ${COLUMNS})
+}
+
 setup_packages() {
   . packages.sh
   if [ "${DISTRO}" = "Arch Linux" ]; then
@@ -40,7 +43,7 @@ setup_packages() {
     sudo "${apt}" update
     sudo "${apt}" install -y "${packages_apt[@]}"
   fi
-  printf '=%.0s' $(seq 1 ${COLUMNS})
+  println
 }
 
 setup_zsh() {
@@ -48,20 +51,6 @@ setup_zsh() {
   mkdir -p "${ZSH_PLUGINS_DIR}"
   printf "[fast-syntax-highlighting] "
   git -C "${ZSH_PLUGINS_DIR}/fsh" pull 2>/dev/null || git clone --depth 1 "https://github.com/zdharma-continuum/fast-syntax-highlighting" "${ZSH_PLUGINS_DIR}/fsh"
-  printf '=%.0s' $(seq 1 ${COLUMNS})
-  if [ "${DISTRO}" != "Arch Linux" ]; then
-    # TODO: Extract completions to separate script.
-    mkdir -p "${ZSH_COMP_DIR}"
-    wget -nv -O "${ZSH_COMP_DIR}/_autorandr" https://raw.githubusercontent.com/phillipberndt/autorandr/master/contrib/zsh_completion/_autorandr
-    wget -nv -O "${ZSH_COMP_DIR}/_docker" https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
-    wget -nv -O "${ZSH_COMP_DIR}/_dunst" https://raw.githubusercontent.com/dunst-project/dunst/master/contrib/_dunst.zshcomp
-    wget -nv -O "${ZSH_COMP_DIR}/_dunstctl" https://raw.githubusercontent.com/dunst-project/dunst/master/contrib/_dunstctl.zshcomp
-    wget -nv -O "${ZSH_COMP_DIR}/_eza" https://raw.githubusercontent.com/eza-community/eza/main/completions/zsh/_eza
-    wget -nv -O "${ZSH_COMP_DIR}/_fd" https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd
-    wget -nv -O "${ZSH_COMP_DIR}/_gita" https://raw.githubusercontent.com/nosarthur/gita/master/auto-completion/zsh/_gita
-    wget -nv -O "${ZSH_COMP_DIR}/_lf" https://raw.githubusercontent.com/gokcehan/lf/master/etc/lf.zsh
-    printf '=%.0s' $(seq 1 ${COLUMNS})
-  fi
 }
 
 setup_vim() {
@@ -76,7 +65,7 @@ setup_vim() {
     printf "[%s] " "${name}"
     git -C "${VIM_PACKPATH}/${name}" pull 2>/dev/null || git clone --depth 1 "https://github.com/${i}" "${VIM_PACKPATH}/${name}"
   done
-  printf '=%.0s' $(seq 1 ${COLUMNS})
+  println
 }
 
 setup_fzf() {
@@ -84,13 +73,13 @@ setup_fzf() {
     printf "[fzf] "
     git -C "${FZF_DIR}" pull 2>/dev/null || git clone --depth 1 https://github.com/junegunn/fzf "${FZF_DIR}"
     "${FZF_DIR}/install" --completion --key-bindings --no-bash --no-update-rc --xdg >/dev/null
-    printf '=%.0s' $(seq 1 ${COLUMNS})
+    println
   fi
 }
 
 setup_config() {
   bash "${SCRIPT_DIR}/config/install.sh"
-  printf '=%.0s' $(seq 1 ${COLUMNS})
+  println
 }
 
 setup_bin() {

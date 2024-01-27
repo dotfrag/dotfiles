@@ -45,11 +45,6 @@ setup_packages() {
 
 setup_zsh() {
   [ -n "${ZDOTDIR}" ] && mkdir -p "${ZDOTDIR}"
-  wget -nv -O "${ZDOTDIR:-${HOME}}/.zshrc" https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
-  wget -nv -O "${ZDOTDIR:-${HOME}}/.zshrc.skel" https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
-  [ -f "${ZDOTDIR:-${HOME}}/.zshrc.pre" ] || printf "ls_options+=( --group-directories-first )" >"${ZDOTDIR:-${HOME}}/.zshrc.pre"
-  ln -vsf "${SCRIPT_DIR}/config/zsh/.zshrc.local" "${ZDOTDIR:-${HOME}}/.zshrc.local"
-  ln -vsf "${SCRIPT_DIR}/config/zsh/zsh.d" "${ZDOTDIR:-${HOME}}/"
   mkdir -p "${ZSH_PLUGINS_DIR}"
   printf "[fast-syntax-highlighting] "
   git -C "${ZSH_PLUGINS_DIR}/fsh" pull 2>/dev/null || git clone --depth 1 "https://github.com/zdharma-continuum/fast-syntax-highlighting" "${ZSH_PLUGINS_DIR}/fsh"

@@ -18,8 +18,8 @@ sudo apt install -y nala
 
 ```shell
 sudo nala install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev
-git -C /tmp clone https://www.github.com/Airblader/i3 i3-gaps
-cd /tmp/i3-gaps
+git -C /tmp clone https://github.com/i3/i3
+cd /tmp/i3
 mkdir -p build && cd build
 meson ..
 sudo meson install
@@ -60,9 +60,8 @@ sudo make install
 
 ```shell
 sudo nala install -y libdbus-1-dev libx11-dev libxinerama-dev libxrandr-dev libxss-dev libglib2.0-dev libpango1.0-dev libgtk-3-dev libxdg-basedir-dev
-cd /tmp
-git clone https://github.com/dunst-project/dunst.git
-cd dunst
+git -C /tmp clone https://github.com/dunst-project/dunst.git
+cd /tmp/dunst
 make
 sudo make WAYLAND=0 install
 ```

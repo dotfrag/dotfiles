@@ -175,8 +175,9 @@ bindsym $mod+Shift+r restart
 
 # gaps
 gaps inner 10
+smart_gaps on
 smart_borders on
-hide_edge_borders both
+default_border pixel 1
 
 # resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"

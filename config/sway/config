@@ -356,7 +356,7 @@ for_window {
 
   # misc
   [urgent=latest] focus
-  [app_id="flameshot"] border pixel 0, floating enable, fullscreen disable, move absolute position 0 0
+  [app_id="flameshot"] border none, floating enable, fullscreen disable, move absolute position 0 0
 }
 
 ### Gaps

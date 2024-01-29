@@ -58,8 +58,10 @@ packages_pacman=(
   wget
   wl-clipboard
   yt-dlp
+  zip
   zoxide
   zsh
+  zstd
 )
 
 packages_yay=(

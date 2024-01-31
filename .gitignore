@@ -13,4 +13,4 @@ config/zsh/.zdirs
 config/zsh/.zprofile
 config/zsh/.zsh_history
 config/zsh/.zshrc.pre
-config/zsh/zsh.d/private.zsh
+config/zsh/conf.d/private.zsh

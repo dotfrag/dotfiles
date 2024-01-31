@@ -1,8 +1,8 @@
 # .zshrc.local
 
 # --------------------------------------------------------------------- INCLUDES
-if test -d "${ZDOTDIR:-${HOME}}/zsh.d"; then
-  for file in "${ZDOTDIR:-${HOME}}/zsh.d"/*; do
+if test -d "${ZDOTDIR:-${HOME}}/conf.d"; then
+  for file in "${ZDOTDIR:-${HOME}}/conf.d/"*; do
     xsource "${file}"
   done
   unset file

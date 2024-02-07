@@ -122,6 +122,14 @@ ubak() {
   mv "$1" "${1%.bak}"
 }
 
+# capture the output of a command so it can be retrieved with ret
+cap() {
+  tee /tmp/capture.out
+}
+ret() {
+  cat /tmp/capture.out
+}
+
 # ripgrep | less
 rgl() {
   rg --pretty "$@" | less -RFX

@@ -8,6 +8,8 @@ if test -d "${ZDOTDIR:-${HOME}}/conf.d"; then
   unset file
 fi
 
+xsource "${XDG_CONFIG_HOME:-${HOME}/.config}/broot/launcher/bash/br"
+
 # ---------------------------------------------------------------------- OPTIONS
 setopt histallowclobber
 setopt histexpiredupsfirst

@@ -7,7 +7,7 @@ config/kitty/*.session
 config/lazygit/*
 !config/lazygit/config.yml
 
-config/zsh/.cmd
+config/zsh/.cmds
 config/zsh/.zcompdump
 config/zsh/.zdirs
 config/zsh/.zprofile

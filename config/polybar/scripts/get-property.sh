@@ -3,7 +3,7 @@
 case "$1" in
   sep)
     module_file=${HOME}/.config/polybar/modules.ini
-    sep=$(grep -oP '(?<=content = ").*(?=")' "${module_file}")
+    sep=$(grep 'module/sep' "${module_file}" -A3 | grep -oP '(?<=label = ").*(?=")')
     echo "${sep}"
     ;;
   color)

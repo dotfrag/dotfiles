@@ -19,7 +19,7 @@ monitor() {
   status
 
   nmcli monitor | while read -r event; do
-    if echo "${event}" | grep 'tun0: connected' || echo "${event}" | grep 'tun0: device removed'; then
+    if echo "${event}" | grep -P 'tun0: (connected|device removed)'; then
       status
     fi
   done

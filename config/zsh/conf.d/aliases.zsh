@@ -25,6 +25,7 @@ alias mdcat='mdcat -p'
 alias print-aliases='print -rl -- ${(k)aliases}'
 alias print-functions='print -rl -- ${(k)functions}'
 alias ran='ranger --choosedir=/tmp/.rangerdir; LASTDIR=$(cat /tmp/.rangerdir); cd "$LASTDIR"'
+alias rr='restart'
 alias tx='tmux attach-session || start-tmux.sh'
 
 alias update-fnm='curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell'

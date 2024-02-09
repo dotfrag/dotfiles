@@ -2,7 +2,7 @@
 
 # Terminate already running bar instances
 # polybar-msg cmd quit
-killall -q -9 polybar
+killall -q -9 polybar microphone.sh vpn-status.sh sharing-status.sh
 
 # Wait until the processes have been shut down
 while pgrep -u ${UID} -x polybar >/dev/null; do sleep 0; done

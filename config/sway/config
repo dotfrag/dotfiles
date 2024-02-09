@@ -45,7 +45,7 @@ exec swayidle -w \
 exec swaync
 
 ### IBus daemon
-exec ibus-daemon -rxRd
+# exec ibus-daemon -rxRd
 
 ### Input configuration
 input {

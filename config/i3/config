@@ -247,14 +247,8 @@ mode $powermenu {
     bindsym Escape mode "default"
 }
 
-# colors                border  backgr. text    indictr child_border
-client.focused          #88C0D0 #88C0D0 #2E3440 #EBCB8B #88C0D0
-client.urgent           #BF616A #BF616A #E5E9F0 #EBCB8B #BF616A
-# client.focused_inactive #3B4252 #434C5E #D8DEE9 #EBCB8B #434C5E
-client.focused_inactive #81A1C1 #81A1C1 #2E3440 #EBCB8B #81A1C1
-client.unfocused        #5E81AC #2E3440 #D8DEE9 #EBCB8B #5E81AC
-client.placeholder      #FF0000 #FF0000 #FF0000 #FF0000 #FF0000
-# client.placeholder      #000000 #0C0C0C #FFFFFF #000000 #0C0C0C
+# include colors
+include themes/catppuccin-macchiato
 
 # include gaps configuration
 include ~/.config/i3/gaps.config

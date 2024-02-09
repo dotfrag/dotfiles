@@ -442,6 +442,11 @@
 #    summary = "foobar"
 #    skip_display = yes
 
+[espanso]
+  summary = "Espanso"
+  body = "Espanso is running!"
+  skip_display = yes
+
 #[signed_on]
 #    appname = Pidgin
 #    summary = "*signed on*"

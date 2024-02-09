@@ -6,7 +6,6 @@ CONFIG_DIR=${XDG_CONFIG_HOME:-${HOME}/.config}
 output=()
 declare -A config_dirs=(
   ["Hyprland"]="hypr"
-  ["betterlockscreen"]="betterlockscreenrc"
   ["fast-theme"]="fsh"
   ["google-chrome"]="chrome-flags.conf"
   ["google-chrome-stable"]="chrome-flags.conf"

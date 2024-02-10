@@ -1,8 +1,33 @@
 #!/bin/bash
 #
-# Synchronise all clipboards in X.
+# Manipulate clipboards in X.
 
+# Synchronise all clipboards in X.
+# https://unix.stackexchange.com/a/628496
+# while clipnotify; do
+#   xclip -o -selection clipboard | xclip -i -selection primary
+#   xclip -o -selection clipboard | xclip -i -selection secondary
+# done
+
+# Trim whitespace
+# https://askubuntu.com/a/1167129
+# https://github.com/SiddharthMant/Scripts/tree/master/PDF-Copy-without-Linebreaks-Linux
 while clipnotify; do
-  xclip -o -selection clipboard | xclip -i -selection primary
-  xclip -o -selection clipboard | xclip -i -selection secondary
+  primary=$(xsel -p)
+  secondary=$(xsel -s)
+  clipboard=$(xsel -b)
+
+  # printf 'clipboard: [%s]\n' "$(xsel -b)"
+
+  # echo "$primary" | sed 's/[ \t]*$//' | xsel -ip
+  # echo "$secondary" | sed 's/[ \t]*$//' | xsel -is
+  # echo "$clipboard" | sed 's/[ \t]*$//' | xsel -ib
+
+  echo "$primary" | perl -pe 's/\s+\n/\n/;chomp if eof' | xsel -ip
+  echo "$secondary" | perl -pe 's/\s+\n/\n/;chomp if eof' | xsel -is
+  echo "$clipboard" | perl -pe 's/\s+\n/\n/;chomp if eof' | xsel -ib
+
+  # printf 'clipboard: [%s]\n' "$(xsel -b)"
+
+  # echo
 done

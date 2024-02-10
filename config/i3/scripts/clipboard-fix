@@ -23,9 +23,9 @@ while clipnotify; do
   # echo "$secondary" | sed 's/[ \t]*$//' | xsel -is
   # echo "$clipboard" | sed 's/[ \t]*$//' | xsel -ib
 
-  echo "$primary" | perl -pe 's/\s+\n/\n/;chomp if eof' | xsel -ip
-  echo "$secondary" | perl -pe 's/\s+\n/\n/;chomp if eof' | xsel -is
-  echo "$clipboard" | perl -pe 's/\s+\n/\n/;chomp if eof' | xsel -ib
+  echo "${primary}" | perl -pe 's/\s+\n/\n/;chomp if eof' | xsel -ip
+  echo "${secondary}" | perl -pe 's/\s+\n/\n/;chomp if eof' | xsel -is
+  echo "${clipboard}" | perl -pe 's/\s+\n/\n/;chomp if eof' | xsel -ib
 
   # printf 'clipboard: [%s]\n' "$(xsel -b)"
 

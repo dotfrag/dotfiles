@@ -157,3 +157,9 @@ restart () {
 get_latest_version() {
   curl -sLH "Accept: application/json" "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\Kv[^"]*'
 }
+
+# open project in vscode
+vs() {
+  local projects=${XDG_DATA_HOME:-${HOME}/.local/share}/projects
+  cat "${projects}" | fzf --multi --bind 'enter:become(code {+})'
+}

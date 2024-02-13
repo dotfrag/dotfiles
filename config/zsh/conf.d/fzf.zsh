@@ -85,7 +85,7 @@ fkill() {
 
 # command cheatsheet
 cmd() {
-  local _cmd
-  _cmd=$(fzf --query="$1" --select-1 --exit-0 <"${ZDOTDIR:-${HOME}}/.cmd")
-  [[ -n "${_cmd}" ]] && eval "${_cmd}"
+  local cmds=${ZDOTDIR:-${HOME}}/.cmds
+  local cmd=$(fzf --query="$1" --select-1 --exit-0 <$cmds)
+  [[ -n "${cmd}" ]] && eval "${cmd}"
 }

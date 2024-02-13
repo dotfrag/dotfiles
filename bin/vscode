@@ -1,0 +1,15 @@
+#!/bin/bash
+
+projects_file=${XDG_DATA_HOME:-${HOME}/.local/share}/projects
+
+declare -A projects
+
+while read -r line; do
+  projects[${line##*/}]=${line}
+done <"${projects_file}"
+
+project=$(printf "%s\n" "${!projects[@]}" | rofi -dmenu)
+
+if [ -n "${project}" ]; then
+  code "${projects[${project}]}"
+fi

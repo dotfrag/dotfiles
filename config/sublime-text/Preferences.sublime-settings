@@ -9,4 +9,5 @@
 	],
 	"font_size": 12,
 	"index_files": true,
+	"scroll_context_lines": 5,
 }

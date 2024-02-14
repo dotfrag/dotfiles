@@ -8,7 +8,7 @@ while read -r line; do
   projects[${line##*/}]=${line}
 done <"${projects_file}"
 
-project=$(printf "%s\n" "${!projects[@]}" | rofi -dmenu)
+project=$(printf "%s\n" "${!projects[@]}" | rofi -dmenu -i)
 
 if [ -n "${project}" ]; then
   code "${projects[${project}]}"

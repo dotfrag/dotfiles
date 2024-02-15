@@ -446,6 +446,7 @@
   summary = "Espanso"
   body = "Espanso is running!"
   skip_display = yes
+  history_ignore = yes
 
 #[signed_on]
 #    appname = Pidgin

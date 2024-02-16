@@ -64,7 +64,7 @@ x() {
       *.rar) unrar x"$f" "${f%.*}" ;;
       *.zip) unzip "$f" -d "${f%.*}" ;;
       *.zst) zstd -d "$f" --output-dir-mirror "${f%.*}" ;;
-      *) echo 'archive format not supported' ;;
+      *) echo 'archive format not supported'; return 1 ;;
     esac
   done
 }

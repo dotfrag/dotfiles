@@ -37,7 +37,10 @@ done
 if [[ -v ZDOTDIR ]]; then
   output+=("$(ln -vsfT "${SCRIPT_DIR}/zsh" "${CONFIG_DIR}/zsh")")
 else
-  for f in "${SCRIPT_DIR}/zsh/"{.,}*; do
+  ZDIR=${XDG_CONFIG_HOME:-${HOME}/.config}/zsh
+  mkdir -p "${ZDIR}"
+  output+=("$(ln -vsfT "${SCRIPT_DIR}/zsh/conf.d" "${ZDIR}/conf.d")")
+  for f in "${SCRIPT_DIR}/zsh/".*; do
     output+=("$(ln -vsfT "${f}" "${HOME}/${f##*/}")")
   done
 fi

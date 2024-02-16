@@ -18,7 +18,7 @@ declare -A config_dirs=(
 )
 
 # straightforward configs
-for i in $(git -C "${SCRIPT_DIR}" ls-tree --name-only main | grep -vP "install|sublime-text"); do
+for i in $(git -C "${SCRIPT_DIR}" ls-tree --name-only main | grep -vP "install|zsh"); do
   output+=("$(command -v "${i}" >/dev/null && ln -vsfT "${SCRIPT_DIR}/${i}" "${CONFIG_DIR}/${i}")")
 done
 
@@ -32,6 +32,15 @@ for i in "${!config_dirs[@]}"; do
     output+=("$(command -v "${i}" >/dev/null && ln -vsfT "${SCRIPT_DIR}/${config_dirs[${i}]}" "${CONFIG_DIR}/${config_dirs[${i}]}")")
   fi
 done
+
+# zsh
+if [[ -v ZDOTDIR ]]; then
+  output+=("$(ln -vsfT "${SCRIPT_DIR}/zsh" "${CONFIG_DIR}/zsh")")
+else
+  for f in "${SCRIPT_DIR}/zsh/"{.,}*; do
+    output+=("$(ln -vsfT "${f}" "${HOME}/${f##*/}")")
+  done
+fi
 
 # fast-syntax-highlighting and bat setup
 zsh -ic 'fast-theme XDG:catppuccin-macchiato; bat cache --build' >/dev/null

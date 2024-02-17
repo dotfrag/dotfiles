@@ -35,7 +35,8 @@ done
 
 # zsh
 if [[ -v ZDOTDIR ]]; then
-  output+=("$(ln -vsfT "${SCRIPT_DIR}/zsh" "${CONFIG_DIR}/zsh")")
+  rm -rf "${ZDOTDIR}"
+  output+=("$(ln -vsfT "${SCRIPT_DIR}/zsh" "${ZDOTDIR}")")
 else
   ZDIR=${XDG_CONFIG_HOME:-${HOME}/.config}/zsh
   mkdir -p "${ZDIR}"

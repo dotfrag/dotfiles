@@ -31,6 +31,7 @@ gco() {
     sort -u |
     fzf -q "$1" --bind 'enter:become(git checkout {})'
 }
+compdef _git gco=git-checkout
 
 # check if main exists and use instead of master
 git_main_branch() {

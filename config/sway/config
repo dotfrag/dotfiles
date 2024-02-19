@@ -353,6 +353,9 @@ for_window {
   [app_id="flameshot"] border none, floating enable, fullscreen disable, move absolute position 0 0
 }
 
+### Hide the title bar on tabbed and stacked containers with one child.
+hide_edge_borders --i3 none
+
 ### Gaps
 gaps inner 10
 smart_gaps on

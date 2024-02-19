@@ -22,6 +22,8 @@ packages_pacman=(
   imv
   jq
   kitty
+  kitty-shell-integration
+  kitty-terminfo
   lazygit
   lf
   lm_sensors

@@ -103,8 +103,22 @@ glog() {
 
 # run git command for all repos in directory (serial)
 gall() {
-  fd -td '^\.git$' -IHL -x echo {//} | sort |
-    xargs -I{} zsh -c "print -P '%F{yellow}{}%f' && git -C {} $* && echo"
+  if [ -d "$1" ]; then
+    local repos=()
+    while [ -d "$1" ]; do
+      repos+=("$1")
+      shift
+    done
+    for repo in "${repos[@]}"; do
+      print -P "%F{yellow}${repo}%f"
+      git -C "${repo}" "$@"
+      echo
+    done
+  else
+    # shellcheck disable=SC1083
+    fd -td '^\.git$' -IHL -x echo {//} | sort |
+      xargs -I{} zsh -c "print -P '%F{yellow}{}%f' && git -C {} $* && echo"
+  fi
 }
 
 # run git command for all repos in directory (parallel)

@@ -85,6 +85,7 @@ nmap ]b :bnext<cr>
 nmap cae ggcG
 nmap vae ggVG
 nmap dil 0d$
+nmap Y y$
 
 cmap w!! w !sudo tee > /dev/null %
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -f /etc/arch-release ]; then
+if [[ -f /etc/arch-release ]]; then
   sudo pacman -S --needed "ttc-iosevka-ss08"
   exit
 fi

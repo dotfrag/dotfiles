@@ -17,19 +17,19 @@ TIME=$(date '+%H:%M')
 HR=$(date '+%I')
 
 get_time() {
-    case $HR in
-    01) echo " $LCLK_01 $TIME " ;;
-    02) echo " $LCLK_02 $TIME " ;;
-    03) echo " $LCLK_03 $TIME " ;;
-    04) echo " $LCLK_04 $TIME " ;;
-    05) echo " $LCLK_05 $TIME " ;;
-    06) echo " $LCLK_06 $TIME " ;;
-    07) echo " $LCLK_07 $TIME " ;;
-    08) echo " $LCLK_08 $TIME " ;;
-    09) echo " $LCLK_09 $TIME " ;;
-    10) echo " $LCLK_10 $TIME " ;;
-    11) echo " $LCLK_11 $TIME " ;;
-    12) echo " $LCLK_00 $TIME " ;;
+    case ${HR} in
+    01) echo " ${LCLK_01} ${TIME} " ;;
+    02) echo " ${LCLK_02} ${TIME} " ;;
+    03) echo " ${LCLK_03} ${TIME} " ;;
+    04) echo " ${LCLK_04} ${TIME} " ;;
+    05) echo " ${LCLK_05} ${TIME} " ;;
+    06) echo " ${LCLK_06} ${TIME} " ;;
+    07) echo " ${LCLK_07} ${TIME} " ;;
+    08) echo " ${LCLK_08} ${TIME} " ;;
+    09) echo " ${LCLK_09} ${TIME} " ;;
+    10) echo " ${LCLK_10} ${TIME} " ;;
+    11) echo " ${LCLK_11} ${TIME} " ;;
+    12) echo " ${LCLK_00} ${TIME} " ;;
     esac
 }
 

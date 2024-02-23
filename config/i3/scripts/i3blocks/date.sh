@@ -2,4 +2,4 @@
 
 DATE=$(date '+%d.%m')
 LCAL=" 󰸘 "
-echo "$LCAL$DATE "
+echo "${LCAL}${DATE} "

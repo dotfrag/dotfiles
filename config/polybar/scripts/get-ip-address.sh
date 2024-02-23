@@ -15,7 +15,7 @@ case "$1" in
     ;;
 esac
 
-interface=$(ip -br l | awk '$1 !~ "'${filter}'" {print $1}')
+interface=$(ip -br l | awk '$1 !~ "'"${filter}"'" {print $1}')
 ip=$(ip -f inet addr show "${interface}" | awk '/inet / {print $2}' | cut -d'/' -f1)
 
 echo "${ip}" | xclip -sel c -f | xclip -sel p

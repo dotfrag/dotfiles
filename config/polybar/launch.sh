@@ -5,13 +5,13 @@
 killall -q -9 polybar microphone.sh vpn-status.sh sharing-status.sh
 
 # Wait until the processes have been shut down
-while pgrep -u ${UID} -x polybar >/dev/null; do sleep 0; done
+while pgrep -u "${UID}" -x polybar >/dev/null; do sleep 0; done
 
 # Variables
 mapfile -t MONITORS < <(polybar --list-monitors | cut -d":" -f1)
-if [ -z "${POLYBAR_INTF_TYPE}" ]; then
+if [[ -z "${POLYBAR_INTF_TYPE}" ]]; then
   has_ethernet=$(nmcli device | awk '$2=="ethernet" {print $1}' | head -1 | wc -l)
-  if [ "${has_ethernet}" -eq 0 ]; then
+  if [[ "${has_ethernet}" -eq 0 ]]; then
     export POLYBAR_INTF_TYPE="wireless"
   fi
 fi

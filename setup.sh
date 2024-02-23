@@ -7,12 +7,12 @@ VIM_PACKPATH="${XDG_DATA_HOME:-${HOME}/.local/share}/vim/pack/plugins/start"
 ZSH_PLUGINS_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/plugins"
 
 # detect distro
-if [ -f /etc/os-release ]; then
+if [[ -f /etc/os-release ]]; then
   . /etc/os-release
   DISTRO=${NAME}
 elif command -v lsb_release &>/dev/null; then
   DISTRO=$(lsb_release -si)
-elif [ -f /etc/lsb-release ]; then
+elif [[ -f /etc/lsb-release ]]; then
   # shellcheck disable=SC1091
   . /etc/lsb-release
   # shellcheck disable=SC2154
@@ -23,22 +23,22 @@ else
 fi
 
 println() {
-  printf '=%.0s' $(seq 1 ${COLUMNS})
+  printf '=%.0s' $(seq 1 "${COLUMNS}")
 }
 
 setup_packages() {
   . packages.sh
-  if [ "${DISTRO}" = "Arch Linux" ]; then
+  if [[ "${DISTRO}" = "Arch Linux" ]]; then
     sudo pacman -Syu
     sudo pacman -S --needed "${packages_pacman[@]}"
     if ! command -v yay &>/dev/null; then
       git clone --depth 1 https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -si
     fi
     yay -S --needed "${packages_yay[@]}"
-  elif [ "${DISTRO}" = "Fedora Linux" ]; then
+  elif [[ "${DISTRO}" = "Fedora Linux" ]]; then
     sudo dnf check-update
     sudo dnf install -y "${packages_dnf[@]}"
-  elif [ "${DISTRO}" = "Ubuntu" ]; then
+  elif [[ "${DISTRO}" = "Ubuntu" ]]; then
     command -v nala &>/dev/null && apt=nala || apt=apt
     sudo "${apt}" update
     sudo "${apt}" install -y "${packages_apt[@]}"
@@ -47,7 +47,7 @@ setup_packages() {
 }
 
 setup_zsh() {
-  [ -n "${ZDOTDIR}" ] && mkdir -p "${ZDOTDIR}"
+  [[ -n "${ZDOTDIR}" ]] && mkdir -p "${ZDOTDIR}"
   mkdir -p "${ZSH_PLUGINS_DIR}"
   printf "[fast-syntax-highlighting] "
   git -C "${ZSH_PLUGINS_DIR}/fsh" pull 2>/dev/null || git clone --depth 1 "https://github.com/zdharma-continuum/fast-syntax-highlighting" "${ZSH_PLUGINS_DIR}/fsh"
@@ -69,7 +69,7 @@ setup_vim() {
 }
 
 setup_fzf() {
-  if [ "${DISTRO}" != "Arch Linux" ]; then
+  if [[ "${DISTRO}" != "Arch Linux" ]]; then
     printf "[fzf] "
     git -C "${FZF_DIR}" pull 2>/dev/null || git clone --depth 1 https://github.com/junegunn/fzf "${FZF_DIR}"
     "${FZF_DIR}/install" --completion --key-bindings --no-bash --no-update-rc --xdg >/dev/null
@@ -86,7 +86,7 @@ setup_bin() {
   bash "${SCRIPT_DIR}/bin/install.sh"
 }
 
-[ "$1" = "pac" ] && sudo -v && setup_packages
+[[ "$1" = "pac" ]] && sudo -v && setup_packages
 setup_zsh
 setup_vim
 setup_fzf

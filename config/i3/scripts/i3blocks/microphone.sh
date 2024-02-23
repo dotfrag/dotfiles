@@ -18,7 +18,7 @@ ON=" 󰍬"
 OFF=" 󰍭"
 
 # Check mouse event
-case $BLOCK_BUTTON in
+case ${BLOCK_BUTTON} in
 3)
     #/usr/bin/amixer set Capture toggle &>/dev/null;  # AlsaMixer
     /usr/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle # PulseAudio
@@ -31,13 +31,13 @@ esac
 pacmd list-sources | grep -e "* index:" -e "muted" | sed -n "/index/{n;p}" | grep -q "muted: yes" && [[ $? -eq 0 ]] && state="off"
 
 # Toggle mic's state
-case $state in
+case ${state} in
 off)
-    echo "$OFF"
+    echo "${OFF}"
     exit 0
     ;;
 *)
-    echo "$ON OPEN"
+    echo "${ON} OPEN"
     echo
     echo \#EBCB8B
     exit 0

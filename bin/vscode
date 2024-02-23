@@ -10,6 +10,6 @@ done <"${projects_file}"
 
 project=$(printf "%s\n" "${!projects[@]}" | rofi -dmenu -i)
 
-if [ -n "${project}" ]; then
+if [[ -n "${project}" ]]; then
   code "${projects[${project}]}"
 fi

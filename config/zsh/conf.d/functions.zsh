@@ -166,5 +166,7 @@ vs() {
 
 # shellcheck fix all fixable issues
 shellfix () {
-	find . -iname '*.sh' -printf '%P\0' | xargs -0 -I{} -P "$(nproc)" zsh -c "shellcheck -f diff {} | git apply -q"
+  rg -l '^#!/bin/bash' |
+    xargs -P "$(nproc)" -I{} zsh -c \
+    'shellcheck -f diff {} | git apply -q'
 }

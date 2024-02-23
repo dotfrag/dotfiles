@@ -16,7 +16,7 @@ else
   f=$1
 fi
 
-if [ ! -e "${f}" ]; then
+if [[ ! -e "${f}" ]]; then
   echo "${f} is not a file."
   exit 1
 fi

@@ -163,3 +163,8 @@ vs() {
   local projects=${XDG_DATA_HOME:-${HOME}/.local/share}/projects
   cat "${projects}" | fzf --multi --bind 'enter:become(code {+})'
 }
+
+# shellcheck fix all fixable issues
+shellfix () {
+	find . -iname '*.sh' -printf '%P\0' | xargs -0 -I{} -P "$(nproc)" zsh -c "shellcheck -f diff {} | git apply -q"
+}

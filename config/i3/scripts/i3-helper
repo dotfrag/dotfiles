@@ -1,24 +1,26 @@
 #!/bin/bash
 
 case $1 in
-moveToParent)
-  i3-msg mark i3ha
-  i3-msg focus parent
-  i3-msg focus parent
-  i3-msg mark i3hb
-  i3-msg [con_mark="i3ha"] focus
-  i3-msg move window to mark i3hb
-  i3-msg unmark i3ha
-  i3-msg unmark i3hb
-  ;;
-centerWindow)
-  kitty & disown
-  kitty & disown
-  sleep 0.5
-  i3-msg focus left
-  i3-msg focus left
-  i3-msg move right
-  i3-msg resize grow left 20 px or 10 ppt
-  i3-msg resize grow right 20 px or 10 ppt
-  ;;
+  moveToParent)
+    i3-msg mark i3ha
+    i3-msg focus parent
+    i3-msg focus parent
+    i3-msg mark i3hb
+    i3-msg [con_mark="i3ha"] focus
+    i3-msg move window to mark i3hb
+    i3-msg unmark i3ha
+    i3-msg unmark i3hb
+    ;;
+  centerWindow)
+    kitty &
+    disown
+    kitty &
+    disown
+    sleep 0.5
+    i3-msg focus left
+    i3-msg focus left
+    i3-msg move right
+    i3-msg resize grow left 20 px or 10 ppt
+    i3-msg resize grow right 20 px or 10 ppt
+    ;;
 esac

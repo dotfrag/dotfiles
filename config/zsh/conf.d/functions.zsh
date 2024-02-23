@@ -5,8 +5,8 @@ lfd() {
 }
 
 # copy file and cd to destination directory
-cpcd () {
-  if (( ARGC != 2 )); then
+cpcd() {
+  if ((ARGC != 2)); then
     printf 'usage: cpcd <file> <destination>\n'
     return 1
   fi
@@ -23,8 +23,8 @@ cpcd () {
 }
 
 # move file and cd to destination directory
-mvcd () {
-  if (( ARGC != 2 )); then
+mvcd() {
+  if ((ARGC != 2)); then
     printf 'usage: mvcd <file> <destination>\n'
     return 1
   fi
@@ -42,7 +42,7 @@ mvcd () {
 
 # extract archive to subdirectory
 x() {
-  if (( ARGC < 1 )); then
+  if ((ARGC < 1)); then
     echo "usage: x[rm] <file..>"
     return 1
   fi
@@ -108,7 +108,7 @@ mans() {
 # touch executable and edit
 touchx() {
   if ! [[ -e "$1" ]]; then
-    echo -e "#!/bin/bash\n\n" > "$1"
+    echo -e "#!/bin/bash\n\n" >"$1"
   fi
   chmod +x "$1" >/dev/null
   $EDITOR + "$1"
@@ -137,20 +137,21 @@ rgl() {
 
 # launch app and exit
 launch() {
-  nohup "$@" >/dev/null 2>/dev/null & disown && exit
+  nohup "$@" >/dev/null 2>/dev/null &
+  disown && exit
 }
 
 # bat hightlight help messages
 help() {
-    "$@" --help 2>&1 | bat --plain --language=help
+  "$@" --help 2>&1 | bat --plain --language=help
 }
 
 # switching shell safely and efficiently? http://www.zsh.org/mla/workers/2001/msg02410.html
 bash() {
-   NO_SWITCH="yes" command bash "$@"
+  NO_SWITCH="yes" command bash "$@"
 }
-restart () {
-   exec $SHELL $SHELL_ARGS "$@"
+restart() {
+  exec $SHELL $SHELL_ARGS "$@"
 }
 
 # get latest version of git repo release
@@ -165,8 +166,8 @@ vs() {
 }
 
 # shellcheck fix all fixable issues
-shellfix () {
+shellfix() {
   rg -l '^#!/bin/bash' |
     xargs -P "$(nproc)" -I{} zsh -c \
-    'shellcheck -f diff {} | git apply -q'
+      'shellcheck -f diff {} | git apply -q'
 }

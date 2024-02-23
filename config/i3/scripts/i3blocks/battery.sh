@@ -28,7 +28,7 @@ POW=$(cat /sys/class/power_supply/BAT0/capacity)
 PO=$(echo "${POW}" | rev | cut -c 2- | rev)
 
 get_bat() {
-    case ${PO} in
+  case ${PO} in
     1) echo "${BAT_10}${POW} " ;;
     2) echo "${BAT_20}${POW} " ;;
     3) echo "${BAT_30}${POW} " ;;
@@ -40,11 +40,11 @@ get_bat() {
     9) echo "${BAT_90}${POW} " ;;
     10) echo "${BAT_100}${POW} " ;;
     *) echo "${BAT_00}${POW} " ;;
-    esac
+  esac
 }
 
 get_chr() {
-    case ${PO} in
+  case ${PO} in
     1) echo "${CHR_10}${POW} " ;;
     2) echo "${CHR_20}${POW} " ;;
     3) echo "${CHR_30}${POW} " ;;
@@ -56,11 +56,11 @@ get_chr() {
     9) echo "${CHR_90}${POW} " ;;
     10) echo "${CHR_100}${POW} " ;;
     *) echo "${CHR_00}${POW} " ;;
-    esac
+  esac
 }
 
 if [[ "$(cut -c 1 </sys/class/power_supply/BAT0/status)" = D ]]; then
-    get_bat
+  get_bat
 else
-    get_chr
+  get_chr
 fi

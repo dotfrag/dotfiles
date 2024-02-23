@@ -17,7 +17,7 @@ TIME=$(date '+%H:%M')
 HR=$(date '+%I')
 
 get_time() {
-    case ${HR} in
+  case ${HR} in
     01) echo " ${LCLK_01} ${TIME} " ;;
     02) echo " ${LCLK_02} ${TIME} " ;;
     03) echo " ${LCLK_03} ${TIME} " ;;
@@ -30,7 +30,7 @@ get_time() {
     10) echo " ${LCLK_10} ${TIME} " ;;
     11) echo " ${LCLK_11} ${TIME} " ;;
     12) echo " ${LCLK_00} ${TIME} " ;;
-    esac
+  esac
 }
 
 get_time

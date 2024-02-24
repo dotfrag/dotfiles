@@ -55,6 +55,8 @@ packages_pacman=(
   tmux
   tree
   ttc-iosevka-ss08
+  ttf-fira-code
+  ttf-jetbrains-mono
   ttf-opensans
   unzip
   vim
@@ -71,8 +73,11 @@ packages_yay=(
   google-chrome
   lazydocker
   networkmanager-dmenu-git
+  otf-geist
+  otf-geist-mono
   sublime-text-4
   swaync
+  ttf-inter
   visual-studio-code-bin
 )
 

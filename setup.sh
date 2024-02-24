@@ -2,9 +2,9 @@
 
 # globals
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-FZF_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/fzf"
-VIM_PACKPATH="${XDG_DATA_HOME:-${HOME}/.local/share}/vim/pack/plugins/start"
-ZSH_PLUGINS_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/plugins"
+FZF_DIR=${XDG_DATA_HOME:-${HOME}/.local/share}/fzf
+VIM_PACKPATH=${XDG_DATA_HOME:-${HOME}/.local/share}/vim/pack/plugins/start
+ZSH_PLUGINS_DIR=${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/plugins
 
 # detect distro
 if [[ -f /etc/os-release ]]; then

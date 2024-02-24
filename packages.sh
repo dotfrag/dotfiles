@@ -78,6 +78,7 @@ packages_yay=(
   sublime-text-4
   swaync
   ttf-inter
+  ttf-merriweather
   visual-studio-code-bin
 )
 

@@ -171,3 +171,11 @@ shellfix() {
     xargs -P "$(nproc)" -I{} zsh -c \
       'shellcheck -f diff {} | git apply -q'
 }
+
+# create and source venv
+venv() {
+  if ! [[ -d venv ]]; then
+    python -m venv venv
+  fi
+  source venv/bin/activate
+}

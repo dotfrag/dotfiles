@@ -9,6 +9,7 @@ config/lazygit/*
 
 config/zsh/.cache
 config/zsh/.cmds
+config/zsh/.zcompcache
 config/zsh/.zcompdump
 config/zsh/.zdirs
 config/zsh/.zprofile

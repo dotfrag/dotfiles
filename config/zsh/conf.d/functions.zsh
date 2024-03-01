@@ -119,6 +119,12 @@ touchx() {
   $EDITOR + "$1"
 }
 
+# create temporary executable
+sht() {
+  cdt
+  touchx test
+}
+
 # backup/restore file
 bak() {
   mv "$1" "$1.bak"

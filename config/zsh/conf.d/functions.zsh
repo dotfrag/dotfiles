@@ -127,10 +127,16 @@ sht() {
 
 # backup/restore file
 bak() {
-  mv "$1" "$1.bak"
+  while ((${#argv} > 0)); do
+    mv "$1" "$1.bak"
+    shift
+  done
 }
 ubak() {
-  mv "$1" "${1%.bak}"
+  while ((${#argv} > 0)); do
+    mv "$1" "${1%.bak}"
+    shift
+  done
 }
 
 # capture the output of a command so it can be retrieved with ret

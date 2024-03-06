@@ -6,73 +6,79 @@
 
 declare -A neovim_configs=(
   [AstroNvim]="https://github.com/AstroNvim/AstroNvim"
-  [Kickstart]="git@github.com:dotfrag/kickstart.nvim.git"
+  [Kickstart]="git@github.com:dotfrag/nvim.lua.git"
   [LazyVim]="git@github.com:dotfrag/lazyvim.nvim.git"
-  # [NvChad]="https://github.com/NvChad/NvChad"
+  [NvChad]="https://github.com/NvChad/NvChad"
 )
+
+DEFAULT=Kickstart
 
 clone_repository() {
   local name="$1"
   local url="$2"
   local location="${HOME}/.config/nvim-${name,,}"
 
-  if [[ "${name}" = "LazyVim" ]]; then
-    git -C "${HOME}/.config/nvim" pull 2>/dev/null || git clone "${url}" "${HOME}/.config/nvim"
+  if [[ "${name}" = "${DEFAULT}" ]]; then
+    if ! [[ -d "${HOME}/.config/nvim" ]]; then
+      git clone "${url}" "${HOME}/.config/nvim"
+    fi
     exit
-  elif [[ "${name}" = "NvChad" ]]; then
+  fi
+
+  if [[ "${name}" =~ AstroNvim|NvChad ]]; then
     git clone --depth 1 "${url}" "${location}"
-    git clone git@github.com:dotfrag/nvchad.nvim.git "${location}/lua/custom"
     return
   fi
 
-  git clone --depth 1 "${url}" "${location}"
+  git clone "${url}" "${location}"
 }
 
 delete_config() {
   local config=$1
-  rm -rf "${HOME}/.cache/nvim-${config,,}" 2>/dev/null
-  rm -rf "${HOME}/.config/nvim-${config,,}" 2>/dev/null
-  rm -rf "${HOME}/.local/share/nvim-${config,,}" 2>/dev/null
-  rm -rf "${HOME}/.local/state/nvim-${config,,}" 2>/dev/null
+  if [[ "${config}" = "${DEFAULT}" ]]; then
+    rm -rf "${HOME}/.config/nvim"
+    rm -rf "${HOME}/.local/share/nvim"
+    rm -rf "${HOME}/.local/state/nvim"
+    rm -rf "${HOME}/.cache/nvim"
+  else
+    rm -rf "${HOME}/.cache/nvim-${config,,}"
+    rm -rf "${HOME}/.config/nvim-${config,,}"
+    rm -rf "${HOME}/.local/share/nvim-${config,,}"
+    rm -rf "${HOME}/.local/state/nvim-${config,,}"
+  fi
 }
 
 select_config() {
   local config
-  config=$(printf "%s\n" "${!neovim_configs[@]}" | fzf --prompt=" Neovim Config » " --height=~50%)
+  config=$(printf "%s\n" "${!neovim_configs[@]}" | fzf --prompt=" Neovim Config » " --height=~50% "$@")
   echo "${config}"
 }
 
 main() {
+  if [[ ${delete_config_flag} == true ]]; then
+    selected=$(select_config -m)
+    [[ -z ${selected} ]] && exit 1
+    for sel in ${selected}; do
+      while true; do
+        read -n1 -rp "Delete ${sel} config? (y/n) " yn
+        echo
+        case ${yn} in
+          [Yy]*)
+            delete_config "${sel}"
+            echo "Deleted ${sel} config."
+            continue 2
+            ;;
+          [Nn]*) continue 2 ;;
+        esac
+      done
+    done
+    return
+  fi
+
   selected=$(select_config)
   [[ -z ${selected} ]] && exit 1
 
-  if [[ ${delete_config_flag} == true ]]; then
-    if [[ "${selected}" = "LazyVim" ]]; then
-      echo -e "This is the default NeoVim config. Handle it manually:\n"
-      cat <<-EOF
-				rm -rf ~/.config/nvim
-				rm -rf ~/.local/share/nvim
-				rm -rf ~/.local/state/nvim
-				rm -rf ~/.cache/nvim
-			EOF
-      exit
-    fi
-
-    while true; do
-      read -n1 -rp "Delete ${selected} config? (y/n) " yn
-      echo
-      case ${yn} in
-        [Yy]*)
-          delete_config "${selected}"
-          echo "Deleted ${selected} config."
-          return
-          ;;
-        [Nn]*) return ;;
-      esac
-    done
-  fi
-
-  if [[ ! -d "${HOME}/.config/nvim-${selected,,}" ]]; then
+  if ! [[ -d "${HOME}/.config/nvim-${selected,,}" ]]; then
     clone_repository "${selected}" "${neovim_configs[${selected}]}"
   fi
 

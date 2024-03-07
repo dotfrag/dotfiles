@@ -18,10 +18,8 @@ clone_repository() {
   local url="$2"
   local location="${HOME}/.config/nvim-${name,,}"
 
-  if [[ "${name}" = "${DEFAULT}" ]]; then
-    if ! [[ -d "${HOME}/.config/nvim" ]]; then
-      git clone "${url}" "${HOME}/.config/nvim"
-    fi
+  if [[ "${name}" = "${DEFAULT}" ]] && ! [[ -d "${HOME}/.config/nvim" ]]; then
+    git clone "${url}" "${HOME}/.config/nvim"
     exit
   fi
 

@@ -14,6 +14,7 @@ packages_pacman=(
   entr
   eza
   fd
+  ffmpeg
   fzf
   gammastep
   git

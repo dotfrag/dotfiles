@@ -4,6 +4,12 @@
 # https://gist.github.com/elijahmanor/b279553c0132bfad7eae23e34ceb593b
 # https://github.com/Traap/dotfiles/blob/master/bash/bin/nvims
 
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+SCRIPT_PATH="${SCRIPT_DIR}/$(basename "$0")"
+
+# TODO: maybe use a file?
+DEFAULT=LazyVim
+
 declare -A neovim_configs=(
   [AstroNvim]="https://github.com/AstroNvim/AstroNvim"
   [Kickstart]="git@github.com:dotfrag/nvim.lua.git"
@@ -11,7 +17,10 @@ declare -A neovim_configs=(
   [NvChad]="https://github.com/NvChad/NvChad"
 )
 
-DEFAULT=Kickstart
+usage() {
+  # TODO: better usage
+  echo "Usage: nvims [-d] [-s] [-h]"
+}
 
 clone_repository() {
   local name="$1"
@@ -38,10 +47,10 @@ clone_repository() {
 delete_config() {
   local config=$1
   if [[ "${config}" = "${DEFAULT}" ]]; then
+    rm -rf "${HOME}/.cache/nvim"
     rm -rf "${HOME}/.config/nvim"
     rm -rf "${HOME}/.local/share/nvim"
     rm -rf "${HOME}/.local/state/nvim"
-    rm -rf "${HOME}/.cache/nvim"
   else
     rm -rf "${HOME}/.cache/nvim-${config,,}"
     rm -rf "${HOME}/.config/nvim-${config,,}"
@@ -54,6 +63,23 @@ select_config() {
   local config
   config=$(printf "%s\n" "${!neovim_configs[@]}" | fzf --prompt=" Neovim Config » " --height=~50% "$@")
   echo "${config}"
+}
+
+swap_default() {
+  selected=$(select_config)
+  [[ -z ${selected} ]] && exit 1
+
+  mv -v "${HOME}/.cache/nvim" "${HOME}/.cache/nvim-${DEFAULT,,}"
+  mv -v "${HOME}/.config/nvim" "${HOME}/.config/nvim-${DEFAULT,,}"
+  mv -v "${HOME}/.local/share/nvim" "${HOME}/.local/share/nvim-${DEFAULT,,}"
+  mv -v "${HOME}/.local/state/nvim" "${HOME}/.local/state/nvim-${DEFAULT,,}"
+
+  mv -v "${HOME}/.cache/nvim-${selected,,}" "${HOME}/.cache/nvim"
+  mv -v "${HOME}/.config/nvim-${selected,,}" "${HOME}/.config/nvim"
+  mv -v "${HOME}/.local/share/nvim-${selected,,}" "${HOME}/.local/share/nvim"
+  mv -v "${HOME}/.local/state/nvim-${selected,,}" "${HOME}/.local/state/nvim"
+
+  sed -i "s/DEFAULT=\w\+/DEFAULT=${selected}/" "${SCRIPT_PATH}"
 }
 
 main() {
@@ -89,13 +115,19 @@ main() {
 }
 
 delete_config_flag=false
-while getopts 'dh' option; do
+while getopts 'dsh' option; do
   case "${option}" in
     d)
+      # TODO: move entire logic into function
+      # TODO: add all option (or reset?)
       delete_config_flag=true
       ;;
+    s)
+      swap_default
+      exit
+      ;;
     h | *)
-      echo "Usage: nvims [-d] [-h]"
+      usage
       exit 1
       ;;
   esac

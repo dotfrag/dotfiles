@@ -20,7 +20,7 @@ clone_repository() {
 
   if [[ "${name}" = "${DEFAULT}" ]] && ! [[ -d "${HOME}/.config/nvim" ]]; then
     git clone "${url}" "${HOME}/.config/nvim"
-    exit
+    exec nvim
   fi
 
   if [[ "${name}" =~ AstroNvim|NvChad ]]; then

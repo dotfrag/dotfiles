@@ -1,8 +1,8 @@
 #!/bin/bash
 #
 # Neovim config switcher, inspired by:
+# https://github.com/Traap/nvims
 # https://gist.github.com/elijahmanor/b279553c0132bfad7eae23e34ceb593b
-# https://github.com/Traap/dotfiles/blob/master/bash/bin/nvims
 
 {
   \unalias command
@@ -113,10 +113,10 @@ delete_config() {
       case ${yn} in
         [Yy]*)
           del_config "${sel}"
-          continue 2
+          break
           ;;
         [Nn]*)
-          continue 2
+          break
           ;;
       esac
     done
@@ -152,7 +152,24 @@ swap_default() {
 }
 
 reset() {
-  :
+  while true; do
+    read -n1 -rp "Delete all Neovim config? (y/n) " yn
+    echo
+    case ${yn} in
+      [Yy]*) break ;;
+      [Nn]*) return ;;
+    esac
+  done
+
+  for nd in "${NVIM_DIRS[@]}"; do
+    command rm -rf "${nd}"
+  done
+
+  for nc in "${!NVIM_CONFIGS[@]}"; do
+    for nd in "${NVIM_DIRS[@]}"; do
+      command rm -rf "${nd}-${nc,,}"
+    done
+  done
 }
 
 main() {

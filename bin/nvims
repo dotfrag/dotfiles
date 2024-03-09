@@ -4,13 +4,27 @@
 # https://gist.github.com/elijahmanor/b279553c0132bfad7eae23e34ceb593b
 # https://github.com/Traap/dotfiles/blob/master/bash/bin/nvims
 
+{
+  \unalias command
+  \unset -f command
+} &>/dev/null
+
+set -euo pipefail
+
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 SCRIPT_PATH="${SCRIPT_DIR}/$(basename "$0")"
 
 # TODO: maybe use a file?
 DEFAULT=LazyVim
 
-declare -A neovim_configs=(
+declare -a nvim_dirs=(
+  "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
+  "${XDG_DATA_HOME:-${HOME}/.local/share}/nvim"
+  "${XDG_STATE_HOME:-${HOME}/.local/state}/nvim"
+  "${XDG_CACHE_HOME:-${HOME}/.cache}/nvim"
+)
+
+declare -A nvim_configs=(
   [AstroNvim]="https://github.com/AstroNvim/AstroNvim"
   [Kickstart]="git@github.com:dotfrag/nvim.lua.git"
   [LazyVim]="git@github.com:dotfrag/lazyvim.nvim.git"
@@ -19,7 +33,14 @@ declare -A neovim_configs=(
 
 usage() {
   # TODO: better usage
-  echo "Usage: nvims [-d] [-s] [-h]"
+  echo "Usage: nvims [-d] [-l] [-s] [-h]"
+}
+
+select_config() {
+  local config
+  config=$(printf "%s\n" "${!nvim_configs[@]}" | fzf --prompt=" Neovim Config » " --height=~50% "$@")
+  [[ -z ${config} ]] && exit 1
+  echo "${config}"
 }
 
 clone_repository() {
@@ -44,83 +65,92 @@ clone_repository() {
   git clone "${url}" "${location}"
 }
 
-delete_config() {
+del_config() {
   local config=$1
   if [[ "${config}" = "${DEFAULT}" ]]; then
-    rm -rf "${HOME}/.cache/nvim"
-    rm -rf "${HOME}/.config/nvim"
-    rm -rf "${HOME}/.local/share/nvim"
-    rm -rf "${HOME}/.local/state/nvim"
+    for nd in "${nvim_dirs[@]}"; do
+      command echo rm -rf "${nd}"
+    done
   else
-    rm -rf "${HOME}/.cache/nvim-${config,,}"
-    rm -rf "${HOME}/.config/nvim-${config,,}"
-    rm -rf "${HOME}/.local/share/nvim-${config,,}"
-    rm -rf "${HOME}/.local/state/nvim-${config,,}"
+    for nd in "${nvim_dirs[@]}"; do
+      command echo rm -rf "${nd}-${config,,}"
+    done
   fi
 }
 
-select_config() {
-  local config
-  config=$(printf "%s\n" "${!neovim_configs[@]}" | fzf --prompt=" Neovim Config » " --height=~50% "$@")
-  echo "${config}"
+delete_config() {
+  local selected
+  selected=$(select_config -m)
+
+  for sel in ${selected}; do
+    while true; do
+      read -n1 -rp "Delete ${sel} config? (y/n) " yn
+      echo
+      case ${yn} in
+        [Yy]*)
+          del_config "${sel}"
+          echo "Deleted ${sel} config."
+          continue 2
+          ;;
+        [Nn]*)
+          continue 2
+          ;;
+      esac
+    done
+  done
+}
+
+list_configs() {
+  # set -x
+  for i in "${!nvim_configs[@]}"; do
+    if [[ "${i}" = "${DEFAULT}" ]] && [[ -d "${nvim_dirs[0]}" ]]; then
+      echo "[x] ${i} (default)"
+    elif [[ -d "${nvim_dirs[0]}-${i,,}" ]]; then
+      echo "[x] ${i}"
+    else
+      echo "[ ] ${i}"
+    fi
+  done
 }
 
 swap_default() {
+  local selected
   selected=$(select_config)
-  [[ -z ${selected} ]] && exit 1
 
-  mv -v "${HOME}/.cache/nvim" "${HOME}/.cache/nvim-${DEFAULT,,}"
-  mv -v "${HOME}/.config/nvim" "${HOME}/.config/nvim-${DEFAULT,,}"
-  mv -v "${HOME}/.local/share/nvim" "${HOME}/.local/share/nvim-${DEFAULT,,}"
-  mv -v "${HOME}/.local/state/nvim" "${HOME}/.local/state/nvim-${DEFAULT,,}"
+  for nd in "${nvim_dirs[@]}"; do
+    command mv "${nd}" "${nd}-${DEFAULT,,}"
+  done
 
-  mv -v "${HOME}/.cache/nvim-${selected,,}" "${HOME}/.cache/nvim"
-  mv -v "${HOME}/.config/nvim-${selected,,}" "${HOME}/.config/nvim"
-  mv -v "${HOME}/.local/share/nvim-${selected,,}" "${HOME}/.local/share/nvim"
-  mv -v "${HOME}/.local/state/nvim-${selected,,}" "${HOME}/.local/state/nvim"
+  for nd in "${nvim_dirs[@]}"; do
+    command mv "${nd}-${selected,,}" "${nd}"
+  done
 
-  sed -i "s/DEFAULT=\w\+/DEFAULT=${selected}/" "${SCRIPT_PATH}"
+  command sed -i "s/DEFAULT=\w\+/DEFAULT=${selected}/" "${SCRIPT_PATH}"
 }
 
 main() {
-  if [[ ${delete_config_flag} == true ]]; then
-    selected=$(select_config -m)
-    [[ -z ${selected} ]] && exit 1
-    for sel in ${selected}; do
-      while true; do
-        read -n1 -rp "Delete ${sel} config? (y/n) " yn
-        echo
-        case ${yn} in
-          [Yy]*)
-            delete_config "${sel}"
-            echo "Deleted ${sel} config."
-            continue 2
-            ;;
-          [Nn]*) continue 2 ;;
-        esac
-      done
-    done
-    return
-  fi
-
+  local selected
   selected=$(select_config)
-  [[ -z ${selected} ]] && exit 1
 
   if ! [[ -d "${HOME}/.config/nvim-${selected,,}" ]]; then
-    clone_repository "${selected}" "${neovim_configs[${selected}]}" "$@"
+    clone_repository "${selected}" "${nvim_configs[${selected}]}" "$@"
   fi
 
   unset VIMINIT GVIMINIT
   exec env NVIM_APPNAME="nvim-${selected,,}" nvim "$@"
 }
 
-delete_config_flag=false
-while getopts 'dsh' option; do
+while getopts 'dlsh' option; do
   case "${option}" in
     d)
       # TODO: move entire logic into function
       # TODO: add all option (or reset?)
-      delete_config_flag=true
+      delete_config
+      exit
+      ;;
+    l)
+      list_configs
+      exit
       ;;
     s)
       swap_default
@@ -128,7 +158,7 @@ while getopts 'dsh' option; do
       ;;
     h | *)
       usage
-      exit 1
+      exit
       ;;
   esac
 done

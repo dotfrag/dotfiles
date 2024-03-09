@@ -56,8 +56,8 @@ EOF
 default=LazyVim
 
 AstroNvim=https://github.com/AstroNvim/AstroNvim
-Kickstart=https://github.com/nvim-lua/kickstart.nvim
-LazyVim=https://github.com/LazyVim/starter
+Kickstart=git@github.com:dotfrag/nvim.lua.git
+LazyVim=git@github.com:dotfrag/lazyvim.nvim.git
 NvChad=https://github.com/NvChad/NvChad
 
 shallow_clone=AstroNvim NvChad

@@ -11,68 +11,86 @@
 
 set -euo pipefail
 
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-SCRIPT_PATH="${SCRIPT_DIR}/$(basename "$0")"
+CONFIG_FILE=${XDG_CONFIG_HOME:-${HOME}/.config}/nvims/config
+DEFAULT=
 
-# TODO: maybe use a file?
-DEFAULT=LazyVim
-
-declare -a nvim_dirs=(
+declare -A NVIM_CONFIGS
+declare -a NVIM_DIRS=(
   "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
   "${XDG_DATA_HOME:-${HOME}/.local/share}/nvim"
   "${XDG_STATE_HOME:-${HOME}/.local/state}/nvim"
   "${XDG_CACHE_HOME:-${HOME}/.cache}/nvim"
 )
 
-declare -A nvim_configs=(
-  [AstroNvim]="https://github.com/AstroNvim/AstroNvim"
-  [Kickstart]="git@github.com:dotfrag/nvim.lua.git"
-  [LazyVim]="git@github.com:dotfrag/lazyvim.nvim.git"
-  [NvChad]="https://github.com/NvChad/NvChad"
-)
-
 usage() {
-  # TODO: better usage
-  echo "Usage: nvims [-d] [-l] [-s] [-h]"
+  cat <<EOF
+Neovim configuration switcher.
+
+Usage: nvims [OPTION] [args..]
+
+Arguments will be passed to nvim.
+
+Options:
+  -d  Delete config
+  -l  List configs
+  -s  Swap default config
+  -h  Print help message
+EOF
+}
+
+first_run() {
+  if [[ -f "${CONFIG_FILE}" ]]; then
+    return
+  fi
+
+  cat <<EOF
+Looks like you are running nvims for the first time.
+The config file ${CONFIG_FILE} will be populated with the defaults.
+Please run nvims again.
+EOF
+
+  mkdir -p "$(dirname "${CONFIG_FILE}")"
+  cat <<EOF >"${CONFIG_FILE}"
+default=LazyVim
+AstroNvim=https://github.com/AstroNvim/AstroNvim
+Kickstart=git@github.com:dotfrag/nvim.lua.git
+LazyVim=git@github.com:dotfrag/lazyvim.nvim.git
+NvChad=https://github.com/NvChad/NvChad
+EOF
+
+  exit
+}
+
+read_config_file() {
+  local key value
+  while read -r line; do
+    if echo "${line}" | grep -qF =; then
+      key=$(echo "${line}" | cut -d'=' -f1)
+      value=$(echo "${line}" | cut -d'=' -f2)
+      if [[ ${key} = "default" ]]; then
+        DEFAULT=${value}
+      else
+        NVIM_CONFIGS[${key}]=${value}
+      fi
+    fi
+  done <"${CONFIG_FILE}"
 }
 
 select_config() {
   local config
-  config=$(printf "%s\n" "${!nvim_configs[@]}" | fzf --prompt=" Neovim Config » " --height=~50% "$@")
+  config=$(printf "%s\n" "${!NVIM_CONFIGS[@]}" | fzf --prompt=" Neovim Config » " --height=~50% "$@")
   [[ -z ${config} ]] && exit 1
   echo "${config}"
-}
-
-clone_repository() {
-  local name="$1"
-  local url="$2"
-  local location="${HOME}/.config/nvim-${name,,}"
-  shift 2
-
-  if [[ "${name}" = "${DEFAULT}" ]]; then
-    if ! [[ -d ${HOME}/.config/nvim ]]; then
-      git clone "${url}" "${HOME}/.config/nvim"
-    fi
-    # TODO: reorganise launch logic (see main)
-    exec nvim "$@"
-  fi
-
-  if [[ "${name}" =~ AstroNvim|NvChad ]]; then
-    git clone --depth 1 "${url}" "${location}"
-    return
-  fi
-
-  git clone "${url}" "${location}"
 }
 
 del_config() {
   local config=$1
   if [[ "${config}" = "${DEFAULT}" ]]; then
-    for nd in "${nvim_dirs[@]}"; do
+    for nd in "${NVIM_DIRS[@]}"; do
       command echo rm -rf "${nd}"
     done
   else
-    for nd in "${nvim_dirs[@]}"; do
+    for nd in "${NVIM_DIRS[@]}"; do
       command echo rm -rf "${nd}-${config,,}"
     done
   fi
@@ -101,11 +119,10 @@ delete_config() {
 }
 
 list_configs() {
-  # set -x
-  for i in "${!nvim_configs[@]}"; do
-    if [[ "${i}" = "${DEFAULT}" ]] && [[ -d "${nvim_dirs[0]}" ]]; then
+  for i in "${!NVIM_CONFIGS[@]}"; do
+    if [[ "${i}" = "${DEFAULT}" ]] && [[ -d "${NVIM_DIRS[0]}" ]]; then
       echo "[x] ${i} (default)"
-    elif [[ -d "${nvim_dirs[0]}-${i,,}" ]]; then
+    elif [[ -d "${NVIM_DIRS[0]}-${i,,}" ]]; then
       echo "[x] ${i}"
     else
       echo "[ ] ${i}"
@@ -117,34 +134,49 @@ swap_default() {
   local selected
   selected=$(select_config)
 
-  for nd in "${nvim_dirs[@]}"; do
+  for nd in "${NVIM_DIRS[@]}"; do
     command mv "${nd}" "${nd}-${DEFAULT,,}"
   done
 
-  for nd in "${nvim_dirs[@]}"; do
+  for nd in "${NVIM_DIRS[@]}"; do
     command mv "${nd}-${selected,,}" "${nd}"
   done
 
-  command sed -i "s/DEFAULT=\w\+/DEFAULT=${selected}/" "${SCRIPT_PATH}"
+  # command sed -i "s/DEFAULT=\w\+/DEFAULT=${selected}/" "${SCRIPT_PATH}"
 }
 
 main() {
-  local selected
+  local selected url location
   selected=$(select_config)
+  url=${NVIM_CONFIGS[${selected}]}
+  location=${NVIM_DIRS[0]}-${selected,,}
 
   if ! [[ -d "${HOME}/.config/nvim-${selected,,}" ]]; then
-    clone_repository "${selected}" "${nvim_configs[${selected}]}" "$@"
+    if [[ "${selected}" = "${DEFAULT}" ]]; then
+      if ! [[ -d ${HOME}/.config/nvim ]]; then
+        git clone "${url}" "${HOME}/.config/nvim"
+      fi
+      exec nvim "$@"
+    fi
+
+    if [[ ${selected} =~ AstroNvim|NvChad ]]; then
+      git clone --depth 1 "${url}" "${location}"
+      return
+    fi
+
+    git clone "${url}" "${location}"
   fi
 
   unset VIMINIT GVIMINIT
   exec env NVIM_APPNAME="nvim-${selected,,}" nvim "$@"
 }
 
+first_run
+read_config_file
+
 while getopts 'dlsh' option; do
   case "${option}" in
     d)
-      # TODO: move entire logic into function
-      # TODO: add all option (or reset?)
       delete_config
       exit
       ;;
@@ -163,4 +195,4 @@ while getopts 'dlsh' option; do
   esac
 done
 
-main "$@"
+# main "$@"

@@ -12,8 +12,8 @@
 set -euo pipefail
 
 CONFIG_FILE=${XDG_CONFIG_HOME:-${HOME}/.config}/nvims/config
-SHALLOW_CLONE="AstroNvim NvChad"
 DEFAULT=
+SHALLOW_CLONE=
 
 declare -A NVIM_CONFIGS
 declare -a NVIM_DIRS=(
@@ -45,22 +45,23 @@ first_run() {
     return
   fi
 
-  cat <<EOF
+  command cat <<EOF
 Looks like you are running nvims for the first time.
-The config file ${CONFIG_FILE} will be populated with the defaults.
-Please run nvims again.
+The config file ${CONFIG_FILE} has been populated with the defaults.
+
 EOF
 
-  mkdir -p "$(dirname "${CONFIG_FILE}")"
-  cat <<EOF >"${CONFIG_FILE}"
+  command mkdir -p "$(dirname "${CONFIG_FILE}")"
+  command cat <<EOF >"${CONFIG_FILE}"
 default=LazyVim
-AstroNvim=https://github.com/AstroNvim/AstroNvim
-Kickstart=git@github.com:dotfrag/nvim.lua.git
-LazyVim=git@github.com:dotfrag/lazyvim.nvim.git
-NvChad=https://github.com/NvChad/NvChad
-EOF
 
-  exit
+AstroNvim=https://github.com/AstroNvim/AstroNvim
+Kickstart=https://github.com/nvim-lua/kickstart.nvim
+LazyVim=https://github.com/LazyVim/starter
+NvChad=https://github.com/NvChad/NvChad
+
+shallow_clone=AstroNvim NvChad
+EOF
 }
 
 read_config_file() {
@@ -71,6 +72,8 @@ read_config_file() {
       value=$(echo "${line}" | cut -d'=' -f2)
       if [[ ${key} = "default" ]]; then
         DEFAULT=${value}
+      elif [[ ${key} = "shallow_clone" ]]; then
+        SHALLOW_CLONE=${value}
       else
         NVIM_CONFIGS[${key}]=${value}
       fi
@@ -160,19 +163,19 @@ main() {
 
   if [[ ${selected} = "${DEFAULT}" ]]; then
     if ! [[ -d ${HOME}/.config/nvim ]]; then
-      git clone "${url}" "${HOME}/.config/nvim"
+      command git clone "${url}" "${HOME}/.config/nvim"
     fi
-    # exec nvim "$@"
+    exec nvim "$@"
   elif ! [[ -d ${HOME}/.config/nvim-${selected,,} ]]; then
     if [[ ${SHALLOW_CLONE} = *"${selected}"* ]]; then
-      git clone --depth 1 "${url}" "${location}"
+      command git clone --depth 1 "${url}" "${location}"
     else
-      git clone "${url}" "${location}"
+      command git clone "${url}" "${location}"
     fi
   fi
 
   unset VIMINIT GVIMINIT
-  # exec env NVIM_APPNAME="nvim-${selected,,}" nvim "$@"
+  exec env NVIM_APPNAME="nvim-${selected,,}" nvim "$@"
 }
 
 first_run

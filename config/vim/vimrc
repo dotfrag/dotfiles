@@ -181,8 +181,8 @@ noremap <leader>q :q<cr>
 " noremap <C-k> <C-w>k
 " noremap <C-l> <C-w>l
 noremap  <silent> <C-S> :update<cr>
-vnoremap <silent> <C-S> <C-C>:update<cr>
-inoremap <silent> <C-S> <C-O>:update<cr>
+vnoremap <silent> <C-S> <esc>:update<cr>
+inoremap <silent> <C-S> <esc>:update<cr>
 
 " Visual
 nmap <leader>cc :call ColorColumnToggle()<cr>

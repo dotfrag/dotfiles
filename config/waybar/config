@@ -6,7 +6,7 @@
   "spacing": 24, // Gaps between modules (4px)
   // Choose the order of the modules
   "modules-left": ["sway/workspaces", "sway/scratchpad", "sway/window"],
-  "modules-center": ["clock", "sway/mode"],
+  "modules-center": ["clock", "privacy", "sway/mode"],
   "modules-right": [ "tray", "idle_inhibitor", "bluetooth", "pulseaudio#mic", "pulseaudio", "network", "disk", "cpu", "memory", "temperature", "battery" ],
   // Modules configuration
   "sway/workspaces": {

@@ -1,5 +1,6 @@
 gui:
   nerdFontsVersion: "3"
+  enlargedSideViewLocation: "top"
   theme:
     activeBorderColor:
       - "#a6da95"
@@ -9,8 +10,6 @@ gui:
     optionsTextColor:
       - "#8aadf4"
     selectedLineBgColor:
-      - "#363a4f"
-    selectedRangeBgColor:
       - "#363a4f"
     cherryPickedCommitBgColor:
       - "#494d64"

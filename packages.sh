@@ -72,6 +72,7 @@ packages_pacman=(
 
 packages_yay=(
   google-chrome
+  grimshot
   lazydocker
   networkmanager-dmenu-git
   otf-geist

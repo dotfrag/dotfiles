@@ -79,8 +79,10 @@ nmap <leader>cl :set cursorline!<cr>
 nmap <leader>h :set hlsearch!<cr>
 nmap <leader>z :set wrap!<cr>
 
-nmap [b :bprevious<cr>
-nmap ]b :bnext<cr>
+nmap [b    :bprevious<cr>
+nmap <S-h> :bprevious<cr>
+nmap ]b    :bnext<cr>
+nmap <S-l> :bnext<cr>
 
 nmap cae ggcG
 nmap vae ggVG

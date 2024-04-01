@@ -285,3 +285,9 @@ cmd select-dirs &{{
   }
   lf -remote "send $id :unselect; toggle $(get_dirs)"
 }}
+
+# yank paths into your clipboard
+cmd yank-dirname &dirname -- "$f" | head -c-1 | wl-copy --trim-newline
+cmd yank-path &printf '%s' "$fx" | wl-copy --trim-newline
+cmd yank-basename &basename -a -- $fx | head -c-1 | wl-copy --trim-newline
+map Y yank-path

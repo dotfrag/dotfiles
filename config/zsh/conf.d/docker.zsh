@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------- DOCKER
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/docker/docker.plugin.zsh
 alias dbl='docker build'
-alias dcin='docker container inspect'
-alias dcls='docker container ls'
-alias dclsa='docker container ls -a'
+alias din='docker container inspect'
+alias dls='docker container ls'
+alias dlsa='docker container ls -a'
 alias dib='docker image build'
 alias dii='docker image inspect'
 alias dils='docker image ls'
@@ -32,6 +32,7 @@ alias dtop='docker top'
 alias dvi='docker volume inspect'
 alias dvls='docker volume ls'
 alias dvprune='docker volume prune'
+alias dvrm='docker volume rm'
 alias dxc='docker container exec'
 alias dxcit='docker container exec -it'
 

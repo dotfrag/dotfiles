@@ -11,6 +11,13 @@ alias ln='ln -vi'
 alias mv='mv -vi'
 alias rm='rm -v'
 
+alias lad='ls -d .*(/)'  # dot-directories
+alias lsa='ls -a .*(.)'  # dot-files
+alias lsd='ls -d *(/)'   # directories
+alias lse='ls -d *(/^F)' # empty directories
+alias lsl='ls -l *(@)'   # symlinks
+alias lsx='ls -l *(*)'   # executables
+
 alias bathelp='bat --plain --language=help'
 alias cat='bat'
 alias colors='bash -c "$(wget -qO- https://git.io/vQgMr)"'

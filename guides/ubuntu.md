@@ -18,7 +18,7 @@ sudo apt install -y nala
 
 ```shell
 sudo nala install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev
-git -C /tmp clone https://github.com/i3/i3
+git -C /tmp clone --depth 1 https://github.com/i3/i3
 cd /tmp/i3
 mkdir -p build && cd build
 meson ..
@@ -60,7 +60,7 @@ sudo make install
 
 ```shell
 sudo nala install -y libdbus-1-dev libx11-dev libxinerama-dev libxrandr-dev libxss-dev libglib2.0-dev libpango1.0-dev libgtk-3-dev libxdg-basedir-dev
-git -C /tmp clone https://github.com/dunst-project/dunst.git
+git -C /tmp clone --depth 1 https://github.com/dunst-project/dunst.git
 cd /tmp/dunst
 make
 sudo make WAYLAND=0 install
@@ -70,7 +70,7 @@ sudo make WAYLAND=0 install
 
 ```shell
 sudo nala install -y autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util0-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev
-git -C /tmp clone https://github.com/Raymo111/i3lock-color.git
+git -C /tmp clone --depth 1 https://github.com/Raymo111/i3lock-color.git
 cd /tmp/i3lock-color
 git tag -f "git-$(git rev-parse --short HEAD)"
 ./install-i3lock-color.sh
@@ -89,7 +89,7 @@ systemctl enable betterlockscreen@$USER
 
 ```shell
 sudo nala install -y libconfig-dev libdbus-1-dev libegl-dev libev-dev libgl-dev libpcre2-dev libpixman-1-dev libx11-xcb-dev libxcb1-dev libxcb-composite0-dev libxcb-damage0-dev libxcb-dpms0-dev libxcb-glx0-dev libxcb-image0-dev libxcb-present-dev libxcb-randr0-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-util-dev libxcb-xfixes0-dev libxext-dev meson ninja-build uthash-dev
-git -C /tmp clone https://github.com/yshui/picom
+git -C /tmp clone --depth 1 https://github.com/yshui/picom
 cd /tmp/picom
 meson setup --buildtype=release build
 sudo ninja -C build install

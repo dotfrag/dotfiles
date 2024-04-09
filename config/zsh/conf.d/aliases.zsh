@@ -29,6 +29,7 @@ alias insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/nu
 alias killsigs="kill -l | tr ' ' '\n' | nl"
 alias ls='eza --all --long --git --group-directories-first'
 alias mdcat='mdcat -p'
+alias pacdiff='MERGEPROG="git merge-file -p --diff3" pacdiff -s -b'
 alias print-aliases='print -rl -- ${(k)aliases}'
 alias print-functions='print -rl -- ${(k)functions}'
 alias ran='ranger --choosedir=/tmp/.rangerdir; LASTDIR=$(cat /tmp/.rangerdir); cd "$LASTDIR"'

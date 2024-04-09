@@ -47,7 +47,7 @@ fed() {
 
 # fuzzy ripgrep open with line number
 vg() {
-  rg --color=always --line-number --no-heading --smart-case "${*:-}" |
+  rg --color=always --line-number --no-heading ${*:-} |
     fzf --ansi \
         --color "hl:-1:underline,hl+:-1:underline:reverse" \
         --height 30 \

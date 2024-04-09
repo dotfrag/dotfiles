@@ -47,7 +47,7 @@ fed() {
 
 # fuzzy ripgrep open with line number
 vg() {
-  rg --color=always --line-number --no-heading ${*:-} |
+  rg --color=always --line-number --no-heading $@ |
     fzf --ansi \
         --color "hl:-1:underline,hl+:-1:underline:reverse" \
         --height 30 \
@@ -61,7 +61,7 @@ vg() {
 vgd() {
   local files
   IFS=$'\n' local files=($(cat "${XDG_DATA_HOME:-${HOME}/.local/share}/dots"))
-  rg --color=always --line-number --no-heading --smart-case "${*:-}" "${files[@]}" |
+  rg --color=always --line-number --no-heading $@ ${files[@]} |
     fzf --ansi \
         --color "hl:-1:underline,hl+:-1:underline:reverse" \
         --height 30 \

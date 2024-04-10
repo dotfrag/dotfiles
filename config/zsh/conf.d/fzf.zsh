@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------- FZF
 eval "$(fzf --zsh)"
 
-export FZF_DEFAULT_OPTS="--height 25% --reverse --border=bottom --info=inline \
+export FZF_DEFAULT_OPTS="--height 25% --reverse --border --info=inline \
 --bind 'home:first,end:last' \
 --bind 'ctrl-y:preview-up,ctrl-e:preview-down' \
 --bind 'ctrl-b:preview-page-up,ctrl-f:preview-page-down' \

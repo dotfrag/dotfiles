@@ -61,20 +61,23 @@ vg() {
 }
 
 # ripgrep interactive with fuzzy search and open with line number
-# https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-to-fzf-only-search-mode
+# https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-between-ripgrep-mode-and-fzf-mode
 vgi() {
-  local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case"
+  rm -f /tmp/rg-fzf-{r,f}
+  local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
   local INITIAL_QUERY="${*:-}"
-  : | fzf --ansi --disabled --height 30 --query "${INITIAL_QUERY}" \
-    --bind "start:reload:${RG_PREFIX} {q}" \
-    --bind "change:reload:sleep 0.1; ${RG_PREFIX} {q} || true" \
-    --bind "alt-enter:unbind(change,alt-enter)+change-prompt(fzf » )+enable-search+clear-query" \
+  : | fzf --ansi --disabled --height 30 --query "$INITIAL_QUERY" \
+    --bind "start:reload($RG_PREFIX {q})+unbind(ctrl-r)" \
+    --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
+    --bind "ctrl-f:unbind(change,ctrl-f)+change-prompt(fzf » )+enable-search+rebind(ctrl-r)+transform-query(echo {q} > /tmp/rg-fzf-r; cat /tmp/rg-fzf-f)" \
+    --bind "ctrl-r:unbind(ctrl-r)+change-prompt(rg » )+disable-search+reload($RG_PREFIX {q} || true)+rebind(change,ctrl-f)+transform-query(echo {q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r)" \
     --color "hl:-1:underline,hl+:-1:underline:reverse" \
     --prompt 'rg » ' \
     --delimiter : \
+    --header 'CTRL-R (ripgrep mode) CTRL-F (fzf mode)' \
     --preview 'bat --color=always {1} --highlight-line {2}' \
     --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-    --bind 'enter:become(vim {1} +{2})'
+    --bind 'enter:become($EDITOR {1} +{2})'
 }
 
 # fuzzy ripgrep dots open with line number

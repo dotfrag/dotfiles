@@ -60,6 +60,23 @@ vg() {
         --bind 'enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
 }
 
+# ripgrep interactive with fuzzy search and open with line number
+# https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-to-fzf-only-search-mode
+vgi() {
+  local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case"
+  local INITIAL_QUERY="${*:-}"
+  : | fzf --ansi --disabled --height 30 --query "${INITIAL_QUERY}" \
+    --bind "start:reload:${RG_PREFIX} {q}" \
+    --bind "change:reload:sleep 0.1; ${RG_PREFIX} {q} || true" \
+    --bind "alt-enter:unbind(change,alt-enter)+change-prompt(fzf » )+enable-search+clear-query" \
+    --color "hl:-1:underline,hl+:-1:underline:reverse" \
+    --prompt 'rg » ' \
+    --delimiter : \
+    --preview 'bat --color=always {1} --highlight-line {2}' \
+    --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+    --bind 'enter:become(vim {1} +{2})'
+}
+
 # fuzzy ripgrep dots open with line number
 vgd() {
   [ -z $1 ] && return 1
@@ -73,23 +90,6 @@ vgd() {
         --preview 'bat --color=always {1} --highlight-line {2}' \
         --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
         --bind 'one:become($EDITOR {1} +{2}),enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
-}
-
-# ripgrep interactive
-# https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-to-fzf-only-search-mode
-rgi() {
-  local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case"
-  local INITIAL_QUERY="${*:-}"
-  : | fzf --ansi --disabled --height 30 --query "${INITIAL_QUERY}" \
-    --bind "start:reload:${RG_PREFIX} {q}" \
-    --bind "change:reload:sleep 0.1; ${RG_PREFIX} {q} || true" \
-    --bind "alt-enter:unbind(change,alt-enter)+change-prompt(fzf » )+enable-search+clear-query" \
-    --color "hl:-1:underline,hl+:-1:underline:reverse" \
-    --prompt 'ripgrep » ' \
-    --delimiter : \
-    --preview 'bat --color=always {1} --highlight-line {2}' \
-    --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-    --bind 'enter:become(vim {1} +{2})'
 }
 
 # fkill - kill processes - list only the ones you can kill

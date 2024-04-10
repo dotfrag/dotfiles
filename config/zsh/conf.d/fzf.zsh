@@ -28,6 +28,7 @@ cursor:#ed8796,selected:#ee99a0,header:#8bd5ca,border:#6e738d"
 #   - [p] persistent fzf
 #   - [b] bat preview
 #   - [d] dotfiles
+#   https://github.com/junegunn/fzf/wiki/examples#opening-files
 fe() {
   fzf --query="$@" --multi --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
 }
@@ -46,7 +47,9 @@ fed() {
 }
 
 # fuzzy ripgrep open with line number
+# https://github.com/junegunn/fzf/wiki/examples#opening-files
 vg() {
+  [ -z $1 ] && return 1
   rg --color=always --line-number --no-heading $@ |
     fzf --ansi \
         --color "hl:-1:underline,hl+:-1:underline:reverse" \
@@ -59,6 +62,7 @@ vg() {
 
 # fuzzy ripgrep dots open with line number
 vgd() {
+  [ -z $1 ] && return 1
   local files
   IFS=$'\n' local files=($(cat "${XDG_DATA_HOME:-${HOME}/.local/share}/dots"))
   rg --color=always --line-number --no-heading $@ ${files[@]} |
@@ -71,13 +75,31 @@ vgd() {
         --bind 'one:become($EDITOR {1} +{2}),enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
 }
 
+# ripgrep interactive
+# https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-to-fzf-only-search-mode
+rgi() {
+  local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case"
+  local INITIAL_QUERY="${*:-}"
+  : | fzf --ansi --disabled --height 30 --query "${INITIAL_QUERY}" \
+    --bind "start:reload:${RG_PREFIX} {q}" \
+    --bind "change:reload:sleep 0.1; ${RG_PREFIX} {q} || true" \
+    --bind "alt-enter:unbind(change,alt-enter)+change-prompt(fzf » )+enable-search+clear-query" \
+    --color "hl:-1:underline,hl+:-1:underline:reverse" \
+    --prompt 'ripgrep » ' \
+    --delimiter : \
+    --preview 'bat --color=always {1} --highlight-line {2}' \
+    --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+    --bind 'enter:become(vim {1} +{2})'
+}
+
 # fkill - kill processes - list only the ones you can kill
+# https://github.com/junegunn/fzf/wiki/examples#processes
 fkill() {
   local pid
   if [ "$UID" != "0" ]; then
-    pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+    pid=$(ps -f -u $UID | fzf -m --header-lines=1 | awk '{print $2}')
   else
-    pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    pid=$(ps -ef | fzf -m --header-lines=1 | awk '{print $2}')
   fi
 
   if [ "x$pid" != "x" ]; then
@@ -90,4 +112,14 @@ cmd() {
   local cmds=${ZDOTDIR:-${HOME}}/.cmds
   local cmd=$(fzf --query="$1" --select-1 --exit-0 <$cmds)
   [[ -n "${cmd}" ]] && eval "${cmd}"
+}
+
+# ps interactive
+# https://github.com/junegunn/fzf/blob/master/ADVANCED.md#updating-the-list-of-processes-by-pressing-ctrl-r
+psf() {
+  (date; ps -ef) |
+    fzf --bind='ctrl-r:reload(date; ps -ef)' \
+      --header=$'Press CTRL-R to reload\n\n' --header-lines=2 \
+      --preview='echo {}' --preview-window=down,3,wrap \
+      --multi --height=100% | sed '$!G'
 }

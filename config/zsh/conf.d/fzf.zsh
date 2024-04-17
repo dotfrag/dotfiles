@@ -70,13 +70,13 @@ vgi() {
   : | fzf --ansi --disabled --height 30 --query "$INITIAL_QUERY" \
     --bind "start:reload:$RG_PREFIX {q}" \
     --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
-    --bind 'alt-enter:transform:[[ ! $FZF_PROMPT =~ rg ]] &&
+    --bind 'tab:transform:[[ ! $FZF_PROMPT =~ rg ]] &&
       echo "rebind(change)+change-prompt(rg » )+disable-search+transform-query:echo \{q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r" ||
       echo "unbind(change)+change-prompt(fzf » )+enable-search+transform-query:echo \{q} > /tmp/rg-fzf-r; cat /tmp/rg-fzf-f"' \
     --color "hl:-1:underline,hl+:-1:underline:reverse" \
     --prompt 'rg » ' \
     --delimiter : \
-    --header 'Alt-Enter: Switch between ripgrep/fzf' \
+    --header 'Tab: Switch between ripgrep/fzf' \
     --preview 'bat --color=always {1} --highlight-line {2}' \
     --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
     --bind 'enter:become($EDITOR {1} +{2})'

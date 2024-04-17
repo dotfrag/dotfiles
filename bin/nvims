@@ -55,7 +55,7 @@ EOF
   command cat <<EOF >"${CONFIG_FILE}"
 default=LazyVim
 
-AstroNvim=https://github.com/AstroNvim/AstroNvim
+AstroNvim=https://github.com/AstroNvim/template
 Kickstart=git@github.com:dotfrag/nvim.lua.git
 LazyVim=git@github.com:dotfrag/lazyvim.nvim.git
 NvChad=https://github.com/NvChad/starter

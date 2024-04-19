@@ -18,5 +18,5 @@ esac
 interface=$(ip -br l | awk '$1 !~ "'"${filter}"'" {print $1}')
 ip=$(ip -f inet addr show "${interface}" | awk '/inet / {print $2}' | cut -d'/' -f1)
 
-echo "${ip}" | xclip -sel c -f | xclip -sel p
-notify-send "Clipboard" "IP address copied"
+echo -n "${ip}" | xclip -sel c -f | xclip -sel p
+notify-send "Clipboard" "${interface} address copied"

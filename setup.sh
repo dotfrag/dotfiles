@@ -72,7 +72,7 @@ setup_fzf() {
   if [[ "${DISTRO}" != "Arch Linux" ]]; then
     printf "[fzf] "
     git -C "${FZF_DIR}" pull 2>/dev/null || git clone --depth 1 https://github.com/junegunn/fzf "${FZF_DIR}"
-    "${FZF_DIR}/install" --completion --key-bindings --no-bash --no-update-rc --xdg >/dev/null
+    "${FZF_DIR}/install" --bin >/dev/null
     println
   fi
 }

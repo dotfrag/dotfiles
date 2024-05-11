@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------- FZF
 eval "$(fzf --zsh)"
 
-export FZF_DEFAULT_OPTS="--height 25% --reverse --border --info=inline \
+export FZF_DEFAULT_OPTS="--height 30% --reverse --border --info inline-right \
 --bind 'home:first,end:last' \
 --bind 'ctrl-y:preview-up,ctrl-e:preview-down' \
 --bind 'ctrl-b:preview-page-up,ctrl-f:preview-page-down' \
@@ -10,7 +10,8 @@ export FZF_DEFAULT_OPTS="--height 25% --reverse --border --info=inline \
 --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
 --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
 --color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
---marker='∙'"
+--color gutter:-1,selected-bg:#494d64,selected-fg:#b8c0e0 \
+--marker '▏' --pointer '▌' --prompt '▌ '"
 
 export FZF_DEFAULT_COMMAND="fd --type file --hidden --follow"
 export FZF_ALT_C_COMMAND="fd --type directory --hidden --follow"

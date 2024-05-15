@@ -53,14 +53,15 @@ EOF
 
   command mkdir -p "$(dirname "${CONFIG_FILE}")"
   command cat <<EOF >"${CONFIG_FILE}"
-default=LazyVim
+default=DotVim
 
 AstroNvim=https://github.com/AstroNvim/template
-Kickstart=git@github.com:dotfrag/nvim.lua.git
+DotVim=git@github.com:dotfrag/DotVim.git
+Kickstart=https://github.com/nvim-lua/kickstart.nvim.git
 LazyVim=git@github.com:dotfrag/lazyvim.nvim.git
 NvChad=https://github.com/NvChad/starter
 
-shallow_clone=AstroNvim NvChad
+shallow_clone=AstroNvim Kickstart NvChad
 EOF
 }
 

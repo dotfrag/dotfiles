@@ -68,11 +68,11 @@
   },
   "cpu": {
     "interval": 5,
-    "format": "󰘚 {usage}%"
+    "format": " {usage}%"
   },
   "memory": {
     "interval": 5,
-    "format": "󰍛 {}%"
+    "format": " {}%"
   },
   "temperature": {
     "interval": 5,

@@ -1,4 +1,15 @@
 # ---------------------------------------------------------------------- ALIASES
+alias vim=$EDITOR
+alias v=$EDITOR
+alias vi='command vim'
+alias nv='neovide'
+
+alias nvim-astro='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-astronvim nvim'
+alias nvim-chad='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-nvchad nvim'
+alias nvim-dot='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-dotvim nvim'
+alias nvim-kickstart='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-kickstart nvim'
+alias nvim-lazy='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-lazyvim nvim'
+
 alias agi='sudo nala install'
 alias aug='sudo nala update && sudo nala upgrade'
 alias di='sudo dnf install'

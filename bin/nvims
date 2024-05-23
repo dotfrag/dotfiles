@@ -34,8 +34,9 @@ Arguments will be passed to nvim.
 Options:
   -d  Delete config
   -l  List configs
-  -r  Reset (delete all configs)
+  -u  Update packages (except default)
   -s  Swap default config
+  -r  Reset (delete all configs)
   -h  Print help message
 EOF
 }
@@ -70,16 +71,17 @@ EOF
 read_config_file() {
   local key value
   while read -r line; do
-    if echo "${line}" | grep -qF =; then
-      key=$(echo "${line}" | cut -d'=' -f1)
-      value=$(echo "${line}" | cut -d'=' -f2)
-      if [[ ${key} = "default" ]]; then
-        DEFAULT=${value}
-      elif [[ ${key} = "shallow_clone" ]]; then
-        SHALLOW_CLONE=${value}
-      else
-        NVIM_CONFIGS[${key}]=${value}
-      fi
+    if ! echo "${line}" | grep -qF =; then
+      continue
+    fi
+
+    read -r key value <<<"$(echo "${line}" | awk -F'=' '{print $1 " " $2}')"
+    if [[ ${key} = "default" ]]; then
+      DEFAULT=${value}
+    elif [[ ${key} = "shallow_clone" ]]; then
+      SHALLOW_CLONE=${value}
+    else
+      NVIM_CONFIGS[${key}]=${value}
     fi
   done <"${CONFIG_FILE}"
 }
@@ -135,6 +137,14 @@ list_configs() {
       echo "[x] ${i}"
     else
       echo "[ ] ${i}"
+    fi
+  done
+}
+
+update_configs() {
+  for i in "${!NVIM_CONFIGS[@]}"; do
+    if [[ -d "${NVIM_DIRS[0]}-${i,,}" ]]; then
+      NVIM_APPNAME="nvim-${i,,}" nvim --headless "+Lazy! sync" +qa
     fi
   done
 }
@@ -201,7 +211,7 @@ main() {
 first_run
 read_config_file
 
-while getopts 'dlsrh' option; do
+while getopts 'dlusrh' option; do
   case "${option}" in
     d)
       delete_config
@@ -209,6 +219,10 @@ while getopts 'dlsrh' option; do
       ;;
     l)
       list_configs
+      exit
+      ;;
+    u)
+      update_configs
       exit
       ;;
     s)

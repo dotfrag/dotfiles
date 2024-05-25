@@ -63,6 +63,7 @@ packages_pacman=(
   vim
   wget
   wl-clipboard
+  yazi
   yt-dlp
   zip
   zoxide

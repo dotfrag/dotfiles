@@ -140,14 +140,15 @@ keymap = [
   { on = [ "w" ], run = "tasks_show", desc = "Show the tasks manager" },
 
   # Goto
-  { on = [ "g", "h" ],       run = "cd ~" },
+  { on = [ "g", "<Space>" ], run = "cd --interactive" },
   { on = [ "g", "c" ],       run = "cd ~/.config" },
   { on = [ "g", "d" ],       run = "cd ~/Downloads" },
-  { on = [ "g", "t" ],       run = "cd /tmp" },
-  { on = [ "g", "<Space>" ], run = "cd --interactive" },
-  { on = [ "g", "P" ], run = "cd ~/Pictures" },
-  { on = [ "g", "p" ], run = "cd ~/projects" },
-  { on = [ "g", "r" ], run = "cd ~/repos" },
+  { on = [ "g", "h" ],       run = "cd ~" },
+  { on = [ "g", "P" ],       run = "cd ~/Pictures" },
+  { on = [ "g", "p" ],       run = "cd ~/projects" },
+  { on = [ "g", "r" ],       run = "cd ~/repos" },
+  { on = [ "g", "t" ],       run = "cd ~/tmp" },
+  { on = [ "g", "T" ],       run = "cd /tmp" },
 
   # Help
   { on = [ "~" ], run = "help", desc = "Open help" },

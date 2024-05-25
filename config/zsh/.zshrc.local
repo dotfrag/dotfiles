@@ -54,7 +54,7 @@ bindkey -M isearch . self-insert # without this, typing a . aborts incremental h
 
 # ------------------------------------------------------------------------- MISC
 eval "$(zoxide init zsh)"
-alias zedit='FZF_DEFAULT_OPTS=${FZF_DEFAULT_OPTS/--height 25%/} zoxide edit'
+alias zedit='FZF_DEFAULT_OPTS=${FZF_DEFAULT_OPTS/--height 30%/} zoxide edit'
 
 # use the vi navigation keys (hjkl) besides cursor keys in menu completion
 bindkey -M menuselect 'h' vi-backward-char        # left

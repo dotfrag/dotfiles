@@ -1,4 +1,14 @@
 # -------------------------------------------------------------------- FUNCTIONS
+# yazi
+f() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    cd -- "$cwd"
+  fi
+  command rm -f -- "$tmp"
+}
+
 # change working dir in shell to last dir in lf on exit
 lfd() {
   cd "$(command lf -print-last-dir "$@")"

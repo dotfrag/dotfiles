@@ -19,6 +19,7 @@ packages_pacman=(
   gammastep
   git
   git-delta
+  git-filter-repo
   gnome-keyring
   imagemagick
   imv

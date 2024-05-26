@@ -25,6 +25,7 @@ set autoread                      " Set to auto read when a file is changed from
 set backspace=indent,eol,start    " Backspace behaviour
 set balloonevalterm               " Enable balloon-eval functionality
 " set cursorline                    " Highlight the current line
+set diffopt+=iwhite               " Ignore whitespace in diff mode
 set foldmethod=manual             " Enable manual folding
 set gdefault                      " By default add g flag to search/replace. Add g to toggle
 set hidden                        " When a buffer is brought to foreground, remember undo history and marks

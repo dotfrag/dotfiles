@@ -32,6 +32,7 @@ set backspace=indent,eol,start
 set expandtab
 set nowrap
 set tabstop=4 shiftwidth=4
+set diffopt+=iwhite
 
 " Searching
 set gdefault

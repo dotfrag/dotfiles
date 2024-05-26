@@ -95,7 +95,7 @@ keymap = [
   { on = [ "c", "n" ], run = "copy name_without_ext", desc = "Copy the name of the file without the extension" },
 
   # Filter
-  { on = [ "f" ], run = "filter --smart", desc = "Filter the files" },
+  { on = [ "F" ], run = "filter --smart", desc = "Filter the files" },
 
   # Find
   { on = [ "/" ], run = "find --smart",            desc = "Find next file" },
@@ -140,10 +140,12 @@ keymap = [
   { on = [ "w" ], run = "tasks_show", desc = "Show the tasks manager" },
 
   # Goto
+  { on = [ "f" ],            run = "cd --interactive" },
   { on = [ "g", "<Space>" ], run = "cd --interactive" },
   { on = [ "g", "c" ],       run = "cd ~/.config" },
   { on = [ "g", "d" ],       run = "cd ~/Downloads" },
   { on = [ "g", "h" ],       run = "cd ~" },
+  { on = [ "g", "m" ],       run = "cd ~/media" },
   { on = [ "g", "P" ],       run = "cd ~/Pictures" },
   { on = [ "g", "p" ],       run = "cd ~/projects" },
   { on = [ "g", "r" ],       run = "cd ~/repos" },

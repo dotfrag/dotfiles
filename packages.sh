@@ -60,6 +60,7 @@ packages_pacman=(
   ttf-fira-code
   ttf-jetbrains-mono
   ttf-opensans
+  unarchiver
   unzip
   vim
   wget

@@ -6,7 +6,7 @@ include themes/catppuccin-macchiato
 
 # GSettings
 exec_always {
-  gsettings set org.gnome.desktop.interface gtk-theme 'Catppuccin-Macchiato-Standard-Blue-Dark'
+  gsettings set org.gnome.desktop.interface gtk-theme 'catppuccin-macchiato-blue-standard+default-dark'
   gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
   gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
   gsettings set org.gnome.desktop.interface font-name 'Open Sans 11'

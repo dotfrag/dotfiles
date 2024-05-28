@@ -34,7 +34,7 @@ alias cat='bat'
 alias colors='bash -c "$(wget -qO- https://git.io/vQgMr)"'
 alias dfs='df -h | sort -n -k 5'
 alias dus='du -sh * 2>/dev/null | sort -h'
-alias files='nautilus --browser $(pwd) &>/dev/null & disown'
+alias files='nemo $(pwd) &>/dev/null & disown'
 alias glow='glow -p'
 alias insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" -o "PreferredAuthentications=keyboard-interactive"'
 alias killsigs="kill -l | tr ' ' '\n' | nl"

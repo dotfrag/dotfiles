@@ -43,14 +43,14 @@ download_and_extract_font() {
 patch_complete() {
   rm -f "${IN_DIR:?}"/* "${OUT_DIR:?}"/*
   cp -t "${IN_DIR}" "${ROOT_DIR}"/*.ttf
-  ${DOCKER} run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete
+  ${DOCKER} run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete --adjust-line-height
   mv "${OUT_DIR:?}"/*.ttf "${SCRIPT_DIR}/"
 }
 
 patch_complete_variable_width_glyphs() {
   rm -f "${IN_DIR:?}"/* "${OUT_DIR:?}"/*
   cp -t "${IN_DIR}" "${ROOT_DIR}"/IosevkaSS08-{Regular,Medium}.ttf
-  ${DOCKER} run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete --variable-width-glyphs
+  ${DOCKER} run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete --adjust-line-height --variable-width-glyphs
   mv "${OUT_DIR:?}"/*.ttf "${SCRIPT_DIR}/"
 }
 

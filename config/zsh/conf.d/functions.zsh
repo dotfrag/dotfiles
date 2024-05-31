@@ -213,8 +213,12 @@ venv() {
 
 # sync github fork
 sync-fork() {
+  if ! git config remote.upstream.url >/dev/null; then
+    echo "No upstream remote found."
+    return
+  fi
   branch=$(git_main_branch)
-  git fetch upstream &&
-    git checkout "${branch}" &&
-    git merge "upstream/${branch}"
+  git fetch upstream
+  git checkout "${branch}"
+  git merge "upstream/${branch}"
 }

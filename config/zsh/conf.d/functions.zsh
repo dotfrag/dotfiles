@@ -210,3 +210,11 @@ venv() {
   fi
   source venv/bin/activate
 }
+
+# sync github fork
+sync-fork() {
+  branch=$(git_main_branch)
+  git fetch upstream &&
+    git checkout "${branch}" &&
+    git merge "upstream/${branch}"
+}

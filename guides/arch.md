@@ -171,5 +171,6 @@ Add related lines to `/etc/vconsole.conf`:
 
 ```text
 KEYMAP=/usr/local/share/kbd/keymaps/personal.map
-FONT=ter-d20b.psf.gz
+# FONT=ter-d20b.psf.gz
+FONT=ter-v24b.psf.gz
 ```

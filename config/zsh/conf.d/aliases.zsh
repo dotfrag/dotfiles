@@ -39,6 +39,7 @@ alias glow='glow -p'
 alias insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" -o "PreferredAuthentications=keyboard-interactive"'
 alias killsigs="kill -l | tr ' ' '\n' | nl"
 alias ls='eza --all --long --git --group-directories-first'
+alias ltree='eza -T --icons=always --git-ignore'
 alias mdcat='mdcat -p'
 alias pacdiff='MERGEPROG="git merge-file -p --diff3" pacdiff -s -b'
 alias print-aliases='print -rl -- ${(k)aliases}'

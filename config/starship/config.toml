@@ -1,4 +1,4 @@
-right_format = "$status"
+right_format = '$status'
 
 [sudo]
 style = 'bold green'

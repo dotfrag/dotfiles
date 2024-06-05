@@ -23,3 +23,4 @@ gui:
     cherryPickedCommitBgColor:
       - "#c099ff"
 notARepository: "skip"
+promptToReturnFromSubprocess: false

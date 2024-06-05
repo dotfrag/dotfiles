@@ -214,7 +214,8 @@ venv() {
 # sync github fork
 sync-fork() {
   if ! git config remote.upstream.url >/dev/null; then
-    echo "No upstream remote found."
+    echo "No upstream remote found. Add a remote upstream with:"
+    echo "git remote add upstream https://github.com/ORIGINAL-OWNER/ORIGINAL-REPOSITORY.git"
     return
   fi
   branch=$(git_main_branch)

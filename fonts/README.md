@@ -56,8 +56,8 @@ fc-scan --format "%{fullname[$(( $(sed -E 's/^(.*)en.*/\1/;s/[^,]//g' <<<"$(fc-s
 
 ## Resources
 
-<https://github.com/be5invis/Iosevka>
-<https://github.com/ryanoasis/nerd-fonts>
-<https://github.com/be5invis/Iosevka/blob/main/doc/PACKAGE-LIST.md>
-<https://github.com/ryanoasis/nerd-fonts/wiki/ScriptOptions>
+<https://github.com/be5invis/Iosevka>\
+<https://github.com/ryanoasis/nerd-fonts>\
+<https://github.com/be5invis/Iosevka/blob/main/doc/PACKAGE-LIST.md>\
+<https://github.com/ryanoasis/nerd-fonts/wiki/ScriptOptions>\
 <https://github.com/ryanoasis/nerd-fonts/discussions/1103>

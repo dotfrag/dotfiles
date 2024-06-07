@@ -40,17 +40,24 @@ download_and_extract_font() {
   unzip -u "${ROOT_DIR}/PkgTTF-IosevkaSS08-${LATEST_VERSION/v/}.zip" "${FILE_LIST[@]}" -d "${ROOT_DIR}/"
 }
 
-patch_complete() {
+patch_fonts() {
   rm -f "${IN_DIR:?}"/* "${OUT_DIR:?}"/*
   cp -t "${IN_DIR}" "${ROOT_DIR}"/*.ttf
-  ${DOCKER} run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete
+  ${DOCKER} run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete --quiet
   mv "${OUT_DIR:?}"/*.ttf "${SCRIPT_DIR}/"
 }
 
-patch_complete_variable_width_glyphs() {
+patch_fonts_mono() {
+  rm -f "${IN_DIR:?}"/* "${OUT_DIR:?}"/*
+  cp -t "${IN_DIR}" "${ROOT_DIR}"/*.ttf
+  ${DOCKER} run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete --mono --quiet
+  mv "${OUT_DIR:?}"/*.ttf "${SCRIPT_DIR}/"
+}
+
+patch_fonts_propo() {
   rm -f "${IN_DIR:?}"/* "${OUT_DIR:?}"/*
   cp -t "${IN_DIR}" "${ROOT_DIR}"/IosevkaSS08-{Regular,Medium}.ttf
-  ${DOCKER} run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete --variable-width-glyphs
+  ${DOCKER} run --rm -v "${IN_DIR}:/in" -v "${OUT_DIR}:/out" nerdfonts/patcher --complete --variable-width-glyphs --quiet
   mv "${OUT_DIR:?}"/*.ttf "${SCRIPT_DIR}/"
 }
 
@@ -69,8 +76,9 @@ main() {
   init
   get_latest_version
   download_and_extract_font
-  patch_complete
-  # patch_complete_variable_width_glyphs
+  patch_fonts
+  # patch_fonts_mono
+  # patch_fonts_propo
   install_fonts
   update_fonts_version
 }

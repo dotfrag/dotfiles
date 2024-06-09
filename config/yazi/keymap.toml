@@ -143,6 +143,7 @@ keymap = [
   # Goto
   { on = [ "f" ],            run = "cd --interactive" },
   { on = [ "g", "<Space>" ], run = "cd --interactive" },
+  { on = [ "g", "b" ],       run = "cd ~/.local/bin" },
   { on = [ "g", "c" ],       run = "cd ~/.config" },
   { on = [ "g", "d" ],       run = "cd ~/Downloads" },
   { on = [ "g", "h" ],       run = "cd ~" },

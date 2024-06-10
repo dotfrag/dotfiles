@@ -3,6 +3,7 @@ alias vim=$EDITOR
 alias v=$EDITOR
 alias vi='command vim'
 alias nv='neovide'
+alias view='v -R'
 
 alias nvim-astro='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-astronvim nvim'
 alias nvim-chad='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-nvchad nvim'

@@ -24,6 +24,7 @@ packages_pacman=(
   imagemagick
   imv
   jq
+  just
   kitty
   kitty-shell-integration
   kitty-terminfo

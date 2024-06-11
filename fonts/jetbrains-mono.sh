@@ -12,4 +12,4 @@ TARGET_DIR="${HOME}/.local/share/fonts/JetBrainsMono"
 mkdir -p "${TARGET_DIR}"
 wget -nc -q --show-progress -O "/tmp/${FILENAME}" "https://github.com/JetBrains/JetBrainsMono/releases/download/${LATEST_VERSION}/${FILENAME}"
 unzip -o "/tmp/${FILENAME}" -d "${TARGET_DIR}"
-fc-cache -rf
+[[ $(ps -o stat= -p "${PPID}") = "Ss" ]] && fc-cache -rf

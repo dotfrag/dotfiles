@@ -1,8 +1,12 @@
 # kitty
 
+## Install
+
 ```shell
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin && exit
 ```
+
+## Desktop integration
 
 ```shell
 \ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten ~/.local/bin/
@@ -13,6 +17,8 @@ curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin && exit
 echo 'kitty.desktop' > ~/.config/xdg-terminals.list
 ```
 
+## Terminfo
+
 ```shell
 if [ -n "$TERMINFO" ]; then
   sudo mkdir -p /etc/terminfo/x
@@ -21,6 +27,12 @@ if [ -n "$TERMINFO" ]; then
   sudo install --owner=root --group=root "${TERMINFO}/x/xterm-kitty" /etc/terminfo/x/
 fi
 ```
+
+```shell
+Defaults env_keep += "TERM TERMINFO"
+```
+
+## Update-alternatives
 
 ```shell
 sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator ${HOME}/.local/bin/kitty 1

@@ -10,8 +10,8 @@ while pgrep -u "${UID}" -x polybar >/dev/null; do sleep 0; done
 # Variables
 mapfile -t MONITORS < <(polybar --list-monitors | cut -d":" -f1)
 if [[ -z "${POLYBAR_INTF_TYPE}" ]]; then
-  has_ethernet=$(nmcli device | awk '$2=="ethernet" {print $1}' | head -1 | wc -l)
-  if [[ "${has_ethernet}" -eq 0 ]]; then
+  wired_intf=$(ip -br l | awk '$1 !~ "lo|tun|vir|wl|enp" {print $1}')
+  if [[ -z "${wired_intf}" ]]; then
     export POLYBAR_INTF_TYPE="wireless"
   fi
 fi

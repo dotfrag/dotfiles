@@ -83,7 +83,7 @@ cd betterlockscreen-main/
 chmod u+x betterlockscreen
 sudo cp betterlockscreen /usr/local/bin/
 sudo cp system/betterlockscreen@.service /usr/lib/systemd/system/
-systemctl enable betterlockscreen@$USER
+sudo systemctl enable betterlockscreen@$USER
 ```
 
 ## picom
@@ -93,5 +93,15 @@ sudo nala install -y libconfig-dev libdbus-1-dev libegl-dev libev-dev libgl-dev 
 git -C /tmp clone --depth 1 https://github.com/yshui/picom
 cd /tmp/picom
 meson setup --buildtype=release build
+sudo ninja -C build install
+```
+
+## nemo
+
+```shell
+sudo nala install -y intltool libcinnamon-desktop-dev libexempi-dev libexif-gtk-dev libgail-3-dev libgirepository1.0-dev libgsf-1-dev libxapp-dev libxml2-dev
+git -C /tmp clone --depth 1 https://github.com/linuxmint/nemo
+cd /tmp/nemo
+meson build
 sudo ninja -C build install
 ```

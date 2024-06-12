@@ -1,5 +1,3 @@
-# ~/.config/betterlockscreenrc
-
 # default options
 display_on=1
 span_image=false
@@ -11,13 +9,12 @@ pixel_scale=10,1000
 solid_color=333333
 wallpaper_cmd="feh --bg-fill"
 quiet=false
-# i3lockcolor_bin="i3lock-color" # Manually set command for i3lock-color
 
 # default theme
 loginbox=2E344066
 loginshadow=2E344000
 locktext=".frag"
-font="Montserrat Medium"
+font="JetBrains Mono"
 ringcolor=E5E9F0FF
 insidecolor=2E344000
 separatorcolor=2E344000

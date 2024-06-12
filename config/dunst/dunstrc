@@ -448,6 +448,11 @@
   skip_display = yes
   history_ignore = yes
 
+[snap]
+  summary = "Some required theme snaps are missing."
+  skip_display = yes
+  history_ignore = yes
+
 #[signed_on]
 #    appname = Pidgin
 #    summary = "*signed on*"

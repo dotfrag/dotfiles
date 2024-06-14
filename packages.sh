@@ -36,6 +36,7 @@ packages_pacman=(
   mdcat
   miniserve
   mpv
+  mtr
   nemo
   neovim
   noto-fonts

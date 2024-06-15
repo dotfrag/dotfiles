@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cd "$(mktemp -d)" || exit
+mkdir repos
+cd repos || exit
+
+gh repo list --source |
+  awk '{print $1}' | sort |
+  xargs -I{} git clone --mirror git@github.com:{}
+
+cd ..
+
+tar cf repos.tar repos
+zstd -T0 --ultra -20 repos.tar
+du -sh repos.tar repos.tar.zst
+mv -vf repos.tar.zst "${HOME}/repos-$(date +%Y%m%d).tar.zst"

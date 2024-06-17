@@ -75,5 +75,4 @@ xsource "${XDG_DATA_HOME}/zsh/plugins/fsh/fast-syntax-highlighting.plugin.zsh"
 
 # ----------------------------------------------------------------------- PROMPT
 prompt off
-export STARSHIP_CONFIG=$HOME/.config/starship/config.toml
 eval "$(starship init zsh)"

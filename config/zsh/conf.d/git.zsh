@@ -46,8 +46,10 @@ git_main_branch() {
   echo master
 }
 
+
 gpall() {
-  fd -IHL -d "${1:=2}" -td '^\.git$' -x git -C {//} pull
+  [[ -n $1 ]] && d=$(($1 + 1)) || d=2
+  fd -IHL -d "${d}" -td '^\.git$' -x git -C {//} pull
 }
 
 # git gc all repos

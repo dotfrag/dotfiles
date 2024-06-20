@@ -47,8 +47,8 @@ bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/brightne
 bindsym $mod+Ctrl+Shift+minus exec --no-startup-id ~/.config/i3/scripts/brightness down
 
 # Screenshot
-bindsym Print      exec --no-startup-id flameshot gui
-bindsym $mod+Print exec --no-startup-id ~/.config/i3/scripts/scrot-active-window
+bindsym Print      exec --no-startup-id ~/.config/i3/scripts/scrot flameshot gui
+bindsym $mod+Print exec --no-startup-id ~/.config/i3/scripts/scrot window
 
 # kill focused window
 bindsym $mod+q kill

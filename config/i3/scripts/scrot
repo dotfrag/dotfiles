@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Screenshot script to kill picom for transparency.
+
+killall picom
+
+if [[ $1 == "window" ]]; then
+  DIR=${HOME}/Pictures/Screenshots
+  FILE="$(date +'%Y%m%d_%H%M%S').png"
+  # shellcheck disable=SC2016
+  scrot -u "${DIR}/${FILE}" -e 'xclip -sel c -t image/png -i $f'
+  notify-send "Screenshot" "Filename: ${FILE}"
+else
+  "$@"
+fi
+
+picom &

@@ -41,6 +41,12 @@ Regenerate initramfs:
 sudo mkinitcpio -P
 ```
 
+To enable the webcam for a single session, run:
+
+```shell
+sudo modprobe uvcvideo
+```
+
 <https://askubuntu.com/questions/166809/how-can-i-disable-my-webcam>
 <https://bbs.archlinux.org/viewtopic.php?id=170416>
 

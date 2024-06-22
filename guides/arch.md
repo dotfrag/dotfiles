@@ -2,6 +2,8 @@
 
 Reference of one-off stuff that I will forget.
 
+- [Disable webcam](#disable-webcam)
+- [Enable GuC / HuC firmware loading](#enable-guc--huc-firmware-loading)
 - [Gnome Keyring](#gnome-keyring)
 - [GPG](#gpg)
 - [Hosts file](#hosts-file)
@@ -12,6 +14,49 @@ Reference of one-off stuff that I will forget.
 - [Sudoers](#sudoers)
 - [thermald](#thermald)
 - [TTY keymap and font](#tty-keymap-and-font)
+
+## Disable webcam
+
+### For one session
+
+```shell
+sudo modprobe -r uvcvideo
+```
+
+If you get "Module uvcvideo is in use", then:
+
+```shell
+sudo rmmod -f uvcvideo
+```
+
+### Permanently
+
+```shell
+echo 'blacklist uvcvideo' | sudo tee /etc/modprobe.d/blacklist-uvcvideo.conf
+```
+
+Regenerate initramfs:
+
+```shell
+sudo mkinitcpio -P
+```
+
+<https://askubuntu.com/questions/166809/how-can-i-disable-my-webcam>
+<https://bbs.archlinux.org/viewtopic.php?id=170416>
+
+## Enable GuC / HuC firmware loading
+
+```shell
+echo 'options i915 enable_guc=2' | sudo tee /etc/modprobe.d/i915-enable-guc.conf
+```
+
+Regenerate initramfs:
+
+```shell
+sudo mkinitcpio -P
+```
+
+<https://wiki.archlinux.org/title/Intel_graphics#Enable_GuC_/_HuC_firmware_loading>
 
 ## Gnome Keyring
 
@@ -174,46 +219,3 @@ KEYMAP=/usr/local/share/kbd/keymaps/personal.map
 # FONT=ter-d20b.psf.gz
 FONT=ter-v24b.psf.gz
 ```
-
-## Enable GuC / HuC firmware loading
-
-```shell
-echo 'options i915 enable_guc=2' | sudo tee /etc/modprobe.d/i915-enable-guc.conf
-```
-
-Regenerate initramfs:
-
-```shell
-sudo mkinitcpio -P
-```
-
-<https://wiki.archlinux.org/title/Intel_graphics#Enable_GuC_/_HuC_firmware_loading>
-
-## Disable webcam
-
-For one session:
-
-```shell
-sudo modprobe -r uvcvideo
-```
-
-If you get "Module uvcvideo is in use", then:
-
-```shell
-sudo rmmod -f uvcvideo
-```
-
-Permanently:
-
-```shell
-echo 'blacklist uvcvideo' | sudo tee /etc/modprobe.d/blacklist-uvcvideo.conf
-```
-
-Regenerate initramfs:
-
-```shell
-sudo mkinitcpio -P
-```
-
-<https://askubuntu.com/questions/166809/how-can-i-disable-my-webcam>
-<https://bbs.archlinux.org/viewtopic.php?id=170416>

@@ -53,3 +53,8 @@ zsh -ic 'fast-theme XDG:catppuccin-macchiato; bat cache --build' >/dev/null
 # shellcheck disable=SC2207
 IFS=$'\n' output=($(sort <<<"${output[*]}"))
 printf "%s\n" "${output[@]}" | column -t
+
+# mpv
+if command -v mpv >/dev/null && ! [[ -d "${CONFIG_DIR}/mpv/scripts/uosc" ]]; then
+  curl -fsSL https://raw.githubusercontent.com/tomasklaen/uosc/HEAD/installers/unix.sh | bash
+fi

@@ -227,3 +227,13 @@ sync-fork() {
   git checkout "${branch}"
   git merge "upstream/${branch}"
 }
+
+# process tree
+ptree() {
+  if [ $# -gt 0 ]; then
+    ps --no-headers $*
+    for p in $*; do
+      ptree $(cat /proc/$p/task/$p/children)
+    done
+  fi
+}

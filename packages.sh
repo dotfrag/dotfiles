@@ -34,6 +34,7 @@ packages_pacman=(
   man-db
   man-pages
   mdcat
+  mediainfo
   miniserve
   mpv
   mtr

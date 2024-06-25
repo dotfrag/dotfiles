@@ -1,7 +1,7 @@
 git:
   paging:
     colorArg: always
-    pager: delta --dark --paging=never
+    pager: delta --dark --paging=never --line-numbers-left-format='{nm}⫶' --line-numbers-right-format='{np}|'
 gui:
   nerdFontsVersion: "3"
   commitHashLength: 4

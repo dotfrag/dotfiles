@@ -203,7 +203,7 @@ shellfix() {
   fi
 }
 
-# create and source venv
+# create or source venv
 venv() {
   if ! [[ -d venv ]]; then
     python -m venv venv
@@ -230,10 +230,15 @@ sync-fork() {
 
 # process tree
 ptree() {
-  if [ $# -gt 0 ]; then
-    ps --no-headers $*
-    for p in $*; do
-      ptree $(cat /proc/$p/task/$p/children)
+  if [[ $# -gt 0 ]]; then
+    ps --no-headers "$@"
+    for p in "$@"; do
+      ptree $(cat "/proc/${p}/task/${p}/children")
     done
   fi
+}
+
+# process search
+pss() {
+  ps -ef | sed -n "1p; /[${1:0:1}]${1:1}/p"
 }

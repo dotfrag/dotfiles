@@ -13,6 +13,7 @@ declare -A config_dirs=(
   ["networkmanager_dmenu"]="networkmanager-dmenu"
   ["rg"]="ripgrep"
   ["setxkbmap"]="xkb"
+  ["shellcheck"]="shellcheckrc"
   ["subl"]="sublime-text"
   ["sway"]="xdg-desktop-portal"
   ["thorium-browser"]="thorium-flags.conf"

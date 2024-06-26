@@ -1,0 +1,20 @@
+# Suggest explicitly using -n in `[ $var ]`
+enable=avoid-nullary-conditions
+
+# Warn when uppercase variables are unassigned
+enable=check-unassigned-uppercase
+
+# Suggest 'command -v' instead of 'which'
+enable=deprecate-which
+
+# Suggest quoting variables without metacharacters
+enable=quote-safe-variables
+
+# Require [[ and warn about [ in Bash/Ksh
+enable=require-double-brackets
+
+# Suggest putting braces around all variable references
+enable=require-variable-braces
+
+# Follow external sources
+external-sources=true

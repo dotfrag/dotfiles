@@ -61,3 +61,4 @@ fc-scan --format "%{fullname[$(( $(sed -E 's/^(.*)en.*/\1/;s/[^,]//g' <<<"$(fc-s
 <https://github.com/be5invis/Iosevka/blob/main/doc/PACKAGE-LIST.md>\
 <https://github.com/ryanoasis/nerd-fonts/wiki/ScriptOptions>\
 <https://github.com/ryanoasis/nerd-fonts/discussions/1103>
+<https://github.com/polybar/polybar/issues/991>

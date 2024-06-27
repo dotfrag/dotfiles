@@ -54,7 +54,7 @@ gpall() {
 
 # git gc all repos
 gitgc() {
-  fd -td '^.git' -IH -E '.cache' -E '.cargo' -E '.local' -E 'node_modules' \
+  fd -td '^.git$' -IH -E '.cache' -E '.cargo' -E '.local' -E 'node_modules' \
     -x echo {//} | sort -u | while read -r line; do
     if git -C "${line}" rev-parse --is-inside-work-tree &>/dev/null; then
       print -P "%F{yellow}${line}%f"

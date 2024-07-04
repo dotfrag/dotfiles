@@ -52,6 +52,7 @@ bindsym $mod+Print exec --no-startup-id ~/.config/i3/scripts/scrot window
 
 # kill focused window
 bindsym $mod+q kill
+bindsym $mod+Shift+q exec --no-startup-id xkill
 
 # rofi
 bindsym $mod+d       exec --no-startup-id "rofi -show drun"

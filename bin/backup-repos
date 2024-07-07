@@ -1,8 +1,10 @@
 #!/bin/bash
 
-cd "$(mktemp -d)" || exit
+set -euo pipefail
+
+cd "$(mktemp -d)"
 mkdir repos
-cd repos || exit
+cd repos
 
 gh repo list --source |
   awk '{print $1}' | sort |

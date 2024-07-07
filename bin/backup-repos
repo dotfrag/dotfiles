@@ -2,17 +2,34 @@
 
 set -euo pipefail
 
-cd "$(mktemp -d)"
-mkdir repos
-cd repos
+cd "${HOME}/backup/repos"
 
-gh repo list --source |
-  awk '{print $1}' | sort |
-  xargs -I{} git clone --mirror git@github.com:{}
+new_repos=()
+for i in $(gh repo list --source | awk '{print $1}' | sort -f); do
+  if ! [[ -d ${i#*/}.git ]]; then
+    new_repos+=("${i}")
+  fi
+done
+if [[ ${#new_repos[@]} -gt 0 ]]; then
+  echo "Cloning new repos..."
+  parallel git clone --mirror git@github.com:{} ::: "${new_repos[@]}"
+  echo
+fi
+
+echo "Updating existing repos..."
+parallel --tag git -C {} remote update --prune ::: "$(fd -td -d1)"
+echo
 
 cd ..
 
+echo "Archiving repos..."
 tar cf repos.tar repos
+echo
+
+echo "Compressing repos..."
 zstd -T0 --ultra -20 repos.tar
 du -sh repos.tar repos.tar.zst
+rm repos.tar
+echo
+
 mv -vf repos.tar.zst "${HOME}/repos-$(date +%Y%m%d).tar.zst"

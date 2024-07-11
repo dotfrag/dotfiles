@@ -31,7 +31,7 @@ set ttimeoutlen=100
 set backspace=indent,eol,start
 set expandtab
 set nowrap
-set tabstop=4 shiftwidth=4
+set tabstop=2 shiftwidth=2
 set diffopt+=iwhite
 
 " Searching
@@ -202,6 +202,8 @@ call s:hi("SpellLocal", s:blue, "NONE", "NONE", "underline", "underline")
 call s:hi("SpellRare", s:green, "NONE", "NONE", "underline", "underline")
 call s:hi("StatusLine", "NONE", s:text, s:mantle, "NONE", "NONE")
 call s:hi("StatusLineNC", "NONE", s:surface1, s:mantle, "NONE", "NONE")
+call s:hi("StatusLineTerm", "NONE", s:text, s:mantle, "NONE", "NONE")
+call s:hi("StatusLineTermNC", "NONE", s:surface1, s:mantle, "NONE", "NONE")
 call s:hi("TabLine", "NONE", s:surface1, s:mantle, "NONE", "NONE")
 call s:hi("TabLineFill", "NONE", "NONE", s:mantle, "NONE", "NONE")
 call s:hi("TabLineSel", "NONE", s:green, s:surface1, "NONE", "NONE")

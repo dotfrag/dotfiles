@@ -15,4 +15,6 @@ fi
 
 bash dotfiles/setup.sh "$@"
 
-chsh -s /bin/zsh
+if [[ ${SHELL} != *zsh ]]; then
+  chsh -s /bin/zsh
+fi

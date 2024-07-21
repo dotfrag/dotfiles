@@ -2,9 +2,13 @@ git:
   paging:
     colorArg: always
     pager: delta --dark --paging=never --line-numbers-left-format='{nm}⫶' --line-numbers-right-format='{np}|'
+
 gui:
-  nerdFontsVersion: "3"
   commitHashLength: 4
+  expandFocusedSidePanel: true
+  expandedSidePanelWeight: 2
+  nerdFontsVersion: "3"
+  showDivergenceFromBaseBranch: arrowAndNumber
   theme:
     activeBorderColor:
       - "#ff966c"
@@ -30,5 +34,6 @@ gui:
       - "#c53b53"
     defaultFgColor:
       - "#c8d3f5"
+
 notARepository: "skip"
 promptToReturnFromSubprocess: false

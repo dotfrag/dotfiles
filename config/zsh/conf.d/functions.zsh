@@ -206,7 +206,7 @@ shellfix() {
 # create or source venv
 venv() {
   if ! [[ -d venv ]]; then
-    python -m venv venv
+    $(command -v python3 || command -v python) -m venv venv
   fi
   source venv/bin/activate
 }

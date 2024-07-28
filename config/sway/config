@@ -332,7 +332,6 @@ for_window {
   [app_id="wdisplays"] $float
   [class="Chromium|Google-chrome|Thorium-browser" title="Bitwarden"] $float
   [class="qBittorrent" title="^(?!qBittorrent)"] $float
-  [class="qBittorrent" title="qBittorrent v.*"] $float
   [window_role="pop-up,task_dialog,About"] $float
   [window_type="dialog"] $float
   [window_type="dropdown_menu"] $float

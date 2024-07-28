@@ -181,11 +181,6 @@ restart() {
   exec $SHELL $SHELL_ARGS "$@"
 }
 
-# get latest version of git repo release
-get_latest_version() {
-  curl -sLH "Accept: application/json" "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\Kv[^"]*'
-}
-
 # open project in vscode
 vs() {
   local projects=${XDG_DATA_HOME:-${HOME}/.local/share}/projects
@@ -209,23 +204,6 @@ venv() {
     $(command -v python3 || command -v python) -m venv venv
   fi
   source venv/bin/activate
-}
-
-# sync github fork
-sync-fork() {
-  if ! git config remote.upstream.url >/dev/null; then
-    echo "No upstream remote found. Add a remote upstream with:"
-    echo "git remote add upstream https://github.com/ORIGINAL-OWNER/ORIGINAL-REPOSITORY.git"
-    return
-  fi
-  if [[ -z $1 ]]; then
-    branch=$(git_main_branch)
-  else
-    branch=$1
-  fi
-  git fetch upstream
-  git checkout "${branch}"
-  git merge "upstream/${branch}"
 }
 
 # process tree

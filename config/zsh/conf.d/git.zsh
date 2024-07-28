@@ -14,7 +14,7 @@ alias gdud='gdu | delta'
 alias gdw='git diff -w'
 alias gfp="git ls-files --full-name"
 alias glg='git log --oneline -5'
-alias gp='git pull'
+# alias gp='git pull'
 alias gpr='git pull --rebase'
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias grv="git remote -v | awk '{print \$2}' | sort -u"
@@ -126,4 +126,34 @@ gall() {
 # run git command for all repos in directory (parallel)
 gallx() {
   fd -td '^\.git$' -IHL -x git -C {//} $*
+}
+
+# get latest version of git repo release
+get_latest_version() {
+  curl -sLH "Accept: application/json" "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\Kv[^"]*'
+}
+
+# sync github fork
+sync-fork() {
+  if ! git config remote.upstream.url >/dev/null; then
+    echo "No upstream remote found. Add a remote upstream with:"
+    echo "git remote add upstream https://github.com/ORIGINAL-OWNER/ORIGINAL-REPOSITORY.git"
+    return
+  fi
+  if [[ -z $1 ]]; then
+    branch=$(git_main_branch)
+  else
+    branch=$1
+  fi
+  git fetch upstream
+  git checkout "${branch}"
+  git merge "upstream/${branch}"
+}
+
+gp() {
+  if git remote -v | awk '{print $1}' | grep -q upstream; then
+    sync-fork
+  else
+    git pull
+  fi
 }

@@ -16,7 +16,7 @@ case "$1" in
 esac
 
 # shellcheck disable=SC2154
-if [[ $1 == "vpn" ]] && ! ping -c1 "${VPN_CHECK_HOST}" &>/dev/null; then
+if [[ $1 == "vpn" ]] && ! ping -c1 -W1 "${VPN_CHECK_HOST}" &>/dev/null; then
   notify-send "VPN is down, restarting..."
   vpn=$(nmcli conn show --active | grep vpn | awk '{print $1}')
   nmcli conn down "${vpn}"

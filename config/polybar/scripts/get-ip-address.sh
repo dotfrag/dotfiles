@@ -2,13 +2,19 @@
 
 case "$1" in
   wired)
-    filter="lo|docker|br|tun|vir|wl"
+    wired_intf_p=$(ip -br l | awk '$1 !~ "lo|docker|br|tun|vir|wl|enx" {print $1}')
+    wired_intf_x=$(ip -br l | awk '$1 !~ "lo|docker|br|tun|vir|wl|enp" {print $1}')
+    if [[ $(cat "/sys/class/net/${wired_intf_p}/carrier") == 1 ]]; then
+      interface="${wired_intf_p}"
+    else
+      interface="${wired_intf_x}"
+    fi
     ;;
   vpn)
-    filter="lo|docker|br|en|vir|wl"
+    interface=$(ip -br l | awk '$1 !~ "lo|docker|br|en|vir|wl" {print $1}')
     ;;
   wireless)
-    filter="lo|docker|br|tun|vir|en"
+    interface=$(ip -br l | awk '$1 !~ "lo|docker|br|tun|vir|en" {print $1}')
     ;;
   *)
     exit 1
@@ -23,7 +29,6 @@ if [[ $1 == "vpn" ]] && ! ping -c1 -W1 "${VPN_CHECK_HOST}" &>/dev/null; then
   nmcli conn up "${vpn}"
 fi
 
-interface=$(ip -br l | awk '$1 !~ "'"${filter}"'" {print $1}')
 ip=$(ip -f inet addr show "${interface}" | awk '/inet / {print $2}' | cut -d'/' -f1)
 
 echo -n "${ip}" | xclip -sel c -f | xclip -sel p

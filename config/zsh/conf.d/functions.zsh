@@ -64,6 +64,7 @@ x() {
   done
   for f in "$@"; do
     case "$f" in
+      *.tar)              mkdir "${f%.*.*}" && tar xvf  "$f" -C "${f%.*.*}" ;;
       *.tar.bz|*.tar.bz2) mkdir "${f%.*.*}" && tar xjvf "$f" -C "${f%.*.*}" ;;
       *.tar.gz)           mkdir "${f%.*.*}" && tar xzvf "$f" -C "${f%.*.*}" ;;
       *.tar.xz)           mkdir "${f%.*.*}" && tar xJvf "$f" -C "${f%.*.*}" ;;

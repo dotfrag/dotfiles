@@ -28,5 +28,4 @@ rules = [
   # Fallback
   # { name = "*", use = [ "open", "reveal" ] },
   { mime = "*", use = [] },
-
 ]

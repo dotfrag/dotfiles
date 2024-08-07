@@ -105,9 +105,9 @@ glog() {
 
 # run git command for all repos in directory (serial)
 gall() {
-  if [ -d "$1" ]; then
+  if [[ -d "$1" ]]; then
     local repos=()
-    while [ -d "$1" ]; do
+    while [[ -d "$1" ]]; do
       repos+=("$1")
       shift
     done
@@ -125,7 +125,7 @@ gall() {
 
 # run git command for all repos in directory (parallel)
 gallx() {
-  fd -td '^\.git$' -IHL -x git -C {//} $*
+  fd -td '^\.git$' -IHL -x git -C {//} "$@"
 }
 
 # get latest version of git repo release

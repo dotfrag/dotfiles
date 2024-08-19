@@ -33,11 +33,11 @@ keymap = [
 	{ on = "G",          run = "arrow 99999999",  desc = "Move cursor to the bottom" },
 
 	# Navigation
-	{ on = "h", run = "leave", desc = "Go back to the parent directory" },
+	{ on = "h", run = "leave",                     desc = "Go back to the parent directory" },
 	{ on = "l", run = "plugin --sync smart-enter", desc = "Enter the child directory, or open the file" },
 
-	{ on = "<Left>",  run = "leave",    desc = "Go back to the parent directory" },
-	{ on = "<Right>", run = "enter",    desc = "Enter the child directory" },
+	{ on = "<Left>",  run = "leave",                     desc = "Go back to the parent directory" },
+	{ on = "<Right>", run = "plugin --sync smart-enter", desc = "Enter the child directory, or open the file" },
 
 	{ on = "H", run = "back",    desc = "Go back to the previous directory" },
 	{ on = "L", run = "forward", desc = "Go forward to the next directory" },

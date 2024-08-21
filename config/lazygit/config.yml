@@ -35,5 +35,9 @@ gui:
     defaultFgColor:
       - "#c8d3f5"
 
+keybinding:
+  universal:
+    openFile: <disabled>
+
 notARepository: "skip"
 promptToReturnFromSubprocess: false

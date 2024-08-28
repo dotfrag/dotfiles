@@ -222,3 +222,13 @@ ptree() {
 pss() {
   ps -ef | sed -n "1p; /[${1:0:1}]${1:1}/p"
 }
+
+# update node
+fnmup() {
+  current_version=$(fnm ls | rg default | awk '{print $2}')
+  fnm install --lts
+  new_version=$(fnm ls | rg default | awk '{print $2}')
+  if [[ "${current_version}" != "${new_version}" ]]; then
+    fnm uninstall "${current_version}"
+  fi
+}

@@ -12,14 +12,16 @@ alias gdt='GIT_EXTERNAL_DIFF=difft git diff'
 alias gdu='git diff --no-ext-diff -U0'
 alias gdud='gdu | delta'
 alias gdw='git diff -w'
-alias gfp="git ls-files --full-name"
+alias gfp='git ls-files --full-name'
 alias glg='git log --oneline -5'
 # alias gp='git pull'
 alias gpr='git pull --rebase'
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias grv="git remote -v | awk '{print \$2}' | sort -u"
 alias gs='git status'
+alias gsp='git stash pop'
 alias gss='git status -s'
+alias gst='git stash'
 alias lg='lazygit'
 
 # git checkout

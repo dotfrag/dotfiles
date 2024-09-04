@@ -2,10 +2,12 @@
 
 [manager]
 prepend_keymap = [
-	{ on = "l", run = "plugin --sync smart-enter", desc = "Enter the child directory, or open the file" },
-	{ on = "<Right>", run = "plugin --sync smart-enter", desc = "Enter the child directory, or open the file" },
+  { on = "l", run = "plugin --sync smart-enter", desc = "Enter the child directory, or open the file" },
+  { on = "<Right>", run = "plugin --sync smart-enter", desc = "Enter the child directory, or open the file" },
   { on =  "f" , run = "cd --interactive" },
   { on = "F", run = "filter --smart", desc = "Filter files" },
+  { on = "d", run = "remove --permanently", desc = "Permanently delete selected files" },
+  { on = "<Delete>", run = "remove", desc = "Trash selected files" },
 ]
 append_keymap = [
   { on = [ "g", "b" ], run = "cd ~/.local/bin" },
@@ -23,6 +25,6 @@ append_keymap = [
 
 [completion]
 append_keymap = [
-	{ on = "<C-k>", run = "arrow -1", desc = "Move cursor up" },
-	{ on = "<C-j>", run = "arrow 1",	desc = "Move cursor down" },
+  { on = "<C-k>", run = "arrow -1", desc = "Move cursor up" },
+  { on = "<C-j>", run = "arrow 1",  desc = "Move cursor down" },
 ]

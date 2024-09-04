@@ -76,8 +76,8 @@ packages_pacman=(
   zstd
 )
 
-packages_yay=(
-  google-chrome
+packages_aur=(
+  # google-chrome
   grimshot
   lazydocker
   networkmanager-dmenu-git
@@ -85,8 +85,11 @@ packages_yay=(
   otf-geist-mono
   sublime-text-4
   swaync
+  thorium-browser-bin
+  topgrade-bin
   ttf-inter
   ttf-merriweather
+  viddy-bin
   visual-studio-code-bin
 )
 

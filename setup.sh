@@ -34,7 +34,7 @@ setup_packages() {
     if ! command -v yay &>/dev/null; then
       git clone --depth 1 https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -si
     fi
-    yay -S --needed "${packages_yay[@]}"
+    yay -S --needed "${packages_aur[@]}"
   elif [[ "${DISTRO}" = "Fedora Linux" ]]; then
     sudo dnf check-update
     sudo dnf install -y "${packages_dnf[@]}"

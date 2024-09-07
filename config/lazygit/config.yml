@@ -1,7 +1,7 @@
 git:
   paging:
     colorArg: always
-    pager: delta --dark --paging=never --line-numbers-left-format='{nm}⫶' --line-numbers-right-format='{np}|'
+    pager: delta --paging=never --line-numbers-left-format='{nm}⫶' --line-numbers-right-format='{np}|' --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
 
 gui:
   commitHashLength: 4

@@ -12,6 +12,7 @@ prepend_keymap = [
   { on = "<C-d>", run = "arrow 25%",   desc = "Move cursor down half page" },
   { on = "<C-b>", run = "arrow -50%", desc = "Move cursor up one page" },
   { on = "<C-f>", run = "arrow 50%",  desc = "Move cursor down one page" },
+  { on = "<C-s>", run  = 'shell "$SHELL" --block --confirm', desc = "Open shell here" },
 ]
 append_keymap = [
   { on = [ "g", "b" ], run = "cd ~/.local/bin" },

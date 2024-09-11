@@ -254,7 +254,7 @@ mode $powermenu {
 include themes/catppuccin-macchiato
 
 # include gaps configuration
-include ~/.config/i3/gaps.config
+include ~/.config/i3/gaps-minimal.config
 
 # include local configuration
 include ~/.config/i3/local.config

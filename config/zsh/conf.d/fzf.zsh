@@ -68,9 +68,9 @@ vgi() {
   command rm -f /tmp/rg-fzf-{r,f}
   local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
   local INITIAL_QUERY="${*:-}"
-  : | fzf --ansi --disabled --height 30 --query "$INITIAL_QUERY" \
-    --bind "start:reload:$RG_PREFIX {q}" \
-    --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
+  fzf --ansi --disabled --height 30 --query "${INITIAL_QUERY}" \
+    --bind "start:reload:${RG_PREFIX} {q}" \
+    --bind "change:reload:sleep 0.25; ${RG_PREFIX} {q} || true" \
     --bind 'tab:transform:[[ ! $FZF_PROMPT =~ rg ]] &&
       echo "rebind(change)+change-prompt(rg » )+disable-search+transform-query:echo \{q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r" ||
       echo "unbind(change)+change-prompt(fzf » )+enable-search+transform-query:echo \{q} > /tmp/rg-fzf-r; cat /tmp/rg-fzf-f"' \

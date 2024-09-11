@@ -51,7 +51,7 @@ fed() {
 # fuzzy ripgrep open with line number
 # https://github.com/junegunn/fzf/wiki/examples#opening-files
 vg() {
-  [ -z $1 ] && return 1
+  [ -z $1 ] && {vgi; return;}
   rg --color=always --line-number --no-heading $@ |
     fzf --ansi \
         --color "hl:-1:underline,hl+:-1:underline:reverse" \

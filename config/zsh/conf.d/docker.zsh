@@ -63,3 +63,9 @@ alias dcstart="$dccmd start"
 alias dck="$dccmd kill"
 
 unset dccmd
+
+update-container() {
+  docker-compose pull
+  # docker compose down # not needed
+  docker-compose up -d
+}

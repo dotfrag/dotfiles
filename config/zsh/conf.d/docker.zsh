@@ -68,4 +68,5 @@ update-container() {
   docker-compose pull
   # docker compose down # not needed
   docker-compose up -d
+  docker image prune -f
 }

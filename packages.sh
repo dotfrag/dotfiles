@@ -43,6 +43,7 @@ packages_pacman=(
   noto-fonts
   noto-fonts-emoji
   obsidian
+  p7zip
   pacman-contrib
   papirus-icon-theme
   parallel

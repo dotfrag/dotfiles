@@ -70,3 +70,15 @@ update-container() {
   docker-compose up -d
   docker image prune -f
 }
+
+update-containers() {
+  for i in $(docker compose ls | awk '{print $1}' | tail +2); do
+    d=$(docker container inspect "${i}" \
+      --format '{{ index .Config.Labels "com.docker.compose.project.working_dir" }}')
+    (
+      cd "${d}" || exit
+      update-container
+    )
+  done
+  return
+}

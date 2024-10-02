@@ -202,6 +202,10 @@ shellfix() {
 
 # create or source venv
 venv() {
+  if [[ -v VIRTUAL_ENV ]]; then
+    deactivate
+    return
+  fi
   if ! [[ -d venv ]]; then
     $(command -v python3 || command -v python) -m venv venv
   fi

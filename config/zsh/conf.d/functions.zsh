@@ -236,3 +236,9 @@ fnmup() {
     fnm uninstall "${current_version}"
   fi
 }
+
+# update pip packages inside venv
+pipup() {
+  [[ -v VIRTUAL_ENV ]] || return 1
+  pip list | awk '{print $1}' | tail +3 | xargs pip install -U
+}

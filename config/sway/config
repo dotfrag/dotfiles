@@ -84,6 +84,7 @@ input {
     # Start your launcher
     bindsym $mod+d       exec rofi -show drun
     bindsym $mod+Shift+p exec rofi -show run
+    bindsym $mod+Shift+w exec ~/.config/sway/scripts/window-switcher
 
     # Notification center
     bindsym $mod+Shift+n exec swaync-client -t -sw

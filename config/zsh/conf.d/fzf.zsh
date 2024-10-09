@@ -9,7 +9,7 @@ export FZF_DEFAULT_OPTS="--height 30% --reverse --border --info inline-right \
 --bind 'ctrl-/:change-preview-window(hidden|)' \
 --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
 --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
---color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
+--color=marker:#b7bdf8,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796 \
 --color gutter:-1,selected-bg:#494d64,selected-fg:#b8c0e0 \
 --marker '▏' --prompt '▌ '"
 

@@ -121,7 +121,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # scratchpad
-bindsym $mod+Ctrl+Shift+space move scratchpad
+bindsym Ctrl+Mod1+Shift+space move scratchpad
 bindsym Ctrl+Mod1+space scratchpad show
 
 # focus the parent/child container

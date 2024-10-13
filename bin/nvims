@@ -198,7 +198,8 @@ main() {
     fi
     exec nvim "$@"
   elif ! [[ -d ${HOME}/.config/nvim-${selected,,} ]]; then
-    if [[ ${SHALLOW_CLONE} = *"${selected}"* ]]; then
+    re="\b${selected}\b"
+    if [[ ${SHALLOW_CLONE} =~ ${re} ]]; then
       command git clone --depth 1 "${url}" "${location}"
     else
       command git clone "${url}" "${location}"

@@ -63,6 +63,7 @@ DotVim-old=git@github.com:dotfrag/DotVim-old.git
 DotVim=git@github.com:dotfrag/dotvim.git
 Kickstart=https://github.com/nvim-lua/kickstart.nvim
 LazyVim=https://github.com/LazyVim/starter
+NormalNvim=https://github.com/NormalNvim/NormalNvim.git
 NvChad=https://github.com/NvChad/starter
 
 shallow_clone=AstroNvim DotVim-old Kickstart LazyVim NvChad

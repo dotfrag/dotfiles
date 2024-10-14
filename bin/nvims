@@ -34,7 +34,7 @@ Arguments will be passed to nvim.
 Options:
   -d  Delete config
   -l  List configs
-  -u  Update packages (except default)
+  -u  Update plugins (except default)
   -s  Swap default config
   -r  Reset (delete all configs)
   -h  Print help message
@@ -57,10 +57,10 @@ EOF
 default=Nvim
 
 Nvim=git@github.com:dotfrag/nvim.git
+DotVim=git@github.com:dotfrag/dotvim.git
+DotVim-old=git@github.com:dotfrag/DotVim-old.git
 
 AstroNvim=https://github.com/AstroNvim/template
-DotVim-old=git@github.com:dotfrag/DotVim-old.git
-DotVim=git@github.com:dotfrag/dotvim.git
 Kickstart=https://github.com/nvim-lua/kickstart.nvim
 LazyVim=https://github.com/LazyVim/starter
 NormalNvim=https://github.com/NormalNvim/NormalNvim.git
@@ -143,7 +143,7 @@ list_configs() {
   done
 }
 
-update_configs() {
+update_plugins() {
   for i in "${!NVIM_CONFIGS[@]}"; do
     if [[ -d "${NVIM_DIRS[0]}-${i,,}" ]]; then
       NVIM_APPNAME="nvim-${i,,}" nvim --headless "+Lazy! sync" +qa
@@ -225,7 +225,7 @@ while getopts 'dlusrh' option; do
       exit
       ;;
     u)
-      update_configs
+      update_plugins
       exit
       ;;
     s)

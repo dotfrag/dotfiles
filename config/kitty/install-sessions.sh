@@ -6,6 +6,9 @@ if [[ -f /usr/share/applications/kitty.desktop ]]; then
   SRC=/usr/share/applications/kitty.desktop
 elif [[ -f ${DIR}/kitty.desktop ]]; then
   SRC=${DIR}/kitty.desktop
+else
+  echo "Cannot find kitty.desktop file"
+  exit 1
 fi
 
 for session in *.session; do

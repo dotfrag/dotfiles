@@ -1,7 +1,12 @@
 #!/bin/bash
 
 DIR=${HOME}/.local/share/applications
-SRC=${DIR}/kitty.desktop
+
+if [[ -f /usr/share/applications/kitty.desktop ]]; then
+  SRC=/usr/share/applications/kitty.desktop
+elif [[ -f ${DIR}/kitty.desktop ]]; then
+  SRC=${DIR}/kitty.desktop
+fi
 
 for session in *.session; do
   file_name=${session%.session}

@@ -43,9 +43,15 @@ feb() {
       --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
 }
 fed() {
-  cat "${XDG_DATA_HOME:-${HOME}/.local/share}/dots" |
-    fzf --query="$@" --multi \
-    --bind 'one:become($EDITOR {+}),enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
+  local dots="${XDG_DATA_HOME:-${HOME}/.local/share}/dots"
+  # shellcheck disable=SC2016
+  local bind='one:become($EDITOR {+}),enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
+  if [[ -n $1 ]]; then
+    rg "$1" "${XDG_DATA_HOME:-${HOME}/.local/share}/dots" |
+      fzf --multi --bind "${bind}"
+    return
+  fi
+  fzf --multi --bind "${bind}" <<<"${dots}"
 }
 
 # fuzzy ripgrep open with line number

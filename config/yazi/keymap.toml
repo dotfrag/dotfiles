@@ -4,17 +4,19 @@
 prepend_keymap = [
   { on = "l", run = "plugin --sync smart-enter", desc = "Enter the child directory, or open the file" },
   { on = "<Right>", run = "plugin --sync smart-enter", desc = "Enter the child directory, or open the file" },
-  { on =  "f" , run = "cd --interactive" },
+  { on = "a", run = "create --dir", desc = "Create a directory" },
+  { on = "A", run = "create", desc = "Create a file (ends with / for directories)" },
+  { on = "f", run = "cd --interactive" },
   { on = "F", run = "filter --smart", desc = "Filter files" },
   { on = "d", run = "remove --permanently", desc = "Permanently delete selected files" },
   { on = "<Delete>", run = "remove", desc = "Trash selected files" },
-  { on = "<C-u>", run = "arrow -25%",  desc = "Move cursor up half page" },
-  { on = "<C-d>", run = "arrow 25%",   desc = "Move cursor down half page" },
+  { on = "<C-u>", run = "arrow -25%", desc = "Move cursor up half page" },
+  { on = "<C-d>", run = "arrow 25%", desc = "Move cursor down half page" },
   { on = "<C-b>", run = "arrow -50%", desc = "Move cursor up one page" },
-  { on = "<C-f>", run = "arrow 50%",  desc = "Move cursor down one page" },
-  { on = "<C-s>", run  = 'shell "$SHELL" --block --confirm', desc = "Open shell here" },
-  { on = "<A-j>", run = "plugin --sync parent-arrow --args=1" },
-  { on = "<A-k>", run = "plugin --sync parent-arrow --args=-1" },
+  { on = "<C-f>", run = "arrow 50%", desc = "Move cursor down one page" },
+  { on = "<C-s>", run = 'shell "$SHELL" --block --confirm', desc = "Open shell here" },
+  { on = "<A-j>", run = "plugin --sync parent-arrow --args=1", desc = "Focus next parent dir" },
+  { on = "<A-k>", run = "plugin --sync parent-arrow --args=-1", desc = "Focus previous parent dir" },
 ]
 
 append_keymap = [

@@ -65,6 +65,7 @@ alias dck="$dccmd kill"
 unset dccmd
 
 update-container() {
+  [ -f compose.yml ] || return
   docker-compose pull
   # docker compose down # not needed
   docker-compose up -d

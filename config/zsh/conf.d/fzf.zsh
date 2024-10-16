@@ -51,7 +51,7 @@ fed() {
       fzf --multi --bind "${bind}"
     return
   fi
-  fzf --multi --bind "${bind}" <<<"${dots}"
+  fzf --multi --bind "${bind}" <"${dots}"
 }
 
 # fuzzy ripgrep open with line number

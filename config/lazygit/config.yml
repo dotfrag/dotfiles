@@ -38,6 +38,8 @@ gui:
 keybinding:
   universal:
     openFile: <disabled>
+    nextScreenMode: "="
+    prevScreenMode: "-"
 
 notARepository: "skip"
 promptToReturnFromSubprocess: false

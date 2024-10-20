@@ -32,4 +32,6 @@ du -sh repos.tar repos.tar.zst
 rm repos.tar
 echo
 
-mv -vf repos.tar.zst "${HOME}/repos-$(date +%Y%m%d).tar.zst"
+output="${HOME}/repos-$(date +%Y%m%d).tar.zst"
+mv -vf repos.tar.zst "${output}"
+rsync "${output}" server:backup/

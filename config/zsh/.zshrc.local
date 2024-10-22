@@ -10,6 +10,7 @@ if test -d "${CONF_D}"; then
 fi
 
 xsource "${XDG_CONFIG_HOME:-${HOME}/.config}/broot/launcher/bash/br"
+xsource /usr/share/doc/git-extras/git-extras-completion.zsh
 
 # ---------------------------------------------------------------------- OPTIONS
 setopt histallowclobber

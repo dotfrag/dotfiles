@@ -217,7 +217,7 @@ input {
     bindsym Print            exec wl-copy <$(grimshot save)
     bindsym $mod+Print       exec wl-copy <$(grimshot save active)
     bindsym $mod+Ctrl+Print  exec wl-copy <$(grimshot save window)
-    bindsym Ctrl+Print       exec flameshot gui
+    bindsym Ctrl+Print       exec QT_QPA_PLATFORM=wayland flameshot gui
 #
 # Scratchpad:
 #

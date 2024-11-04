@@ -202,14 +202,15 @@ shellfix() {
 
 # create or source venv
 venv() {
+  local venv_dir=.venv
   if [[ -v VIRTUAL_ENV ]]; then
     deactivate
     return
   fi
-  if ! [[ -d venv ]]; then
-    $(command -v python3 || command -v python) -m venv venv
+  if ! [[ -d ${venv_dir} ]]; then
+    $(command -v python3 || command -v python) -m venv ${venv_dir}
   fi
-  source venv/bin/activate
+  source ${venv_dir}/bin/activate
 }
 
 # process tree

@@ -145,7 +145,9 @@ sync-fork() {
   branch=$(git symbolic-ref --short -q HEAD)
   git fetch upstream
   git checkout "${branch}"
-  git merge "upstream/${branch}"
+  if git ls-remote --exit-code upstream "${branch}" >/dev/null; then
+    git merge "upstream/${branch}"
+  fi
 }
 
 gp() {

@@ -243,3 +243,22 @@ pipup() {
   [[ -v VIRTUAL_ENV ]] || return 1
   pip list | awk '{print $1}' | tail +3 | xargs pip install -U
 }
+
+# sort json keys using jq
+jqsort() {
+  jq 'to_entries|sort|from_entries' "$1" >"$1".tmp && mv -f "$1".tmp "$1"
+}
+
+# watch for file changes and run command
+fwatch() {
+  command -v entr >/dev/null || return
+  local f=$1
+  shift
+  if [[ -f ${f} ]]; then
+    echo here
+    command ls "${f}" | entr -c "$@"
+  else
+    echo there
+    fd . "${f}" | entr -c "$@"
+  fi
+}

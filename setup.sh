@@ -89,9 +89,23 @@ setup_bin() {
   bash "${SCRIPT_DIR}/bin/install.sh"
 }
 
-[[ "$1" = "pac" ]] && sudo -v && setup_packages
-setup_zsh
-setup_vim
-setup_fzf
-setup_config
-setup_bin
+main() {
+  setup_zsh
+  setup_vim
+  setup_fzf
+  setup_config
+  setup_bin
+}
+
+if [[ "$1" = "pac" ]]; then
+  # Note: For ttf-nerd-fonts-symbols-mono, use the "Symbols Nerd Font Mono" family
+  # in your font config.
+  #
+  # Symlink /usr/share/fontconfig/conf.avail/10-nerd-font-symbols.conf to
+  # /etc/fonts/conf.d/, or see `man 5 fonts-conf` for other options.
+
+  sudo -v && setup_packages
+  exit
+fi
+
+main

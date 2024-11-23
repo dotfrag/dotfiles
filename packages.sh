@@ -63,6 +63,8 @@ packages_pacman=(
   ttc-iosevka-ss08
   ttf-fira-code
   ttf-jetbrains-mono
+  ttf-nerd-fonts-symbols-common
+  ttf-nerd-fonts-symbols-mono
   ttf-opensans
   unarchiver
   unzip

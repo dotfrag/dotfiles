@@ -79,6 +79,8 @@ packages_pacman=(
 
 packages_aur=(
   # google-chrome
+  catppuccin-cursors-macchiato
+  catppuccin-gtk-theme-macchiato
   grimshot
   lazydocker
   networkmanager-dmenu-git

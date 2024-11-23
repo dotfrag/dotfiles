@@ -31,7 +31,7 @@ set $right l
 set $term kitty
 
 ### Output configuration
-output * bg ~/Pictures/wallpapers/current fill
+# output * bg ~/Pictures/wallpapers/current fill
 exec gammastep
 
 ### Idle configuration
@@ -53,7 +53,7 @@ exec swaync
 input {
   type:keyboard {
     xkb_file ~/.config/xkb/keymap.xkb
-    repeat_delay 250
+    repeat_delay 200
     repeat_rate 50
   }
   type:pointer {

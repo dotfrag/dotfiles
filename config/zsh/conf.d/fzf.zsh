@@ -93,17 +93,17 @@ vgi() {
 
 # fuzzy ripgrep dots open with line number
 vgd() {
-  [ -z $1 ] && return 1
+  [ -z "$1" ] && return 1
   local files
-  IFS=$'\n' local files=($(cat "${XDG_DATA_HOME:-${HOME}/.local/share}/dots"))
+  IFS=$'\n' files=($(cat "${XDG_DATA_HOME:-${HOME}/.local/share}/dots"))
   rg --color=always --line-number --no-heading $@ ${files[@]} |
     fzf --ansi \
-        --color "hl:-1:underline,hl+:-1:underline:reverse" \
-        --height 30 \
-        --delimiter : \
-        --preview 'bat --color=always {1} --highlight-line {2}' \
-        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-        --bind 'one:become($EDITOR {1} +{2}),enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
+      --color "hl:-1:underline,hl+:-1:underline:reverse" \
+      --height 30 \
+      --delimiter : \
+      --preview 'bat --color=always {1} --highlight-line {2}' \
+      --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+      --bind 'one:become($EDITOR {1} +{2}),enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
 }
 
 # fkill - kill processes - list only the ones you can kill

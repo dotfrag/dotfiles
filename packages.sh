@@ -30,6 +30,7 @@ packages_pacman=(
   kitty-terminfo
   lazygit
   lf
+  libqalculate
   lm_sensors
   man-db
   man-pages
@@ -49,6 +50,7 @@ packages_pacman=(
   parallel
   plocate
   procs
+  qalculate-gtk
   reflector
   ripgrep
   rofi

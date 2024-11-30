@@ -14,6 +14,7 @@ Reference of one-off stuff that I will forget.
 - [Sudoers](#sudoers)
 - [thermald](#thermald)
 - [TTY keymap and font](#tty-keymap-and-font)
+- [HP EliteDesk no HDMI output](#hp-elitedesk-no-hdmi-output)
 
 ## Disable webcam
 
@@ -225,3 +226,27 @@ KEYMAP=/usr/local/share/kbd/keymaps/personal.map
 # FONT=ter-d20b.psf.gz
 FONT=ter-v24b.psf.gz
 ```
+
+## HP EliteDesk no HDMI output
+
+Overrride `Intel Kabylake HDMI` pins using alsa-tools and `hdajackretask`.
+
+```text
+❯ cat /usr/lib/firmware/hda-jack-retask.fw
+[codec]
+0x8086280b 0x80860101 2
+
+[pincfg]
+0x05 0x18560070
+0x06 0x18560070
+0x07 0x18560070
+```
+
+```text
+❯ cat /etc/modprobe.d/hda-jack-retask.conf
+# This file was added by the program 'hda-jack-retask'.
+# If you want to revert the changes made by this program, you can simply erase this file and reboot your computer.
+options snd-hda-intel patch=hda-jack-retask.fw,hda-jack-retask.fw,hda-jack-retask.fw,hda-jack-retask.fw
+```
+
+<https://forum.manjaro.org/t/intel-cannon-lake-pch-cavs-conexant-cx20632-no-sound-at-hdmi-or-displayport/133494/2>

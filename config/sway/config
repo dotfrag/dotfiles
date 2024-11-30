@@ -199,9 +199,6 @@ input {
 #
 # Volume:
 #
-    exec_always wpctl set-volume @DEFAULT_AUDIO_SINK@   40%
-    exec_always wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 10%
-    exec_always wpctl set-mute   @DEFAULT_AUDIO_SOURCE@ 1
     bindsym --locked XF86AudioMute        exec wpctl set-mute   @DEFAULT_AUDIO_SINK@   toggle
     bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@   5%- -l 1.2
     bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@   5%+ -l 1.2
@@ -330,6 +327,7 @@ for_window {
   [app_id="nemo"] $float
   [app_id="nm-connection-editor"] $float
   [app_id="pavucontrol"] $float
+  [app_id="pwvucontrol"] $float
   [app_id="qalculate-gtk"] $float
   [app_id="spacekitty"] $float
   [app_id="wdisplays"] $float

@@ -10,6 +10,7 @@ Reference of one-off stuff that I will forget.
 - [Lid action](#lid-action)
 - [Mounting NTFS with udisks](#mounting-ntfs-with-udisks)
 - [Package cache](#package-cache)
+- [Pacman Parallel Downloads](#pacman-parallel-downloads)
 - [Reflector](#reflector)
 - [Sudoers](#sudoers)
 - [thermald](#thermald)
@@ -157,6 +158,12 @@ sudo systemctl enable --now paccache.timer
 ```
 
 <https://wiki.archlinux.org/title/pacman#Cleaning_the_package_cache>
+
+## Pacman Parallel Downloads
+
+```shell
+sudo sed -i.bak 's/#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
+```
 
 ## Reflector
 

@@ -357,7 +357,7 @@ for_window {
 hide_edge_borders --i3 none
 
 ### Gaps
-gaps inner 10
+gaps inner 4
 smart_gaps on
 smart_borders on
 default_border pixel 1

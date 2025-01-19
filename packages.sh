@@ -24,6 +24,7 @@ packages_pacman=(
   gnome-keyring
   imagemagick
   imv
+  inter-font
   jq
   just
   kitty
@@ -85,7 +86,7 @@ packages_aur=(
   # google-chrome
   catppuccin-cursors-macchiato
   catppuccin-gtk-theme-macchiato
-  grimshot
+  grimshot-bin-sway
   lazydocker
   networkmanager-dmenu-git
   otf-geist
@@ -94,7 +95,6 @@ packages_aur=(
   swaync
   thorium-browser-bin
   topgrade-bin
-  ttf-inter
   ttf-merriweather
   viddy-bin
   visual-studio-code-bin

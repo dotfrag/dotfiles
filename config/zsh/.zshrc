@@ -212,10 +212,6 @@ function isopenbsd () {
     [[ $GRML_OSTYPE == "OpenBSD" ]]
 }
 
-function issolaris () {
-    [[ $GRML_OSTYPE == "SunOS" ]]
-}
-
 #f1# are we running within an utf environment?
 function isutfenv () {
     case "$LANG $CHARSET $LANGUAGE" in
@@ -2629,6 +2625,9 @@ if [[ -r /etc/debian_version ]] ; then
         alias dbp='dpkg-buildpackage'
         #a3# Execute \kbd{grep-excuses}
         alias ge='grep-excuses'
+        if check_com -c apt-file ; then
+          alias afs='apt-file search'
+        fi
     fi
 
     # get a root shell as normal user in live-cd mode:

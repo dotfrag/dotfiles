@@ -181,7 +181,8 @@ EOF'
 ```
 
 ```shell
-sudo systemctl enable --now reflector.timer
+sudo systemctl enable reflector.timer
+sudo systemctl start reflector
 ```
 
 <https://wiki.archlinux.org/title/reflector>

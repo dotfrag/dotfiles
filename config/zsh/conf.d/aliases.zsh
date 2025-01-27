@@ -31,6 +31,12 @@ alias lse='ls -d *(/^F)' # empty directories
 alias lsl='ls -l *(@)'   # symlinks
 alias lsx='ls -l *(*)'   # executables
 
+alias j='just'
+alias p='pnpm'
+alias px='pnpx'
+alias rr='restart'
+alias tx='tmux new -As0'
+
 alias bathelp='bat --plain --language=help'
 alias cat='bat'
 alias colors='bash -c "$(wget -qO- https://git.io/vQgMr)"'
@@ -44,16 +50,12 @@ alias killsigs="kill -l | tr ' ' '\n' | nl"
 alias ls='eza --all --long --git --group-directories-first'
 alias ltree='eza -T --icons=always --git-ignore'
 alias mdcat='mdcat -p'
-alias p='pnpm'
 alias pacdiff='MERGEPROG="git merge-file -p --diff3" pacdiff -s -b'
 alias print-aliases='print -rl -- ${(k)aliases}'
 alias print-functions='print -rl -- ${(k)functions}'
-alias px='pnpx'
 alias ran='ranger --choosedir=/tmp/.rangerdir; LASTDIR=$(cat /tmp/.rangerdir); cd "$LASTDIR"'
-alias rr='restart'
 alias shellfmt='shfmt -w .'
 alias shfmt='shfmt -i 2 -ci'
-alias tx='tmux attach-session || start-tmux.sh'
 
 alias update-fnm='curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell'
 

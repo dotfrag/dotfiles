@@ -21,6 +21,7 @@ packages_pacman=(
   git
   git-delta
   git-filter-repo
+  glow
   gnome-keyring
   imagemagick
   imv

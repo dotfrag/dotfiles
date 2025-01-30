@@ -9,6 +9,7 @@ gui:
   expandedSidePanelWeight: 2
   nerdFontsVersion: "3"
   showDivergenceFromBaseBranch: arrowAndNumber
+  switchTabsWithPanelJumpKeys: true
   theme:
     activeBorderColor:
       - "#ff966c"

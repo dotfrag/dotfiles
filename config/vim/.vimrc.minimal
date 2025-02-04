@@ -20,6 +20,7 @@ set history=200
 set number
 set relativenumber
 set scrolloff=5
+set shortmess=atI
 set synmaxcol=800
 
 " Time out on key codes but not mappings

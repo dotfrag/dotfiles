@@ -84,6 +84,10 @@ gpp() {
   gpc
   git push
 }
+gppe() {
+  gpp
+  exit
+}
 
 # find branches that have modified a file
 glf() {

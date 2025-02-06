@@ -85,8 +85,7 @@ gpp() {
   git push
 }
 gppe() {
-  gpp
-  exit
+  gpp && exit
 }
 
 # find branches that have modified a file

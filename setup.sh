@@ -26,29 +26,6 @@ println() {
   printf '=%.0s' $(seq 1 "${COLUMNS}")
 }
 
-setup_packages() {
-  . packages.sh
-  if [[ "${DISTRO}" = "Arch Linux" ]]; then
-    sudo pacman -Syu
-    sudo pacman -S --needed "${packages_pacman[@]}"
-    if ! command -v yay &>/dev/null; then
-      git clone --depth 1 https://aur.archlinux.org/yay-bin.git /tmp/yay &&
-        cd /tmp/yay &&
-        makepkg -si &&
-        command rm -rf /tmp/yay
-    fi
-    yay -S --needed "${packages_aur[@]}"
-  elif [[ "${DISTRO}" = "Fedora Linux" ]]; then
-    sudo dnf check-update
-    sudo dnf install -y "${packages_dnf[@]}"
-  elif [[ "${DISTRO}" = "Ubuntu" ]]; then
-    command -v nala &>/dev/null && apt=nala || apt=apt
-    sudo "${apt}" update
-    sudo "${apt}" install -y "${packages_apt[@]}"
-  fi
-  println
-}
-
 setup_zsh() {
   [[ -n "${ZDOTDIR}" ]] && mkdir -p "${ZDOTDIR}"
   mkdir -p "${ZSH_PLUGINS_DIR}"
@@ -96,16 +73,5 @@ main() {
   setup_config
   setup_bin
 }
-
-if [[ "$1" = "pac" ]]; then
-  # Note: For ttf-nerd-fonts-symbols-mono, use the "Symbols Nerd Font Mono" family
-  # in your font config.
-  #
-  # Symlink /usr/share/fontconfig/conf.avail/10-nerd-font-symbols.conf to
-  # /etc/fonts/conf.d/, or see `man 5 fonts-conf` for other options.
-
-  sudo -v && setup_packages
-  exit
-fi
 
 main

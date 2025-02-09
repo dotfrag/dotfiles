@@ -9,6 +9,7 @@ prepend_keymap = [
   { on = "f", run = "cd --interactive" },
   { on = "F", run = "filter --smart", desc = "Filter files" },
   { on = "d", run = "remove --permanently", desc = "Permanently delete selected files" },
+  { on = "M", run = "plugin mount" },
   { on = "<Delete>", run = "remove", desc = "Trash selected files" },
   { on = "<C-u>", run = "arrow -25%", desc = "Move cursor up half page" },
   { on = "<C-d>", run = "arrow 25%", desc = "Move cursor down half page" },
@@ -31,7 +32,6 @@ append_keymap = [
   { on = [ "g", "t" ], run = "cd ~/tmp" },
   { on = [ "g", "T" ], run = "cd /tmp" },
 ]
-
 
 [completion]
 append_keymap = [

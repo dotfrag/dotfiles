@@ -1,4 +1,6 @@
 # -------------------------------------------------------------------------- GIT
+xsource /usr/share/doc/git-extras/git-extras-completion.zsh
+
 alias ga='git add'
 alias gauth='git shortlog --summary --numbered --email'
 alias gc='git commit'

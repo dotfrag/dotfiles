@@ -105,13 +105,17 @@
       "car": "",
       "default": ["", "", ""]
     },
-    "on-click": "pavucontrol"
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "pavucontrol -t 3"
   },
   "pulseaudio#mic": {
     // "scroll-step": 1, // %, can be a float
     "format": "{icon} {format_source}",
     "format-source": " {volume}%",
     "format-source-muted": "",
-    "on-click": "pavucontrol"
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-click-right": "pavucontrol -t 4",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%-"
   }
 }

@@ -7,7 +7,7 @@
   // Choose the order of the modules
   "modules-left": ["sway/workspaces", "sway/scratchpad", "sway/window"],
   "modules-center": ["clock", "privacy", "sway/mode"],
-  "modules-right": [ "tray", "idle_inhibitor", "wireplumber", "network", "disk", "cpu", "memory", "temperature" ],
+  "modules-right": [ "tray", "idle_inhibitor", "pulseaudio#mic", "pulseaudio", "network", "disk", "cpu", "memory", "temperature" ],
   // Modules configuration
   "sway/workspaces": {
     "enable-bar-scroll": true,
@@ -81,13 +81,6 @@
     "format": "{icon} {temperatureC}°C",
     "format-icons": ["", "", "", "󰈸"]
   },
-  "wireplumber": {
-    "format": "{volume}%",
-    "format-muted": "",
-    "on-click": "pavucontrol",
-    "max-volume": 120,
-    "scroll-step": 5
-  },
   "network": {
     // "interface": "wlp2*", // (Optional) To force the use of this interface
     // "format-wifi": " {essid}",
@@ -96,5 +89,29 @@
     "format-linked": "{ifname} (No IP) 󰊗",
     "format-disconnected": "  Disconnected",
     "format-alt": "{ifname}: {ipaddr}/{cidr}"
+  },
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-bluetooth-muted": "󰝟 {icon}",
+    "format-muted": "󰝟",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "󰂑",
+      "headset": "󰂑",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
+  },
+  "pulseaudio#mic": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{icon} {format_source}",
+    "format-source": " {volume}%",
+    "format-source-muted": "",
+    "on-click": "pavucontrol"
   }
 }

@@ -126,9 +126,8 @@ cmd() {
 # ps interactive
 # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#updating-the-list-of-processes-by-pressing-ctrl-r
 psf() {
-  {date; ps -ef} |
-    fzf --bind='ctrl-r:reload(date; ps -ef)' \
-      --header=$'Press CTRL-R to reload\n\n' --header-lines=2 \
-      --preview='echo {}' --preview-window=down,3,wrap \
-      --multi --height=100% | sed '$!G'
+  fzf --bind='start,ctrl-r:reload(date; ps -ef)' \
+    --header=$'Press CTRL-R to reload\n\n' --header-lines=2 \
+    --preview='echo {}' --preview-window=down,3,wrap \
+    --multi --height=100% | sed '$!G'
 }

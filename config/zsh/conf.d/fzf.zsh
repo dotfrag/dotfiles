@@ -17,7 +17,7 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 
 export FZF_DEFAULT_COMMAND="fd --type file --hidden --follow"
 export FZF_ALT_C_COMMAND="fd --type directory --hidden --follow"
-export FZF_ALT_C_OPTS="--preview 'tree -a -L 1 -C {}'"
+# export FZF_ALT_C_OPTS="--preview 'tree -a -L 1 -C {}'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export SKIM_DEFAULT_OPTIONS="$SKIM_DEFAULT_OPTIONS \

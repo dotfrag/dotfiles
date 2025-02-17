@@ -61,9 +61,8 @@ x() {
       echo "error: file ${f} doesn't exist"
       return 1
     fi
-  done
-  for f in "$@"; do
     case "$f" in
+      *.deb)              mkdir "${f%.*}"   && ar x "$f" --output "${f%.*}" ;;
       *.tar)              mkdir "${f%.*.*}" && tar xvf  "$f" -C "${f%.*.*}" ;;
       *.tar.bz|*.tar.bz2) mkdir "${f%.*.*}" && tar xjvf "$f" -C "${f%.*.*}" ;;
       *.tar.gz)           mkdir "${f%.*.*}" && tar xzvf "$f" -C "${f%.*.*}" ;;
@@ -71,8 +70,8 @@ x() {
       *.tbz|*.tbz2)       mkdir "${f%.*}"   && tar xjvf "$f" -C "${f%.*}"   ;;
       *.tgz)              mkdir "${f%.*}"   && tar xzvf "$f" -C "${f%.*}"   ;;
       *.txz)              mkdir "${f%.*}"   && tar xJvf "$f" -C "${f%.*}"   ;;
-      *.7z) 7zx"$f" -o"${f%.*}" ;;
-      *.rar) unrar x"$f" "${f%.*}" ;;
+      *.7z) 7zx "$f" -o "${f%.*}" ;;
+      *.rar) unrar x "$f" "${f%.*}" ;;
       *.xz) unxz "$f" ;;
       *.zip) unzip "$f" -d "${f%.*}" ;;
       *.zst) zstd -d "$f" --output-dir-mirror "${f%.*}" ;;
@@ -81,7 +80,9 @@ x() {
   done
 }
 xrm() {
-  x "$@" && rm "$@"
+  for f in "$@"; do
+    x "$f" && rm "$f"
+  done
 }
 
 # copy to clipboard

@@ -44,3 +44,12 @@ keybinding:
 
 notARepository: "skip"
 promptToReturnFromSubprocess: false
+
+customCommands:
+  - key: "D"
+    context: "localBranches"
+    command: "git reset --hard {{.SelectedRemote.Name}}/{{.SelectedLocalBranch.Name}}"
+    prompts:
+      - type: "confirm"
+        title: "Hard reset"
+        body: "Are you sure you want to hard reset the current head?"

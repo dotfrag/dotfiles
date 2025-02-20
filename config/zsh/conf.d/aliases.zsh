@@ -72,6 +72,7 @@ alias -g N='2>/dev/null'
 alias -g S='|sk'
 alias -g TR="|tr ' ' '\n'"
 alias -g Y='|copy'
+alias -g XY='|xcopy'
 alias -g YI='|fzf | copy'
 
 # ---------------------------------------------------------------- ABBREVIATIONS

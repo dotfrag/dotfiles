@@ -26,6 +26,7 @@ packages_pacman=(
   git
   git-delta
   git-filter-repo
+  git-zsh-completion
   github-cli
   glow
   gnome-keyring

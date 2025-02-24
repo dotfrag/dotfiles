@@ -6,7 +6,7 @@
 # Symlink /usr/share/fontconfig/conf.avail/10-nerd-font-symbols.conf to
 # /etc/fonts/conf.d/, or see `man 5 fonts-conf` for other options.
 
-packages_pacman=(
+packages_pacman_base=(
   7zip
   base-devel
   bat
@@ -71,12 +71,6 @@ packages_pacman=(
   thermald
   tmux
   tree
-  ttc-iosevka-ss08
-  ttf-fira-code
-  ttf-jetbrains-mono
-  ttf-nerd-fonts-symbols-common
-  ttf-nerd-fonts-symbols-mono
-  ttf-opensans
   unarchiver
   unzip
   vim
@@ -90,23 +84,39 @@ packages_pacman=(
   zstd
 )
 
-packages_aur=(
-  # google-chrome
+packages_pacman_desktop=(
+  ttc-iosevka-ss08
+  ttf-fira-code
+  ttf-jetbrains-mono
+  ttf-nerd-fonts-symbols-common
+  ttf-nerd-fonts-symbols-mono
+  ttf-opensans
+)
+
+packages_pacman_server=()
+
+packages_aur_base=(
+  lazydocker
+  topgrade-bin
+  viddy-bin
+)
+
+packages_aur_desktop=(
   catppuccin-cursors-macchiato
   catppuccin-gtk-theme-macchiato
+  google-chrome
   grimshot-bin-sway
-  lazydocker
   networkmanager-dmenu-git
   otf-geist
   otf-geist-mono
   sublime-text-4
   swaync
   thorium-browser-bin
-  topgrade-bin
   ttf-merriweather
-  viddy-bin
   visual-studio-code-bin
 )
+
+packages_aur_server=()
 
 packages_dnf=(
   cargo
@@ -147,6 +157,13 @@ detect_distro() {
 }
 
 setup_packages() {
+  if [[ $1 == server ]]; then
+    local packages_pacman=("${packages_pacman_base[@]}" "${packages_pacman_server[@]}")
+    local packages_aur=("${packages_aur_base[@]}" "${packages_aur_server[@]}")
+  else
+    local packages_pacman=("${packages_pacman_base[@]}" "${packages_pacman_desktop[@]}")
+    local packages_aur=("${packages_aur_base[@]}" "${packages_aur_desktop[@]}")
+  fi
   if [[ "${DISTRO}" = "Arch Linux" ]]; then
     sudo pacman -Syu
     sudo pacman -S --needed "${packages_pacman[@]}"
@@ -169,7 +186,7 @@ setup_packages() {
 
 main() {
   detect_distro
-  setup_packages
+  setup_packages "$@"
 }
 
-sudo -v && main
+sudo -v && main "$@"

@@ -69,11 +69,15 @@ alias -g HH='|head -$((LINES-4))'
 alias -g L='|less'
 alias -g LL='|& less -r'
 alias -g N='2>/dev/null'
+alias -g NN='&>/dev/null'
 alias -g S='|sk'
+alias -g T='|tail'
 alias -g TR="|tr ' ' '\n'"
+alias -g TS='|ts "%F %H:%M:%.S"'
+
 alias -g Y='|copy'
 alias -g XY='|xcopy'
-alias -g YI='|fzf | copy'
+alias -g YI='|fzf|copy'
 
 # ---------------------------------------------------------------- ABBREVIATIONS
 abk[f]='$(fzf)'

@@ -2,7 +2,11 @@
 #
 # Screenshot script to kill picom for transparency.
 
-killall picom
+picom_running=false
+if pgrep picom >/dev/null; then
+  picom_running=true
+  killall picom
+fi
 
 if [[ $1 == "window" ]]; then
   DIR=${HOME}/Pictures/Screenshots
@@ -14,4 +18,6 @@ else
   "$@"
 fi
 
-picom &
+if [[ ${picom_running} == true ]]; then
+  picom &
+fi

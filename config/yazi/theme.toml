@@ -23,7 +23,7 @@ count_selected = { fg = "#24273a", bg = "#8aadf4" }
 border_symbol = "│"
 border_style  = { fg = "#8087a2" }
 
-syntect_theme = "~/.config/bat/themes/Catppuccin-macchiato.tmTheme"
+syntect_theme = "~/.config/yazi/Catppuccin-macchiato.tmTheme"
 
 [mode]
 normal_main = { fg = "#24273a", bg = "#8aadf4", bold = true }
@@ -103,8 +103,7 @@ rules = [
 	{ mime = "{audio,video}/*", fg = "#eed49f" },
 
 	# Archives
-	{ mime = "application/*zip", fg = "#f5bde6" },
-	{ mime = "application/{tar,bzip*,7z-compressed,xz,rar}", fg = "#f5bde6" },
+  { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "#f5bde6" },
 
 	# Documents
 	{ mime = "application/{pdf,doc,rtf}", fg = "#a6da95" },

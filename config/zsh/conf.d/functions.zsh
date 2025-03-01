@@ -103,6 +103,15 @@ xcopy() {
   fi
 }
 
+# paste from clipboard
+put() {
+  if [[ "$XDG_SESSION_TYPE" = "wayland" ]]; then
+    wl-paste
+  else
+    xclip -o #-selection clipboard
+  fi
+}
+
 # update dotfiles list
 update-dots() {
   local dots="${XDG_DATA_HOME:-${HOME}/.local/share}/dots"

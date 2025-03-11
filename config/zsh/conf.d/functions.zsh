@@ -85,8 +85,8 @@ xrm() {
   done
 }
 
-# copy to clipboard
-copy() {
+# yank to clipboard
+yank() {
   if [[ "$XDG_SESSION_TYPE" = "wayland" ]]; then
     wl-copy --trim-newline
   else
@@ -94,8 +94,8 @@ copy() {
   fi
 }
 
-# print and copy to clipboard
-xcopy() {
+# print and yank to clipboard
+xyank() {
   if [[ "$XDG_SESSION_TYPE" = "wayland" ]]; then
     tee /dev/tty | wl-copy --trim-newline
   else

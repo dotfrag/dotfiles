@@ -35,20 +35,20 @@ repeat-last-cmd() { BUFFER=$(history -n -1); zle clear-screen; zle accept-line }
 zle -N repeat-last-cmd
 bindkey "^[r" "repeat-last-cmd"
 
-repeat-last-cmd-and-copy() {
+repeat-last-cmd-and-yank() {
   BUFFER=$(history -n -1)
-  BUFFER=${BUFFER% | copy}
-  BUFFER="${BUFFER} | copy"
+  BUFFER=${BUFFER% | yank}
+  BUFFER="${BUFFER} | yank"
   zle accept-line
 }
-zle -N repeat-last-cmd-and-copy
-bindkey "^[y" "repeat-last-cmd-and-copy"
+zle -N repeat-last-cmd-and-yank
+bindkey "^[y" "repeat-last-cmd-and-yank"
 
 lazygit-dir() { lg }
 zle -N lazygit-dir
 bindkey "^[g" "lazygit-dir"
 
-yank-buffer() { copy <<< $BUFFER }
+yank-buffer() { yank <<< $BUFFER }
 zle -N yank-buffer
 bindkey "^X^Y" "yank-buffer"
 

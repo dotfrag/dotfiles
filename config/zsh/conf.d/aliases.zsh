@@ -75,9 +75,9 @@ alias -g T='|tail'
 alias -g TR="|tr ' ' '\n'"
 alias -g TS='|ts "%F %H:%M:%.S"'
 
-alias -g Y='|copy'
-alias -g XY='|xcopy'
-alias -g YI='|fzf|copy'
+alias -g Y='|yank'
+alias -g XY='|xyank'
+alias -g YI='|fzf|yank'
 
 # ---------------------------------------------------------------- ABBREVIATIONS
 abk[f]='$(fzf)'

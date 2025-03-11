@@ -24,9 +24,7 @@ packages_pacman_base=(
   git-delta
   git-filter-repo
   git-zsh-completion
-  github-cli
   glow
-  gnome-keyring
   imagemagick
   jq
   just
@@ -43,9 +41,7 @@ packages_pacman_base=(
   neovim
   pacman-contrib
   parallel
-  plocate
   procs
-  qalculate-gtk
   reflector
   ripgrep
   rsync
@@ -71,6 +67,8 @@ packages_pacman_desktop=(
   bitwarden
   brightnessctl
   gammastep
+  github-cli
+  gnome-keyring
   imv
   inter-font
   kitty
@@ -82,6 +80,8 @@ packages_pacman_desktop=(
   noto-fonts-emoji
   obsidian
   papirus-icon-theme
+  plocate
+  qalculate-gtk
   rofi
   seahorse
   ttc-iosevka-ss08
@@ -96,7 +96,7 @@ packages_pacman_desktop=(
 packages_pacman_server=()
 
 packages_aur_base=(
-  lazydocker
+  lazydocker-bin
   topgrade-bin
   viddy-bin
 )

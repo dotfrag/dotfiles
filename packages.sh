@@ -10,8 +10,6 @@ packages_pacman_base=(
   7zip
   base-devel
   bat
-  bitwarden
-  brightnessctl
   btop
   curl
   difftastic
@@ -22,7 +20,6 @@ packages_pacman_base=(
   fd
   ffmpeg
   fzf
-  gammastep
   git
   git-delta
   git-filter-repo
@@ -31,13 +28,8 @@ packages_pacman_base=(
   glow
   gnome-keyring
   imagemagick
-  imv
-  inter-font
   jq
   just
-  kitty
-  kitty-shell-integration
-  kitty-terminfo
   lazygit
   lf
   libqalculate
@@ -47,24 +39,16 @@ packages_pacman_base=(
   mdcat
   mediainfo
   miniserve
-  mpv
   mtr
-  nemo
   neovim
-  noto-fonts
-  noto-fonts-emoji
-  obsidian
   pacman-contrib
-  papirus-icon-theme
   parallel
   plocate
   procs
   qalculate-gtk
   reflector
   ripgrep
-  rofi
   rsync
-  seahorse
   skim
   starship
   tealdeer
@@ -75,7 +59,6 @@ packages_pacman_base=(
   unzip
   vim
   wget
-  wl-clipboard
   yazi
   yt-dlp
   zip
@@ -85,12 +68,29 @@ packages_pacman_base=(
 )
 
 packages_pacman_desktop=(
+  bitwarden
+  brightnessctl
+  gammastep
+  imv
+  inter-font
+  kitty
+  kitty-shell-integration
+  kitty-terminfo
+  mpv
+  nemo
+  noto-fonts
+  noto-fonts-emoji
+  obsidian
+  papirus-icon-theme
+  rofi
+  seahorse
   ttc-iosevka-ss08
   ttf-fira-code
   ttf-jetbrains-mono
   ttf-nerd-fonts-symbols-common
   ttf-nerd-fonts-symbols-mono
   ttf-opensans
+  wl-clipboard
 )
 
 packages_pacman_server=()

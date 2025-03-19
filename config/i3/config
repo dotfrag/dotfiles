@@ -55,10 +55,10 @@ bindsym $mod+q kill
 bindsym $mod+Shift+q exec --no-startup-id xkill
 
 # rofi
-bindsym $mod+d       exec --no-startup-id "rofi -show drun"
-bindsym $mod+Shift+p exec --no-startup-id "rofi -show run"
-bindsym $mod+Shift+s exec --no-startup-id "rofi -show ssh"
-bindsym $mod+Shift+w exec --no-startup-id "rofi -show window"
+bindsym $mod+d       exec --no-startup-id rofi -show drun
+bindsym $mod+Shift+p exec --no-startup-id rofi -show run
+bindsym $mod+Shift+s exec --no-startup-id rofi -show ssh
+bindsym $mod+Shift+w exec --no-startup-id rofi -show window -theme window-picker
 
 # change focus
 bindsym $mod+h focus left

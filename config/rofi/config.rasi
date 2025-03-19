@@ -34,7 +34,7 @@ configuration {
     parse-user:   true;
     /** Parse system desktop files. */
     parse-system: true;
-    }
+  }
 
   /*---------- Run settings ----------*/
   run-command: "{cmd}";

@@ -185,7 +185,7 @@ rgl() {
 
 # launch app and exit
 launch() {
-  nohup "$@" >/dev/null 2>/dev/null &
+  nohup "$@" >/dev/null 2>&1 &
   disown && exit
 }
 

@@ -93,7 +93,9 @@ packages_pacman_desktop=(
   wl-clipboard
 )
 
-packages_pacman_server=()
+packages_pacman_server=(
+  sysstat
+)
 
 packages_aur_base=(
   lazydocker-bin

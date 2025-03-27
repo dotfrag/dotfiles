@@ -10,7 +10,7 @@ export FZF_DEFAULT_OPTS="--height 30% --reverse --border --info inline-right \
 --bind 'ctrl-/:change-preview-window(hidden|)' \
 --marker '▏' --prompt '▌ '"
 
-# catppucin colors
+# catppuccin colors
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
 --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \

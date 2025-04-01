@@ -7,7 +7,7 @@
   // Choose the order of the modules
   "modules-left": ["sway/workspaces", "sway/scratchpad", "sway/window"],
   "modules-center": ["clock", "privacy", "sway/mode"],
-  "modules-right": [ "tray", "idle_inhibitor", "pulseaudio#mic", "pulseaudio", "network", "disk", "cpu", "memory", "temperature" ],
+  "modules-right": [ "tray", "custom/xkb", "idle_inhibitor", "pulseaudio#mic", "pulseaudio", "network", "disk", "cpu", "memory", "temperature" ],
   // Modules configuration
   "sway/workspaces": {
     "enable-bar-scroll": true,
@@ -43,6 +43,11 @@
   },
   "sway/window": {
     "max-length": 80
+  },
+  "custom/xkb" :{
+    "exec": "~/.config/waybar/scripts/xkb.sh",
+    "on-click": "~/.config/waybar/scripts/xkb.sh toggle",
+    "signal": 8
   },
   "idle_inhibitor": {
     "format": "{icon}",

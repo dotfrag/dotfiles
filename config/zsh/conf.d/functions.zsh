@@ -275,11 +275,15 @@ fwatch() {
   shift
   if [[ -f ${f} ]]; then
     if [[ -z $1 ]]; then
-      command ls "${f}" | entr -c ./"${f}"
+      if [[ -x $1 ]]; then
+        command ls "${f}" | entr -c ./"${f}"
+      else
+        command ls "${f}" | entr -c cat "${f}"
+      fi
     else
       command ls "${f}" | entr -c "$@"
     fi
-  else
+  elif [[ -d ${f} ]]; then
     fd . "${f}" | entr -c "$@"
   fi
 }

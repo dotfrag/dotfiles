@@ -1,0 +1,40 @@
+xkb_keymap {
+  xkb_keycodes { include "evdev+aliases(qwerty)" };
+  xkb_types    { include "complete" };
+  xkb_compat   { include "complete" };
+  xkb_symbols  {
+    include "pc+us+inet(evdev)"
+    replace key <CAPS> {[ Escape ]};
+    replace key <COMP> {[ Super_R ]};
+    replace key <AD01> {[ b, B ]};
+    replace key <AD02> {[ l, L ]};
+    replace key <AD03> {[ d, D ]};
+    replace key <AD04> {[ c, C ]};
+    replace key <AD05> {[ v, V ]};
+    replace key <AD06> {[ z, Z ]};
+    replace key <AD07> {[ y, Y ]};
+    replace key <AD08> {[ o, O ]};
+    replace key <AD09> {[ u, U ]};
+    replace key <AD10> {[ comma, less ]};
+    replace key <AC01> {[ n, N ]};
+    replace key <AC02> {[ r, R ]};
+    replace key <AC03> {[ t, T ]};
+    replace key <AC04> {[ s, S ]};
+    replace key <AC05> {[ g, G ]};
+    replace key <AC06> {[ p, P ]};
+    replace key <AC07> {[ h, H ]};
+    replace key <AC08> {[ a, A ]};
+    replace key <AC09> {[ e, E ]};
+    replace key <AC10> {[ i, I ]};
+    replace key <AB01> {[ q, Q ]};
+    replace key <AB02> {[ x, X ]};
+    replace key <AB03> {[ m, M ]};
+    replace key <AB04> {[ w, W ]};
+    replace key <AB05> {[ j, J ]};
+    replace key <AB06> {[ k, K ]};
+    replace key <AB07> {[ f, F ]};
+    // replace key <AB08> {[ apostrophe, quotedbl ]};
+    // replace key <AB09> {[ semicolon, colon ]};
+    // replace key <AB10> {[ period, greater ]};
+  };
+};

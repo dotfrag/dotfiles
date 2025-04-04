@@ -275,7 +275,7 @@ fwatch() {
   shift
   if [[ -f ${f} ]]; then
     if [[ -z $1 ]]; then
-      if [[ -x $1 ]]; then
+      if [[ -x ${f} ]]; then
         command ls "${f}" | entr -c ./"${f}"
       else
         command ls "${f}" | entr -c cat "${f}"

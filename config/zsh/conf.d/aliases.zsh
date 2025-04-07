@@ -63,6 +63,7 @@ alias update-fnm='curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-
 # --------------------------------------------------------------- GLOBAL ALIASES
 alias -g C='|wc -l'
 alias -g D='|delta'
+alias -g DS='|delta --side-by-side'
 alias -g F='|fzf -m'
 alias -g G='|rg'
 alias -g H='|head'

@@ -50,7 +50,7 @@ git_main_branch() {
   echo master
 }
 
-
+# git pull all repos in current directory
 gpall() {
   [[ -n $1 ]] && d=$(($1 + 1)) || d=2
   fd -IHL -d "${d}" -td '^\.git$' -x git -C {//} pull
@@ -135,7 +135,7 @@ gallx() {
   fd -td '^\.git$' -IHL -x git -C {//} "$@"
 }
 
-# get latest version of git repo release
+# get latest version of github release
 get_latest_version() {
   curl -sLH "Accept: application/json" "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\Kv[^"]*'
 }
@@ -155,6 +155,7 @@ sync-fork() {
   fi
 }
 
+# git pull or sync fork
 gp() {
   if git remote -v | awk '{print $1}' | grep -q upstream; then
     sync-fork

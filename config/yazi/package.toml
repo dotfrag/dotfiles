@@ -1,12 +1,17 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-enter"
-rev = "0725851"
-hash = "aef2b1a805b80cce573bb766f1459d88"
+rev = "b88fe73"
+hash = "7918aab6a71caf31b58411f789195677"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:mount"
-rev = "0725851"
-hash = "b80e65240c1d0651e87d0200522bb079"
+rev = "b88fe73"
+hash = "dd97eede8e20e59cd2604e8006e470e2"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:vcs-files"
+rev = "b88fe73"
+hash = "36405f8781fcaf33ceab24dffd5cea19"
 
 [flavor]
 deps = []

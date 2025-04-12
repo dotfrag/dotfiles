@@ -19,6 +19,7 @@ prepend_keymap = [
   { on = "<C-s>", run = 'shell "$SHELL" --block', desc = "Open shell here" },
   { on = "<A-j>", run = "plugin parent-arrow 1", desc = "Focus next parent dir" },
   { on = "<A-k>", run = "plugin parent-arrow -1", desc = "Focus previous parent dir" },
+  { on = [ "g", "s" ], run = "plugin vcs-files", desc = "Git file changes" },
 ]
 
 append_keymap = [

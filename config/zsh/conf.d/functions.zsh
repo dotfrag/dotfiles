@@ -208,6 +208,15 @@ vs() {
   cat "${projects}" | fzf --multi --bind 'enter:become(code {+})'
 }
 
+# shfmt format all files
+shellfmt() {
+  if [[ -n $1 ]]; then
+    shfmt --write --simplify --indent 2 --binary-next-line --case-indent --space-redirects "$1"
+  else
+    rg -l '^#!/bin/bash' | xargs -P "$(nproc)" shfmt --write --simplify --indent 2 --binary-next-line --case-indent --space-redirects
+  fi
+}
+
 # shellcheck fix all fixable issues
 shellfix() {
   if [[ -n $1 ]]; then

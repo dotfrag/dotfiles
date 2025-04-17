@@ -213,9 +213,7 @@ shellfix() {
   if [[ -n $1 ]]; then
     shellcheck -f diff "$1" | git apply
   else
-    rg -l '^#!/bin/bash' |
-      xargs -P "$(nproc)" -I{} zsh -c \
-        'shellcheck -f diff {} | git apply -q'
+    rg -l '^#!/bin/bash' | xargs -P "$(nproc)" -I{} zsh -c 'shellcheck -f diff {} | git apply -q'
   fi
 }
 

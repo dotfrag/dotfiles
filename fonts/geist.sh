@@ -14,4 +14,4 @@ for file in "${FILENAMES[@]}"; do
   wget -nc -q --show-progress -O "/tmp/${file}" "https://github.com/vercel/geist-font/releases/download/${LATEST_VERSION}/${file}"
   unzip -o "/tmp/${file}" -d "${TARGET_DIR}" -x '__MACOSX/*' '*/statics-otf/*' '*statics-woff/*' '*/variable-woff/*'
 done
-[[ $(ps -o stat= -p "${PPID}") = "Ss" ]] && fc-cache -rf
+[[ $(ps -o stat= -p "${PPID}") == "Ss" ]] && fc-cache -rf

@@ -59,7 +59,7 @@ get_chr() {
   esac
 }
 
-if [[ "$(cut -c 1 < /sys/class/power_supply/BAT0/status)" = D ]]; then
+if [[ "$(cut -c 1 < /sys/class/power_supply/BAT0/status)" == D ]]; then
   get_bat
 else
   get_chr

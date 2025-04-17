@@ -5,13 +5,13 @@ status() {
   volume=$(pactl list sources | grep "${DEFAULT_SOURCE}" -m1 -A7 | grep "Volume" | awk -F'/' '{print $2}')
   mute=$(pactl list sources | grep "${DEFAULT_SOURCE}" -m1 -A7 | grep "Mute")
 
-  if [[ -z "${volume}" ]]; then
+  if [[ -z ${volume} ]]; then
     echo "No Mic Found"
   else
     volume="${volume//[[:blank:]]/}"
-    if [[ "${mute}" == *"yes"* ]]; then
+    if [[ ${mute} == *"yes"* ]]; then
       echo " MUTED"
-    elif [[ "${mute}" == *"no"* ]]; then
+    elif [[ ${mute} == *"no"* ]]; then
       echo "%{F#EBCB8B} OPEN%{F-} ${volume}"
     else
       echo "%{F#EBCB8B} OPEN%{F-} ${volume} !"

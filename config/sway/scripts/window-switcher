@@ -19,7 +19,7 @@ row=$(swaymsg -t get_tree | jq -r '
   | sed 's/&/&amp;/g' \
   | rofi -dmenu -show-icons -markup-rows -theme window-picker -p "window")
 
-if [[ -n "${row}" ]]; then
+if [[ -n ${row} ]]; then
   # shellcheck disable=SC2001
   winid=$(echo "${row}" | sed 's/.*<!-- \([0-9]*\) -->.*/\1/')
   swaymsg "[con_id=${winid}] focus"

@@ -65,7 +65,7 @@ install_fonts() {
   mkdir -p "${FONTS_DIR}"
   rm -f "${FONTS_DIR:?}"/*
   cp "${SCRIPT_DIR}"/*.ttf "${FONTS_DIR}/"
-  [[ $(ps -o stat= -p "${PPID}") = "Ss" ]] && fc-cache -rf && echo "Fonts installed."
+  [[ $(ps -o stat= -p "${PPID}") == "Ss" ]] && fc-cache -rf && echo "Fonts installed."
 }
 
 update_fonts_version() {
@@ -83,7 +83,7 @@ main() {
   update_fonts_version
 }
 
-if [[ $1 = "install" ]]; then
+if [[ $1 == "install" ]]; then
   install_fonts
   exit
 fi

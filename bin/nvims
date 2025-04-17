@@ -42,7 +42,7 @@ EOF
 }
 
 first_run() {
-  if [[ -f "${CONFIG_FILE}" ]]; then
+  if [[ -f ${CONFIG_FILE} ]]; then
     return
   fi
 
@@ -78,9 +78,9 @@ read_config_file() {
     fi
 
     read -r key value <<< "$(echo "${line}" | awk -F'=' '{print $1 " " $2}')"
-    if [[ ${key} = "default" ]]; then
+    if [[ ${key} == "default" ]]; then
       DEFAULT=${value}
-    elif [[ ${key} = "shallow_clone" ]]; then
+    elif [[ ${key} == "shallow_clone" ]]; then
       SHALLOW_CLONE=${value}
     else
       NVIM_CONFIGS[${key}]=${value}
@@ -97,7 +97,7 @@ select_config() {
 
 del_config() {
   local config=$1
-  if [[ "${config}" = "${DEFAULT}" ]]; then
+  if [[ ${config} == "${DEFAULT}" ]]; then
     for nd in "${NVIM_DIRS[@]}"; do
       command rm -rf "${nd}"
     done
@@ -133,7 +133,7 @@ delete_config() {
 
 list_configs() {
   for i in "${!NVIM_CONFIGS[@]}"; do
-    if [[ "${i}" = "${DEFAULT}" ]] && [[ -d "${NVIM_DIRS[0]}" ]]; then
+    if [[ ${i} == "${DEFAULT}" ]] && [[ -d ${NVIM_DIRS[0]} ]]; then
       echo "[x] ${i} (default)"
     elif [[ -d "${NVIM_DIRS[0]}-${i,,}" ]]; then
       echo "[x] ${i}"
@@ -193,7 +193,7 @@ main() {
   url=${NVIM_CONFIGS[${selected}]}
   location=${NVIM_DIRS[0]}-${selected,,}
 
-  if [[ ${selected} = "${DEFAULT}" ]]; then
+  if [[ ${selected} == "${DEFAULT}" ]]; then
     if ! [[ -d ${HOME}/.config/nvim ]]; then
       command git clone "${url}" "${HOME}/.config/nvim"
     fi

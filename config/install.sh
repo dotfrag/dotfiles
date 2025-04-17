@@ -26,9 +26,9 @@ done
 
 # custom config dirs
 for i in "${!config_dirs[@]}"; do
-  if [[ "${i}" = fast-theme ]]; then
+  if [[ ${i} == fast-theme ]]; then
     output+=("$(ln -vsfT "${SCRIPT_DIR}/${config_dirs['fast-theme']}" "${HOME}/.config/${config_dirs['fast-theme']}")")
-  elif [[ "${i}" = subl ]]; then
+  elif [[ ${i} == subl ]]; then
     subl_dir=${CONFIG_DIR}/sublime-text/Packages
     mkdir -p "${subl_dir}"
     output+=("$(command -v "${i}" > /dev/null && ln -vsfT "${SCRIPT_DIR}/${config_dirs[${i}]}" "${subl_dir}/User")")

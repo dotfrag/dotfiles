@@ -74,7 +74,7 @@ exec 21< "${_tmp}"/stdout 22< "${_tmp}"/stderr
   "$@"
 ) > "${_tmp}"/stdout 2> "${_tmp}"/stderr
 _error=$?
-if [[ "${_error}" == 0 ]]; then
+if [[ ${_error} == 0 ]]; then
   # skip
   true
 else

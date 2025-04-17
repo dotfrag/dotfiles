@@ -10,7 +10,7 @@ sleep 1
 
 # check if windows are still running
 for i in $(seq 0 $((TIMEOUT - 1))); do
-  [[ $(swaymsg -t get_tree | jq '[ .. | objects | select(.type == "con") ] | length') = 0 ]] && break
+  [[ $(swaymsg -t get_tree | jq '[ .. | objects | select(.type == "con") ] | length') == 0 ]] && break
   echo "Forceful termination in $((TIMEOUT - i)).."
   notify-send "Graceful $1" "Forceful termination in $((TIMEOUT - i)).."
   sleep 1

@@ -27,7 +27,7 @@ println() {
 }
 
 setup_zsh() {
-  [[ -n "${ZDOTDIR}" ]] && mkdir -p "${ZDOTDIR}"
+  [[ -n ${ZDOTDIR} ]] && mkdir -p "${ZDOTDIR}"
   mkdir -p "${ZSH_PLUGINS_DIR}"
   printf "[fast-syntax-highlighting] "
   git -C "${ZSH_PLUGINS_DIR}/fsh" pull 2> /dev/null || git clone --depth 1 "https://github.com/zdharma-continuum/fast-syntax-highlighting" "${ZSH_PLUGINS_DIR}/fsh"
@@ -49,7 +49,7 @@ setup_vim() {
 }
 
 setup_fzf() {
-  if [[ "${DISTRO}" != "Arch Linux" ]]; then
+  if [[ ${DISTRO} != "Arch Linux" ]]; then
     printf "[fzf] "
     git -C "${FZF_DIR}" pull 2> /dev/null || git clone --depth 1 https://github.com/junegunn/fzf "${FZF_DIR}"
     "${FZF_DIR}/install" --bin > /dev/null

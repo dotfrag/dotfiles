@@ -12,4 +12,4 @@ TARGET_DIR="${HOME}/.local/share/fonts"
 mkdir -p "${TARGET_DIR}"
 wget -nc -q --show-progress -O "/tmp/${FILENAME}" "https://github.com/be5invis/Iosevka/releases/download/${LATEST_VERSION}/${FILENAME}"
 unzip -o "/tmp/${FILENAME}" -d "${TARGET_DIR}"
-[[ $(ps -o stat= -p "${PPID}") = "Ss" ]] && fc-cache -rf
+[[ $(ps -o stat= -p "${PPID}") == "Ss" ]] && fc-cache -rf

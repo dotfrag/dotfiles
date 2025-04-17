@@ -7,7 +7,7 @@ status() {
   else
     wired_intf=$(ip -br l | awk '$1 !~ "lo|tun|vir|wl" {print $1}')
     subnet_mask=$(ip -f inet addr show "${wired_intf}" | awk '/inet / {print $2}' | cut -d'/' -f2)
-    if [[ "${subnet_mask}" == "22" ]]; then
+    if [[ ${subnet_mask} == "22" ]]; then
       echo "󰖂"
     else
       echo "󰖂 VPN OFF"

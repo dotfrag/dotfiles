@@ -211,9 +211,9 @@ vs() {
 # shellcheck fix all fixable issues
 shellfix() {
   if [[ -n $1 ]]; then
-    shellcheck -f diff "$1" | git apply
+    shellcheck -f diff "$1" | git apply --allow-empty
   else
-    rg -l '^#!/bin/bash' | xargs -P "$(nproc)" -I{} zsh -c 'shellcheck -f diff {} | git apply -q'
+    rg -l '^#!/bin/bash' | xargs -P "$(nproc)" -I{} zsh -c 'shellcheck -f diff {} | git apply --allow-empty -q'
   fi
 }
 

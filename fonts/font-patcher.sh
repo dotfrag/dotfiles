@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Globals
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 FONTS_DIR=${HOME}/.local/share/fonts/IosevkaSS08NerdFont
 ROOT_DIR=/tmp/iosevka-nerd-font
 IN_DIR=/tmp/iosevka-nerd-font/in
@@ -17,13 +17,13 @@ FILE_LIST=(
 )
 
 init() {
-  if command -v docker &>/dev/null; then
+  if command -v docker &> /dev/null; then
     systemctl is-active --quiet docker || systemctl start docker || exit 1
   else
     DOCKER=podman
   fi
   ${DOCKER} image pull nerdfonts/patcher
-  mkdir -p "${ROOT_DIR}" "${IN_DIR}" "${OUT_DIR}" "${FONTS_DIR}" >/dev/null || exit 1
+  mkdir -p "${ROOT_DIR}" "${IN_DIR}" "${OUT_DIR}" "${FONTS_DIR}" > /dev/null || exit 1
 }
 
 get_latest_version() {
@@ -69,7 +69,7 @@ install_fonts() {
 }
 
 update_fonts_version() {
-  echo "${LATEST_VERSION}" >"${SCRIPT_DIR}/version.txt"
+  echo "${LATEST_VERSION}" > "${SCRIPT_DIR}/version.txt"
 }
 
 main() {

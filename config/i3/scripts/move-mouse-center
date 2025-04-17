@@ -2,6 +2,6 @@
 #
 # Move mouse to the center of the screen.
 
-read -r x y <<<"$(xdpyinfo | awk '/dimensions/{print $2}' | tr 'x' ' ')"
+read -r x y <<< "$(xdpyinfo | awk '/dimensions/{print $2}' | tr 'x' ' ')"
 
 xdotool mousemove $((x / 2)) $((y / 2))

@@ -7,7 +7,7 @@
 {
   \unalias command
   \unset -f command
-} &>/dev/null
+} &> /dev/null
 
 set -euo pipefail
 
@@ -24,7 +24,7 @@ declare -a NVIM_DIRS=(
 )
 
 usage() {
-  cat <<EOF
+  cat << EOF
 Neovim configuration switcher.
 
 Usage: nvims [OPTION] [args..]
@@ -46,14 +46,14 @@ first_run() {
     return
   fi
 
-  command cat <<EOF
+  command cat << EOF
 Looks like you are running nvims for the first time.
 The config file ${CONFIG_FILE} has been populated with the defaults.
 
 EOF
 
   command mkdir -p "$(dirname "${CONFIG_FILE}")"
-  command cat <<EOF >"${CONFIG_FILE}"
+  command cat << EOF > "${CONFIG_FILE}"
 default=Nvim
 
 Nvim=git@github.com:dotfrag/nvim.git
@@ -77,7 +77,7 @@ read_config_file() {
       continue
     fi
 
-    read -r key value <<<"$(echo "${line}" | awk -F'=' '{print $1 " " $2}')"
+    read -r key value <<< "$(echo "${line}" | awk -F'=' '{print $1 " " $2}')"
     if [[ ${key} = "default" ]]; then
       DEFAULT=${value}
     elif [[ ${key} = "shallow_clone" ]]; then
@@ -85,7 +85,7 @@ read_config_file() {
     else
       NVIM_CONFIGS[${key}]=${value}
     fi
-  done <"${CONFIG_FILE}"
+  done < "${CONFIG_FILE}"
 }
 
 select_config() {

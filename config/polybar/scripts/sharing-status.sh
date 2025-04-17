@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 
 sep="$("${SCRIPT_DIR}/get-property.sh" sep)"
 color_sep=$("${SCRIPT_DIR}/get-property.sh" color tertiary)

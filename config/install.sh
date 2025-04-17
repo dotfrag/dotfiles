@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 CONFIG_DIR=${XDG_CONFIG_HOME:-${HOME}/.config}
 
 output=()
@@ -21,7 +21,7 @@ declare -A config_dirs=(
 
 # straightforward configs
 for i in $(git -C "${SCRIPT_DIR}" ls-tree --name-only main | grep -vP "install|zsh"); do
-  output+=("$(command -v "${i}" >/dev/null && ln -vsfT "${SCRIPT_DIR}/${i}" "${CONFIG_DIR}/${i}")")
+  output+=("$(command -v "${i}" > /dev/null && ln -vsfT "${SCRIPT_DIR}/${i}" "${CONFIG_DIR}/${i}")")
 done
 
 # custom config dirs
@@ -31,9 +31,9 @@ for i in "${!config_dirs[@]}"; do
   elif [[ "${i}" = subl ]]; then
     subl_dir=${CONFIG_DIR}/sublime-text/Packages
     mkdir -p "${subl_dir}"
-    output+=("$(command -v "${i}" >/dev/null && ln -vsfT "${SCRIPT_DIR}/${config_dirs[${i}]}" "${subl_dir}/User")")
+    output+=("$(command -v "${i}" > /dev/null && ln -vsfT "${SCRIPT_DIR}/${config_dirs[${i}]}" "${subl_dir}/User")")
   else
-    output+=("$(command -v "${i}" >/dev/null && ln -vsfT "${SCRIPT_DIR}/${config_dirs[${i}]}" "${CONFIG_DIR}/${config_dirs[${i}]}")")
+    output+=("$(command -v "${i}" > /dev/null && ln -vsfT "${SCRIPT_DIR}/${config_dirs[${i}]}" "${CONFIG_DIR}/${config_dirs[${i}]}")")
   fi
 done
 
@@ -51,13 +51,13 @@ else
 fi
 
 # fast-syntax-highlighting and bat setup
-zsh -ic 'fast-theme XDG:catppuccin-macchiato; bat cache --build' >/dev/null
+zsh -ic 'fast-theme XDG:catppuccin-macchiato; bat cache --build' > /dev/null
 
 # shellcheck disable=SC2207
-IFS=$'\n' output=($(sort <<<"${output[*]}"))
+IFS=$'\n' output=($(sort <<< "${output[*]}"))
 printf "%s\n" "${output[@]}" | column -t
 
 # mpv
-if command -v mpv >/dev/null && ! [[ -d "${CONFIG_DIR}/mpv/scripts/uosc" ]]; then
+if command -v mpv > /dev/null && ! [[ -d "${CONFIG_DIR}/mpv/scripts/uosc" ]]; then
   curl -fsSL https://raw.githubusercontent.com/tomasklaen/uosc/HEAD/installers/unix.sh | bash
 fi

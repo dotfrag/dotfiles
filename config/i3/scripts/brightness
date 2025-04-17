@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if ! command -v brightnessctl &>/dev/null; then
+if ! command -v brightnessctl &> /dev/null; then
   echo "brightnessctl could not be found"
   notify-send "brightnessctl could not be found"
   exit 1
@@ -12,5 +12,5 @@ case "$1" in
 esac
 
 value=$(sudo brightnessctl info | grep -oP "\d+%")
-command -v canberra-gtk-play &>/dev/null && canberra-gtk-play -i audio-volume-change
-command -v dunstify &>/dev/null && dunstify -h string:x-canonical-private-synchronous:brightness "Brightness: ${value}" -h int:value:"${value}" -t 1500
+command -v canberra-gtk-play &> /dev/null && canberra-gtk-play -i audio-volume-change
+command -v dunstify &> /dev/null && dunstify -h string:x-canonical-private-synchronous:brightness "Brightness: ${value}" -h int:value:"${value}" -t 1500

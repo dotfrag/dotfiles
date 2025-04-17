@@ -4,7 +4,7 @@ if [[ -f "setup.sh" ]]; then
   exec bash setup.sh "$@"
 fi
 
-if ! command -v git &>/dev/null; then
+if ! command -v git &> /dev/null; then
   echo "Missing git command. Please install git first."
   exit 1
 fi

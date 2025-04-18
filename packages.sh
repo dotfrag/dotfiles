@@ -81,6 +81,7 @@ packages_pacman_desktop=(
   noto-fonts-emoji
   obsidian
   papirus-icon-theme
+  pass
   plocate
   qalculate-gtk
   rofi

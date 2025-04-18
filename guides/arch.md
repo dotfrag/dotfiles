@@ -2,14 +2,10 @@
 
 Reference of one-off stuff that I will forget.
 
-- [Disable webcam](#disable-webcam)
-  - [For one session](#for-one-session)
-  - [Permanently](#permanently)
-- [Enable GuC / HuC firmware loading](#enable-guc--huc-firmware-loading)
+- [Flameshot](#flameshot)
 - [Gnome Keyring](#gnome-keyring)
 - [GPG](#gpg)
 - [Hosts file](#hosts-file)
-- [Lid action](#lid-action)
 - [Mounting NTFS with udisks](#mounting-ntfs-with-udisks)
 - [Package cache](#package-cache)
 - [Pacman Parallel Downloads](#pacman-parallel-downloads)
@@ -17,56 +13,35 @@ Reference of one-off stuff that I will forget.
 - [Sudoers](#sudoers)
 - [thermald](#thermald)
 - [TTY keymap and font](#tty-keymap-and-font)
-- [HP EliteDesk no HDMI output](#hp-elitedesk-no-hdmi-output)
+- [Misc (situational)](#misc-situational)
+  - [Disable webcam](#disable-webcam)
+    - [For one session](#for-one-session)
+    - [Permanently](#permanently)
+  - [Enable GuC / HuC firmware loading](#enable-guc--huc-firmware-loading)
+  - [Lid action](#lid-action)
+  - [HP EliteDesk no HDMI output](#hp-elitedesk-no-hdmi-output)
 
-## Disable webcam
+## Flameshot
 
-### For one session
+Most likely requires [xdg-portals](https://wiki.archlinux.org/title/XDG_Desktop_Portal) `xdg-desktop-portal-wlr` and `xdg-desktop-portal-gtk`.
 
-```shell
-sudo modprobe -r uvcvideo
+Multiple potential fixes for wayland. Currently using [ly](https://codeberg.org/AnErrupTion/ly) with sway:
+
+```text
+File: /usr/share/wayland-sessions/sway.desktop
+[Desktop Entry]
+Name=Sway
+Comment=An i3-compatible Wayland compositor
+Exec=sway --unsupported-gpu
+Type=Application
+DesktopNames=sway # important line to add
 ```
 
-If you get "Module uvcvideo is in use", then:
+Other solutions:
 
-```shell
-sudo rmmod -f uvcvideo
-```
-
-### Permanently
-
-```shell
-echo 'blacklist uvcvideo' | sudo tee /etc/modprobe.d/blacklist-uvcvideo.conf
-```
-
-Regenerate initramfs:
-
-```shell
-sudo mkinitcpio -P
-```
-
-To enable the webcam for a single session, run:
-
-```shell
-sudo modprobe uvcvideo
-```
-
-<https://askubuntu.com/questions/166809/how-can-i-disable-my-webcam>
-<https://bbs.archlinux.org/viewtopic.php?id=170416>
-
-## Enable GuC / HuC firmware loading
-
-```shell
-echo 'options i915 enable_guc=2' | sudo tee /etc/modprobe.d/i915-enable-guc.conf
-```
-
-Regenerate initramfs:
-
-```shell
-sudo mkinitcpio -P
-```
-
-<https://wiki.archlinux.org/title/Intel_graphics#Enable_GuC_/_HuC_firmware_loading>
+- [Environment variables](https://wiki.archlinux.org/title/Systemd/User#Environment_variables)
+- <https://flameshot.org/docs/guide/wayland-help/>
+- <https://github.com/fairyglade/ly/issues/702>
 
 ## Gnome Keyring
 
@@ -110,6 +85,8 @@ chmod 700 $GNUPGHOME
 
 <https://wiki.archlinux.org/title/GnuPG#Keyblock_resource_does_not_exist>, <https://gist.github.com/oseme-techguy/bae2e309c084d93b75a9b25f49718f85>
 
+<https://wiki.archlinux.org/title/Network_configuration#localhost_is_resolved_over_the_network>
+
 ## Hosts file
 
 ```text
@@ -121,24 +98,6 @@ chmod 700 $GNUPGHOME
 ::1       localhost
 127.0.0.1 xps
 ```
-
-<https://wiki.archlinux.org/title/Network_configuration#localhost_is_resolved_over_the_network>
-
-## Lid action
-
-```shell
-sudo mkdir -p /etc/systemd/logind.conf.d
-sudo bash -c 'cat <<EOF>/etc/systemd/logind.conf.d/HandleLidSwitch.conf
-[Login]
-HandleLidSwitch=ignore
-EOF'
-```
-
-```shell
-sudo systemctl kill -s HUP systemd-logind
-```
-
-<https://wiki.archlinux.org/title/Power_management#ACPI_events>
 
 ## Mounting NTFS with udisks
 
@@ -244,7 +203,76 @@ KEYMAP=/usr/local/share/kbd/keymaps/personal.map
 FONT=ter-v24b.psf.gz
 ```
 
-## HP EliteDesk no HDMI output
+<https://forum.manjaro.org/t/intel-cannon-lake-pch-cavs-conexant-cx20632-no-sound-at-hdmi-or-displayport/133494/2>
+
+## Misc (situational)
+
+### Disable webcam
+
+#### For one session
+
+```shell
+sudo modprobe -r uvcvideo
+```
+
+If you get "Module uvcvideo is in use", then:
+
+```shell
+sudo rmmod -f uvcvideo
+```
+
+#### Permanently
+
+```shell
+echo 'blacklist uvcvideo' | sudo tee /etc/modprobe.d/blacklist-uvcvideo.conf
+```
+
+Regenerate initramfs:
+
+```shell
+sudo mkinitcpio -P
+```
+
+To enable the webcam for a single session, run:
+
+```shell
+sudo modprobe uvcvideo
+```
+
+<https://askubuntu.com/questions/166809/how-can-i-disable-my-webcam>
+<https://bbs.archlinux.org/viewtopic.php?id=170416>
+
+### Enable GuC / HuC firmware loading
+
+```shell
+echo 'options i915 enable_guc=2' | sudo tee /etc/modprobe.d/i915-enable-guc.conf
+```
+
+Regenerate initramfs:
+
+```shell
+sudo mkinitcpio -P
+```
+
+<https://wiki.archlinux.org/title/Intel_graphics#Enable_GuC_/_HuC_firmware_loading>
+
+### Lid action
+
+```shell
+sudo mkdir -p /etc/systemd/logind.conf.d
+sudo bash -c 'cat <<EOF>/etc/systemd/logind.conf.d/HandleLidSwitch.conf
+[Login]
+HandleLidSwitch=ignore
+EOF'
+```
+
+```shell
+sudo systemctl kill -s HUP systemd-logind
+```
+
+<https://wiki.archlinux.org/title/Power_management#ACPI_events>
+
+### HP EliteDesk no HDMI output
 
 Overrride `Intel Kabylake HDMI` pins using alsa-tools and `hdajackretask`.
 
@@ -265,5 +293,3 @@ Overrride `Intel Kabylake HDMI` pins using alsa-tools and `hdajackretask`.
 # If you want to revert the changes made by this program, you can simply erase this file and reboot your computer.
 options snd-hda-intel patch=hda-jack-retask.fw,hda-jack-retask.fw,hda-jack-retask.fw,hda-jack-retask.fw
 ```
-
-<https://forum.manjaro.org/t/intel-cannon-lake-pch-cavs-conexant-cx20632-no-sound-at-hdmi-or-displayport/133494/2>

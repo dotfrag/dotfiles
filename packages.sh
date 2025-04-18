@@ -90,7 +90,10 @@ packages_pacman_desktop=(
   ttf-jetbrains-mono
   ttf-nerd-fonts-symbols-common
   ttf-nerd-fonts-symbols-mono
+  uv
   wl-clipboard
+  xdg-desktop-portal-gtk
+  xdg-desktop-portal-wlr
 )
 
 packages_pacman_server=(

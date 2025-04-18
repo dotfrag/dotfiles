@@ -1,4 +1,4 @@
-# shellcheck shell=bash
+#!/bin/bash
 
 # Note: For ttf-nerd-fonts-symbols-mono, use the "Symbols Nerd Font Mono" family
 # in your font config.
@@ -69,6 +69,7 @@ packages_pacman_desktop=(
   gammastep
   github-cli
   gnome-keyring
+  go
   imv
   inter-font
   kitty
@@ -89,7 +90,6 @@ packages_pacman_desktop=(
   ttf-jetbrains-mono
   ttf-nerd-fonts-symbols-common
   ttf-nerd-fonts-symbols-mono
-  ttf-opensans
   wl-clipboard
 )
 
@@ -114,7 +114,7 @@ packages_aur_desktop=(
   sublime-text-4
   swaync
   thorium-browser-bin
-  ttf-merriweather
+  ttf-google-fonts-typewolf
   visual-studio-code-bin
 )
 
@@ -145,7 +145,7 @@ detect_distro() {
   if [[ -f /etc/os-release ]]; then
     . /etc/os-release
     DISTRO=${NAME}
-  elif command -v lsb_release &>/dev/null; then
+  elif command -v lsb_release &> /dev/null; then
     DISTRO=$(lsb_release -si)
   elif [[ -f /etc/lsb-release ]]; then
     # shellcheck disable=SC1091
@@ -166,21 +166,21 @@ setup_packages() {
     local packages_pacman=("${packages_pacman_base[@]}" "${packages_pacman_desktop[@]}")
     local packages_aur=("${packages_aur_base[@]}" "${packages_aur_desktop[@]}")
   fi
-  if [[ "${DISTRO}" = "Arch Linux" ]]; then
+  if [[ ${DISTRO} == "Arch Linux" ]]; then
     sudo pacman -Syu
     sudo pacman -S --needed "${packages_pacman[@]}"
-    if ! command -v yay &>/dev/null; then
-      git clone --depth 1 https://aur.archlinux.org/yay-bin.git /tmp/yay &&
-        cd /tmp/yay &&
-        makepkg -si &&
-        command rm -rf /tmp/yay
+    if ! command -v yay &> /dev/null; then
+      git clone --depth 1 https://aur.archlinux.org/yay-bin.git /tmp/yay \
+        && cd /tmp/yay \
+        && makepkg -si \
+        && command rm -rf /tmp/yay
     fi
     yay -S --needed "${packages_aur[@]}"
-  elif [[ "${DISTRO}" = "Fedora Linux" ]]; then
+  elif [[ ${DISTRO} == "Fedora Linux" ]]; then
     sudo dnf check-update
     sudo dnf install -y "${packages_dnf[@]}"
-  elif [[ "${DISTRO}" = "Ubuntu" ]]; then
-    command -v nala &>/dev/null && apt=nala || apt=apt
+  elif [[ ${DISTRO} == "Ubuntu" ]]; then
+    command -v nala &> /dev/null && apt=nala || apt=apt
     sudo "${apt}" update
     sudo "${apt}" install -y "${packages_apt[@]}"
   fi

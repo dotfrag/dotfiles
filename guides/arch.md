@@ -3,6 +3,8 @@
 Reference of one-off stuff that I will forget.
 
 - [Disable webcam](#disable-webcam)
+  - [For one session](#for-one-session)
+  - [Permanently](#permanently)
 - [Enable GuC / HuC firmware loading](#enable-guc--huc-firmware-loading)
 - [Gnome Keyring](#gnome-keyring)
 - [GPG](#gpg)
@@ -80,16 +82,22 @@ Add `auth optional pam_gnome_keyring.so` at the end of the `auth` section and
 ```
 
 ```text
-auth required pam_securetty.so
-auth requisite pam_nologin.so
-auth include system-local-login
-auth optional pam_gnome_keyring.so
-account include system-local-login
-session include system-local-login
-session optional pam_gnome_keyring.so auto_start
+auth       requisite    pam_nologin.so
+auth       include      system-local-login
+auth       optional     pam_gnome_keyring.so <<<
+account    include      system-local-login
+session    include      system-local-login
+session    optional     pam_gnome_keyring.so auto_start <<<
+password   include      system-local-login
 ```
 
-<https://wiki.archlinux.org/title/GNOME/Keyring#PAM_step>
+Restart and check status:
+
+```shell
+busctl --user get-property org.freedesktop.secrets /org/freedesktop/secrets/collection/login org.freedesktop.Secret.Collection Locked
+```
+
+<https://wiki.archlinux.org/title/GNOME/Keyring#PAM_step>, <https://www.reddit.com/r/bash/comments/s2n756/comment/hsfnpit/>
 
 ## GPG
 
@@ -230,6 +238,7 @@ sudo sed -i 's/Caps_Lock/Escape/g' /usr/local/share/kbd/keymaps/personal.map
 Add related lines to `/etc/vconsole.conf`:
 
 ```text
+# KEYMAP=us
 KEYMAP=/usr/local/share/kbd/keymaps/personal.map
 # FONT=ter-d20b.psf.gz
 FONT=ter-v24b.psf.gz

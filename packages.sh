@@ -86,6 +86,7 @@ packages_pacman_desktop=(
   plocate
   qalculate-gtk
   rofi
+  rofimoji
   seahorse
   ttc-iosevka-ss08
   ttf-fira-code
@@ -109,6 +110,7 @@ packages_aur_base=(
 )
 
 packages_aur_desktop=(
+  bun-bin
   catppuccin-cursors-macchiato
   catppuccin-gtk-theme-macchiato
   google-chrome

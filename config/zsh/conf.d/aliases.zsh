@@ -56,7 +56,7 @@ alias print-functions='print -rl -- ${(k)functions}'
 alias ran='ranger --choosedir=/tmp/.rangerdir; LASTDIR=$(cat /tmp/.rangerdir); cd "$LASTDIR"'
 # alias shellfmt='shfmt -w .'
 alias shfmt='shfmt --simplify --indent 2 --binary-next-line --case-indent --space-redirects'
-alias wls='watch -c eza --color=always -la'
+alias wls='watch -c eza --color=always -la --group-directories-first'
 
 alias update-fnm='curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell'
 

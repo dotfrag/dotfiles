@@ -77,6 +77,7 @@ packages_pacman_desktop=(
   kitty-terminfo
   mpv
   nemo
+  neovide
   noto-fonts
   noto-fonts-emoji
   obsidian

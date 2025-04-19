@@ -138,7 +138,7 @@ mans() {
 
 # zsh man page search
 manzsh() {
-  man zshall |  less -G +/"$1"
+  man zshall | less -G +/"$1"
 }
 
 # touch executable and edit

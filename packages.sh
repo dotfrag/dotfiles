@@ -93,6 +93,7 @@ packages_pacman_desktop=(
   ttf-jetbrains-mono
   ttf-nerd-fonts-symbols-common
   ttf-nerd-fonts-symbols-mono
+  ttf-opensans
   uv
   wl-clipboard
   xdg-desktop-portal-gtk
@@ -121,7 +122,7 @@ packages_aur_desktop=(
   sublime-text-4
   swaync
   thorium-browser-bin
-  ttf-google-fonts-typewolf
+  ttf-merriweather
   visual-studio-code-bin
 )
 

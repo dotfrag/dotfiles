@@ -63,10 +63,10 @@ fed() {
   fzf --multi --bind "${bind}" <"${dots}"
 }
 
-# fuzzy ripgrep open with line number
+# fuzzy ripgrep open at line number
 # https://github.com/junegunn/fzf/wiki/examples#opening-files
 vg() {
-  [ -z $1 ] && {vgi; return;}
+  [ -z $1 ] && { vgi; return; }
   rg --color=always --line-number --no-heading $@ |
     fzf --ansi \
         --color "hl:-1:underline,hl+:-1:underline:reverse" \
@@ -77,7 +77,7 @@ vg() {
         --bind 'enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
 }
 
-# ripgrep interactive with fuzzy search and open with line number
+# ripgrep interactive with fuzzy search and open at line number
 # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-between-ripgrep-mode-and-fzf-mode-using-a-single-key-binding
 vgi() {
   command rm -f /tmp/rg-fzf-{r,f}
@@ -98,7 +98,7 @@ vgi() {
     --bind 'enter:become($EDITOR {1} +{2})'
 }
 
-# fuzzy ripgrep dots open with line number
+# fuzzy ripgrep dots open at line number
 vgd() {
   [ -z "$1" ] && return 1
   local files

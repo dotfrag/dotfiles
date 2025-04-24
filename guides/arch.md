@@ -83,6 +83,19 @@ chmod 600 $GNUPGHOME/*
 chmod 700 $GNUPGHOME
 ```
 
+After using the above for a long time, I realised I had permission issues with
+directories (and specifically `dirmngr`). The following fixed it:
+
+As **root**:
+
+```shell
+cd /home/user/.local/share
+chmod 700 gnupg
+cd gnupg
+find . -type d -exec chmod 700 {} \;
+find . -type f -exec chmod 600 {} \;
+```
+
 <https://wiki.archlinux.org/title/GnuPG#Keyblock_resource_does_not_exist>, <https://gist.github.com/oseme-techguy/bae2e309c084d93b75a9b25f49718f85>
 
 <https://wiki.archlinux.org/title/Network_configuration#localhost_is_resolved_over_the_network>

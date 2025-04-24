@@ -178,10 +178,10 @@ setup_packages() {
     sudo pacman -Syu
     sudo pacman -S --needed "${packages_pacman[@]}"
     if ! command -v yay &> /dev/null; then
-      git clone --depth 1 https://aur.archlinux.org/yay-bin.git /tmp/yay \
-        && cd /tmp/yay \
-        && makepkg -si \
-        && command rm -rf /tmp/yay
+      sudo pacman -S --needed git base-devel
+      git clone --depth 1 https://aur.archlinux.org/yay-bin.git /tmp/yay-bin \
+        && cd /tmp/yay-bin \
+        && makepkg -si
     fi
     yay -S --needed "${packages_aur[@]}"
   elif [[ ${DISTRO} == "Fedora Linux" ]]; then

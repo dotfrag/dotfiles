@@ -24,6 +24,9 @@ alias ln='ln -vi'
 alias mv='mv -vi'
 alias rm='rm -v'
 
+alias ls='eza --all --long --git --group-directories-first'
+alias lsm='ls -s modified'
+alias ltree='eza -T --icons=always --git-ignore'
 alias lad='ls -d .*(/)'  # dot-directories
 alias lsa='ls -a .*(.)'  # dot-files
 alias lsd='ls -d *(/)'   # directories
@@ -47,8 +50,6 @@ alias files='nemo $(pwd) &>/dev/null & disown'
 alias glow='glow -p'
 alias insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" -o "PreferredAuthentications=keyboard-interactive"'
 alias killsigs="kill -l | tr ' ' '\n' | nl"
-alias ls='eza --all --long --git --group-directories-first'
-alias ltree='eza -T --icons=always --git-ignore'
 alias mdcat='mdcat -p'
 alias pacdiff='MERGEPROG="git merge-file -p --diff3" pacdiff -s -b'
 alias print-aliases='print -rl -- ${(k)aliases}'

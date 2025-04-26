@@ -4,7 +4,7 @@ set $mod Mod4
 # Colours
 include themes/catppuccin-macchiato
 
-# GSettings
+# GSettings (used in conjunction with nwg-look - remember to update both)
 exec_always {
   gsettings set org.gnome.desktop.interface gtk-theme 'catppuccin-macchiato-blue-standard+default'
   gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'

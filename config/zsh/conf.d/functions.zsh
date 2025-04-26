@@ -105,8 +105,14 @@ xyank() {
 
 # paste from clipboard
 put() {
-  if [[ "$XDG_SESSION_TYPE" = "wayland" ]]; then
-    wl-paste
+  if [[ $XDG_SESSION_TYPE == "wayland" ]]; then
+    local type
+    type=$(wl-paste -l | rg image)
+    if [[ $type == image* ]]; then
+      wl-paste -t "$type" > "$(date +%Y-%m-%d_%T).png"
+    else
+      wl-paste
+    fi
   else
     xclip -o #-selection clipboard
   fi

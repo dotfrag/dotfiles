@@ -47,7 +47,7 @@ first_run() {
   fi
 
   command cat << EOF
-Looks like you are running nvims for the first time.
+It looks like you are running nvims for the first time.
 The config file ${CONFIG_FILE} has been populated with the defaults.
 
 EOF
@@ -66,14 +66,14 @@ LazyVim=https://github.com/LazyVim/starter
 NormalNvim=https://github.com/NormalNvim/NormalNvim.git
 NvChad=https://github.com/NvChad/starter
 
-shallow_clone=AstroNvim DotVim-old Kickstart LazyVim NvChad
+shallow_clone=AstroNvim DotVim-old Kickstart LazyVim NormalNvim NvChad
 EOF
 }
 
 read_config_file() {
   local key value
   while read -r line; do
-    if ! echo "${line}" | grep -qF =; then
+    if ! grep -qF = <<< "${line}"; then
       continue
     fi
 
@@ -199,8 +199,7 @@ main() {
     fi
     exec nvim "$@"
   elif ! [[ -d ${HOME}/.config/nvim-${selected,,} ]]; then
-    re="\b${selected}\b"
-    if [[ ${SHALLOW_CLONE} =~ ${re} ]]; then
+    if [[ " ${SHALLOW_CLONE} " == *" ${selected} "* ]]; then
       command git clone --depth 1 "${url}" "${location}"
     else
       command git clone "${url}" "${location}"

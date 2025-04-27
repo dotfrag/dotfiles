@@ -58,7 +58,6 @@ default=Nvim
 
 Nvim=git@github.com:dotfrag/nvim.git
 DotVim=git@github.com:dotfrag/dotvim.git
-DotVim-old=git@github.com:dotfrag/DotVim-old.git
 
 AstroNvim=https://github.com/AstroNvim/template
 Kickstart=https://github.com/nvim-lua/kickstart.nvim
@@ -66,7 +65,7 @@ LazyVim=https://github.com/LazyVim/starter
 NormalNvim=https://github.com/NormalNvim/NormalNvim.git
 NvChad=https://github.com/NvChad/starter
 
-shallow_clone=AstroNvim DotVim-old Kickstart LazyVim NormalNvim NvChad
+shallow_clone=AstroNvim Kickstart LazyVim NormalNvim NvChad
 EOF
 }
 

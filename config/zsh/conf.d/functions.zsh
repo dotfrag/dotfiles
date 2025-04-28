@@ -149,11 +149,15 @@ manzsh() {
 
 # touch executable and edit
 touchx() {
-  if ! [[ -e "$1" ]]; then
-    echo -e "#!/bin/bash\n\n" >"$1"
+  if ! [[ -e $1 ]]; then
+    case "$1" in
+      *.sh) shebang="#!/bin/bash" ;;
+      *.py) shebang="#!/usr/bin/env python3" ;;
+    esac
+    echo -e "${shebang}\n\n" > "$1"
   fi
-  chmod +x "$1" >/dev/null
-  $EDITOR + "$1"
+  chmod +x "$1" > /dev/null
+  ${EDITOR} + "$1"
 }
 
 # create temporary executable

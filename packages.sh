@@ -88,6 +88,7 @@ packages_pacman_desktop=(
   rofi
   rofimoji
   seahorse
+  sshfs
   ttc-iosevka-ss08
   ttf-fira-code
   ttf-jetbrains-mono

@@ -99,6 +99,8 @@ packages_pacman_desktop=(
   wl-clipboard
   xdg-desktop-portal-gtk
   xdg-desktop-portal-wlr
+  zathura
+  zathura-pdf-poppler
 )
 
 packages_pacman_server=(

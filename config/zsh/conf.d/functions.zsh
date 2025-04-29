@@ -109,7 +109,10 @@ put() {
     local type
     type=$(wl-paste -l | rg image)
     if [[ $type == image* ]]; then
-      wl-paste -t "$type" > "$(date +%Y-%m-%d_%T).png"
+      filename=$(date +%Y-%m-%d_%T).png
+      wl-paste -t "$type" > "$filename" \
+        && echo "Created image file $filename"
+      [[ -v KITTY_WINDOW_ID ]] && kitten icat "$filename"
     else
       wl-paste
     fi
@@ -151,8 +154,8 @@ manzsh() {
 touchx() {
   if ! [[ -e $1 ]]; then
     case "$1" in
-      *.sh) shebang="#!/bin/bash" ;;
       *.py) shebang="#!/usr/bin/env python3" ;;
+      *) shebang="#!/bin/bash" ;;
     esac
     echo -e "${shebang}\n\n" > "$1"
   fi

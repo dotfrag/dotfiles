@@ -10,6 +10,16 @@ done < "${projects_file}"
 
 project=$(printf "%s\n" "${!projects[@]}" | rofi -dmenu -i)
 
-if [[ -n ${project} ]]; then
+if [[ -z ${project} ]]; then
+  exit 1
+fi
+
+if [[ $1 == "vscode" ]]; then
   code "${projects[${project}]}"
+elif [[ $1 == "nvim" ]]; then
+  nvim --cmd "cd ${projects[${project}]}"
+else
+  echo "No editor specified."
+  notify-send "No editor specified."
+  exit 1
 fi

@@ -136,7 +136,7 @@ gallx() {
 }
 
 # get latest version of github release
-get_latest_version() {
+get-latest-version() {
   curl -sLH "Accept: application/json" "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\Kv[^"]*'
 }
 

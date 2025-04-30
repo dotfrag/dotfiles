@@ -17,7 +17,11 @@ fi
 if [[ $1 == "vscode" ]]; then
   code "${projects[${project}]}"
 elif [[ $1 == "nvim" ]]; then
-  nvim --cmd "cd ${projects[${project}]}"
+  if command -v neovide &> /dev/null; then
+    neovide -- --cmd "cd ${projects[${project}]}"
+  else
+    kitty nvim --cmd "cd ${projects[${project}]}"
+  fi
 else
   echo "No editor specified."
   notify-send "No editor specified."

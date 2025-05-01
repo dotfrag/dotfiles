@@ -237,6 +237,7 @@ input {
     # bindsym $mod+Shift+e      exec kitty -o confirm_os_window_close=0 zsh -ic nvim
     bindsym $mod+Shift+e      exec neovide
     bindsym $mod+Shift+v      exec project-launcher vscode
+    bindsym $mod+Comma        exec project-launcher zed
     bindsym $mod+Period       exec project-launcher nvim
     bindsym $mod+c move position center
 #

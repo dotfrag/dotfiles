@@ -14,13 +14,17 @@ if [[ -z ${project} ]]; then
   exit 1
 fi
 
+p=${projects[${project}]}
+
 if [[ $1 == "vscode" ]]; then
-  code "${projects[${project}]}"
+  code "${p}"
+elif [[ $1 == "zed" ]]; then
+  zeditor "${p}"
 elif [[ $1 == "nvim" ]]; then
   if command -v neovide &> /dev/null; then
-    neovide -- --cmd "cd ${projects[${project}]}"
+    neovide -- --cmd "cd ${p}"
   else
-    kitty nvim --cmd "cd ${projects[${project}]}"
+    kitty nvim --cmd "cd ${p}"
   fi
 else
   echo "No editor specified."

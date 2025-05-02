@@ -17,14 +17,29 @@ fi
 p=${projects[${project}]}
 
 if [[ $1 == "vscode" ]]; then
-  code "${p}"
+  if command -v code &> /dev/null; then
+    code "${p}"
+  else
+    echo "VS Code editor not found."
+    exit 1
+  fi
 elif [[ $1 == "zed" ]]; then
-  zeditor "${p}"
+  if command -v zeditor &> /dev/null; then
+    zeditor "${p}"
+  elif command -v zed &> /dev/null; then
+    zed "${p}"
+  else
+    echo "Zed editor not found."
+    exit 1
+  fi
 elif [[ $1 == "nvim" ]]; then
   if command -v neovide &> /dev/null; then
     neovide -- --cmd "cd ${p}"
-  else
+  elif command -v kitty &> /dev/null; then
     kitty nvim --cmd "cd ${p}"
+  else
+    echo "Kitty terminal not found."
+    exit 1
   fi
 else
   echo "No editor specified."

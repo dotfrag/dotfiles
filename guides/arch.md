@@ -155,7 +155,8 @@ sudo pacman -S --needed reflector
 sudo bash -c 'cat <<EOF>/etc/xdg/reflector/reflector.conf
 --save /etc/pacman.d/mirrorlist
 --protocol https
---latest 20
+--latest 50
+--number 20
 --sort rate
 EOF'
 ```

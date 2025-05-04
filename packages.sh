@@ -100,7 +100,7 @@ packages_pacman_desktop=(
   xdg-desktop-portal-gtk
   xdg-desktop-portal-wlr
   zathura
-  zathura-pdf-poppler
+  zathura-pdf-mupdf
 )
 
 packages_pacman_server=(

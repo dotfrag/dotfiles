@@ -85,6 +85,7 @@ packages_pacman_desktop=(
   pass
   plocate
   qalculate-gtk
+  qpdf
   rofi
   rofimoji
   seahorse

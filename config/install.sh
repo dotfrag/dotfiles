@@ -50,6 +50,11 @@ else
   done
 fi
 
+# gh-dash
+if command -v gh > /dev/null && gh extension list | grep -q gh-dash; then
+  output+=("$(ln -vsfT "${SCRIPT_DIR/gh-dash/}" "${CONFIG_DIR}/gh-dash")")
+fi
+
 # fast-syntax-highlighting and bat setup
 zsh -ic 'fast-theme XDG:catppuccin-macchiato; bat cache --build' > /dev/null
 

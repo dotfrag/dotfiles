@@ -33,7 +33,7 @@ gco() {
     rg -v '^\*' |
     awk -F'/' '{print $NF}' |
     sort -u |
-    fzf -q "$1" --bind 'enter:become(git switch -- {})'
+    fzf -q "$1" --bind 'one:become(git switch -- {}),enter:become(git switch -- {})'
 }
 compdef _git gco=git-checkout
 

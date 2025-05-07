@@ -8,6 +8,7 @@
 
 packages_pacman_base=(
   7zip
+  aria2
   base-devel
   bat
   btop

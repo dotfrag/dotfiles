@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------- FZF
-eval "$(fzf --zsh)"
+source <(fzf --zsh)
 
 # custom opts
 export FZF_DEFAULT_OPTS="--height 30% --reverse --border --info inline-right \

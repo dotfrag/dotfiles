@@ -28,22 +28,22 @@ alias lg='lazygit'
 
 # git checkout
 gco() {
-  git branch -a |
-    tr -d '[:blank:]' |
-    rg -v '^\*' |
-    awk -F'/' '{print $NF}' |
-    sort -u |
-    fzf -q "$1" --bind 'one:become(git switch -- {}),enter:become(git switch -- {})'
+  git branch -a \
+    | tr -d '[:blank:]' \
+    | rg -v '^\*' \
+    | awk -F'/' '{print $NF}' \
+    | sort -u \
+    | fzf -q "$1" --bind 'one:become(git switch -- {}),enter:become(git switch -- {})'
 }
 compdef _git gco=git-checkout
 
 # check if main exists and use instead of master
 git_main_branch() {
-  command git rev-parse --git-dir &>/dev/null || return
+  command git rev-parse --git-dir &> /dev/null || return
   local ref
   for ref in refs/{heads,remotes/{origin,upstream}}/{main,trunk,mainline,default}; do
-    if command git show-ref -q --verify $ref; then
-      echo ${ref:t}
+    if command git show-ref -q --verify "${ref}"; then
+      echo "${ref:t}"
       return
     fi
   done
@@ -60,7 +60,7 @@ gpall() {
 gitgc() {
   fd -td '^.git$' -IH -E '.cache' -E '.cargo' -E '.local' -E 'node_modules' \
     -x echo {//} | sort -u | while read -r line; do
-    if git -C "${line}" rev-parse --is-inside-work-tree &>/dev/null; then
+    if git -C "${line}" rev-parse --is-inside-work-tree &> /dev/null; then
       print -P "%F{yellow}${line}%f"
       git -C "${line}" gc
       echo
@@ -92,19 +92,19 @@ gppe() {
 
 # find branches that have modified a file
 glf() {
-  git log --all --source -- "$1" |
-    rg -o "refs/.*" |
-    awk '!x[$0]++' |
-    head -10 |
-    xargs -I '{}' git log -1 --format='%S|%ai%x20(%ar)' '{}' -- "$1" |
-    perl -pe 's+refs/(heads|remotes|tags)(/origin)?/++' |
-    column -t -s '|'
+  git log --all --source -- "$1" \
+    | rg -o "refs/.*" \
+    | awk '!x[$0]++' \
+    | head -10 \
+    | xargs -I '{}' git log -1 --format='%S|%ai%x20(%ar)' '{}' -- "$1" \
+    | perl -pe 's+refs/(heads|remotes|tags)(/origin)?/++' \
+    | column -t -s '|'
 }
 
 # git log
 glog() {
-  git log --oneline --decorate --color "$@" |
-    fzf --ansi --multi --height 100% \
+  git log --oneline --decorate --color "$@" \
+    | fzf --ansi --multi --height 100% \
       --preview 'git show --stat -p -m --color {1}' \
       --preview-window 'down,80%' \
       --bind 'enter:become(git show --stat -p -m {1})'
@@ -112,9 +112,9 @@ glog() {
 
 # run git command for all repos in directory (serial)
 gall() {
-  if [[ -d "$1" ]]; then
+  if [[ -d $1 ]]; then
     local repos=()
-    while [[ -d "$1" ]]; do
+    while [[ -d $1 ]]; do
       repos+=("$1")
       shift
     done
@@ -125,8 +125,8 @@ gall() {
     done
   else
     # shellcheck disable=SC1083
-    fd -td '^\.git$' -IHL -x echo {//} | sort |
-      xargs -I{} zsh -c "print -P '%F{yellow}{}%f' && git -C {} $* && echo"
+    fd -td '^\.git$' -IHL -x echo {//} | sort \
+      | xargs -I{} zsh -c "print -P '%F{yellow}{}%f' && git -C {} $* && echo"
   fi
 }
 
@@ -142,7 +142,7 @@ get-latest-version() {
 
 # sync github fork
 sync-fork() {
-  if ! git config remote.upstream.url >/dev/null; then
+  if ! git config remote.upstream.url > /dev/null; then
     echo "No upstream remote found. Add a remote upstream with:"
     echo "git remote add upstream https://github.com/ORIGINAL-OWNER/ORIGINAL-REPOSITORY.git"
     return
@@ -150,7 +150,7 @@ sync-fork() {
   branch=$(git symbolic-ref --short -q HEAD)
   git fetch upstream
   git checkout "${branch}"
-  if git ls-remote --exit-code upstream "${branch}" >/dev/null; then
+  if git ls-remote --exit-code upstream "${branch}" > /dev/null; then
     git merge "upstream/${branch}"
   fi
 }

@@ -3,6 +3,7 @@ xsource /usr/share/doc/git-extras/git-extras-completion.zsh
 
 alias ga='git add'
 alias gauth='git shortlog --summary --numbered --email'
+alias gc-='git checkout -'
 alias gc='git commit'
 alias gcb='git checkout -b'
 alias gcl='git config --local --list | sort'

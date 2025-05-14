@@ -20,12 +20,12 @@ cpcd() {
     printf 'usage: cpcd <file> <destination>\n'
     return 1
   fi
-  if [[ ! -e "$1" ]]; then
+  if [[ ! -e $1 ]]; then
     printf "error: file $1 doesn't exist\n"
     return 1
   fi
   cp -vi "$1" "$2"
-  if [[ -d "$2" ]]; then
+  if [[ -d $2 ]]; then
     builtin cd "$2"
   else
     builtin cd "$(dirname "$2")"
@@ -38,12 +38,12 @@ mvcd() {
     printf 'usage: mvcd <file> <destination>\n'
     return 1
   fi
-  if [[ ! -e "$1" ]]; then
+  if [[ ! -e $1 ]]; then
     printf "error: file $1 doesn't exist\n"
     return 1
   fi
   mv -vi "$1" "$2"
-  if [[ -d "$2" ]]; then
+  if [[ -d $2 ]]; then
     builtin cd "$2"
   else
     builtin cd "$(dirname "$2")"
@@ -57,25 +57,28 @@ x() {
     return 1
   fi
   for f in "$@"; do
-    if [[ ! -e "$f" ]]; then
+    if [[ ! -e $f ]]; then
       echo "error: file ${f} doesn't exist"
       return 1
     fi
     case "$f" in
-      *.deb)              mkdir "${f%.*}"   && ar x "$f" --output "${f%.*}" ;;
-      *.tar)              mkdir "${f%.*.*}" && tar xvf  "$f" -C "${f%.*.*}" ;;
-      *.tar.bz|*.tar.bz2) mkdir "${f%.*.*}" && tar xjvf "$f" -C "${f%.*.*}" ;;
-      *.tar.gz)           mkdir "${f%.*.*}" && tar xzvf "$f" -C "${f%.*.*}" ;;
-      *.tar.xz)           mkdir "${f%.*.*}" && tar xJvf "$f" -C "${f%.*.*}" ;;
-      *.tbz|*.tbz2)       mkdir "${f%.*}"   && tar xjvf "$f" -C "${f%.*}"   ;;
-      *.tgz)              mkdir "${f%.*}"   && tar xzvf "$f" -C "${f%.*}"   ;;
-      *.txz)              mkdir "${f%.*}"   && tar xJvf "$f" -C "${f%.*}"   ;;
+      *.deb) mkdir "${f%.*}" && ar x "$f" --output "${f%.*}" ;;
+      *.tar) mkdir "${f%.*.*}" && tar xvf "$f" -C "${f%.*.*}" ;;
+      *.tar.bz | *.tar.bz2) mkdir "${f%.*.*}" && tar xjvf "$f" -C "${f%.*.*}" ;;
+      *.tar.gz) mkdir "${f%.*.*}" && tar xzvf "$f" -C "${f%.*.*}" ;;
+      *.tar.xz) mkdir "${f%.*.*}" && tar xJvf "$f" -C "${f%.*.*}" ;;
+      *.tbz | *.tbz2) mkdir "${f%.*}" && tar xjvf "$f" -C "${f%.*}" ;;
+      *.tgz) mkdir "${f%.*}" && tar xzvf "$f" -C "${f%.*}" ;;
+      *.txz) mkdir "${f%.*}" && tar xJvf "$f" -C "${f%.*}" ;;
       *.7z) 7zx "$f" -o "${f%.*}" ;;
       *.rar) unrar x "$f" "${f%.*}" ;;
       *.xz) unxz "$f" ;;
       *.zip) unzip "$f" -d "${f%.*}" ;;
       *.zst) zstd -d "$f" --output-dir-mirror "${f%.*}" ;;
-      *) echo 'archive format not supported'; return 1 ;;
+      *)
+        echo 'archive format not supported'
+        return 1
+        ;;
     esac
   done
 }
@@ -87,7 +90,7 @@ xrm() {
 
 # yank to clipboard
 yank() {
-  if [[ "$XDG_SESSION_TYPE" = "wayland" ]]; then
+  if [[ $XDG_SESSION_TYPE == "wayland" ]]; then
     wl-copy --trim-newline
   else
     xclip -r -selection primary -filter | xclip -r -selection clipboard
@@ -96,7 +99,7 @@ yank() {
 
 # print and yank to clipboard
 xyank() {
-  if [[ "$XDG_SESSION_TYPE" = "wayland" ]]; then
+  if [[ $XDG_SESSION_TYPE == "wayland" ]]; then
     tee /dev/tty | wl-copy --trim-newline
   else
     tee /dev/tty | xclip -r -selection primary -filter | xclip -r -selection clipboard
@@ -124,8 +127,8 @@ put() {
 # update dotfiles list
 update-dots() {
   local dots="${XDG_DATA_HOME:-${HOME}/.local/share}/dots"
-  git -C "${HOME}/repos/dotfiles" ls-files | rg -v 'ttf$' | while read line; do realpath "${HOME}/repos/dotfiles/${line}"; done >"${dots}"
-  git -C "${HOME}/repos/dotfiles-private" ls-files | while read line; do realpath "${HOME}/repos/dotfiles-private/${line}"; done >>"${dots}"
+  git -C "${HOME}/repos/dotfiles" ls-files | rg -v 'ttf$' | while read line; do realpath "${HOME}/repos/dotfiles/${line}"; done > "${dots}"
+  git -C "${HOME}/repos/dotfiles-private" ls-files | while read line; do realpath "${HOME}/repos/dotfiles-private/${line}"; done >> "${dots}"
   sort -o "${dots}" -u "${dots}"
 }
 
@@ -198,7 +201,7 @@ rgl() {
 
 # launch app and exit
 launch() {
-  nohup "$@" >/dev/null 2>&1 &
+  nohup "$@" > /dev/null 2>&1 &
   disown && exit
 }
 
@@ -272,7 +275,7 @@ fnmup() {
   current_version=$(fnm ls | rg default | awk '{print $2}')
   fnm install --lts
   new_version=$(fnm ls | rg default | awk '{print $2}')
-  if [[ "${current_version}" != "${new_version}" ]]; then
+  if [[ ${current_version} != "${new_version}" ]]; then
     fnm uninstall "${current_version}"
   fi
 }
@@ -285,12 +288,12 @@ pipup() {
 
 # sort json keys using jq
 jqsort() {
-  jq 'to_entries|sort|from_entries' "$1" >"$1".tmp && mv -f "$1".tmp "$1"
+  jq 'to_entries|sort|from_entries' "$1" > "$1".tmp && mv -f "$1".tmp "$1"
 }
 
 # watch for file changes and run command
 fwatch() {
-  command -v entr >/dev/null || return
+  command -v entr > /dev/null || return
   local f=$1
   shift
   if [[ -f ${f} ]]; then

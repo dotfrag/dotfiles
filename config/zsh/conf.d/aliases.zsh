@@ -11,6 +11,7 @@ alias nvim-dot='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-dotvim nvim'
 alias nvim-kickstart='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-kickstart nvim'
 alias nvim-lazy='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-lazyvim nvim'
 alias nvim-normalnvim='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-normalnvim nvim'
+alias nvim-nvim='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-nvim nvim'
 
 alias agi='sudo nala install'
 alias aug='sudo nala update && sudo nala upgrade'

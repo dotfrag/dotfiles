@@ -99,14 +99,23 @@ title_error = { fg = "#ed8796" }
 [filetype]
 rules = [
 	# Media
-	{ mime = "image/*", fg = "#8bd5ca" },
-	{ mime = "{audio,video}/*", fg = "#eed49f" },
+	# { mime = "image/*", fg = "#8bd5ca" },
+	# { mime = "{audio,video}/*", fg = "#eed49f" },
 
 	# Archives
 	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "#f5bde6" },
 
 	# Documents
 	{ mime = "application/{pdf,doc,rtf}", fg = "#a6da95" },
+
+	# Symbolic links
+	{ name = "*", is = "link", fg = "#8bd5ca" },
+
+	# Orphan symbolic links
+	{ name = "*", is = "orphan", fg = "#ee99a0" },
+
+	# Executables
+	{ name = "*", is = "exec", fg = "#a6da95" },
 
 	# Fallback
 	{ name = "*", fg = "#cad3f5" },

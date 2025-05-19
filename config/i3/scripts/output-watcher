@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# uptime_minutes=$(echo "$(awk '{print $1}' /proc/uptime)" / 60 | bc)
+# last_run=$(date +%s)
+
+sleep 10 # instead of uptime_minutes
+
+# shellcheck disable=SC2034
+i3-msg -t subscribe -m '[ "output" ]' | while read -r event; do
+  # if ((uptime_minutes <= 2)); then
+  #   continue
+  # fi
+
+  # now=$(date +%s)
+  # if ((now - last_run > 3)); then
+  #   sleep 2
+  #   whereami
+  pgrep whereami || whereami # instead of last_run/now
+  echo "================================================================================"
+  #   last_run=$(date +%s)
+  # fi
+done

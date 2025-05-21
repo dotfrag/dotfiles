@@ -28,12 +28,13 @@ alias rm='rm -v'
 alias ls='eza --all --long --git --group-directories-first'
 alias lsm='ls -s modified'
 alias ltree='eza -T --icons=always --git-ignore'
-alias lad='ls -d .*(/)'  # dot-directories
-alias lsa='ls -a .*(.)'  # dot-files
-alias lsd='ls -d *(/)'   # directories
-alias lse='ls -d *(/^F)' # empty directories
-alias lsl='ls -l *(@)'   # symlinks
-alias lsx='ls -l *(*)'   # executables
+alias lad='ls -d .*(/)'   # dot-directories
+alias lsa='ls -a .*(.)'   # dot-files
+alias lsb='find -xtype l' # broken symlinks
+alias lsd='ls -d *(/)'    # directories
+alias lse='ls -d *(/^F)'  # empty directories
+alias lsl='ls -l *(@)'    # symlinks
+alias lsx='ls -l *(*)'    # executables
 alias wls='watch -c eza --color=always -la --group-directories-first'
 alias wlsm='watch -c eza --color=always -la --group-directories-first -s modified'
 

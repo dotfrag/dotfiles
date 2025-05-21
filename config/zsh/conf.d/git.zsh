@@ -164,3 +164,12 @@ gp() {
     git pull
   fi
 }
+
+# delete local branches
+delete-local-branches() {
+  for repo in $(fd -IH -td -d2 '^\.git$' -x echo {//}); do
+    git -C "${repo}" branch \
+      | rg -v 'master|main|next' \
+      | xargs -r git -C "${repo}" branch -d # -D
+  done
+}

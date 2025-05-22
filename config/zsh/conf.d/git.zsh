@@ -26,6 +26,7 @@ alias gsp='git stash pop'
 alias gss='git status -s'
 alias gst='git stash'
 alias lg='lazygit'
+alias lgf='lazygit -f'
 
 # git checkout
 gco() {

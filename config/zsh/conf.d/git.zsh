@@ -26,7 +26,11 @@ alias gsp='git stash pop'
 alias gss='git status -s'
 alias gst='git stash'
 alias lg='lazygit'
-alias lgf='lazygit -f'
+
+# lazygit filter path
+lgf() {
+  lazygit -f "$(gfp "$1")"
+}
 
 # git checkout
 gco() {

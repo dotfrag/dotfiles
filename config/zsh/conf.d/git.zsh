@@ -141,6 +141,29 @@ gallx() {
   fd -td '^\.git$' -IHL -x git -C {//} "$@"
 }
 
+# run git command for all repos in directory that are checked out on specific branch
+gallb() {
+  if (($# < 2)); then
+    echo "Usage: gallb <branch> <command>"
+    return 1
+  fi
+  local branch cmd repos
+  branch=$1
+  shift
+  cmd=("$@")
+  repos=()
+  # shellcheck disable=SC1083
+  for repo in $(fd -td '^\.git$' -IHL -x echo {//} | sort); do
+    if [[ $(git -C "${repo}" symbolic-ref --short -q HEAD) == "${branch}" ]]; then
+      repos+=("${repo}")
+    fi
+  done
+  if ((${#repos} < 1)); then
+    return 1
+  fi
+  gall "${repos[@]}" "${cmd[@]}"
+}
+
 # get latest version of github release
 get-latest-version() {
   curl -sLH "Accept: application/json" "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\Kv[^"]*'

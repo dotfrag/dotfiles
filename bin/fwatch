@@ -1,0 +1,28 @@
+#!/bin/bash
+#
+# watch for file or directory changes and run command
+
+command -v entr > /dev/null || return
+
+f=$1
+shift
+
+if [[ -f ${f} ]]; then # input is file
+  if [[ -z $1 ]]; then # no command has been specified, use magic
+
+    if [[ -x ${f} ]]; then # file is executable, run it
+      command ls "${f}" | entr -c ./"${f}"
+    else
+      case "${f}" in
+        *.hurl) cmd=hurl ;;
+        *) cmd="cat" ;; # unknown filetype, cat it
+      esac
+      command ls "${f}" | entr -c "${cmd}" "${f}"
+    fi
+
+  else # command is specified, run it
+    command ls "${f}" | entr -c "$@"
+  fi
+elif [[ -d ${f} ]]; then # input is directory
+  fd . "${f}" | entr -c "$@"
+fi

@@ -290,23 +290,3 @@ pipup() {
 jqsort() {
   jq 'to_entries|sort|from_entries' "$1" > "$1".tmp && mv -f "$1".tmp "$1"
 }
-
-# watch for file changes and run command
-fwatch() {
-  command -v entr > /dev/null || return
-  local f=$1
-  shift
-  if [[ -f ${f} ]]; then
-    if [[ -z $1 ]]; then
-      if [[ -x ${f} ]]; then
-        command ls "${f}" | entr -c ./"${f}"
-      else
-        command ls "${f}" | entr -c cat "${f}"
-      fi
-    else
-      command ls "${f}" | entr -c "$@"
-    fi
-  elif [[ -d ${f} ]]; then
-    fd . "${f}" | entr -c "$@"
-  fi
-}

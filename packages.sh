@@ -172,12 +172,15 @@ detect_distro() {
 }
 
 setup_packages() {
-  if [[ $1 == server ]]; then
+  if [[ $1 == desktop ]]; then
+    local packages_pacman=("${packages_pacman_base[@]}" "${packages_pacman_desktop[@]}")
+    local packages_aur=("${packages_aur_base[@]}" "${packages_aur_desktop[@]}")
+  elif [[ $1 == server ]]; then
     local packages_pacman=("${packages_pacman_base[@]}" "${packages_pacman_server[@]}")
     local packages_aur=("${packages_aur_base[@]}" "${packages_aur_server[@]}")
   else
-    local packages_pacman=("${packages_pacman_base[@]}" "${packages_pacman_desktop[@]}")
-    local packages_aur=("${packages_aur_base[@]}" "${packages_aur_desktop[@]}")
+    local packages_pacman=("${packages_pacman_base[@]}")
+    local packages_aur=("${packages_aur_base[@]}")
   fi
   if [[ ${DISTRO} == "Arch Linux" ]]; then
     sudo pacman -Syu

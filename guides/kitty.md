@@ -9,13 +9,15 @@ curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin && exit
 ## Desktop integration
 
 ```shell
-\ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten ~/.local/bin/
-\cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-\cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
-\sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
-\sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+command ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten ~/.local/bin/
+command cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+command cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+command sed -i "s|Icon=kitty|Icon=$(readlink -f ~)/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+command sed -i "s|Exec=kitty|Exec=$(readlink -f ~)/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
 echo 'kitty.desktop' > ~/.config/xdg-terminals.list
 ```
+
+<https://sw.kovidgoyal.net/kitty/binary/#desktop-integration-on-linux>
 
 ## Terminfo
 

@@ -117,9 +117,13 @@ vgd() {
 # https://github.com/junegunn/fzf/wiki/examples#processes
 fkill() {
   local pid
-  pid=$(ps -ef | fzf -m --header-lines=1 --height=100% --preview='echo {}' --preview-window=down,3,wrap | awk '{print $2}')
-  if [[ -n "${pid}" ]]; then
-    echo "${pid}" | xargs kill -${1:-9}
+  if [[ ${UID} != "0" ]]; then
+    pid=$(ps -f -u "${UID}" | fzf -m --header-lines=1 --height=100% --preview='echo {}' --preview-window=down,3,wrap | awk '{print $2}')
+  else
+    pid=$(ps -ef | fzf -m --header-lines=1 --height=100% --preview='echo {}' --preview-window=down,3,wrap | awk '{print $2}')
+  fi
+  if [[ -n ${pid} ]]; then
+    echo "${pid}" | xargs kill -"${1:-TERM}"
   fi
 }
 

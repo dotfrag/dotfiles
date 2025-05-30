@@ -7,6 +7,9 @@ killall -q -9 polybar inhibit-idle.sh microphone.sh sharing-status.sh vpn-status
 # Wait until the processes have been shut down
 while pgrep -u "${UID}" -x polybar > /dev/null; do sleep 0; done
 
+# Cleanup pipes
+rm /tmp/polybar_mqueue.*
+
 # Variables
 mapfile -t MONITORS < <(polybar --list-monitors | cut -d":" -f1)
 if [[ -z ${POLYBAR_INTF_TYPE} ]]; then

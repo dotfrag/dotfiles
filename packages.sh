@@ -110,6 +110,7 @@ packages_pacman_server=(
 )
 
 packages_aur_base=(
+  czkawka-cli-bin
   lazydocker-bin
   topgrade-bin
   viddy-bin

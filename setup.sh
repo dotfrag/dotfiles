@@ -37,8 +37,9 @@ setup_vim() {
   vim_plugins=(
     "catppuccin/vim" "christoomey/vim-tmux-navigator" "junegunn/fzf"
     "junegunn/fzf.vim" "junegunn/vim-easy-align" "mg979/vim-visual-multi"
-    "sheerun/vim-polyglot" "tpope/vim-commentary" "tpope/vim-repeat"
-    "tpope/vim-surround" "tpope/vim-unimpaired" "vim-airline/vim-airline"
+    "sheerun/vim-polyglot" "tpope/vim-commentary" "tpope/vim-fugitive"
+    "tpope/vim-repeat" "tpope/vim-surround" "tpope/vim-unimpaired"
+    "vim-airline/vim-airline"
   )
   for i in "${vim_plugins[@]}"; do
     name=$(echo "${i}" | cut -d '/' -f2)

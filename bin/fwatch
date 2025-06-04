@@ -2,27 +2,39 @@
 #
 # watch for file or directory changes and run command
 
-command -v entr > /dev/null || return
+if ! command -v entr > /dev/null; then
+  echo "entr command not found."
+  exit 1
+fi
 
 f=$1
 shift
 
-if [[ -f ${f} ]]; then # input is file
-  if [[ -z $1 ]]; then # no command has been specified, use magic
-
-    if [[ -x ${f} ]]; then # file is executable, run it
-      command ls "${f}" | entr -c ./"${f}"
-    else
-      case "${f}" in
-        *.hurl) cmd=hurl ;;
-        *) cmd="cat" ;; # unknown filetype, cat it
-      esac
-      command ls "${f}" | entr -c "${cmd}" "${f}"
-    fi
-
-  else # command is specified, run it
+handle_file() {
+  # command is specified, run it
+  if (($# > 0)); then
     command ls "${f}" | entr -c "$@"
+    return
   fi
-elif [[ -d ${f} ]]; then # input is directory
+
+  # no command has been specified, use magic
+  if [[ -x ${f} ]]; then # file is executable, run it
+    command ls "${f}" | entr -c ./"${f}"
+  else
+    case "${f}" in
+      *.hurl) cmd=hurl ;;
+      *) cmd="cat" ;; # unknown filetype, cat it
+    esac
+    command ls "${f}" | entr -c "${cmd}" "${f}"
+  fi
+}
+
+handle_dir() {
   fd . "${f}" | entr -c "$@"
+}
+
+if [[ -f ${f} ]]; then
+  handle_file "$@"
+elif [[ -d ${f} ]]; then
+  handle_dir "$@"
 fi

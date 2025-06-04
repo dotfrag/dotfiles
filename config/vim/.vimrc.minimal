@@ -19,7 +19,8 @@ set hidden
 set history=200
 set number
 set relativenumber
-set scrolloff=5
+set scrolloff=10
+set sidescrolloff=10
 set shortmess=atI
 set synmaxcol=800
 
@@ -68,6 +69,11 @@ nmap <leader>s :update<cr>
 nmap <leader>x :x<cr>
 nmap <leader>d :bd<cr>
 nmap <leader>q :q<cr>
+
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 
 noremap  <silent> <C-S> :update<cr>
 vnoremap <silent> <C-S> <esc>:update<cr>

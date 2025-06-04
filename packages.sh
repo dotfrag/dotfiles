@@ -149,7 +149,7 @@ packages_dnf=(
 )
 
 packages_apt=(
-  ranger
+  # ranger
   tmux
   tree
   zsh

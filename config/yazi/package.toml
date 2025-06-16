@@ -1,26 +1,26 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-enter"
-rev = "63f9650"
+rev = "aeca767"
 hash = "a7ab702e1ef0c097defbc976ed34c186"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:mount"
-rev = "63f9650"
-hash = "c0b6cd7dc830b96e77e5c8a71eec7926"
+rev = "aeca767"
+hash = "277ba273e5d3d647feb5808d0fe4e4e0"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:vcs-files"
-rev = "63f9650"
+rev = "aeca767"
 hash = "70898957e9e4c1ca291ff26e8fdc434"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:types"
-rev = "63f9650"
+rev = "aeca767"
 hash = "c255054d6a70754db6cb96b97ad1ccd7"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "63f9650"
+rev = "aeca767"
 hash = "3996fc74044bc44144b323686f887e1"
 
 [flavor]

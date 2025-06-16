@@ -20,6 +20,7 @@ fi
 
 echo "Updating existing repos.."
 parallel --tag git -C {} remote update --prune ::: "$(fd -td -d1)"
+parallel --tag git -C {} gc --prune ::: "$(fd -td -d1)"
 echo
 
 cd ..

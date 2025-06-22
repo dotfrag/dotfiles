@@ -490,22 +490,6 @@ function xcat () {
     return 0
 }
 
-# Remove these functions again, they are of use only in these
-# setup files.
-function xunfunction () {
-    emulate -L zsh
-    local -a funcs
-    local func
-    # TODO: Remove xunfunction in 2025.
-    echo "W: xunfunction is deprecated. Please remove it from your configuration."
-    funcs=(salias xcat xsource xunfunction zrcautoload zrcautozle)
-    for func in $funcs ; do
-        [[ -n ${functions[$func]} ]] \
-            && unfunction $func
-    done
-    return 0
-}
-
 # this allows us to stay in sync with grml's zshrc and put own
 # modifications in ~/.zshrc.local
 function zrclocal () {
@@ -519,7 +503,7 @@ if (( ZSH_NO_DEFAULT_LOCALE == 0 )); then
     xsource "/etc/default/locale"
 fi
 
-for var in LANG LC_ALL LC_MESSAGES ; do
+for var in LANG LANGUAGE LC_ALL LC_COLLATE LC_CTYPE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_TIME ; do
     [[ -n ${(P)var} ]] && export $var
 done
 builtin unset -v var

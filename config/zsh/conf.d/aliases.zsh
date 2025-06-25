@@ -82,7 +82,7 @@ alias -g TS='|ts "%F %H:%M:%.S"'
 
 alias -g Y='|yank'
 alias -g XY='|xyank'
-alias -g YI='|fzf|yank'
+alias -g FY='|fzf|yank'
 
 # ---------------------------------------------------------------- ABBREVIATIONS
 abk[f]='$(fzf)'

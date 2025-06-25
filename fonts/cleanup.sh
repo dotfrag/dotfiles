@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if git_root=$(git rev-parse --show-toplevel); then
-  cd "${git_root}" || exit
-else
+if ! git_root=$(git rev-parse --show-toplevel); then
   exit 1
 fi
+
+cd "${git_root}" || exit
 
 remote=$(git remote -v | awk '{print $2}' | sort -u)
 echo "Current remote: ${remote}"

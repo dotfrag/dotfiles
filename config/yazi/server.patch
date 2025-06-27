@@ -1,0 +1,15 @@
+diff --git a/config/yazi/yazi.toml b/config/yazi/yazi.toml
+index cbd525f..95419f7 100644
+--- a/config/yazi/yazi.toml
++++ b/config/yazi/yazi.toml
+@@ -28,3 +28,10 @@ rules = [
+   # { name = "*", use = [ "open", "reveal" ] },
+   { mime = "*", use = [] },
+ ]
++
++[plugin]
++fetchers = []
++preloaders = []
++previewers = [
++  { name = "*/", run = "folder", sync = true }
++]

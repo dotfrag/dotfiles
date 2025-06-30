@@ -59,11 +59,13 @@ git_main_branch() {
 # git pull all repos in current directory
 gpall() {
   [[ -n $1 ]] && d=$(($1 + 1)) || d=2
+  # shellcheck disable=SC1083
   fd -IHL -d "${d}" -td '^\.git$' -x git -C {//} pull
 }
 
 # git gc all repos
 gitgc() {
+  # shellcheck disable=SC1083
   fd -td '^.git$' -IH -E '.cache' -E '.cargo' -E '.local' -E 'node_modules' \
     -x echo {//} | sort -u | while read -r line; do
     if git -C "${line}" rev-parse --is-inside-work-tree &> /dev/null; then
@@ -138,6 +140,7 @@ gall() {
 
 # run git command for all repos in directory (parallel)
 gallx() {
+  # shellcheck disable=SC1083
   fd -td '^\.git$' -IHL -x git -C {//} "$@"
 }
 
@@ -195,6 +198,7 @@ gp() {
 
 # delete local branches
 delete-local-branches() {
+  # shellcheck disable=SC1083
   for repo in $(fd -IH -td -d2 '^\.git$' -x echo {//}); do
     git -C "${repo}" branch \
       | rg -v 'master|main|next' \

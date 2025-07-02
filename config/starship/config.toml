@@ -24,3 +24,13 @@ disabled = false
 
 [[battery.display]]
 threshold = 25
+
+# Disabled modules
+[gradle]
+disabled = true
+
+[kotlin]
+disabled = true
+
+[java]
+disabled = true

@@ -290,3 +290,12 @@ pipup() {
 jqsort() {
   jq 'to_entries|sort|from_entries' "$1" > "$1".tmp && mv -f "$1".tmp "$1"
 }
+
+# disable saving shell history to histfile and atuin
+# https://unix.stackexchange.com/a/692914
+# https://github.com/atuinsh/atuin/issues/517#issuecomment-1271702597
+incognito() {
+	unset HISTFILE
+	add-zsh-hook -d precmd _atuin_precmd
+	add-zsh-hook -d preexec _atuin_preexec
+}

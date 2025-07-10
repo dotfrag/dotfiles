@@ -11,7 +11,7 @@ f=$1
 shift
 
 handle_file() {
-  # command is specified, run it
+  # command is specified, use it
   if (($# > 0)); then
     command ls "${f}" | entr -c "$@"
     return
@@ -22,7 +22,7 @@ handle_file() {
     command ls "${f}" | entr -c ./"${f}"
   else
     case "${f}" in
-      *.hurl) cmd=hurl ;;
+      *.hurl) cmd="hurl" ;;
       *) cmd="cat" ;; # unknown filetype, cat it
     esac
     command ls "${f}" | entr -c "${cmd}" "${f}"
@@ -30,6 +30,10 @@ handle_file() {
 }
 
 handle_dir() {
+  if ! command -v fd > /dev/null; then
+    echo "fd command not found."
+    exit 1
+  fi
   fd . "${f}" | entr -c "$@"
 }
 

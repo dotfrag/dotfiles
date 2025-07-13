@@ -176,10 +176,10 @@ setup_packages() {
   if [[ ${DISTRO} == "Arch Linux" ]]; then
     local packages_pacman=("${packages_pacman_base[@]}")
     local packages_aur=("${packages_aur_base[@]}")
-    if [[ $1 == desktop ]]; then
+    if [[ ${environment} == desktop ]]; then
       packages_pacman+=("${packages_pacman_desktop[@]}")
       packages_aur+=("${packages_aur_desktop[@]}")
-    elif [[ $1 == server ]]; then
+    elif [[ ${environment} == server ]]; then
       packages_pacman+=("${packages_pacman_server[@]}")
       packages_aur+=("${packages_aur_server[@]}")
     fi
@@ -204,7 +204,23 @@ setup_packages() {
 
 main() {
   detect_distro
-  setup_packages "$@"
+  setup_packages
 }
 
-sudo -v && main "$@"
+case "$1" in
+  desktop) environment=desktop ;;
+  server) environment=server ;;
+  *) environment=base ;;
+esac
+
+RED='\033[0;31m'
+NC='\033[0m'
+echo "Available environments are: base | desktop | server"
+echo -e "Installing packages for ${RED}${environment}${NC}. Press Ctrl+C to cancel."
+for i in {5..1}; do
+  echo -n "${i} "
+  sleep 1
+done
+echo
+
+sudo -v && main

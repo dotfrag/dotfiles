@@ -299,3 +299,16 @@ incognito() {
 	add-zsh-hook -d precmd _atuin_precmd
 	add-zsh-hook -d preexec _atuin_preexec
 }
+
+# repeat command, similar to watch, but often more convenient
+whl() {
+  re='^[0-9]+$'
+  if [[ $1 =~ $re ]]; then
+    interval=$1
+    shift
+  fi
+  while true; do
+    "$@"
+    sleep "${interval:-2}"
+  done
+}

@@ -312,3 +312,12 @@ whl() {
     sleep "${interval:-2}"
   done
 }
+
+tmuxp() {
+  local session
+  command -v tmuxp > /dev/null || return
+  session=$(fd . ~/.config/tmuxp -x basename {} .yml | sort | fzf)
+  if [[ -n ${session} ]]; then
+    command tmuxp load "${session}"
+  fi
+}

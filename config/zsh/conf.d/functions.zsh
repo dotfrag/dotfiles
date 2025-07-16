@@ -294,6 +294,9 @@ jqsort() {
 # disable saving shell history to histfile and atuin
 # https://unix.stackexchange.com/a/692914
 # https://github.com/atuinsh/atuin/issues/517#issuecomment-1271702597
+# NOTE: because the HISTFILE is unset, this will also discard (not save) the
+# commands of the current session to the history file, but atuin will register
+# all commands up to and including incognito
 incognito() {
 	unset HISTFILE
 	add-zsh-hook -d precmd _atuin_precmd

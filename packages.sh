@@ -211,20 +211,22 @@ main() {
   setup_packages
 }
 
-case "$1" in
-  desktop) environment=desktop ;;
-  server) environment=server ;;
-  *) environment=base ;;
-esac
+title="Select environment"
+prompt="Pick an option:"
+options=("base" "desktop" "server" "quit")
 
-RED='\033[0;31m'
-NC='\033[0m'
-echo "Available environments are: base | desktop | server"
-echo -e "Installing packages for ${RED}${environment}${NC}. Press Ctrl+C to cancel."
-for i in {5..1}; do
-  echo -n "${i} "
-  sleep 1
+echo "${title}"
+PS3="${prompt} "
+# shellcheck disable=SC2034
+select opt in "${options[@]}"; do
+  # echo "${REPLY}: ${opt}"
+  case ${REPLY} in
+    1) environment=base && break ;;
+    2) environment=desktop && break ;;
+    3) environment=server && break ;;
+    4) exit ;;
+    *) exit ;;
+  esac
 done
-echo
 
 sudo -v && main

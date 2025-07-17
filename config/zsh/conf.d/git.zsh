@@ -133,7 +133,7 @@ gall() {
     done
   else
     # shellcheck disable=SC1083
-    fd -td '^\.git$' -IHL -x echo {//} | sort \
+    fd -td '^\.git$' -IHL -x echo {//} | cut -c 3- | sort \
       | xargs -I{} zsh -c "print -P '%F{yellow}{}%f' && git -C {} $* && echo"
   fi
 }
@@ -156,7 +156,7 @@ gallb() {
   cmd=("$@")
   repos=()
   # shellcheck disable=SC1083
-  for repo in $(fd -td '^\.git$' -IHL -x echo {//} | sort); do
+  for repo in $(fd -td '^\.git$' -IHL -x echo {//} | cut -c3- | sort); do
     if [[ $(git -C "${repo}" symbolic-ref --short -q HEAD) == "${branch}" ]]; then
       repos+=("${repo}")
     fi
@@ -170,7 +170,7 @@ gallb() {
 # print the status and current branch of all repos in cwd
 gallst() {
   # shellcheck disable=SC1083
-  fd -td '^\.git$' -IHL -x echo {//} | sort \
+  fd -td '^\.git$' -IHL -x echo {//} | cut -c 3- | sort \
     | xargs -I{} zsh -c "print -nP '%F{yellow}{}%f: ' && git -C {} status -sb"
 }
 

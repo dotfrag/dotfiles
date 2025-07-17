@@ -91,6 +91,12 @@ packages_pacman_desktop=(
   rofimoji
   seahorse
   sshfs
+  sway
+  sway-contrib
+  swaybg
+  swayidle
+  swaylock
+  swaync
   ttc-iosevka-ss08
   ttf-fira-code
   ttf-jetbrains-mono
@@ -121,12 +127,10 @@ packages_aur_desktop=(
   catppuccin-cursors-macchiato
   catppuccin-gtk-theme-macchiato
   google-chrome
-  grimshot-bin-sway
   networkmanager-dmenu-git
   otf-geist
   otf-geist-mono
   sublime-text-4
-  swaync
   thorium-browser-bin
   ttf-merriweather
   visual-studio-code-bin

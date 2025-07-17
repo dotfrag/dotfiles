@@ -167,6 +167,13 @@ gallb() {
   gall "${repos[@]}" "${cmd[@]}"
 }
 
+# print the status and current branch of all repos in cwd
+gallst() {
+  # shellcheck disable=SC1083
+  fd -td '^\.git$' -IHL -x echo {//} | sort \
+    | xargs -I{} zsh -c "print -nP '%F{yellow}{}%f: ' && git -C {} status -sb"
+}
+
 # get latest version of github release
 get-latest-version() {
   curl -sLH "Accept: application/json" "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\Kv[^"]*'

@@ -23,9 +23,10 @@ handle_file() {
   else
     case "${f}" in
       *.hurl) cmd="hurl" ;;
-      *) cmd="cat" ;; # unknown filetype, cat it
+      *) cmd="bat -pp" ;; # unknown filetype, cat it
     esac
-    command ls "${f}" | entr -c "${cmd}" "${f}"
+    # shellcheck disable=SC2086
+    command ls "${f}" | entr -c ${cmd} "${f}"
   fi
 }
 

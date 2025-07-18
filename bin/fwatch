@@ -12,6 +12,8 @@ shift
 
 handle_file() {
   # command is specified, use it
+  # NOTE: when running a script e.g `./script arg1`,
+  # you have to provide it twice: `fwatch script ./script arg1`
   if (($# > 0)); then
     command ls "${f}" | entr -c "$@"
     return

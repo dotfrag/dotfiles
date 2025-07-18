@@ -73,6 +73,7 @@ input {
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+    # bindsym Mod1+F12 exec kitten quick-access-terminal
 
     # Start a floating terminal
     set $spacekitty kitty --class "spacekitty"

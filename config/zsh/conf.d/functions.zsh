@@ -134,8 +134,16 @@ update-dots() {
 
 # update grml zsh config files
 update-grml-zshrc() {
-  wget -nv -O "${ZDOTDIR:-${HOME}}/.zshrc" https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
-  wget -nv -O "${ZDOTDIR:-${HOME}}/.zshrc.skel" https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
+  local zshrc=${ZDOTDIR:-${HOME}}/.zshrc
+  local zshrcskel=${ZDOTDIR:-${HOME}}/.zshrc.skel
+  wget -nv -O "${zshrc}.tmp" https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+  wget -nv -O "${zshrcskel}.tmp" https://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
+  if [[ -s ${zshrc} ]] && [[ -s ${zshrcskel} ]]; then
+    command mv -v "${zshrc}.tmp" "${zshrc}"
+    command mv -v "${zshrcskel}.tmp" "${zshrcskel}"
+  else
+    echo "Something went wrong."
+  fi
 }
 
 # history grep

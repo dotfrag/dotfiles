@@ -54,7 +54,7 @@ EOF
 
   command mkdir -p "$(dirname "${CONFIG_FILE}")"
   command cat << EOF > "${CONFIG_FILE}"
-default=Nvim
+default=DotVim
 
 Nvim=git@github.com:dotfrag/nvim.git
 DotVim=git@github.com:dotfrag/dotvim.git

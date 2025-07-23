@@ -97,6 +97,7 @@ packages_pacman_desktop=(
   swayidle
   swaylock
   swaync
+  tree-sitter-cli
   ttc-iosevka-ss08
   ttf-fira-code
   ttf-jetbrains-mono

@@ -18,6 +18,7 @@ alias nvim-nvim='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-nvim nvim'
 # alias di='sudo dnf install'
 # alias dug='sudo dnf check-update && sudo dnf upgrade'
 
+alias cd-='cd -'
 alias chmod='chmod -v'
 alias chown='chown -v'
 alias cp='cp -vi'

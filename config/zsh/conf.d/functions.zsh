@@ -324,6 +324,7 @@ whl() {
   done
 }
 
+# load tmuxp sessions
 tmuxp() {
   local session
   command -v tmuxp > /dev/null || return
@@ -331,4 +332,12 @@ tmuxp() {
   if [[ -n ${session} ]]; then
     command tmuxp load "${session}"
   fi
+}
+
+# watch ls
+wls() {
+  watch -n "${1:-2}" -c eza --color=always -la --group-directories-first
+}
+wlsm() {
+  watch -n "${1:-2}" -c eza --color=always -la --group-directories-first --sort modified
 }

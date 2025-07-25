@@ -48,6 +48,13 @@ elif [[ $1 == "lazygit" ]]; then
     echo "Lazygit not found."
     exit 1
   fi
+elif [[ $1 == "terminal" ]]; then
+  if command -v kitty > /dev/null; then
+    kitty --directory "${p}"
+  else
+    echo "Kitty terminal not found."
+    exit 1
+  fi
 else
   echo "No editor specified."
   notify-send "No editor specified."

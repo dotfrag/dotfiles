@@ -36,8 +36,6 @@ alias lsd='ls -d *(/)'    # directories
 alias lse='ls -d *(/^F)'  # empty directories
 alias lsl='ls -l *(@)'    # symlinks
 alias lsx='ls -l *(*)'    # executables
-alias wls='watch -c eza --color=always -la --group-directories-first'
-alias wlsm='watch -c eza --color=always -la --group-directories-first -s modified'
 
 alias j='just'
 alias p='pnpm'

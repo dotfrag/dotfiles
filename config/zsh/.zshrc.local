@@ -27,7 +27,7 @@ HISTSIZE=100000
 SAVEHIST=100000
 
 # ---------------------------------------------------------------------- WIDGETS
-list-dir() { echo; ls; printf '\n\n'; zle redisplay }
+list-dir() { echo; ls .; printf '\n\n'; zle redisplay }
 zle -N list-dir
 bindkey "^[l" "list-dir"
 

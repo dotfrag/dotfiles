@@ -36,9 +36,9 @@ exec gammastep
 
 ### Idle configuration
 exec swayidle -w \
-        timeout 300 'swaylock -f' \
-        timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-        before-sleep 'swaylock -f'
+       timeout 300 'swaylock -f' \
+       timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+       before-sleep 'swaylock -f'
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
@@ -68,6 +68,7 @@ input {
 }
 
 ### Key bindings
+
 #
 # Basics:
 #
@@ -103,6 +104,7 @@ input {
 
     # Lock screen
     bindsym $mod+Ctrl+Mod1+l exec swaylock
+
 #
 # Moving around:
 #
@@ -127,6 +129,7 @@ input {
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
+
 #
 # Workspaces:
 #
@@ -167,6 +170,7 @@ input {
     bindsym $mod+Shift+0 move container to workspace number 10; workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
 #
 # Layout stuff:
 #
@@ -198,6 +202,7 @@ input {
 
     # Toggle waybar visibility
     bindsym $mod+x exec killall -SIGUSR1 waybar
+
 #
 # Volume:
 #
@@ -205,11 +210,13 @@ input {
     bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@   5%- -l 1.2
     bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@   5%+ -l 1.2
     bindsym --locked $mod+m               exec wpctl set-mute   @DEFAULT_AUDIO_SOURCE@ toggle
+
 #
 # Backlight:
 #
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 10%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 10%+
+
 #
 # Screenshot:
 #
@@ -218,6 +225,7 @@ input {
     # bindsym $mod+Shift+Print exec wl-copy <$(grimshot save window)
     # bindsym Print            exec wl-copy <$(grimshot save area)
     bindsym $mod+Print       exec wl-copy <$(grimshot save active)
+
 #
 # Scratchpad:
 #
@@ -227,6 +235,16 @@ input {
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+#
+# Project launcher:
+#
+    bindsym $mod+Shift+v exec project-launcher vscode
+    bindsym $mod+comma   exec project-launcher zed
+    bindsym $mod+g       exec project-launcher lazygit
+    bindsym $mod+period  exec project-launcher nvim
+    bindsym $mod+t       exec project-launcher terminal
+
 #
 # Misc:
 #
@@ -237,10 +255,8 @@ input {
     bindsym $mod+Shift+c      exec kitty --class "spacekitty" zsh -ic qalc
     # bindsym $mod+Shift+e      exec kitty -o confirm_os_window_close=0 zsh -ic nvim
     bindsym $mod+Shift+e      exec neovide
-    bindsym $mod+Shift+v      exec project-launcher vscode
-    bindsym $mod+Comma        exec project-launcher zed
-    bindsym $mod+Period       exec project-launcher nvim
     bindsym $mod+c move position center
+
 #
 # Resizing containers:
 #
@@ -279,6 +295,7 @@ mode "resize" {
     bindsym q      mode "default"
 }
 bindsym $mod+r mode "resize"
+
 #
 # Passthrough:
 #
@@ -286,6 +303,7 @@ mode "passthrough" {
   bindsym $mod+p mode "default"
 }
 bindsym $mod+p mode "passthrough"
+
 #
 # Powermenu:
 #
@@ -373,3 +391,5 @@ bar swaybar_command waybar
 ### Inlcudes
 include /etc/sway/config.d/*
 include local.config
+
+#vim: ts=2 sw=2 et

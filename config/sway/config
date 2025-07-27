@@ -252,7 +252,7 @@ input {
     bindsym $mod+Ctrl+Shift+l exec kitty --class "spacekitty" zsh -ic "yazi ~/Downloads"
     bindsym $mod+Ctrl+Shift+n exec networkmanager_dmenu
     bindsym $mod+Ctrl+Shift+p exec pavucontrol
-    bindsym $mod+Shift+c      exec kitty --class "spacekitty" zsh -ic qalc
+    bindsym $mod+Shift+c      exec kitty --class "spacekitty" -o initial_window_width=480 -o initial_window_height=270 zsh -ic qalc
     # bindsym $mod+Shift+e      exec kitty -o confirm_os_window_close=0 zsh -ic nvim
     bindsym $mod+Shift+e      exec neovide
     bindsym $mod+c move position center

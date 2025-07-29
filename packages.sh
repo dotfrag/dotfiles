@@ -38,6 +38,7 @@ packages_pacman_base=(
   mdcat
   mediainfo
   miniserve
+  moreutils
   mtr
   neovim
   pacman-contrib

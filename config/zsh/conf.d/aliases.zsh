@@ -10,6 +10,7 @@ alias nvim-chad='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-nvchad nvim'
 alias nvim-dot='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-dotvim nvim'
 alias nvim-kickstart='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-kickstart nvim'
 alias nvim-lazy='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-lazyvim nvim'
+alias nvim-nightly='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-nightly nvim'
 alias nvim-normalnvim='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-normalnvim nvim'
 alias nvim-nvim='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-nvim nvim'
 

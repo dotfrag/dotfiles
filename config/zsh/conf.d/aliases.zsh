@@ -13,6 +13,7 @@ alias nvim-lazy='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-lazyvim nvim'
 alias nvim-nightly='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-nightly nvim'
 alias nvim-normalnvim='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-normalnvim nvim'
 alias nvim-nvim='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-nvim nvim'
+alias vn='nvim-nightly'
 
 # alias agi='sudo nala install'
 # alias aug='sudo nala update && sudo nala upgrade'

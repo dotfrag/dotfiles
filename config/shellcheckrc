@@ -1,3 +1,6 @@
+# Suggest removing unnecessary comparison negations
+enable=avoid-negated-conditions
+
 # Suggest explicitly using -n in `[ $var ]`
 enable=avoid-nullary-conditions
 
@@ -18,6 +21,9 @@ enable=require-double-brackets
 
 # Suggest putting braces around all variable references
 enable=require-variable-braces
+
+# Check for Useless Use Of Cat (UUOC)
+enable=useless-use-of-cat
 
 # Follow external sources
 external-sources=true

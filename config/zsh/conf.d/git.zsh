@@ -78,7 +78,7 @@ gitgc() {
 
 # dot commit and push
 _gp() {
-  if ! git remote -v | grep -q "git@github.com:dotfrag"; then
+  if ! git remote -v | grep -q "git@github.com:dotfrag" || [[ $(git config --get user.name) != "dotfrag" ]]; then
     echo "Invalid repository."
     return 1
   fi

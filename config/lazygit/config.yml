@@ -2,6 +2,8 @@ git:
   paging:
     colorArg: always
     pager: delta --paging=never --line-numbers-left-format='{nm}⫶' --line-numbers-right-format='{np}|' --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+  log:
+    showGraph: when-maximised
 
 gui:
   commitHashLength: 4

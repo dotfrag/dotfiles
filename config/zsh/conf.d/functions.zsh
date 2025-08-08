@@ -163,6 +163,7 @@ manzsh() {
 
 # touch executable and edit
 touchx() {
+  (($# != 1)) && return 1
   if ! [[ -e $1 ]]; then
     case "$1" in
       *.py) shebang="#!/usr/bin/env python3" ;;

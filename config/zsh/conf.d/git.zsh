@@ -58,6 +58,7 @@ git_main_branch() {
 
 # git pull all repos in current directory
 gpall() {
+  local d
   [[ -n $1 ]] && d=$(($1 + 1)) || d=2
   # shellcheck disable=SC1083
   fd -IHL -d "${d}" -td '^\.git$' -x git -C {//} pull

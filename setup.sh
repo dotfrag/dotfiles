@@ -30,7 +30,7 @@ setup_zsh() {
   [[ -n ${ZDOTDIR} ]] && mkdir -p "${ZDOTDIR}"
   mkdir -p "${ZSH_PLUGINS_DIR}"
   printf "[fast-syntax-highlighting] "
-  git -C "${ZSH_PLUGINS_DIR}/fsh" pull 2> /dev/null || git clone --depth 1 "https://github.com/zdharma-continuum/fast-syntax-highlighting" "${ZSH_PLUGINS_DIR}/fsh"
+  git -C "${ZSH_PLUGINS_DIR}/fsh" pull 2> /dev/null || git clone --filter=blob:none "https://github.com/zdharma-continuum/fast-syntax-highlighting" "${ZSH_PLUGINS_DIR}/fsh"
 }
 
 setup_vim() {
@@ -44,18 +44,17 @@ setup_vim() {
   for i in "${vim_plugins[@]}"; do
     name=$(echo "${i}" | cut -d '/' -f2)
     printf "[%s] " "${name}"
-    git -C "${VIM_PACKPATH}/${name}" pull 2> /dev/null || git clone --depth 1 "https://github.com/${i}" "${VIM_PACKPATH}/${name}"
+    git -C "${VIM_PACKPATH}/${name}" pull 2> /dev/null || git clone --filter=blob:none "https://github.com/${i}" "${VIM_PACKPATH}/${name}"
   done
   println
 }
 
 setup_fzf() {
-  if [[ ${DISTRO} != "Arch Linux" ]]; then
-    printf "[fzf] "
-    git -C "${FZF_DIR}" pull 2> /dev/null || git clone --depth 1 https://github.com/junegunn/fzf "${FZF_DIR}"
-    "${FZF_DIR}/install" --bin > /dev/null
-    println
-  fi
+  [[ ${DISTRO} == "Arch Linux" ]] && return
+  printf "[fzf] "
+  git -C "${FZF_DIR}" pull 2> /dev/null || git clone --filter=blob:none https://github.com/junegunn/fzf "${FZF_DIR}"
+  "${FZF_DIR}/install" --bin > /dev/null
+  println
 }
 
 setup_config() {

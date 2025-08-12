@@ -33,6 +33,7 @@ alias rm='rm -v'
 alias ls='eza --all --long --git --group-directories-first'
 alias lsg='ls --color always | rg --color never -M0'
 alias lsm='ls -s modified'
+alias lst='ls --tree'
 alias ltree='eza -T --icons=always --git-ignore'
 alias lad='ls -d .*(/)'   # dot-directories
 alias lsa='ls -a .*(.)'   # dot-files

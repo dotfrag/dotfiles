@@ -212,6 +212,7 @@ nmap <leader>rt :%s/\s\+$//<cr>``
 " Fzf
 nmap <leader>, :Buffers<cr>
 nmap <leader>f :Files<cr>
+nmap <leader>g :RG<cr>
 nmap <leader>h :Helptags<cr>
 nmap <leader>l :Lines<cr>
 imap <c-x><c-k> <plug>(fzf-complete-word)

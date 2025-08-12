@@ -210,8 +210,9 @@ nmap <A-l> >>
 nmap <leader>rt :%s/\s\+$//<cr>``
 
 " Fzf
-nmap <leader>b :Buffers<cr>
+nmap <leader>, :Buffers<cr>
 nmap <leader>f :Files<cr>
+nmap <leader>h :Helptags<cr>
 nmap <leader>l :Lines<cr>
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)

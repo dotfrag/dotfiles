@@ -191,9 +191,10 @@ nmap <leader>h :set hlsearch! hlsearch?<cr>
 nmap <leader>z :set wrap!<cr>
 nmap <leader>n nzz
 nmap <leader>N Nzz
-nmap cae ggcG
-nmap vae ggVG
+nmap cag ggcG
+nmap vag ggVG
 nmap dil 0d$
+vmap gs :sort<cr>
 
 " Indent
 vnoremap <A-h> <gv

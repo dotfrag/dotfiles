@@ -194,8 +194,12 @@ nmap <leader>N Nzz
 nmap cae ggcG
 nmap vae ggVG
 nmap dil 0d$
-vnoremap < <gv
-vnoremap > >gv
+
+" Indent
+vnoremap <A-h> <gv
+vnoremap <A-l> >gv
+nmap <A-h> <<
+nmap <A-l> >>
 
 " Regex: Trailing spaces
 nmap <leader>rt :%s/\s\+$//<cr>``

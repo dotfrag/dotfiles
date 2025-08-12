@@ -197,6 +197,10 @@ nmap dil 0d$
 vmap gs :sort<cr>
 
 " Indent
+nmap <A-j> <Plug>(unimpaired-move-down)
+nmap <A-k> <Plug>(unimpaired-move-up)
+vmap <A-j> <Plug>(unimpaired-move-selection-down)<bar>gv
+vmap <A-k> <Plug>(unimpaired-move-selection-up)<bar>gv
 vnoremap <A-h> <gv
 vnoremap <A-l> >gv
 nmap <A-h> <<

@@ -7,9 +7,9 @@
 # /etc/fonts/conf.d/, or see `man 5 fonts-conf` for other options.
 
 packages_pacman_base=(
-  at
   7zip
   aria2
+  at
   base-devel
   bat
   btop
@@ -51,6 +51,7 @@ packages_pacman_base=(
   skim
   starship
   tealdeer
+  terminus-font
   thermald
   tmux
   tree

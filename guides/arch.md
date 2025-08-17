@@ -217,8 +217,6 @@ KEYMAP=/usr/local/share/kbd/keymaps/personal.map
 FONT=ter-v24b.psf.gz
 ```
 
-<https://forum.manjaro.org/t/intel-cannon-lake-pch-cavs-conexant-cx20632-no-sound-at-hdmi-or-displayport/133494/2>
-
 ## Misc (situational)
 
 ### Disable webcam
@@ -307,3 +305,5 @@ Overrride `Intel Kabylake HDMI` pins using alsa-tools and `hdajackretask`.
 # If you want to revert the changes made by this program, you can simply erase this file and reboot your computer.
 options snd-hda-intel patch=hda-jack-retask.fw,hda-jack-retask.fw,hda-jack-retask.fw,hda-jack-retask.fw
 ```
+
+<https://forum.manjaro.org/t/intel-cannon-lake-pch-cavs-conexant-cx20632-no-sound-at-hdmi-or-displayport/133494/2>

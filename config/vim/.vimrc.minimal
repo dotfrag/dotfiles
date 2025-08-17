@@ -79,6 +79,15 @@ noremap  <silent> <C-S> :update<cr>
 vnoremap <silent> <C-S> <esc>:update<cr>
 inoremap <silent> <C-S> <esc>:update<cr>
 
+nmap <A-j> :move+v:count1<cr>
+nmap <A-k> :move--v:count1<cr>
+vmap <A-j> :move'>+v:count1<cr>gv
+vmap <A-k> :move'<--v:count1<cr>gv
+vnoremap <A-h> <gv
+vnoremap <A-l> >gv
+nmap <A-h> <<
+nmap <A-l> >>
+
 nmap <leader>n :set number! relativenumber!<cr>
 nmap <leader>r :set relativenumber!<cr>
 

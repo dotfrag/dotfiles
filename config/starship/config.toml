@@ -2,6 +2,10 @@
 
 right_format = '$status'
 
+# [directory]
+# truncation_length = 5
+
+
 [sudo]
 style = 'bold green'
 symbol = '👩‍💻 '

@@ -14,6 +14,7 @@ alias nvim-main='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-main nvim'
 alias nvim-nightly='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-nightly nvim'
 alias nvim-normalnvim='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-normalnvim nvim'
 alias nvim-nvim='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-nvim nvim'
+alias nvim-repro='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-repro nvim'
 alias vm='nvim-main'
 alias vn='nvim-nightly'
 

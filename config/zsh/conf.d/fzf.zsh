@@ -84,7 +84,7 @@ vgi() {
   local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case"
   local INITIAL_QUERY="${*:-}"
   fzf --ansi --disabled --height 30 --query "${INITIAL_QUERY}" \
-    --bind "start:reload:${RG_PREFIX} {q}" \
+    --bind "start:reload:${RG_PREFIX} {q} || true" \
     --bind "change:reload:sleep 0.25; ${RG_PREFIX} {q} || true" \
     --bind 'tab:transform:[[ ! $FZF_PROMPT =~ rg ]] &&
       echo "rebind(change)+change-prompt(rg » )+disable-search+transform-query:echo \{q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r" ||
@@ -117,7 +117,7 @@ vgd() {
   local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case"
   local INITIAL_QUERY="${*:-}"
   fzf --ansi --disabled --height 30 --query "${INITIAL_QUERY}" \
-    --bind "start:reload:${RG_PREFIX} {q} ${HOME}/repos/dotfiles ${HOME}/repos/dotfiles-private" \
+    --bind "start:reload:${RG_PREFIX} {q} ${HOME}/repos/dotfiles ${HOME}/repos/dotfiles-private || true" \
     --bind "change:reload:sleep 0.25; ${RG_PREFIX} {q} ${HOME}/repos/dotfiles ${HOME}/repos/dotfiles-private || true" \
     --bind 'tab:transform:[[ ! $FZF_PROMPT =~ rg ]] &&
       echo "rebind(change)+change-prompt(rg » )+disable-search+transform-query:echo \{q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r" ||

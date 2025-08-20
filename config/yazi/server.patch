@@ -1,8 +1,28 @@
+diff --git a/config/yazi/server.patch b/config/yazi/server.patch
+index ce872f5..e69de29 100644
+--- a/config/yazi/server.patch
++++ b/config/yazi/server.patch
+@@ -1,15 +0,0 @@
+-diff --git a/config/yazi/yazi.toml b/config/yazi/yazi.toml
+-index cbd525f..95419f7 100644
+---- a/config/yazi/yazi.toml
+-+++ b/config/yazi/yazi.toml
+-@@ -28,3 +28,10 @@ rules = [
+-   # { name = "*", use = [ "open", "reveal" ] },
+-   { mime = "*", use = [] },
+- ]
+-+
+-+[plugin]
+-+fetchers = []
+-+preloaders = []
+-+previewers = [
+-+  { name = "*/", run = "folder", sync = true }
+-+]
 diff --git a/config/yazi/yazi.toml b/config/yazi/yazi.toml
-index cbd525f..95419f7 100644
+index c42c96d..380873b 100644
 --- a/config/yazi/yazi.toml
 +++ b/config/yazi/yazi.toml
-@@ -28,3 +28,10 @@ rules = [
+@@ -29,3 +29,10 @@ rules = [
    # { name = "*", use = [ "open", "reveal" ] },
    { mime = "*", use = [] },
  ]

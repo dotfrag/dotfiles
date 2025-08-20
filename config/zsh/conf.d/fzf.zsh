@@ -81,7 +81,7 @@ vg() {
 # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-between-ripgrep-mode-and-fzf-mode-using-a-single-key-binding
 vgi() {
   command rm -f /tmp/rg-fzf-{r,f}
-  local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+  local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case"
   local INITIAL_QUERY="${*:-}"
   fzf --ansi --disabled --height 30 --query "${INITIAL_QUERY}" \
     --bind "start:reload:${RG_PREFIX} {q}" \
@@ -98,19 +98,37 @@ vgi() {
     --bind 'enter:become($EDITOR {1} +{2})'
 }
 
-# fuzzy ripgrep dots open at line number
+# # fuzzy ripgrep dots open at line number
+# vgd() {
+#   [[ -z $1 ]] && return 1
+#   rg --color=always --line-number --no-heading $@ ${HOME}/repos/dotfiles ${HOME}/repos/dotfiles-private \
+#     | fzf --ansi \
+#       --color "hl:-1:underline,hl+:-1:underline:reverse" \
+#       --height 30 \
+#       --delimiter : \
+#       --preview 'bat --color=always {1} --highlight-line {2}' \
+#       --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+#       --bind 'one:become($EDITOR {1} +{2}),enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
+# }
+
+# fuzzy ripgrep dots open at line number in the style of vgi
 vgd() {
-  [ -z "$1" ] && return 1
-  local files
-  IFS=$'\n' files=($(cat "${XDG_DATA_HOME:-${HOME}/.local/share}/dots"))
-  rg --color=always --line-number --no-heading $@ ${files[@]} |
-    fzf --ansi \
-      --color "hl:-1:underline,hl+:-1:underline:reverse" \
-      --height 30 \
-      --delimiter : \
-      --preview 'bat --color=always {1} --highlight-line {2}' \
-      --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-      --bind 'one:become($EDITOR {1} +{2}),enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
+  command rm -f /tmp/rg-fzf-{r,f}
+  local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case"
+  local INITIAL_QUERY="${*:-}"
+  fzf --ansi --disabled --height 30 --query "${INITIAL_QUERY}" \
+    --bind "start:reload:${RG_PREFIX} {q} ${HOME}/repos/dotfiles ${HOME}/repos/dotfiles-private" \
+    --bind "change:reload:sleep 0.25; ${RG_PREFIX} {q} ${HOME}/repos/dotfiles ${HOME}/repos/dotfiles-private || true" \
+    --bind 'tab:transform:[[ ! $FZF_PROMPT =~ rg ]] &&
+      echo "rebind(change)+change-prompt(rg » )+disable-search+transform-query:echo \{q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r" ||
+      echo "unbind(change)+change-prompt(fzf » )+enable-search+transform-query:echo \{q} > /tmp/rg-fzf-r; cat /tmp/rg-fzf-f"' \
+    --color "hl:-1:underline,hl+:-1:underline:reverse" \
+    --prompt 'rg » ' \
+    --delimiter : \
+    --header 'Tab: Switch between ripgrep/fzf' \
+    --preview 'bat --color=always {1} --highlight-line {2}' \
+    --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+    --bind 'one:become($EDITOR {1} +{2}),enter:become($EDITOR {1} +{2})'
 }
 
 # fkill - kill processes - list only the ones you can kill

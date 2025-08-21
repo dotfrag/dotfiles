@@ -67,9 +67,9 @@ unset dccmd
 
 update-container() {
   [ -f compose.yml ] || return
-  docker-compose pull
+  docker compose pull
   # docker compose down # not needed
-  docker-compose up -d
+  docker compose up -d
   docker image prune -f
 }
 

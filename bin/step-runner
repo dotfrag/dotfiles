@@ -1,0 +1,44 @@
+#!/bin/bash
+#
+# Script to run commands in steps and ability to continue from failed step
+
+# Usage:
+# source step-runner
+# start_step [filepath]
+# run_step script-one.sh
+# run_step script-two.sh
+# run_step script-three arg1 arg2
+# stop_step
+
+start_step() {
+  session=${1:-/tmp/finishedSteps.txt}
+  touch "${session}"
+}
+
+stop_step() {
+  rm -f "${session}"
+}
+
+run_step() {
+  if ! [[ -v session && -f ${session} ]]; then
+    echo "File variable 'session' not defined."
+    exit 1
+  fi
+  step=$*
+  echo "================================================================================"
+  echo "${step}"
+  echo "================================================================================"
+  if grep -q "${step}" "${session}"; then
+    echo -e "Skipping..\n"
+    return
+  fi
+  if ! ${step}; then
+    echo "================================================================================"
+    echo "ERROR: Failed at step ${step}"
+    echo "================================================================================"
+    echo "Saving current session in ${session}"
+    exit 1
+  fi
+  echo "${step}" >> "${session}"
+  echo
+}

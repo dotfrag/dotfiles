@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# curl -fsSL https://raw.githubusercontent.com/dotfrag/dotfiles/refs/heads/main/install.sh | bash
+# curl -fsSL https://dotfrag.com/install.sh | bash
 
 REPOS_DIR=${HOME}/repos
 DOTFILES_DIR=${REPOS_DIR}/dotfiles

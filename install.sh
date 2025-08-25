@@ -1,19 +1,21 @@
 #!/bin/bash
+#
+# curl -fsSL https://raw.githubusercontent.com/dotfrag/dotfiles/refs/heads/main/install.sh | bash
 
-if [[ -f "setup.sh" ]]; then
-  exec bash setup.sh "$@"
-fi
+REPOS_DIR=${HOME}/repos
+DOTFILES_DIR=${REPOS_DIR}/dotfiles
 
-if ! command -v git &> /dev/null; then
+if ! command -v git > /dev/null; then
   echo "Missing git command. Please install git first."
   exit 1
 fi
 
-if [[ ! -d "dotfiles" ]]; then
-  git clone https://github.com/dotfrag/dotfiles.git
+if [[ ! -d ${DOTFILES_DIR} ]]; then
+  mkdir -p "${REPOS_DIR}"
+  git -C "${REPOS_DIR}" clone https://github.com/dotfrag/dotfiles.git
 fi
 
-bash dotfiles/setup.sh "$@"
+bash "${DOTFILES_DIR}/setup.sh"
 
 if [[ ${SHELL} != *zsh ]]; then
   chsh -s /bin/zsh

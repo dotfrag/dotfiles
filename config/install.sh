@@ -5,11 +5,12 @@ CONFIG_DIR=${XDG_CONFIG_HOME:-${HOME}/.config}
 
 output=()
 declare -A config_dirs=(
-  ["Hyprland"]="hypr"
   ["aria2c"]="aria2"
+  ["brave"]="brave-flags.conf"
   ["fast-theme"]="fsh"
   ["google-chrome"]="chrome-flags.conf"
   ["google-chrome-stable"]="chrome-flags.conf"
+  ["Hyprland"]="hypr"
   ["networkmanager_dmenu"]="networkmanager-dmenu"
   ["rg"]="ripgrep"
   ["setxkbmap"]="xkb"

@@ -189,7 +189,8 @@ sync-fork() {
   fi
   branch=$(git symbolic-ref --short -q HEAD)
   git fetch upstream
-  git checkout "${branch}"
+  # git checkout "${branch}"
+  git pull
   if git ls-remote --exit-code upstream "${branch}" > /dev/null; then
     git merge "upstream/${branch}"
   fi
@@ -197,7 +198,9 @@ sync-fork() {
 
 # git pull or sync fork
 gp() {
-  if git remote -v | awk '{print $1}' | grep -q upstream; then
+  if ! git rev-parse --is-inside-work-tree &> /dev/null; then
+    gpall
+  elif git remote -v | awk '{print $1}' | grep -q upstream; then
     sync-fork
   else
     git pull

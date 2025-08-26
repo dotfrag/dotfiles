@@ -328,7 +328,7 @@ whl() {
 # load tmuxp sessions
 tmuxp() {
   local session
-  [[ -x $(command -v tmuxp) ]] || return
+  [[ -x $(whence -p tmuxp) ]] || return
   session=$(fd . ~/.config/tmuxp -x basename {} .yml | sort | fzf)
   if [[ -n ${session} ]]; then
     command tmuxp load "${session}"

@@ -70,6 +70,7 @@ alias shfmt='shfmt --simplify --indent 2 --binary-next-line --case-indent --spac
 alias update-fnm='curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell'
 
 # --------------------------------------------------------------- GLOBAL ALIASES
+alias -g BH='|bathelp'
 alias -g C='|wc -l'
 alias -g D='|delta'
 alias -g DS='|delta --side-by-side'

@@ -114,7 +114,7 @@ vgi() {
 # fuzzy ripgrep dots open at line number in the style of vgi
 vgd() {
   command rm -f /tmp/rg-fzf-{r,f}
-  local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case"
+  local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case --hidden"
   local INITIAL_QUERY="${*:-}"
   fzf --ansi --disabled --height 30 --query "${INITIAL_QUERY}" \
     --bind "start:reload:${RG_PREFIX} {q} ${HOME}/repos/dotfiles ${HOME}/repos/dotfiles-private || true" \

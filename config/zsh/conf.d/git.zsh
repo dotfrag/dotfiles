@@ -67,7 +67,7 @@ gpall() {
 # git gc all repos
 gitgc() {
   # shellcheck disable=SC1083
-  fd -td '^.git$' -IH -E '.cache' -E '.cargo' -E '.local' -E 'node_modules' \
+  fd -td '^.git$' -IHL -E '.cache' -E '.cargo' -E '.local' -E 'node_modules' \
     -x echo {//} | sort -u | while read -r line; do
     if git -C "${line}" rev-parse --is-inside-work-tree &> /dev/null; then
       print -P "%F{yellow}${line}%f"
@@ -210,7 +210,7 @@ gp() {
 # delete local branches
 delete-local-branches() {
   # shellcheck disable=SC1083
-  for repo in $(fd -IH -td -d2 '^\.git$' -x echo {//}); do
+  for repo in $(fd -IHL -td -d2 '^\.git$' -x echo {//}); do
     git -C "${repo}" branch \
       | rg -v 'master|main|next' \
       | xargs -r git -C "${repo}" branch -d # -D

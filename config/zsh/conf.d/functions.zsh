@@ -342,3 +342,14 @@ wls() {
 wlsm() {
   watch -n "${1:-2}" -c eza --color=always -la --group-directories-first --sort modified
 }
+
+# adb download and run
+adb() {
+  if ! [[ -x /tmp/platform-tools/adb ]]; then
+    local url=https://dl.google.com/android/repository/platform-tools-latest-linux.zip
+    local file_path=/tmp/platform-tools.zip
+    wget --quiet --show-progress -nc -O "${file_path}" "${url}"
+    unzip "${file_path}" -d /tmp
+  fi
+  /tmp/platform-tools/adb "$@"
+}

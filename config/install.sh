@@ -11,6 +11,7 @@ declare -A config_dirs=(
   ["google-chrome"]="chrome-flags.conf"
   ["google-chrome-stable"]="chrome-flags.conf"
   ["Hyprland"]="hypr"
+  ["kitty"]="xdg-terminals.list"
   ["networkmanager_dmenu"]="networkmanager-dmenu"
   ["rg"]="ripgrep"
   ["setxkbmap"]="xkb"

@@ -10,6 +10,16 @@
 # run_step script-three arg1 arg2
 # stop_step
 
+println() {
+  if ((COLUMNS > 80)); then
+    printf '=%.0s' {1..80}
+    echo
+  else
+    printf '=%.0s' $(seq 1 "${COLUMNS}")
+    echo
+  fi
+}
+
 start_step() {
   session=${1:-/tmp/finishedSteps.txt}
   touch "${session}"
@@ -25,17 +35,17 @@ run_step() {
     exit 1
   fi
   step=$*
-  echo "================================================================================"
+  println
   echo "${step}"
-  echo "================================================================================"
+  println
   if grep -q "${step}" "${session}"; then
     echo -e "Skipping..\n"
     return
   fi
   if ! ${step}; then
-    echo "================================================================================"
+    println
     echo "ERROR: Failed at step ${step}"
-    echo "================================================================================"
+    println
     echo "Saving current session in ${session}"
     exit 1
   fi

@@ -314,8 +314,8 @@ incognito() {
 
 # repeat command, similar to watch, but often more convenient
 whl() {
-  re='^[0-9]+$'
-  if [[ $1 =~ $re ]]; then
+  re='^[.0-9]+$'
+  if [[ $1 =~ ${re} ]]; then
     interval=$1
     shift
   fi

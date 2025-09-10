@@ -44,6 +44,7 @@ alias lse='ls -d *(/^F)'  # empty directories
 alias lsl='ls -l *(@)'    # symlinks
 alias lsx='ls -l *(*)'    # executables
 
+alias h='help'
 alias j='just'
 alias p='pnpm'
 alias px='pnpx'

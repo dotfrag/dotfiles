@@ -148,8 +148,10 @@ fkill() {
 # command cheatsheet
 cmd() {
   local cmds=${ZDOTDIR:-${HOME}}/.cmds
-  local cmd=$(fzf --query="$1" --select-1 --exit-0 <$cmds)
-  [[ -n "${cmd}" ]] && eval "${cmd}"
+  # local cmd
+  # cmd=$(fzf --query="$1" --select-1 --exit-0 < "${cmds}")
+  # [[ -n ${cmd} ]] && eval "${cmd}"
+  fzf --query="$@" --select-1 --exit-0 --bind 'enter:become(eval {}),ctrl-v:accept-non-empty' < "${cmds}"
 }
 
 # ps interactive

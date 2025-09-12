@@ -32,6 +32,23 @@ lgf() {
   lazygit -f "$(gfp "$1")"
 }
 
+# git clone and cd
+gcd() {
+  (($# != 1)) && return
+  local repo
+  repo=${1##*/}
+  repo=${repo%.git}
+  if [[ ! -d ${repo} ]]; then
+    git clone "$1"
+  fi
+  cd "${repo}" || return
+}
+gcdt() {
+  (($# != 1)) && return
+  cdt
+  gcd "$@"
+}
+
 # git checkout
 gco() {
   git branch -a \

@@ -1,0 +1,46 @@
+#!/bin/bash
+#
+# https://www.reddit.com/r/archlinux/comments/11cptxh/bash_script_to_clean_pacman_and_yay_cache/
+
+# ### Clean pacman cache ###
+# [[ -n $(pacman -Qdt) ]] && sudo pacman -Rns $(pacman -Qdtq) || echo "No orphaned packages to remove!"
+# paccache --remove --keep 1
+# paccache --remove --uninstalled --keep 0
+
+if ! command -v yay > /dev/null; then
+  echo "yay not installed."
+  exit 1
+fi
+
+### Clean yay cache ###
+CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/yay"
+
+# Clean yay cache of packages that are not installed anymore
+mapfile -t uninstalled < <(comm -23 <(fd . -d1 -td "${CACHE_DIR}" -X basename -a | sort) <(pacman -Qqm))
+for i in "${uninstalled[@]}"; do
+  pkg_dir=${CACHE_DIR}/${i}
+  if [[ -d ${pkg_dir} ]]; then
+    echo "Deleting ${pkg_dir}"
+    # rm -rf "${pkg_dir}" # TODO: uncomment once tested
+  fi
+done
+
+# # Remove untracked files (e.g. source/build files) except package files and main source files for installed version if non-git package
+# for pkgdir in "${CACHE_DIR}"/*/; do
+#   pkgname=$(basename "${pkgdir}")
+#   if [[ ! ${pkgname} =~ ^.*-git$ ]]; then
+#     pkgver="$(pacman -Q "${pkgname}" | cut -d ' ' -f2 | cut -d '-' -f1 | cut -d ':' -f2)"
+#     cd "${pkgdir}" || exit
+#     echo rm -f $(git ls-files --others | grep -v -e '^.*\.pkg\.tar.*$' -e '^.*/$' -e "^.*${pkgver}.*$" | xargs -r printf "${pkgdir}/%s\n")
+#   fi
+#   echo rm -rf "${pkgdir}"/src/
+# done
+# exit
+
+# Clean yay cache of older versions of installed packages
+cachedirs="$(fd . -d1 -td "${CACHE_DIR}" | xargs -r printf "-c %s\n" | sort | xargs)"
+if [[ -n ${cachedirs} ]]; then
+  # shellcheck disable=SC2086
+  echo ${cachedirs} # TODO: remove once tested
+  # paccache --remove --keep 3 ${cachedirs} # TODO: uncomment once tested
+fi

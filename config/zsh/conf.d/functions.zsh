@@ -266,9 +266,10 @@ venv() {
 
 # process tree
 ptree() {
-  if [[ $# -gt 0 ]]; then
+  if [[ $# -eq 1 ]]; then
     ps --no-headers "$@"
     for p in "$@"; do
+      # shellcheck disable=SC2046
       ptree $(cat "/proc/${p}/task/${p}/children")
     done
   fi

@@ -2,9 +2,9 @@
 
 set -euo pipefail
 
-dest="${HOME}/backup/repos"
-mkdir -p "${dest}"
-cd "${dest}"
+CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/backup-repos"
+mkdir -p "${CACHE_DIR}"
+cd "${CACHE_DIR}"
 
 new_repos=()
 for i in $(gh repo list --source --limit 100 | awk '{print $1}' | sort -f); do

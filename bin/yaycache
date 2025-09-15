@@ -21,7 +21,7 @@ for i in "${uninstalled[@]}"; do
   pkg_dir=${CACHE_DIR}/${i}
   if [[ -d ${pkg_dir} ]]; then
     echo "Deleting ${pkg_dir}"
-    # rm -rf "${pkg_dir}" # TODO: uncomment once tested
+    rm -rf "${pkg_dir}"
   fi
 done
 
@@ -41,6 +41,5 @@ done
 cachedirs="$(fd . -d1 -td "${CACHE_DIR}" | xargs -r printf "-c %s\n" | sort | xargs)"
 if [[ -n ${cachedirs} ]]; then
   # shellcheck disable=SC2086
-  echo ${cachedirs} # TODO: remove once tested
-  # paccache --remove --keep 3 ${cachedirs} # TODO: uncomment once tested
+  paccache --remove --keep 3 ${cachedirs}
 fi

@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/backup-repos"
+CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/repos"
 mkdir -p "${CACHE_DIR}"
 cd "${CACHE_DIR}"
 

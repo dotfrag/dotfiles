@@ -31,6 +31,7 @@ echo
 
 echo "Compressing repos.."
 zstd -T0 --ultra -20 repos.tar
+echo
 du -sh repos.tar repos.tar.zst
 rm repos.tar
 echo

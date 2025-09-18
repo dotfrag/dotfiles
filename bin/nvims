@@ -32,11 +32,12 @@ Usage: nvims [OPTION] [args..]
 Arguments will be passed to nvim.
 
 Options:
+  -c  Clean config (cache/share/state)
   -d  Delete config
   -l  List configs
-  -u  Update plugins (except default)
-  -s  Swap default config
   -r  Reset (delete all configs)
+  -s  Swap default config
+  -u  Update plugins (except default)
   -h  Print help message
 EOF
 }
@@ -92,6 +93,28 @@ select_config() {
   config=$(printf "%s\n" "${!NVIM_CONFIGS[@]}" | fzf --prompt=" Neovim Config » " --height=~50% "$@")
   [[ -z ${config} ]] && exit 1
   echo "${config}"
+}
+
+clean_config() {
+  local selected
+  selected=$(select_config -m)
+
+  for sel in ${selected}; do
+    if [[ ${sel} == "${DEFAULT}" ]]; then
+      for nd in "${NVIM_DIRS[@]}"; do
+        if [[ ${nd} != "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim" ]]; then
+          command rm -rf "${nd}"
+        fi
+      done
+    else
+      for nd in "${NVIM_DIRS[@]}"; do
+        if [[ ${nd} != "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim" ]]; then
+          command rm -rf "${nd}-${sel,,}"
+        fi
+      done
+    fi
+    echo "Cleaned ${sel} config."
+  done
 }
 
 del_config() {
@@ -212,8 +235,12 @@ main() {
 first_run
 read_config_file
 
-while getopts 'dlusrh' option; do
+while getopts 'cdlrsuh' option; do
   case "${option}" in
+    c)
+      clean_config
+      exit
+      ;;
     d)
       delete_config
       exit
@@ -222,16 +249,16 @@ while getopts 'dlusrh' option; do
       list_configs
       exit
       ;;
-    u)
-      update_plugins
+    r)
+      reset
       exit
       ;;
     s)
       swap_default
       exit
       ;;
-    r)
-      reset
+    u)
+      update_plugins
       exit
       ;;
     h | *)

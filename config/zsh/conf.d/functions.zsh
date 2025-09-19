@@ -353,3 +353,19 @@ adb() {
   fi
   /tmp/platform-tools/adb "$@"
 }
+
+# diff two zip files
+zipdiff() {
+  # magic below:
+  # 1. print first line (header)
+  # 2. ignore last line (summary) and sort files
+  # 3. print last line (summary)
+  local contents contents_1 contents_2
+  contents=$(unzip -vql "$1" | grep -v -- '-----')
+  contents_1=$(head -n1 <<< "${contents}" && tail -n+2 <<< "${contents}" | head -n -1 | sort -fk8 && tail -1 <<< "${contents}")
+  contents=$(unzip -vql "$2" | grep -v -- '-----')
+  contents_2=$(head -n1 <<< "${contents}" && tail -n+2 <<< "${contents}" | head -n -1 | sort -fk8 && tail -1 <<< "${contents}")
+  # diff -W200 -y <(echo "${contents_1}") <(echo "${contents_2}")
+  git diff -U999 --no-index <(echo "${contents_1}") <(echo "${contents_2}")
+}
+

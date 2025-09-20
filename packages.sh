@@ -13,6 +13,7 @@ packages_pacman_base=(
   base-devel
   bat
   btop
+  coreutils
   curl
   difftastic
   dua-cli

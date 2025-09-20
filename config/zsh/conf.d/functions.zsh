@@ -369,3 +369,25 @@ zipdiff() {
   git diff -U999 --no-index <(echo "${contents_1}") <(echo "${contents_2}")
 }
 
+
+# https://superuser.com/a/611582
+# usage:
+# countdown 60
+# countdown $((2 * 60 * 60)) # two hours
+# countdown $((24 * 60 * 60)) # one day
+countdown() {
+  start="$(($(date '+%s') + $1))"
+  while [[ ${start} -ge $(date +%s) ]]; do
+    time="$((start - $(date +%s)))"
+    printf '%s\r' "$(date -u -d "@${time}" +%H:%M:%S)"
+    sleep 0.1
+  done
+}
+stopwatch() {
+  start=$(date +%s)
+  while true; do
+    time="$(($(date +%s) - start))"
+    printf '%s\r' "$(date -u -d "@${time}" +%H:%M:%S)"
+    sleep 0.1
+  done
+}

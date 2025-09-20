@@ -286,7 +286,7 @@ sudo systemctl kill -s HUP systemd-logind
 
 ### HP EliteDesk no HDMI output
 
-Overrride `Intel Kabylake HDMI` pins using alsa-tools and `hdajackretask`.
+Override `Intel Kabylake HDMI` pins using alsa-tools and `hdajackretask`.
 
 ```text
 ❯ cat /usr/lib/firmware/hda-jack-retask.fw

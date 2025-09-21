@@ -44,3 +44,17 @@ sudo update-alternatives --config x-terminal-emulator
 ```shell
 sudo update-alternatives --remove x-terminal-emulator ${HOME}/.local/bin/kitty
 ```
+
+## File chooser
+
+```shell
+kitten desktop-ui enable-portal
+kitten desktop-ui set-color-scheme dark
+```
+
+```shell
+export QT_QPA_PLATFORMTHEME=xdgdesktopportal
+export GTK_USE_PORTAL=1
+```
+
+<https://sw.kovidgoyal.net/kitty/kittens/desktop-ui/>

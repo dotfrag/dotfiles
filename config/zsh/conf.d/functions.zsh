@@ -391,3 +391,10 @@ stopwatch() {
     sleep 0.1
   done
 }
+
+# check if file ends with newline character
+function file-ends-with-newline() {
+  [[ $(tail -c1 "$1" | wc -l) -gt 0 ]] \
+    && echo "yes" \
+    || echo "no"
+}

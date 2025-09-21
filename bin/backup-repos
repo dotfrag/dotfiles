@@ -6,8 +6,20 @@ CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/repos"
 mkdir -p "${CACHE_DIR}"
 cd "${CACHE_DIR}"
 
+repos=$(gh repo list --source --limit 100 | awk '{print $1}' | sort -f)
+
+for i in "${CACHE_DIR}"/*; do
+  repo=${i##*/}
+  repo=${repo%.git}
+  if ! rg -q "${repo}" <<< "${repos}"; then
+    echo "Repository ${repo} not found in remote."
+    echo "I'm exiting, please handle manually and rerun."
+    exit 1
+  fi
+done
+
 new_repos=()
-for i in $(gh repo list --source --limit 100 | awk '{print $1}' | sort -f); do
+for i in ${repos}; do
   if ! [[ -d ${i#*/}.git ]]; then
     new_repos+=("${i}")
   fi

@@ -99,7 +99,7 @@ yank() {
 
 # print and yank to clipboard
 xyank() {
-  if [[ $XDG_SESSION_TYPE == "wayland" ]]; then
+  if [[ ${XDG_SESSION_TYPE} == "wayland" ]]; then
     tee /dev/tty | wl-copy --trim-newline
   else
     tee /dev/tty | xclip -r -selection primary -filter | xclip -r -selection clipboard
@@ -108,14 +108,14 @@ xyank() {
 
 # paste from clipboard
 put() {
-  if [[ $XDG_SESSION_TYPE == "wayland" ]]; then
+  if [[ ${XDG_SESSION_TYPE} == "wayland" ]]; then
     local type
     type=$(wl-paste -l | rg image)
-    if [[ $type == image* ]]; then
+    if [[ ${type} == image* ]]; then
       filename=$(date +%Y-%m-%d_%T).png
-      wl-paste -t "$type" > "$filename" \
-        && echo "Created image file $filename"
-      [[ -v KITTY_WINDOW_ID ]] && kitten icat "$filename"
+      wl-paste -t "${type}" > "${filename}" \
+        && echo "Created image file ${filename}"
+      [[ -v KITTY_WINDOW_ID ]] && kitten icat "${filename}"
     else
       wl-paste
     fi

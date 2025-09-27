@@ -1,4 +1,9 @@
 # -------------------------------------------------------------------- FUNCTIONS
+# print function with syntax highlighting
+func() {
+  which "$1" | bat --plain --language zsh
+}
+
 # yazi
 f() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
@@ -393,7 +398,7 @@ stopwatch() {
 }
 
 # check if file ends with newline character
-function file-ends-with-newline() {
+file-ends-with-newline() {
   [[ $(tail -c1 "$1" | wc -l) -gt 0 ]] \
     && echo "yes" \
     || echo "no"

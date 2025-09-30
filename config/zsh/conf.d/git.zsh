@@ -199,6 +199,11 @@ get-latest-version() {
   curl -sLH "Accept: application/json" "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\Kv[^"]*'
 }
 
+# get latest tag
+get-latest-tag() {
+  git describe --tags "$(git rev-list --tags --max-count=1)"
+}
+
 # sync github fork
 sync-fork() {
   if ! git config remote.upstream.url > /dev/null; then

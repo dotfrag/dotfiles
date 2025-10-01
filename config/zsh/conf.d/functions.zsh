@@ -132,8 +132,8 @@ put() {
 # update dotfiles list
 update-dots() {
   local dots="${XDG_DATA_HOME:-${HOME}/.local/share}/dots"
-  git -C "${HOME}/repos/dotfiles" ls-files | rg -v 'ttf$' | while read line; do realpath "${HOME}/repos/dotfiles/${line}"; done > "${dots}"
-  git -C "${HOME}/repos/dotfiles-private" ls-files | while read line; do realpath "${HOME}/repos/dotfiles-private/${line}"; done >> "${dots}"
+  git -C "${HOME}/repos/dotfiles" ls-files | rg -v 'ttf$' | while read -r line; do realpath "${HOME}/repos/dotfiles/${line}"; done > "${dots}"
+  git -C "${HOME}/repos/dotfiles-private" ls-files | while read -r line; do realpath "${HOME}/repos/dotfiles-private/${line}"; done >> "${dots}"
   sort -o "${dots}" -u "${dots}"
 }
 
@@ -312,9 +312,9 @@ jqsort() {
 # commands of the current session to the history file, but atuin will register
 # all commands up to and including incognito
 incognito() {
-	unset HISTFILE
-	add-zsh-hook -d precmd _atuin_precmd
-	add-zsh-hook -d preexec _atuin_preexec
+  unset HISTFILE
+  add-zsh-hook -d precmd _atuin_precmd
+  add-zsh-hook -d preexec _atuin_preexec
 }
 
 # repeat command, similar to watch, but often more convenient
@@ -373,7 +373,6 @@ zipdiff() {
   # diff -W200 -y <(echo "${contents_1}") <(echo "${contents_2}")
   git diff -U999 --no-index <(echo "${contents_1}") <(echo "${contents_2}")
 }
-
 
 # https://superuser.com/a/611582
 # usage:

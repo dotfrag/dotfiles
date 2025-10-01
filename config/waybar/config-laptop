@@ -72,7 +72,7 @@
 	},
 	"clock": {
 		"tooltip-format": "{calendar}",
-		"format": "{:%H:%M | %d-%m}",
+		"format": "{:%H:%M · %d-%m}",
 		"format-alt": "{:%Y-%m-%d}"
 	},
 	"disk": {

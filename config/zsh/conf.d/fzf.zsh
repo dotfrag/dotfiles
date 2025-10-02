@@ -11,7 +11,7 @@ export FZF_DEFAULT_OPTS="--height 30% --reverse --border --info inline-right \
 --marker '▏' --prompt '▌ '"
 
 # catppuccin colors
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} \
 --color=bg+:#363A4F,bg:#24273A,spinner:#F4DBD6,hl:#ED8796 \
 --color=fg:#CAD3F5,header:#ED8796,info:#C6A0F6,pointer:#F4DBD6 \
 --color=marker:#B7BDF8,fg+:#CAD3F5,prompt:#C6A0F6,hl+:#ED8796 \
@@ -19,15 +19,15 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 --color=border:#363A4F,label:#CAD3F5"
 
 # extend colors
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} \
 --color=selected-fg:#b8c0e0,gutter:-1"
 
 export FZF_DEFAULT_COMMAND="fd --type file --hidden --follow"
 export FZF_ALT_C_COMMAND="fd --type directory --hidden --follow"
 # export FZF_ALT_C_OPTS="--preview 'tree -a -L 1 -C {}'"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 
-export SKIM_DEFAULT_OPTIONS="$SKIM_DEFAULT_OPTIONS \
+export SKIM_DEFAULT_OPTIONS="${SKIM_DEFAULT_OPTIONS} \
 --color=fg:#cad3f5,bg:#24273a,matched:#363a4f,matched_bg:#f0c6c6,\
 current:#cad3f5,current_bg:#494d64,current_match:#24273a,\
 current_match_bg:#f4dbd6,spinner:#a6da95,info:#c6a0f6,prompt:#8aadf4,\
@@ -48,33 +48,36 @@ fep() {
 }
 feb() {
   fzf --query="$@" --multi --height 100% \
-      --preview "bat --color=always {}" \
-      --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
+    --preview "bat --color=always {}" \
+    --bind 'enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
 }
 fed() {
   local dots="${XDG_DATA_HOME:-${HOME}/.local/share}/dots"
   # shellcheck disable=SC2016
   local bind='one:become($EDITOR {+}),enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
   if [[ -n $1 ]]; then
-    rg "$1" "${XDG_DATA_HOME:-${HOME}/.local/share}/dots" |
-      fzf --multi --bind "${bind}"
+    rg "$1" "${XDG_DATA_HOME:-${HOME}/.local/share}/dots" \
+      | fzf --multi --bind "${bind}"
     return
   fi
-  fzf --multi --bind "${bind}" <"${dots}"
+  fzf --multi --bind "${bind}" < "${dots}"
 }
 
 # fuzzy ripgrep open at line number
 # https://github.com/junegunn/fzf/wiki/examples#opening-files
 vg() {
-  [ -z $1 ] && { vgi; return; }
-  rg --color=always --line-number --no-heading $@ |
-    fzf --ansi \
-        --color "hl:-1:underline,hl+:-1:underline:reverse" \
-        --height 30 \
-        --delimiter : \
-        --preview 'bat --color=always {1} --highlight-line {2}' \
-        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-        --bind 'enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
+  [[ -z "$1" ]] && {
+    vgi
+    return
+  }
+  rg --color=always --line-number --no-heading $@ \
+    | fzf --ansi \
+      --color "hl:-1:underline,hl+:-1:underline:reverse" \
+      --height 30 \
+      --delimiter : \
+      --preview 'bat --color=always {1} --highlight-line {2}' \
+      --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+      --bind 'enter:become($EDITOR {1} +{2}),ctrl-v:become(vi {1} +{2})'
 }
 
 # ripgrep interactive with fuzzy search and open at line number

@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------- ALIASES
-alias vim=$EDITOR
-alias v=$EDITOR
+alias vim="${EDITOR}"
+alias v="${EDITOR}"
 alias vi='command vim'
 alias nv='neovide'
 alias view='v -R'

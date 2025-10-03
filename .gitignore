@@ -24,3 +24,4 @@ config/zsh/.zsh_history
 config/zsh/.zshrc.pre
 config/zsh/completions
 config/zsh/conf.d/private.zsh
+config/zsh/conf.d/z.zsh

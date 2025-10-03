@@ -237,3 +237,16 @@ function! ColorColumnToggle()
     setlocal colorcolumn=80
   endif
 endfunction
+
+" Close man pages with <q> (useful for MANPAGER)
+augroup close-with-q
+  autocmd!
+  " autocmd FileType man call s:CloseWithQ()
+  autocmd FileType man nnoremap <silent> <buffer> q :quit<cr>
+augroup END
+" function! s:CloseWithQ() abort
+"   setlocal nobuflisted
+"   nnoremap <silent> <buffer> q :close<cr>:bdelete!<cr>
+"   nnoremap <silent> <buffer> q :bwipeout!<cr>
+"   nnoremap <silent> <buffer> q :quit<cr>
+" endfunction

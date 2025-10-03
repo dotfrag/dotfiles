@@ -187,6 +187,7 @@ inoremap <silent> <C-S> <esc>:update<cr>
 
 " Visual
 nmap <leader>cc :call ColorColumnToggle()<cr>
+nmap <leader>uv :call VirtualEditToggle()<cr>
 nmap <leader>h :set hlsearch! hlsearch?<cr>
 nmap <leader>z :set wrap!<cr>
 nmap <leader>n nzz
@@ -235,6 +236,14 @@ function! ColorColumnToggle()
     setlocal colorcolumn=0
   else
     setlocal colorcolumn=80
+  endif
+endfunction
+
+function! VirtualEditToggle()
+  if &virtualedit == ''
+    setlocal virtualedit=all
+  else
+    setlocal virtualedit=
   endif
 endfunction
 

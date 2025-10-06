@@ -976,6 +976,8 @@ abk=(
     'G'    '|& grep '${grep_options:+"${grep_options[*]}"}
     'H'    '| head'
     'Hl'   ' --help |& less -r'    #d (Display help in pager)
+    'J'    '| jq'
+    'K'    '| keep'
     'L'    '| less'
     'LL'   '|& less -r'
     'M'    '| most'
@@ -984,6 +986,7 @@ abk=(
     'SL'   '| sort | less'
     'S'    '| sort -u'
     'T'    '| tail'
+    'TS'   '| ts "%F %H:%M:%.S"'
     'V'    '|& vim -'
 #A# end
     'co'   './configure && make && sudo make install'
@@ -2470,7 +2473,7 @@ if [[ -x /sbin/kexec ]] && [[ -r /proc/cmdline ]] ; then
 fi
 
 # especially for roadwarriors using GNU screen and ssh:
-if ! check_com asc &>/dev/null ; then
+if ! check_com -g asc && check_com -c autossh && check_com -c screen &>/dev/null ; then
   function asc () { autossh -t "$@" 'screen -RdU' }
   compdef asc=ssh
 fi
@@ -2579,8 +2582,8 @@ if [[ -r /etc/debian_version ]] ; then
           #a3# Execute \kbd{dpkg-buildpackage}
           alias dbp='dpkg-buildpackage'
         fi
-        #a3# Execute \kbd{grep-excuses}
         if check_com -c grep-excuses ; then
+          #a3# Execute \kbd{grep-excuses}
           alias ge='grep-excuses'
         fi
         if check_com -c apt-file ; then
@@ -2620,8 +2623,8 @@ fi
 
 # grmlstuff
 function grmlstuff () {
-    #a1# Output version of running grml
     if [ -r /etc/grml_version ]; then
+      #a1# Output version of running grml
       alias grml-version='cat /etc/grml_version'
     fi
 

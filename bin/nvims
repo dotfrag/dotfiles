@@ -43,10 +43,6 @@ EOF
 }
 
 first_run() {
-  if [[ -f ${CONFIG_FILE} ]]; then
-    return
-  fi
-
   command cat << EOF
 It looks like you are running nvims for the first time.
 The config file ${CONFIG_FILE} has been populated with the defaults.
@@ -232,7 +228,10 @@ main() {
   exec env NVIM_APPNAME="nvim-${selected,,}" nvim "$@"
 }
 
-first_run
+if ! [[ -f ${CONFIG_FILE} ]]; then
+  first_run
+fi
+
 read_config_file
 
 while getopts 'cdlrsuh' option; do

@@ -104,7 +104,7 @@ _gp() {
 gpc() {
   _gp || return
   git pull
-  git commit -m "$(date '+%Y-%m-%d %H:%M:%S')"
+  git commit -m "$(date '+%F %T')"
 }
 gpp() {
   _gp || return

@@ -33,8 +33,9 @@ append_keymap = [
   { on = [ "g", "P" ], run = "cd ~/Pictures" },
   { on = [ "g", "p" ], run = "cd ~/projects" },
   { on = [ "g", "r" ], run = "cd ~/repos" },
-  { on = [ "g", "t" ], run = "cd ~/tmp" },
+  { on = [ "g", "S" ], run = "cd ~/Sync" },
   { on = [ "g", "T" ], run = "cd /tmp" },
+  { on = [ "g", "t" ], run = "cd ~/tmp" },
 ]
 
 [cmp]

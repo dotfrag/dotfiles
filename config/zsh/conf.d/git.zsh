@@ -123,7 +123,7 @@ glf() {
     | rg -o "refs/.*" \
     | awk '!x[$0]++' \
     | head -10 \
-    | xargs -r -I '{}' git log -1 --format='%S|%ai%x20(%ar)' '{}' -- "$1" \
+    | xargs -r -I{} git log -1 --format='%S|%ai%x20(%ar)' '{}' -- "$1" \
     | perl -pe 's+refs/(heads|remotes|tags)(/origin)?/++' \
     | column -t -s '|'
 }

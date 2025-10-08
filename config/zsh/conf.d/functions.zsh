@@ -403,3 +403,14 @@ file-ends-with-newline() {
     && echo "yes" \
     || echo "no"
 }
+
+# trust .nvim.lua in cwd
+nvim-trust() {
+  local f target
+  f=$(realpath "${PWD}"/.nvim.lua)
+  [[ -f ${f} ]] || return 1
+  # shellcheck disable=SC2154
+  target=${XDG_STATE_HOME}/nvim/trust
+  sed -i "\+${f}+d" "${target}"
+  sha256sum "${f}" | xargs >> "${target}"
+}

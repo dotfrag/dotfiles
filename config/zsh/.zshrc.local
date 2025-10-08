@@ -51,7 +51,7 @@ bindkey "^X^Y" "yank-buffer"
 
 rationalise-dot() {
   local MATCH
-  if [[ $LBUFFER =~ '(^|/| |  |'$'\n''|\||;|&)\.\.$' ]]; then
+  if [[ ${LBUFFER} =~ '(^|/| |  |'$'\n''|\||;|&)\.\.$' ]]; then
     LBUFFER+=/
     zle self-insert
     zle self-insert

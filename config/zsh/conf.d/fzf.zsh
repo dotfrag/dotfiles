@@ -104,7 +104,7 @@ vgi() {
 # # fuzzy ripgrep dots open at line number
 # vgd() {
 #   [[ -z $1 ]] && return 1
-#   rg --color=always --line-number --no-heading $@ ${HOME}/repos/dotfiles ${HOME}/repos/dotfiles-private \
+#   rg --color=always --line-number --no-heading $@ ${HOME}/repos/dotfiles{,-private} \
 #     | fzf --ansi \
 #       --color "hl:-1:underline,hl+:-1:underline:reverse" \
 #       --height 30 \
@@ -120,8 +120,8 @@ vgd() {
   local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case --hidden"
   local INITIAL_QUERY="${*:-}"
   fzf --ansi --disabled --height 30 --query "${INITIAL_QUERY}" \
-    --bind "start:reload:${RG_PREFIX} {q} ${HOME}/repos/dotfiles ${HOME}/repos/dotfiles-private || true" \
-    --bind "change:reload:sleep 0.25; ${RG_PREFIX} {q} ${HOME}/repos/dotfiles ${HOME}/repos/dotfiles-private || true" \
+    --bind "start:reload:${RG_PREFIX} {q} ${HOME}/repos/dotfiles{,-private} || true" \
+    --bind "change:reload:sleep 0.25; ${RG_PREFIX} {q} ${HOME}/repos/dotfiles{,-private} || true" \
     --bind 'tab:transform:[[ ! $FZF_PROMPT =~ rg ]] &&
       echo "rebind(change)+change-prompt(rg » )+disable-search+transform-query:echo \{q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r" ||
       echo "unbind(change)+change-prompt(fzf » )+enable-search+transform-query:echo \{q} > /tmp/rg-fzf-r; cat /tmp/rg-fzf-f"' \

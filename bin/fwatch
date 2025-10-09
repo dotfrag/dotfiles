@@ -24,6 +24,7 @@ handle_file() {
     command ls "${f}" | entr -c ./"${f}"
   else
     case "${f}" in
+      .nvim.lua) cmd="zsh -ic nvim-trust" ;;
       *.hurl) cmd="hurl" ;;
       *) cmd="bat -pp" ;; # unknown filetype, cat it
     esac

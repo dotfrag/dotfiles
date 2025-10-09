@@ -4,6 +4,20 @@ func() {
   which "$1" | bat --plain --language zsh
 }
 
+# edit function in editor
+edfunc() {
+  local search file_path line_number
+  search="$(
+    rg -g '*.zsh' "^$1\(\)" \
+      ~/repos/dotfiles{,-private} \
+      --line-number --max-count 1 \
+      | cut -d':' -f1-2
+  )"
+  IFS=':' read -r file_path line_number <<< "${search}"
+  # shellcheck disable=SC2154
+  ${EDITOR} "${file_path}" +"${line_number}"
+}
+
 # yazi
 f() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"

@@ -411,6 +411,6 @@ nvim-trust() {
   [[ -f ${f} ]] || return 1
   # shellcheck disable=SC2154
   target=${XDG_STATE_HOME}/nvim/trust
-  sed -i "\+${f}+d" "${target}"
+  [[ -f ${target} ]] && sed -i "\+${f}+d" "${target}"
   sha256sum "${f}" | xargs >> "${target}"
 }

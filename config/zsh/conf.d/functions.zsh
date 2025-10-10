@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------- FUNCTIONS
 # print function with syntax highlighting
 func() {
-  which "$1" | bat --plain --language zsh
+  whence -f "$1" | bat --plain --language zsh
 }
 
 # edit function in editor

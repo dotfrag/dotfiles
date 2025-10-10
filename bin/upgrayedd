@@ -1,0 +1,286 @@
+#!/bin/bash
+#
+# Keep your system in tip-top shape.
+# A simple bash implementation of topgrade (https://github.com/topgrade-rs/topgrade).
+
+mkdir -p /tmp/upgrayedd
+exec &> >(tee "/tmp/upgrayedd/$(date +%s).log")
+
+RED=$(tput setaf 1)
+YELLOW=$(tput setaf 3)
+NORMAL=$(tput sgr0)
+
+log_line() {
+  printf "\n── %s - %s\n" "$(date +%T)" "$1"
+}
+
+log_error() {
+  echo -e "\n${RED}${1}${NORMAL}"
+  # exit
+}
+
+has() {
+  command -v "$1" > /dev/null
+}
+
+run() {
+  local cmd=$*
+  if ! ${cmd}; then
+    log_error "Command '${cmd}' failed."
+    echo
+    while true; do
+      echo -n "${YELLOW}Try again? (y)es/(n)o/(s)hell/(q)uit${NORMAL} "
+      read -n1 -r opt
+      echo
+      case ${opt} in
+        [Yy]*)
+          echo
+          run ${cmd}
+          break
+          ;;
+        [Nn]*)
+          break
+          ;;
+        [Ss]*)
+          "${SHELL}"
+          run ${cmd}
+          break
+          ;;
+        [Qq]*)
+          exit
+          ;;
+      esac
+    done
+  fi
+}
+
+_sudo() {
+  sudo -v || exit
+}
+
+_yay() {
+  if has yay; then
+    _sudo
+    log_line "System update"
+    run yay -Pw
+    run yay --pacman pacman -Syu
+  fi
+}
+
+_nala() {
+  if has nala; then
+    _sudo
+    log_line "System update"
+    run nala upgrade -y
+  fi
+}
+
+_snap() {
+  if has snap; then
+    log_line "Snap packages"
+    run snap refresh
+  fi
+}
+
+_pacdiff() {
+  log_line "pacdiff"
+  MERGEPROG="git merge-file -p --diff3" pacdiff -s -b
+}
+
+_autocpufreq() {
+  if has auto-cpufreq; then
+    log_line "auto-cpufreq"
+    run auto-cpufreq --update
+  fi
+}
+
+_bun() {
+  # TODO
+  # No global packages installed
+  # depends on how bun was installed
+  # if has bun; then
+  #   bun upgrade
+  # fi
+  :
+}
+
+_npm() {
+  if has npm; then
+    log_line "Npm packages"
+    run npm update --global
+  fi
+}
+
+_pnpm() {
+  if has pnpm; then
+    log_line "Pnpm"
+    # shellcheck disable=SC2154
+    if [[ $(command -v pnpm) == "${XDG_DATA_HOME}/pnpm"* ]]; then
+      run pnpm self-update
+    fi
+    run pnpm update --global
+  fi
+}
+
+_tldr() {
+  if has tldr; then
+    log_line "TLDR"
+    run tldr --update
+  fi
+}
+
+_rustup() {
+  if has rustup; then
+    log_line "Rustup"
+    run rustup update
+  fi
+}
+
+_cargo() {
+  if has cargo && has cargo-install-update; then
+    log_line "Cargo"
+    run cargo-install-update install-update --git --all
+  fi
+}
+
+_gup() {
+  if has go && has gup; then
+    log_line "Go"
+    run gup update
+  fi
+}
+
+_code() {
+  if has code; then
+    log_line "Visual Studio Code extensions"
+    run code --update-extensions
+  fi
+}
+
+_docker() {
+  if has docker && docker info &> /dev/null; then
+    log_line "Docker images"
+    run docker image ls --format json \
+      | jq -r 'select(.Tag == "latest") .Repository' \
+      | xargs -r -I{} docker pull {}:latest --platform linux/amd64
+  fi
+}
+
+_gh() {
+  if has gh; then
+    log_line "GitHub extensions"
+    run gh extension upgrade --all
+  fi
+}
+
+_bob() {
+  if has bob; then
+    log_line "Bob"
+    run bob update --all
+  fi
+}
+
+_yazi() {
+  if has yazi && has ya; then
+    log_line "Yazi packages"
+    run ya pkg upgrade
+  fi
+}
+
+_zsh() {
+  local funcs=(
+    fix-desktop-files
+    update-dots
+    update-projects
+    update-grml-zshrc
+    update-binaries
+  )
+  for i in "${funcs[@]}"; do
+    log_line "zsh: ${i}"
+    zsh -ic "if whence ${i} >/dev/null; then ${i}; else echo 'Function ${i} does not exist.'; fi"
+  done
+}
+
+_repos() {
+  log_line "Repositories"
+  local repos=(
+    "${HOME}/.config/nvim"
+    "${HOME}/.local/share/fzf"
+    "${HOME}/.local/share/tmux/plugins"
+    "${HOME}/.local/share/vim/pack/plugins/start"
+    "${HOME}/.local/share/zsh/plugins"
+    "${HOME}/.Repos"
+    "${HOME}/projects"
+    "${HOME}/repos"
+  )
+  for repo in "${repos[@]}"; do
+    if ! [[ -d ${repo} ]]; then
+      continue
+    fi
+    if git -C "${repo}" rev-parse --is-inside-work-tree &> /dev/null; then
+      run git -C "${repo}" pull &
+    else
+      # shellcheck disable=SC1083
+      run fd -uL -d2 -td '^\.git$' "${repo}" -x git -C {//} pull
+    fi
+  done
+  wait
+}
+
+if [[ -n $1 ]]; then
+  while (($# > 0)); do
+    case "$1" in
+      # AUTOSORT: START
+      bob) _bob ;;
+      bun) _bun ;;
+      cargo) _cargo ;;
+      code) _code ;;
+      docker) _docker ;;
+      gh) _gh ;;
+      gup) _gup ;;
+      nala) nala ;;
+      npm) _npm ;;
+      pnpm) _pnpm ;;
+      repos) _repos ;;
+      rustup) _rustup ;;
+      snap) _snap ;;
+      system | yay) _yay ;;
+      tldr) _tldr ;;
+      uv) _uv ;;
+      yazi) _yazi ;;
+      zsh) _zsh ;;
+      # AUTOSORT: END
+      *)
+        echo "Unknown command."
+        exit 1
+        ;;
+    esac
+    shift
+  done
+  exit
+fi
+
+main() {
+  _yay
+  _nala
+  _snap
+  _repos
+  _bun
+  _tldr
+  _rustup
+  _cargo
+  _gup
+  _code
+  _npm
+  _pnpm
+  _docker
+  _gh
+  _bob
+  _uv
+  _yazi
+  _zsh
+  _pacdiff
+  echo
+}
+
+main

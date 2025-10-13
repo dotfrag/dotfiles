@@ -20,7 +20,7 @@ export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} \
 
 # extend colors
 export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} \
---color=selected-fg:#b8c0e0,gutter:-1"
+--color=selected-fg:#b8c0e0"
 
 export FZF_DEFAULT_COMMAND="fd --type file --hidden --follow"
 export FZF_ALT_C_COMMAND="fd --type directory --hidden --follow"
@@ -33,7 +33,7 @@ current:#cad3f5,current_bg:#494d64,current_match:#24273a,\
 current_match_bg:#f4dbd6,spinner:#a6da95,info:#c6a0f6,prompt:#8aadf4,\
 cursor:#ed8796,selected:#ee99a0,header:#8bd5ca,border:#6e738d"
 
-# fe[b|d] [FUZZY PATTERN] - Open the selected file with the default editor
+# fe[p|b|d] [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
 #   - [p] persistent fzf
@@ -56,11 +56,10 @@ fed() {
   # shellcheck disable=SC2016
   local bind='one:become($EDITOR {+}),enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
   if [[ -n $1 ]]; then
-    rg "$1" "${XDG_DATA_HOME:-${HOME}/.local/share}/dots" \
-      | fzf --multi --bind "${bind}"
-    return
+    rg "$1" "${dots}" | fzf --multi --bind "${bind}"
+  else
+    fzf --multi --bind "${bind}" < "${dots}"
   fi
-  fzf --multi --bind "${bind}" < "${dots}"
 }
 
 # fuzzy ripgrep open at line number

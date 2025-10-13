@@ -428,3 +428,13 @@ nvim-trust() {
   [[ -f ${target} ]] && sed -i "\+${f}+d" "${target}"
   sha256sum "${f}" | xargs >> "${target}"
 }
+
+# fix all shellcheckrc files/links using `dotfiles/config/shellcheckrc` as main
+fix-shellcheckrc-links() {
+  cd "${HOME}" || exit
+  all=$(fd -u -d4 -tf shellcheckrc -X realpath)
+  main=$(rg '/shellcheckrc' <<< "${all}")
+  for i in $(rg -v '/shellcheckrc' <<< "${all}"); do
+    ln -vf "${main}" "${i}"
+  done | column -t
+}

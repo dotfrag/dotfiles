@@ -180,6 +180,11 @@ _bob() {
   fi
 }
 
+_uv() {
+  # TODO
+  :
+}
+
 _yazi() {
   if has yazi && has ya; then
     log_line "Yazi packages"

@@ -84,7 +84,7 @@ gpall() {
 # git gc all repos
 gitgc() {
   # shellcheck disable=SC1083
-  fd -td '^.git$' -IHL -E '.cache' -E '.cargo' -E '.local' -E 'node_modules' \
+  fd -td '^.git$' -IHL --strip-cwd-prefix -E '.cache' -E '.cargo' -E '.local' -E 'node_modules' \
     -x echo {//} | sort -u | while read -r line; do
     if git -C "${line}" rev-parse --is-inside-work-tree &> /dev/null; then
       print -P "%F{yellow}${line}%f"

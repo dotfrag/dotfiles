@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if ! command -v brightnessctl &> /dev/null; then
+  echo "brightnessctl could not be found"
+  notify-send "brightnessctl could not be found"
+  exit 1
+fi
+
+case "$1" in
+  up) brightnessctl set 10%+ ;;
+  down) brightnessctl set 10%- ;;
+esac
+
+value=$(brightnessctl info | grep -oP "\d+%")
+command -v canberra-gtk-play > /dev/null && canberra-gtk-play -i audio-volume-change
+command -v notify-send > /dev/null && notify-send -h string:x-canonical-private-synchronous:brightness "Brightness: ${value}" -h int:value:"${value}" -t 1500

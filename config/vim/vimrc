@@ -215,7 +215,7 @@ nmap <leader>, :Buffers<cr>
 nmap <leader>sf :Files<cr>
 nmap <leader>sg :RG<cr>
 nmap <leader>sh :Helptags<cr>
-nmap <leader>/ :Lines<cr>
+nmap <leader>/ :BLines<cr>
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)

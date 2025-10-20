@@ -19,6 +19,13 @@ edfunc() {
   ${EDITOR} "${file_path}" +"${line_number}"
 }
 
+# autocomplete zsh functions
+_funcs() {
+	# compadd -- $(functions -) # executes functions command and completes its output
+	compadd -k functions # uses keys of the builtin functions associative array
+}
+compdef _funcs func edfunc
+
 # yazi
 f() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"

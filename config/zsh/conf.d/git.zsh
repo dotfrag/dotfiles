@@ -119,7 +119,7 @@ gppe() {
     pid=$(swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | select(.focused==true) | .pid')
     swaymsg "[pid=${pid}]" move scratchpad
   fi
-  if gpp; then
+  if ! gpp; then
     exit
   else
     swaymsg "[pid=${pid}]" scratchpad show

@@ -120,10 +120,10 @@ gppe() {
     swaymsg "[pid=${pid}]" move scratchpad
   fi
   if ! gpp; then
-    exit
-  else
     swaymsg "[pid=${pid}]" scratchpad show
+    return
   fi
+  exit
 }
 
 # find branches that have modified a file

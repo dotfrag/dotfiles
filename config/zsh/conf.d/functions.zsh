@@ -1,6 +1,7 @@
 # -------------------------------------------------------------------- FUNCTIONS
 # print function with syntax highlighting
 func() {
+  whence -v "$1" | awk '{print $NF}'
   whence -f "$1" | bat --plain --language zsh
 }
 
@@ -149,6 +150,21 @@ update-dots() {
   git -C "${HOME}/repos/dotfiles" ls-files | rg -v 'ttf$' | while read -r line; do realpath "${HOME}/repos/dotfiles/${line}"; done > "${dots}"
   git -C "${HOME}/repos/dotfiles-private" ls-files | while read -r line; do realpath "${HOME}/repos/dotfiles-private/${line}"; done >> "${dots}"
   sort -o "${dots}" -u "${dots}"
+}
+
+# update projects list
+update-projects() {
+  local projects=${XDG_DATA_HOME:-${HOME}/.local/share}/projects
+  command rm -f "${projects}"
+	realpath ~/repos/* ~/repos/src/* ~/projects/* | while read -r line; do
+    [[ -d ${line} ]] && echo "${line}" >> "${projects}"
+  done
+  printf '%s\n' "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"* >> "${projects}"
+  # for d in ~/.local/share/nvim*; do
+  #   if [[ -d "${d}/project_nvim" ]]; then
+  #     command ln -f "${projects}" "${d}/project_nvim/project_history"
+  #   fi
+  # done
 }
 
 # update grml zsh config files

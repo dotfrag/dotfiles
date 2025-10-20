@@ -117,10 +117,10 @@ gppe() {
   if [[ ${XDG_SESSION_DESKTOP} == "sway" ]]; then
     local pid
     pid=$(swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | select(.focused==true) | .pid')
-    swaymsg "[pid=${pid}]" move scratchpad
+    [[ -n ${pid} ]] && swaymsg "[pid=${pid}]" move scratchpad
   fi
   if ! gpp; then
-    swaymsg "[pid=${pid}]" scratchpad show
+    [[ ${XDG_SESSION_DESKTOP} == "sway" ]] && [[ -n ${pid} ]] && swaymsg "[pid=${pid}]" scratchpad show
     return
   fi
   exit

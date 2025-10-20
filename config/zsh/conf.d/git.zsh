@@ -113,7 +113,17 @@ gpp() {
   git push
 }
 gppe() {
-  gpp && exit
+  # shellcheck disable=SC2154
+  if [[ ${XDG_SESSION_DESKTOP} == "sway" ]]; then
+    local pid
+    pid=$(swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | select(.focused==true) | .pid')
+    swaymsg "[pid=${pid}]" move scratchpad
+  fi
+  if gpp; then
+    exit
+  else
+    swaymsg "[pid=${pid}]" scratchpad show
+  fi
 }
 
 # find branches that have modified a file

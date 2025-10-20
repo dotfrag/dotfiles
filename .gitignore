@@ -9,7 +9,6 @@ config/lazygit/*
 !config/lazygit/config.yml
 
 config/mpv/fonts
-config/mpv/script-opts/uosc.conf
 config/mpv/scripts/uosc
 
 config/zsh/.cache

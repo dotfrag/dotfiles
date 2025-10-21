@@ -27,7 +27,7 @@ println() {
 }
 
 git_clone() {
-  git -C "$1" pull 2> /dev/null || git clone --filter=blob:none "$2" "$1"
+  git clone --filter=blob:none "$2" "$1" 2> /dev/null || git -C "$1" pull
 }
 
 setup_zsh() {

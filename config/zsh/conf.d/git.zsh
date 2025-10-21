@@ -113,14 +113,16 @@ gpp() {
   git push
 }
 gppe() {
+  local wm_msg
   # shellcheck disable=SC2154
   if [[ ${XDG_SESSION_DESKTOP} == "sway" ]]; then
-    local pid
-    pid=$(swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | select(.focused==true) | .pid')
-    [[ -n ${pid} ]] && swaymsg "[pid=${pid}]" move scratchpad
+    wm_msg=swaymsg
+  elif [[ ${XDG_SESSION_DESKTOP} == "i3" ]]; then
+    wm_msg=i3-msg
   fi
+  [[ -n ${wm_msg} ]] && ${wm_msg} '[con_id=__focused__]' move scratchpad
   if ! gpp; then
-    [[ ${XDG_SESSION_DESKTOP} == "sway" ]] && [[ -n ${pid} ]] && swaymsg "[pid=${pid}]" scratchpad show
+    [[ -n ${wm_msg} ]] && ${wm_msg} '[con_id=__focused__]' scratchpad show
     return
   fi
   exit

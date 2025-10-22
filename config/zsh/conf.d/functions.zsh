@@ -20,11 +20,12 @@ edfunc() {
 }
 
 # autocomplete zsh functions
-_funcs() {
-	# compadd -- $(functions -) # executes functions command and completes its output
-	compadd -k functions # uses keys of the builtin functions associative array
-}
-compdef _funcs func edfunc
+# custom complete function is not needed since zsh comes with a builtin
+# _funcs() {
+#   # compadd -- $(functions -) # executes functions command and completes its output
+#   compadd -k functions # uses keys of the builtin functions associative array
+# }
+compdef _functions func edfunc
 
 # yazi
 f() {
@@ -163,7 +164,7 @@ update-dots() {
 update-projects() {
   local projects=${XDG_DATA_HOME:-${HOME}/.local/share}/projects
   command rm -f "${projects}"
-	realpath ~/repos/* ~/repos/src/* ~/projects/* | while read -r line; do
+  realpath ~/repos/* ~/repos/src/* ~/projects/* | while read -r line; do
     [[ -d ${line} ]] && echo "${line}" >> "${projects}"
   done
   printf '%s\n' "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"* >> "${projects}"

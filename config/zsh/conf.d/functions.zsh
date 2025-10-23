@@ -7,7 +7,7 @@ func() {
 
 # edit function in editor
 edfunc() {
-  local search file_path line_number
+  local file_path line_number pat search
   search="$(
     rg -g '*.zsh' "^$1\(\)" \
       ~/repos/dotfiles{,-private} \
@@ -15,8 +15,13 @@ edfunc() {
       | cut -d':' -f1-2
   )"
   IFS=':' read -r file_path line_number <<< "${search}"
+  pat='n?vim'
   # shellcheck disable=SC2154
-  ${EDITOR} "${file_path}" +"${line_number}"
+  if [[ ${EDITOR} =~ ${pat} ]]; then
+    ${EDITOR} "${file_path}" +"${line_number}|norm 0zt"
+  else
+    ${EDITOR} "${file_path}"
+  fi
 }
 
 # autocomplete zsh functions

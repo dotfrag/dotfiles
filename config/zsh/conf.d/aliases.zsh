@@ -46,7 +46,7 @@ alias lsx='ls -l *(*)'    # executables
 
 alias h='help'
 alias j='just'
-alias p='pnpm'
+# alias p='pnpm'
 alias px='pnpx'
 alias rr='restart'
 alias tx='tmux new -As0'

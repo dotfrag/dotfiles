@@ -467,3 +467,14 @@ fix-shellcheckrc-links() {
     ln -vf "${main}" "${i}"
   done | column -t
 }
+
+# pnpm select command from package.json
+p() {
+  if (($# == 0)); then
+    local commands
+    commands=$(jq -r '.scripts | to_entries[] | "\(.key)\t\(.value)"' package.json)
+    fzf --with-nth=1 --delimiter='\t' --preview 'echo {2}' --preview-window=down:1:wrap --bind 'enter:become(pnpm run {1})' <<< "${commands}"
+  else
+    pnpm "$@"
+  fi
+}

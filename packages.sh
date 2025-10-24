@@ -93,6 +93,7 @@ packages_pacman_desktop=(
   qpdf
   rofi
   rofimoji
+  rustup
   seahorse
   sshfs
   sway
@@ -181,8 +182,29 @@ detect_distro() {
   fi
 }
 
+select_environment() {
+  title="Select environment"
+  prompt="Pick an option:"
+  options=("base" "desktop" "server" "quit")
+
+  echo "${title}"
+  PS3="${prompt} "
+  # shellcheck disable=SC2034
+  select opt in "${options[@]}"; do
+    # echo "${REPLY}: ${opt}"
+    case ${REPLY} in
+      1) environment=base && break ;;
+      2) environment=desktop && break ;;
+      3) environment=server && break ;;
+      4) exit ;;
+      *) exit ;;
+    esac
+  done
+}
+
 setup_packages() {
   if [[ ${DISTRO} == "Arch Linux" ]]; then
+    select_environment
     local packages_pacman=("${packages_pacman_base[@]}")
     local packages_aur=("${packages_aur_base[@]}")
     if [[ ${environment} == desktop ]]; then
@@ -195,12 +217,11 @@ setup_packages() {
     sudo pacman -Syu
     sudo pacman -S --needed "${packages_pacman[@]}"
     if ! command -v yay &> /dev/null; then
-      sudo pacman -S --needed git base-devel
       git clone --depth 1 https://aur.archlinux.org/yay-bin.git /tmp/yay-bin \
         && cd /tmp/yay-bin \
         && makepkg -si
     fi
-    yay -S --needed "${packages_aur[@]}"
+    yay -Sy --needed "${packages_aur[@]}"
   elif [[ ${DISTRO} == "Fedora Linux" ]]; then
     sudo dnf check-update
     sudo dnf install -y "${packages_dnf[@]}"
@@ -215,23 +236,5 @@ main() {
   detect_distro
   setup_packages
 }
-
-title="Select environment"
-prompt="Pick an option:"
-options=("base" "desktop" "server" "quit")
-
-echo "${title}"
-PS3="${prompt} "
-# shellcheck disable=SC2034
-select opt in "${options[@]}"; do
-  # echo "${REPLY}: ${opt}"
-  case ${REPLY} in
-    1) environment=base && break ;;
-    2) environment=desktop && break ;;
-    3) environment=server && break ;;
-    4) exit ;;
-    *) exit ;;
-  esac
-done
 
 sudo -v && main

@@ -24,14 +24,6 @@ edfunc() {
   fi
 }
 
-# autocomplete zsh functions
-# custom complete function is not needed since zsh comes with a builtin
-# _funcs() {
-#   # compadd -- $(functions -) # executes functions command and completes its output
-#   compadd -k functions # uses keys of the builtin functions associative array
-# }
-compdef _functions func edfunc
-
 # yazi
 f() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"

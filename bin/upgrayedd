@@ -247,7 +247,7 @@ if [[ -n $1 ]]; then
       npm) _npm ;;
       pnpm) _pnpm ;;
       repos) _repos ;;
-      rustup) _rustup ;;
+      rust | rustup) _rustup ;;
       snap) _snap ;;
       system | yay) _yay ;;
       tldr) _tldr ;;

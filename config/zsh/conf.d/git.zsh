@@ -1,6 +1,7 @@
 # -------------------------------------------------------------------------- GIT
 xsource /usr/share/doc/git-extras/git-extras-completion.zsh
 
+# alias grv="git remote -v | awk '{print \$2}' | sort -u"
 alias ga='git add'
 alias gauth='git shortlog --summary --numbered --email'
 alias gc-='git checkout -'
@@ -20,7 +21,7 @@ alias gfp='git ls-files --full-name'
 alias glg='git log --oneline -5'
 alias gpr='git pull --rebase'
 alias gr='cd $(git rev-parse --show-toplevel || echo .)'
-alias grv="git remote -v | awk '{print \$2}' | sort -u"
+alias grv="git remote get-url origin"
 alias gs='git status'
 alias gsp='git stash pop'
 alias gss='git status -s'
@@ -218,7 +219,7 @@ get-latest-tag() {
 
 # sync github fork
 sync-fork() {
-  if ! git config remote.upstream.url > /dev/null; then
+  if ! git remote get-url upstream &> /dev/null; then
     echo "No upstream remote found. Add a remote upstream with:"
     echo "git remote add upstream https://github.com/ORIGINAL-OWNER/ORIGINAL-REPOSITORY.git"
     return

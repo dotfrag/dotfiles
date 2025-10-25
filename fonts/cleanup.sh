@@ -6,7 +6,7 @@ fi
 
 cd "${git_root}" || exit
 
-remote=$(git remote -v | awk '{print $2}' | sort -u)
+remote=$(git remote get-url origin)
 echo "Current remote: ${remote}"
 echo
 

@@ -1,12 +1,20 @@
 # -------------------------------------------------------------------- FUNCTIONS
 # print function with syntax highlighting
 func() {
+  if [[ ! -v functions[$1] ]]; then
+    echo "Function $1 not found."
+    return 1
+  fi
   whence -v "$1" | awk '{print $NF}'
   whence -f "$1" | bat --plain --language zsh
 }
 
 # edit function in editor
 edfunc() {
+  if [[ ! -v functions[$1] ]]; then
+    echo "Function $1 not found."
+    return 1
+  fi
   local file_path line_number pat search
   search="$(
     rg -g '*.zsh' "^$1\(\)" \

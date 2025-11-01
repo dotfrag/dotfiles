@@ -186,7 +186,7 @@ detect_distro() {
 select_environment() {
   title="Select environment"
   prompt="Pick an option:"
-  options=("base" "desktop" "server" "quit")
+  options=("base" "desktop/laptop" "server" "quit")
 
   echo "${title}"
   PS3="${prompt} "

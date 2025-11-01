@@ -75,6 +75,7 @@ packages_pacman_desktop=(
   github-cli
   gnome-keyring
   go
+  hyperfine
   imv
   inter-font
   kitty

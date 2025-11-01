@@ -18,6 +18,8 @@ alias nvim-repro='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-repro nvim'
 alias vm='nvim-main'
 alias vn='nvim-nightly'
 
+alias pqs='pacman -Q | sk'
+alias pqqs='pacman -Qq | sk'
 # alias agi='sudo nala install'
 # alias aug='sudo nala update && sudo nala upgrade'
 # alias di='sudo dnf install'

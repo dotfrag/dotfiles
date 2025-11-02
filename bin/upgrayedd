@@ -132,6 +132,10 @@ _tldr() {
 _rustup() {
   if has rustup; then
     log_line "Rustup"
+    local list
+    list=$(rustup toolchain list)
+    grep -q stable <<< "${list}" || rustup toolchain install stable
+    grep -q nightly <<< "${list}" || rustup toolchain install nightly
     run rustup update
   fi
 }

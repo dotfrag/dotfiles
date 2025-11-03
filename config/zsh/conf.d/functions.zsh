@@ -283,8 +283,11 @@ vs() {
 
 # shfmt format all files
 shellfmt() {
-  if [[ -n $1 ]]; then
-    shfmt --write "$1"
+  if [[ -n $@ ]]; then
+    while (($# > 0)); do
+      shfmt --write "$1"
+      shift
+    done
   else
     rg -l '^#!/bin/bash' | xargs -P "$(nproc)" shfmt --write
   fi
@@ -292,8 +295,11 @@ shellfmt() {
 
 # shellcheck fix all fixable issues
 shellfix() {
-  if [[ -n $1 ]]; then
-    shellcheck -f diff "$1" | git apply --allow-empty
+  if [[ -n $@ ]]; then
+    while (($# > 0)); do
+      shellcheck -f diff "$1" | git apply --allow-empty
+      shift
+    done
   else
     rg -l '^#!/bin/bash' | xargs -P "$(nproc)" -I{} zsh -c 'shellcheck -f diff {} | git apply --allow-empty -q'
   fi

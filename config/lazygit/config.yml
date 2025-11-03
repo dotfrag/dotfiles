@@ -1,10 +1,9 @@
 git:
-  paging:
-    colorArg: always
-    pager: delta --paging=never --line-numbers-left-format='{nm}⫶' --line-numbers-right-format='{np}|' --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+  pagers:
+    - colorArg: always
+      pager: delta --paging=never --line-numbers-left-format='{nm}⫶' --line-numbers-right-format='{np}|' --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
   log:
     showGraph: when-maximised
-
 gui:
   commitHashLength: 4
   expandFocusedSidePanel: true
@@ -37,16 +36,13 @@ gui:
       - "#c53b53"
     defaultFgColor:
       - "#c8d3f5"
-
 keybinding:
   universal:
     openFile: <disabled>
     # nextScreenMode: "="
     # prevScreenMode: "-"
-
 notARepository: "skip"
 promptToReturnFromSubprocess: false
-
 customCommands:
   - key: "D"
     context: "localBranches"

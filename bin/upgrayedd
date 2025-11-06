@@ -246,7 +246,7 @@ if [[ -n $1 ]]; then
       code) _code ;;
       docker) _docker ;;
       gh) _gh ;;
-      gup) _gup ;;
+      go | gup) _gup ;;
       nala) nala ;;
       npm) _npm ;;
       pnpm) _pnpm ;;

@@ -401,7 +401,7 @@ wls() {
   watch -n "${1:-2}" -c eza --color=always -la --group-directories-first
 }
 wlsm() {
-  watch -n "${1:-2}" -c eza --color=always -la --group-directories-first --sort modified
+  watch -n "${1:-2}" -c "eza --color=always -la --group-directories-first --sort modified | tail -n $(($LINES - 2))"
 }
 
 # adb download and run

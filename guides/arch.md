@@ -8,6 +8,7 @@ Reference of one-off stuff that I will forget.
 - [Hosts file](#hosts-file)
 - [Mounting NTFS with udisks](#mounting-ntfs-with-udisks)
 - [Package cache](#package-cache)
+- [Disable installation of debug packages](#disable-installation-of-debug-packages)
 - [Pacman Parallel Downloads](#pacman-parallel-downloads)
 - [Reflector](#reflector)
 - [Sudoers](#sudoers)
@@ -138,6 +139,20 @@ sudo systemctl enable --now paccache.timer
 ```
 
 <https://wiki.archlinux.org/title/pacman#Cleaning_the_package_cache>
+
+## Disable installation of debug packages
+
+Edit `/etc/makepkg.conf` and disable the `debug` flag in `OPTIONS`:
+
+```text
+OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug lto)
+```
+
+If you have already installed some packages, uninstall them with:
+
+```shell
+yay -Rns $(pacman -Qq | rg -- '-debug$')
+```
 
 ## Pacman Parallel Downloads
 

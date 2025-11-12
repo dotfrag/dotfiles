@@ -63,10 +63,16 @@ zle -N rationalise-dot
 bindkey . rationalise-dot
 bindkey -M isearch . self-insert # without this, typing a . aborts incremental history search
 
-# ------------------------------------------------------------------------- MISC
-eval "$(zoxide init zsh)"
-alias zedit='FZF_DEFAULT_OPTS=${FZF_DEFAULT_OPTS/--height 30%/} zoxide edit'
+# ----------------------------------------------------------------------- ZOXIDE
+if check_com -c zoxide; then
+  eval "$(zoxide init zsh)"
+  alias zedit='FZF_DEFAULT_OPTS=${FZF_DEFAULT_OPTS/--height 30%/} zoxide edit'
+fi
 
+# ----------------------------------------------------------------------- DIRENV
+check_com -c direnv && eval "$(direnv hook zsh)"
+
+# ------------------------------------------------------------------------- MISC
 # use the vi navigation keys (hjkl) besides cursor keys in menu completion
 bindkey -M menuselect 'h' vi-backward-char        # left
 bindkey -M menuselect 'k' vi-up-line-or-history   # up

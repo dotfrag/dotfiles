@@ -412,7 +412,7 @@ adb() {
     wget --quiet --show-progress -nc -O "${file_path}" "${url}"
     unzip "${file_path}" -d /tmp
   fi
-  /tmp/platform-tools/adb "$@"
+  HOME=${XDG_DATA_HOME}/android /tmp/platform-tools/adb "$@"
 }
 
 # diff two zip files

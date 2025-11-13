@@ -11,6 +11,3 @@ _upgrayedd() {
     '1:step:(bob bun cargo code docker gh gup nala npm pnpm repos rust rustup snap system yay tldr uv yazi zsh)'
 }
 compdef _upgrayedd upgrayedd
-
-
-

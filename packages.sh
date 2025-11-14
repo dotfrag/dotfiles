@@ -62,6 +62,7 @@ packages_pacman_base=(
   wget
   yazi
   yt-dlp
+  yt-dlp-ejs
   zip
   zoxide
   zsh

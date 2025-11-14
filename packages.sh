@@ -71,6 +71,7 @@ packages_pacman_base=(
 packages_pacman_desktop=(
   bitwarden
   brightnessctl
+  direnv
   gammastep
   github-cli
   gnome-keyring

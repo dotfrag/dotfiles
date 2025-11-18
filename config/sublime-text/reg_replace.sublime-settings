@@ -1,0 +1,4 @@
+{
+    // Search under selection(s) if and only if exists
+    "selection_only": true,
+}

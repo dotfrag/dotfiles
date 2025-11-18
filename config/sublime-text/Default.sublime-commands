@@ -1,0 +1,7 @@
+[
+    {
+        "caption": "Reg Replace: Remove Markdown Hyperlinks",
+        "command": "reg_replace",
+        "args": {"replacements": ["remove_markdown_hyperlinks"]}
+    },
+]

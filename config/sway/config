@@ -344,6 +344,7 @@ for_window {
 
   # float - floating enable
   [app_id="blueman-manager"] $float
+  [app_id="gucharmap"] $float
   [app_id="ibus-extension-gtk3"] $float
   [app_id="imv"] $float
   [app_id="mpv"] $float

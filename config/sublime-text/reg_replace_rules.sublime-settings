@@ -1,0 +1,11 @@
+{
+	"replacements":
+	{
+		"remove_markdown_hyperlinks":
+		{
+			"find": "\\[([^]]+)\\]\\([^)]+\\)",
+			"name": "remove_markdown_hyperlinks",
+			"replace": "\\1",
+		},
+	},
+}

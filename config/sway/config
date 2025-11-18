@@ -252,7 +252,9 @@ input {
     bindsym $mod+Ctrl+Shift+l exec kitty --class "spacekitty" zsh -ic "yazi ~/Downloads"
     bindsym $mod+Ctrl+Shift+n exec networkmanager_dmenu
     bindsym $mod+Ctrl+Shift+p exec pavucontrol
-    bindsym $mod+Shift+c      exec kitty --class "spacekitty" -o initial_window_width=480 -o initial_window_height=270 zsh -ic qalc
+    bindsym $mod+Ctrl+Shift+u exec kitty --class "spacekitty" -o close_on_child_death=y sh -c 'kitten unicode-input | wl-copy -n'
+    # bindsym $mod+Shift+c      exec kitty --class "spacekitty" -o initial_window_width=480 -o initial_window_height=270 zsh -ic qalc
+    bindsym $mod+Shift+c      exec kitty --class "spacekitty" -o initial_window_width=480 -o initial_window_height=270 qalc
     # bindsym $mod+Shift+e      exec kitty -o confirm_os_window_close=0 zsh -ic nvim
     bindsym $mod+Shift+e      exec neovide
     bindsym $mod+c move position center

@@ -353,13 +353,6 @@ pipup() {
 jqsort() {
 	jq 'to_entries|sort|from_entries' "$1" > "$1".tmp && mv -f "$1".tmp "$1"
 }
-_jqsort() {
-  # _files -g '*.json' # find json files in cwd
-  # _path_files -g '**/*.json' # find json files recursively
-  # _arguments '*:json file:_files -g "*.json"'
-  _arguments '*:json file:_path_files -g "**/*.json"'
-}
-compdef _jqsort jqsort
 
 # disable saving shell history to histfile and atuin
 # https://unix.stackexchange.com/a/692914

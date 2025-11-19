@@ -7,6 +7,12 @@ if ! command -v entr > /dev/null; then
   exit 1
 fi
 
+args=
+while [[ $1 == -* ]]; do
+  args="${args} $1"
+  shift
+done
+
 f=$1
 shift
 
@@ -15,13 +21,15 @@ handle_file() {
   # NOTE: when running a script e.g `./script arg1`,
   # you have to provide it twice: `fwatch script ./script arg1`
   if (($# > 0)); then
-    command ls "${f}" | entr -c "$@"
+    # shellcheck disable=SC2086
+    command ls "${f}" | entr -c ${args} "$@"
     return
   fi
 
   # no command has been specified, use magic
   if [[ -x ${f} ]]; then # file is executable, run it
-    command ls "${f}" | entr -c ./"${f}"
+    # shellcheck disable=SC2086
+    command ls "${f}" | entr -c ${args} ./"${f}"
   else
     case "${f}" in
       .nvim.lua) cmd="zsh -ic nvim-trust" ;;
@@ -29,7 +37,7 @@ handle_file() {
       *) cmd="bat -pp" ;; # unknown filetype, cat it
     esac
     # shellcheck disable=SC2086
-    command ls "${f}" | entr -c ${cmd} "${f}"
+    command ls "${f}" | entr -c ${args} ${cmd} "${f}"
   fi
 }
 

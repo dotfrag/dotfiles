@@ -1,4 +1,6 @@
 # ----------------------------------------------------------------------- DOCKER
+check_com -c docker || return
+
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/docker/docker.plugin.zsh
 alias dbl='docker build'
 alias din='docker container inspect'

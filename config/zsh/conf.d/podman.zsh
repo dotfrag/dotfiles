@@ -1,4 +1,6 @@
 # ----------------------------------------------------------------------- PODMAN
+check_com -c podman || return
+
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/podman/podman.plugin.zsh
 alias pbl='podman build'
 alias pcin='podman container inspect'

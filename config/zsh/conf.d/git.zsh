@@ -1,4 +1,9 @@
 # -------------------------------------------------------------------------- GIT
+if ! check_com -c git; then
+  echo >&2 "git not installed."
+  return
+fi
+
 xsource /usr/share/doc/git-extras/git-extras-completion.zsh
 
 # alias grv="git remote -v | awk '{print \$2}' | sort -u"

@@ -1,4 +1,9 @@
 # -------------------------------------------------------------------------- FZF
+if ! check_com -c fzf; then
+  echo >&2 "fzf not installed."
+  return
+fi
+
 source <(fzf --zsh)
 
 # custom opts
@@ -65,7 +70,7 @@ fed() {
 # fuzzy ripgrep open at line number
 # https://github.com/junegunn/fzf/wiki/examples#opening-files
 vg() {
-  [[ -z "$1" ]] && {
+  [[ -z $1 ]] && {
     vgi
     return
   }

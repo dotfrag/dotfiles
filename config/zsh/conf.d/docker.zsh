@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------- DOCKER
-check_com -c docker || return
+check_com -c docker || check_com -c podman || return
 
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/docker/docker.plugin.zsh
 alias dbl='docker build'

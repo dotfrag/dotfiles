@@ -92,7 +92,7 @@ xsource "${XDG_DATA_HOME}/zsh/plugins/fsh/fast-syntax-highlighting.plugin.zsh"
 
 # ----------------------------------------------------------------------- PROMPT
 prompt off
-eval "$(starship init zsh)"
+check_com -c starship && eval "$(starship init zsh)"
 
 # ---------------------------------------------------------------------- HISTORY
-command -v atuin > /dev/null && eval "$(atuin init zsh --disable-up-arrow)"
+check_com -c atuin && eval "$(atuin init zsh --disable-up-arrow)"

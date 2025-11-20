@@ -351,7 +351,7 @@ pipup() {
 
 # sort json keys using jq
 jqsort() {
-	jq 'to_entries|sort|from_entries' "$1" > "$1".tmp && mv -f "$1".tmp "$1"
+  jq 'to_entries|sort|from_entries' "$1" > "$1".tmp && mv -f "$1".tmp "$1"
 }
 
 # disable saving shell history to histfile and atuin
@@ -394,7 +394,7 @@ wls() {
   watch -n "${1:-2}" -c eza --color=always -la --group-directories-first
 }
 wlsm() {
-  watch -n "${1:-2}" -c "eza --color=always -la --group-directories-first --sort modified | tail -n $(($LINES - 2))"
+  watch -n "${1:-2}" -c "eza --color=always -la --group-directories-first --sort modified | tail -n $((LINES - 2))"
 }
 
 # adb download and run

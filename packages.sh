@@ -71,6 +71,7 @@ packages_pacman_base=(
 
 packages_pacman_desktop=(
   bitwarden
+  bob
   brightnessctl
   direnv
   gammastep

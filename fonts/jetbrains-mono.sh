@@ -5,7 +5,7 @@ if [[ -f /etc/arch-release ]]; then
   exit
 fi
 
-LATEST_VERSION=$(curl -sLH 'Accept: application/json' 'https://api.github.com/repos/JetBrains/JetBrainsMono/releases/latest' | grep -Po '"tag_name": "\Kv[^"]*')
+LATEST_VERSION=$(curl -sLH 'Accept: application/json' 'https://api.github.com/repos/JetBrains/JetBrainsMono/releases/latest' | jq -r '.tag_name')
 FILENAME=JetBrainsMono-${LATEST_VERSION/v/}.zip
 TARGET_DIR="${HOME}/.local/share/fonts/JetBrainsMono"
 

@@ -5,7 +5,7 @@ if [[ -f /etc/arch-release ]]; then
   exit
 fi
 
-LATEST_VERSION=$(curl -sLH 'Accept: application/json' 'https://api.github.com/repos/vercel/geist-font/releases/latest' | grep -Po '"tag_name": "\K[^"]*')
+LATEST_VERSION=$(curl -sLH 'Accept: application/json' 'https://api.github.com/repos/vercel/geist-font/releases/latest' | jq -r '.tag_name')
 FILENAME=geist-font-${LATEST_VERSION}.zip
 TARGET_DIR="${HOME}/.local/share/fonts/Geist"
 

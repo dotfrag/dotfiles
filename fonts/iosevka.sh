@@ -5,7 +5,7 @@ if [[ -f /etc/arch-release ]]; then
   exit
 fi
 
-LATEST_VERSION=$(curl -sLH 'Accept: application/json' 'https://api.github.com/repos/be5invis/Iosevka/releases/latest' | grep -Po '"tag_name": "\Kv[^"]*')
+LATEST_VERSION=$(curl -sLH 'Accept: application/json' 'https://api.github.com/repos/be5invis/Iosevka/releases/latest' | jq -r '.tag_name')
 FILENAME=SuperTTC-IosevkaSS08-${LATEST_VERSION/v/}.zip
 TARGET_DIR="${HOME}/.local/share/fonts"
 

@@ -214,7 +214,7 @@ gallst() {
 # get latest version of github release
 # or use `jq -r '.tag_name'`
 get-latest-version() {
-  curl -sLH "Accept: application/json" "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\Kv[^"]*'
+  curl -sLH "Accept: application/json" "https://api.github.com/repos/$1/releases/latest" | jq -r '.tag_name' # grep -Po '"tag_name": "\Kv[^"]*'
 }
 
 # get latest tag

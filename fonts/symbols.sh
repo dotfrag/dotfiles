@@ -5,7 +5,7 @@ if [[ -f /etc/arch-release ]]; then
   exit
 fi
 
-LATEST_VERSION=$(curl -sLH "Accept: application/json" "https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest" | grep -Po '"tag_name": "\Kv[^"]*')
+LATEST_VERSION=$(curl -sLH "Accept: application/json" "https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest" | jq -r '.tag_name')
 FILENAME="NerdFontsSymbolsOnly.zip"
 
 mkdir -p "${HOME}/.local/share/fonts"

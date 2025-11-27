@@ -27,7 +27,7 @@ init() {
 }
 
 get_latest_version() {
-  LATEST_VERSION=$(curl -sLH 'Accept: application/json' 'https://api.github.com/repos/be5invis/Iosevka/releases/latest' | grep -Po '"tag_name": "\Kv[^"]*')
+  LATEST_VERSION=$(curl -sLH 'Accept: application/json' 'https://api.github.com/repos/be5invis/Iosevka/releases/latest' | jq -r '.tag_name')
   LATEST_VERSION_URL="https://github.com/be5invis/Iosevka/releases/download/${LATEST_VERSION}/PkgTTF-IosevkaSS08-${LATEST_VERSION/v/}.zip"
   if grep -qs "${LATEST_VERSION}" "${SCRIPT_DIR}/version.txt"; then
     echo "Already on the latest version. No need to update."

@@ -5,7 +5,7 @@ if [[ -f /etc/arch-release ]]; then
   exit
 fi
 
-LATEST_VERSION=$(curl -sLH 'Accept: application/json' 'https://api.github.com/repos/rsms/inter/releases/latest' | grep -Po '"tag_name": "\Kv[^"]*')
+LATEST_VERSION=$(curl -sLH 'Accept: application/json' 'https://api.github.com/repos/rsms/inter/releases/latest' | jq -r '.tag_name')
 FILENAME=Inter-${LATEST_VERSION/v/}.zip
 TARGET_DIR="${HOME}/.local/share/fonts/Inter"
 

@@ -84,7 +84,7 @@ _snap() {
 
 _pacdiff() {
   log_line "pacdiff"
-  MERGEPROG="git merge-file -p --diff3" pacdiff -s -b
+  EDITOR=vim MERGEPROG="git merge-file -p --diff3" pacdiff -s -b
 }
 
 _autocpufreq() {

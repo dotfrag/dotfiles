@@ -64,7 +64,7 @@ alias glow='glow -p'
 alias insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" -o "PreferredAuthentications=keyboard-interactive"'
 alias killsigs="kill -l | tr ' ' '\n' | nl"
 alias mdcat='mdcat -p'
-alias pacdiff='MERGEPROG="git merge-file -p --diff3" pacdiff -s -b'
+alias pacdiff='EDITOR=vim MERGEPROG="git merge-file -p --diff3" pacdiff -s -b'
 alias print-aliases='print -rl -- ${(k)aliases}'
 alias print-functions='print -rl -- ${(k)functions}'
 alias ran='ranger --choosedir=/tmp/.rangerdir; LASTDIR=$(cat /tmp/.rangerdir); cd "$LASTDIR"'

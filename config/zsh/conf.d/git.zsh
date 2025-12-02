@@ -66,6 +66,15 @@ gco() {
 }
 compdef _git gco=git-checkout
 
+# git checkout or create
+gcoc() {
+  if git show-ref --quiet "refs/heads/${1}"; then
+    git switch "${1}"
+  else
+    git switch -c "${1}"
+  fi
+}
+
 # check if main exists and use instead of master
 git_main_branch() {
   command git rev-parse --git-dir &> /dev/null || return

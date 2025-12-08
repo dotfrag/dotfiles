@@ -6,6 +6,7 @@
 # Symlink /usr/share/fontconfig/conf.avail/10-nerd-font-symbols.conf to
 # /etc/fonts/conf.d/, or see `man 5 fonts-conf` for other options.
 
+# AUTOSORT: START
 packages_pacman_base=(
   7zip
   aria2
@@ -68,7 +69,9 @@ packages_pacman_base=(
   zsh
   zstd
 )
+# AUTOSORT: END
 
+# AUTOSORT: START
 packages_pacman_desktop=(
   bitwarden
   bob
@@ -78,6 +81,7 @@ packages_pacman_desktop=(
   github-cli
   gnome-keyring
   go
+  hurl
   hyperfine
   imv
   inter-font
@@ -120,18 +124,24 @@ packages_pacman_desktop=(
   zathura
   zathura-pdf-mupdf
 )
+# AUTOSORT: END
 
+# AUTOSORT: START
 packages_pacman_server=(
   sysstat
 )
+# AUTOSORT: END
 
+# AUTOSORT: START
 packages_aur_base=(
   czkawka-cli-bin
   lazydocker-bin
   topgrade-bin
   viddy-bin
 )
+# AUTOSORT: END
 
+# AUTOSORT: START
 packages_aur_desktop=(
   bun-bin
   catppuccin-cursors-macchiato
@@ -145,9 +155,11 @@ packages_aur_desktop=(
   ttf-merriweather
   visual-studio-code-bin
 )
+# AUTOSORT: END
 
 packages_aur_server=()
 
+# AUTOSORT: START
 packages_dnf=(
   cargo
   exa
@@ -161,13 +173,16 @@ packages_dnf=(
   zoxide
   zsh
 )
+# AUTOSORT: END
 
+# AUTOSORT: START
 packages_apt=(
   # ranger
   tmux
   tree
   zsh
 )
+# AUTOSORT: END
 
 detect_distro() {
   if [[ -f /etc/os-release ]]; then

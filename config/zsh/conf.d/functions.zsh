@@ -368,12 +368,18 @@ incognito() {
 
 # repeat command, similar to watch, but often more convenient
 whl() {
-  re='^[.0-9]+$'
+  local clear=0
+  if [[ $1 == "-c" ]]; then
+    clear=1
+    shift
+  fi
+  local re='^[.0-9]+$'
   if [[ $1 =~ ${re} ]]; then
     interval=$1
     shift
   fi
   while true; do
+    ((clear)) && clear
     "$@"
     sleep "${interval:-2}"
   done

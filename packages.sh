@@ -8,6 +8,7 @@
 
 # AUTOSORT: START
 packages_pacman_base=(
+  # git-zsh-completion
   7zip
   aria2
   at
@@ -27,7 +28,6 @@ packages_pacman_base=(
   git
   git-delta
   git-filter-repo
-  git-zsh-completion
   glow
   imagemagick
   jq

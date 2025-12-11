@@ -495,3 +495,8 @@ p() {
 random-port() {
   python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()'
 }
+
+# get latest caddy + cloudflare binary
+update-caddy() {
+	curl -o ~/.local/bin/caddy -L 'https://caddyserver.com/api/download?os=linux&arch=amd64&p=github.com%2Fcaddy-dns%2Fcloudflare'
+}

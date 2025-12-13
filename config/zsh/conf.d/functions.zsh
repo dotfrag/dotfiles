@@ -504,6 +504,7 @@ update-caddy() {
 # find regular files with more than link to them
 # to see names linked to the same file use `find -samefile file_name`
 find-hardlinks() {
+  # find . -links +1 -type f -name '*' -printf '%i %p\n' | sort
   find -type f -links +1
 }
 

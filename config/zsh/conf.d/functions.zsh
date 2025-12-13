@@ -498,5 +498,16 @@ random-port() {
 
 # get latest caddy + cloudflare binary
 update-caddy() {
-	curl -o ~/.local/bin/caddy -L 'https://caddyserver.com/api/download?os=linux&arch=amd64&p=github.com%2Fcaddy-dns%2Fcloudflare'
+  curl -o ~/.local/bin/caddy -L 'https://caddyserver.com/api/download?os=linux&arch=amd64&p=github.com%2Fcaddy-dns%2Fcloudflare'
+}
+
+# find regular files with more than link to them
+# to see names linked to the same file use `find -samefile file_name`
+find-hardlinks() {
+  find -type f -links +1
+}
+
+# find broken symlink files
+find-broken-symlinks() {
+  find -xtype l
 }

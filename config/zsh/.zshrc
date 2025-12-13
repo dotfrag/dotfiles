@@ -982,7 +982,7 @@ abk=(
     'LL'   '|& less -r'
     'M'    '| most'
     'N'    '&>/dev/null'           #d (No Output)
-    'R'    '| tr A-z N-za-m'       #d (ROT13)
+    'R'    '| tr A-Za-z N-ZA-Mn-za-m' #d (ROT13)
     'SL'   '| sort | less'
     'S'    '| sort -u'
     'T'    '| tail'
@@ -3442,6 +3442,11 @@ function _simple_extract () {
 }
 compdef _simple_extract simple-extract
 [[ -n "$GRML_NO_SMALL_ALIASES" ]] || alias se=simple-extract
+
+#f5# Show "public" IPv4 address of current system on stdout. Requires network access and curl(1).
+function myip () {
+    curl http://v4.showip.spamt.net/ -H 'User-Agent: grml-etc-core-zshrc'
+}
 
 #f5# Change the xterm title from within GNU-screen
 function xtrename () {

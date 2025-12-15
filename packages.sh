@@ -76,6 +76,7 @@ packages_pacman_desktop=(
   bitwarden
   bob
   brightnessctl
+  croc
   direnv
   gammastep
   github-cli

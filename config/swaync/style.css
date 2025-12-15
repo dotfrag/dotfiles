@@ -29,9 +29,7 @@ trough slider {
 }
 
 trough slider:hover {
-  box-shadow:
-    0 0 2px rgba(0, 0, 0, 0.8),
-    0 0 8px #8aadf4;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.8), 0 0 8px #8aadf4;
 }
 
 trough {
@@ -40,9 +38,7 @@ trough {
 
 /* notifications */
 .notification-background {
-  box-shadow:
-    0 0 8px 0 rgba(0, 0, 0, 0.8),
-    inset 0 0 0 1px #494d64;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #494d64;
   border-radius: 12.6px;
   margin: 18px;
   background: #1e2030;
@@ -139,9 +135,7 @@ trough {
 
 /* control center */
 .control-center {
-  box-shadow:
-    0 0 8px 0 rgba(0, 0, 0, 0.8),
-    inset 0 0 0 1px #363a4f;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #363a4f;
   border-radius: 12.6px;
   background-color: #24273a;
   color: #cad3f5;
@@ -185,6 +179,10 @@ trough {
 
 .control-center .notification-group {
   margin-top: 10px;
+}
+
+.control-center .notification-group:focus .notification-background {
+  background-color: #363a4f;
 }
 
 scrollbar slider {

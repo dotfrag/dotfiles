@@ -266,13 +266,17 @@ augroup DiffDoDp
   autocmd!
   " Trigger when the 'diff' option is set (handles :diffthis or toggling)
   autocmd OptionSet diff if v:option_new
-        \ | nnoremap <buffer> do do:silent! normal! ]c<cr>
-        \ | nnoremap <buffer> dp dp:silent! normal! ]c<cr>
+        " \ | nnoremap <buffer> do do:silent! normal! ]c<cr>
+        " \ | nnoremap <buffer> dp dp:silent! normal! ]c<cr>
+        \ | nnoremap <buffer> do do]c
+        \ | nnoremap <buffer> dp dp]c
         \ | endif
   " Trigger on buffer enter (handles starting with vim -d or switching windows)
   autocmd BufEnter,WinEnter * if &diff
-        \ | nnoremap <buffer> do do:silent! normal! ]c<cr>
-        \ | nnoremap <buffer> dp dp:silent! normal! ]c<cr>
+        " \ | nnoremap <buffer> do do:silent! normal! ]c<cr>
+        " \ | nnoremap <buffer> dp dp:silent! normal! ]c<cr>
+        \ | nnoremap <buffer> do do]c
+        \ | nnoremap <buffer> dp dp]c
         \ | endif
 augroup END
 

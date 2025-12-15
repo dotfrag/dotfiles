@@ -1,8 +1,8 @@
-" Basic config
+" ----------------------------------------------------------------- Basic config
 set nocompatible
 set encoding=utf-8
 
-" XDG directories
+" -------------------------------------------------------------- XDG directories
 set runtimepath^=$XDG_CONFIG_HOME/vim
 set runtimepath+=$XDG_DATA_HOME/vim
 set runtimepath+=$XDG_CONFIG_HOME/vim/after
@@ -20,7 +20,7 @@ set viewdir=$XDG_STATE_HOME/vim/view     | call mkdir(&viewdir,   'p')
 
 if !has('nvim') | set viminfofile=$XDG_STATE_HOME/vim/viminfo | endif
 
-" Settings: General
+" ------------------------------------------------------------ Settings: General
 set autoread                      " Set to auto read when a file is changed from the outside
 set backspace=indent,eol,start    " Backspace behaviour
 set balloonevalterm               " Enable balloon-eval functionality
@@ -60,7 +60,7 @@ set winminheight=0                " Allow splits to be reduced to a single line
 set wrapscan                      " Searches wrap around end of file
 " set ofu=syntaxcomplete#Complete " Set omni-completion method
 
-" Settings: Indentation
+" -------------------------------------------------------- Settings: Indentation
 set autoindent    " Copy indent from last line when starting new line
 set expandtab     " Expand tabs to spaces
 set shiftwidth=4  " The # of spaces for indenting
@@ -68,7 +68,7 @@ set smarttab      " At start of line, <Tab> inserts shiftwidth spaces, <Bs> dele
 set softtabstop=4 " Number of spaces that a <Tab> counts for
 set tabstop=4     " Width of a hard tabstop measured in spaces
 
-" Settings: Formatting
+" --------------------------------------------------------- Settings: Formatting
 set formatoptions=
 set formatoptions+=1 " Break before 1-letter words
 set formatoptions+=2 " Use indent from 2nd line of a paragraph
@@ -80,23 +80,23 @@ set formatoptions+=t " Auto-wrap text using textwidth
 set formatoptions-=r " Continue comments by default
 set formatoptions-=o " Make comment when using o or O from comment line
 
-" Settings: List chars
+" --------------------------------------------------------- Settings: List chars
 set list listchars=tab:..,trail:_,extends:>,precedes:<,nbsp:~
 set showbreak=\\
 
-" Settings: Conceal
+" ------------------------------------------------------------ Settings: Conceal
 set conceallevel=2
 set concealcursor=inc
 
-" Settings: Wildmenu (command line completion)
+" --------------------------------- Settings: Wildmenu (command line completion)
 set wildmode=full
 set wildmenu
 
-" Settings: Bells
+" -------------------------------------------------------------- Settings: Bells
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
 
-" Colorscheme
+" ------------------------------------------------------------------ Colorscheme
 " https://sw.kovidgoyal.net/kitty/faq/#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim
 " Styled and colored underline support
 let &t_AU = "\e[58:5:%dm"
@@ -146,7 +146,7 @@ let &t_ut=''
 set termguicolors
 colorscheme catppuccin_macchiato
 
-" fzf colors
+" ------------------------------------------------------------------- fzf colors
 let g:fzf_colors =
       \ { 'fg':         ['fg', 'Normal'],
       \ 'bg':         ['bg', 'Normal'],
@@ -163,7 +163,7 @@ let g:fzf_colors =
       \ 'spinner':    ['fg', 'Label'],
       \ 'header':     ['fg', 'Comment'] }
 
-" Mappings
+" --------------------------------------------------------------------- Mappings
 let mapleader = ' '
 cnoremap w!! w !sudo tee > /dev/null %
 map Q <nop>
@@ -224,13 +224,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 xmap ga <plug>(EasyAlign)
 nmap ga <plug>(EasyAlign)
 
-" Jump to last position in file
-autocmd BufReadPost *
-      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-      \ |   exe "normal! g`\""
-      \ | endif
-
-" Functions
+" -------------------------------------------------------------------- Functions
 function! ColorColumnToggle()
   if &colorcolumn
     setlocal colorcolumn=0
@@ -247,7 +241,13 @@ function! VirtualEditToggle()
   endif
 endfunction
 
-" Close man pages with <q> (useful for MANPAGER)
+" ------------------------------------------------ Jump to last position in file
+autocmd BufReadPost *
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+      \ |   exe "normal! g`\""
+      \ | endif
+
+" ------------------------------- Close man pages with <q> (useful for MANPAGER)
 augroup close-with-q
   autocmd!
   " autocmd FileType man call s:CloseWithQ()
@@ -260,5 +260,20 @@ augroup END
 "   nnoremap <silent> <buffer> q :bwipeout!<cr>
 "   nnoremap <silent> <buffer> q :quit<cr>
 " endfunction
+
+" ----------------------------- Jump to the next change when using `do` or `dp`.
+augroup DiffDoDp
+  autocmd!
+  " Trigger when the 'diff' option is set (handles :diffthis or toggling)
+  autocmd OptionSet diff if v:option_new
+        \ | nnoremap <buffer> do do:silent! normal! ]c<cr>
+        \ | nnoremap <buffer> dp dp:silent! normal! ]c<cr>
+        \ | endif
+  " Trigger on buffer enter (handles starting with vim -d or switching windows)
+  autocmd BufEnter,WinEnter * if &diff
+        \ | nnoremap <buffer> do do:silent! normal! ]c<cr>
+        \ | nnoremap <buffer> dp dp:silent! normal! ]c<cr>
+        \ | endif
+augroup END
 
 " vim: ts=2 sw=2 et

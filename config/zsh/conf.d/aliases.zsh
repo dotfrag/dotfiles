@@ -33,7 +33,7 @@ alias ln='ln -vi'
 alias mv='mv -vi'
 alias rm='rm -v'
 
-alias ls='eza --all --long --git --group-directories-first'
+alias ls='eza --all --long --git --group-directories-first --icons'
 alias lsg='ls --color always | rg --color never -M0'
 alias lsm='ls -s modified'
 alias lst='ls --tree'

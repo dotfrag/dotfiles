@@ -1,0 +1,14 @@
+# https://github.com/eza-community/eza-themes/blob/main/themes/default.yml
+# https://github.com/eza-community/eza/blob/main/man/eza_colors-explanation.5.md
+
+users:
+  user_you: { foreground: default, is_dimmed: true, is_bold: false }
+  user_root: { foreground: red }
+  group_yours: { foreground: default, is_dimmed: true, is_bold: false }
+  group_root: { foreground: red }
+
+broken_symlink:
+  is_blink: true
+
+broken_path_overlay:
+  is_blink: true

@@ -53,4 +53,7 @@ if [[ -f ${f} ]]; then
   handle_file "$@"
 elif [[ -d ${f} ]]; then
   handle_dir "$@"
+else
+  >&2 echo "File or directory ${f} does not exist."
+  exit 1
 fi

@@ -95,7 +95,7 @@ gpall() {
   local d
   [[ -n $1 ]] && d=$(($1 + 1)) || d=2
   # shellcheck disable=SC1083
-  fd -IHL -d "${d}" -td '^\.git$' -x git -C {//} pull
+  fd -IHL -j5 -d "${d}" -td '^\.git$' -x git -C {//} pull
 }
 
 # git gc all repos

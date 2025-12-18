@@ -34,7 +34,7 @@ edfunc() {
 
 # cd and list files
 cl() {
-  cd $1 && eza --oneline --icons=auto --all --hyperlink --group-directories-first
+  cd $1 && eza --icons=auto --all --hyperlink --group-directories-first
 }
 
 # yazi

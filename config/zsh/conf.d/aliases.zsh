@@ -38,21 +38,22 @@ alias vn='nvim-nightly'
 # --------------------------------------------------------------------- LS (eza)
 alias ls='eza --long --icons=auto --all --group-directories-first --smart-group --header --git'
 
-alias lad='ls -d .*(/)'                              # dot-directories
-alias lsG='ls --color always | rg --color never -M0' # ls and rg
-alias lsa='ls -a .*(.)'                              # dot-files
-alias lsb='find -xtype l'                            # broken symlinks
-alias lsd='ls -D --show-symlinks'                    # directories
-alias lse='ls -d *(/^F)'                             # empty directories
-alias lsf='ls -f --show-symlinks'                    # files
-alias lsg='ls --git-repos'                           # list root of git-tree status
-alias lsgg='ls --git-repos-no-status'                # list each git-repos branch name (much faster)
-alias lsl='ls -l *(@)'                               # symlinks
-alias lsm='ls -s modified'                           # sort by modified
-alias lsr='ls --time-style=relative'                 # relative timestamp
-alias lst='eza --tree --icons=auto'                  # recurse into directories as a tree (short)
-alias lstt='ls --tree'                               # recurse into directories as a tree (long)
-alias lsx='ls -l *(*)'                               # executables
+alias lad='ls --treat-dirs-as-files .*(/)'            # dot-directories
+alias lsG='ls --color always | rg --color never -M0'  # ls and rg
+alias lsa='ls .*(.)'                                  # dot-files
+alias lsb='find -xtype l'                             # broken symlinks
+alias lsd='ls -D --show-symlinks'                     # directories
+alias lse='ls --treat-dirs-as-files *(/^F)'           # empty directories
+alias lsf='ls --only-files --show-symlinks'           # files
+alias lsg='ls --git-repos'                            # list root of git-tree status
+alias lsgg='ls --git-repos-no-status'                 # list each git-repos branch name (much faster)
+alias lsl='ls *(@)'                                   # symlinks
+alias lsm='ls --sort modified'                        # sort by modified
+alias lsr='ls --time-style=relative'                  # relative timestamp
+alias lsrm='ls --time-style=relative --sort modified' # relative timestamp
+alias lst='eza --tree --icons=auto'                   # recurse into directories as a tree (short)
+alias lstt='ls --tree'                                # recurse into directories as a tree (long)
+alias lsx='ls *(*)'                                   # executables
 
 # ------------------------------------------------------------------------- MISC
 alias h='help'

@@ -7,6 +7,14 @@ if ! command -v entr > /dev/null; then
   exit 1
 fi
 
+# cleanup function (Ctrl-C and TERM)
+cleanup() {
+  echo "Stopping fwatch.."
+  exit 0
+}
+trap cleanup SIGINT SIGTERM
+
+# allows for running chained commands, i.e. `sh -c 'echo one && echo two`
 args=
 while [[ $1 == -* ]]; do
   args="${args} $1"
@@ -22,6 +30,7 @@ handle_file() {
   # you have to provide it twice: `fwatch script ./script arg1`
   if (($# > 0)); then
     # shellcheck disable=SC2086
+    # might need `$*` to join args into one string rather than separate, however, no issues so far
     command ls "${f}" | entr -c ${args} "$@"
     return
   fi
@@ -46,6 +55,7 @@ handle_dir() {
     echo "fd command not found."
     exit 1
   fi
+  # might need `$*` to join args into one string rather than separate, however, no issues so far
   fd . "${f}" | entr -c "$@"
 }
 

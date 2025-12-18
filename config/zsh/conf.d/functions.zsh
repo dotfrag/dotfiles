@@ -137,11 +137,7 @@ yank() {
 
 # print and yank to clipboard
 xyank() {
-  if [[ ${XDG_SESSION_TYPE} == "wayland" ]]; then
-    tee /dev/tty | wl-copy --trim-newline
-  else
-    tee /dev/tty | xclip -r -selection primary -filter | xclip -r -selection clipboard
-  fi
+  tee /dev/tty | yank
 }
 
 # paste from clipboard

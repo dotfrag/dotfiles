@@ -32,6 +32,11 @@ edfunc() {
   fi
 }
 
+# cd and list files
+cl() {
+  cd $1 && eza --oneline --icons=auto --all --hyperlink --group-directories-first
+}
+
 # yazi
 f() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"

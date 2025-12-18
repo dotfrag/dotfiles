@@ -1,4 +1,21 @@
 # ---------------------------------------------------------------------- ALIASES
+alias cd-='cd -'
+alias chmod='chmod -v'
+alias chown='chown -v'
+alias cp='cp -vi'
+alias ln='ln -vi'
+alias mv='mv -vi'
+alias rm='rm -v'
+
+# ----------------------------------------------------------------------- PACMAN
+alias pqs='pacman -Q | sk'
+alias pqqs='pacman -Qq | sk'
+# alias agi='sudo nala install'
+# alias aug='sudo nala update && sudo nala upgrade'
+# alias di='sudo dnf install'
+# alias dug='sudo dnf check-update && sudo dnf upgrade'
+
+# ---------------------------------------------------------------- EDITOR (nvim)
 alias vim="${EDITOR}"
 alias v="${EDITOR}"
 alias vi='command vim'
@@ -18,34 +35,26 @@ alias nvim-repro='unset VIMINIT GVIMINIT; NVIM_APPNAME=nvim-repro nvim'
 alias vm='nvim-main'
 alias vn='nvim-nightly'
 
-alias pqs='pacman -Q | sk'
-alias pqqs='pacman -Qq | sk'
-# alias agi='sudo nala install'
-# alias aug='sudo nala update && sudo nala upgrade'
-# alias di='sudo dnf install'
-# alias dug='sudo dnf check-update && sudo dnf upgrade'
+# --------------------------------------------------------------------- LS (eza)
+alias ls='eza --long --icons=auto --all --group-directories-first --smart-group --header --git'
 
-alias cd-='cd -'
-alias chmod='chmod -v'
-alias chown='chown -v'
-alias cp='cp -vi'
-alias ln='ln -vi'
-alias mv='mv -vi'
-alias rm='rm -v'
+alias lad='ls -d .*(/)'                              # dot-directories
+alias lsG='ls --color always | rg --color never -M0' # ls and rg
+alias lsa='ls -a .*(.)'                              # dot-files
+alias lsb='find -xtype l'                            # broken symlinks
+alias lsd='ls -D --show-symlinks'                    # directories
+alias lse='ls -d *(/^F)'                             # empty directories
+alias lsf='ls -f --show-symlinks'                    # files
+alias lsg='ls --git-repos'                           # list root of git-tree status
+alias lsgg='ls --git-repos-no-status'                # list each git-repos branch name (much faster)
+alias lsl='ls -l *(@)'                               # symlinks
+alias lsm='ls -s modified'                           # sort by modified
+alias lsr='ls --time-style=relative'                 # relative timestamp
+alias lst='eza --tree --icons=auto'                  # recurse into directories as a tree (short)
+alias lstt='ls --tree'                               # recurse into directories as a tree (long)
+alias lsx='ls -l *(*)'                               # executables
 
-alias ls='eza --all --long --git --group-directories-first --icons=auto'
-alias lsg='ls --color always | rg --color never -M0'
-alias lsm='ls -s modified'
-alias lst='ls --tree'
-alias ltree='eza -T --icons=always --git-ignore'
-alias lad='ls -d .*(/)'   # dot-directories
-alias lsa='ls -a .*(.)'   # dot-files
-alias lsb='find -xtype l' # broken symlinks
-alias lsd='ls -d *(/)'    # directories
-alias lse='ls -d *(/^F)'  # empty directories
-alias lsl='ls -l *(@)'    # symlinks
-alias lsx='ls -l *(*)'    # executables
-
+# ------------------------------------------------------------------------- MISC
 alias h='help'
 alias j='just'
 # alias p='pnpm'

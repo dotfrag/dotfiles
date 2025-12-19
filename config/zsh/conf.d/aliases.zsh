@@ -42,11 +42,11 @@ alias lad='ls --treat-dirs-as-files .*(/)'            # dot-directories
 alias lsG='ls --color always | rg --color never -M0'  # ls and rg
 alias lsa='ls .*(.)'                                  # dot-files
 alias lsb='find -xtype l'                             # broken symlinks
-alias lsd='ls -D --show-symlinks'                     # directories
+alias lsd='ls --only-dirs --show-symlinks'            # directories
 alias lse='ls --treat-dirs-as-files *(/^F)'           # empty directories
 alias lsf='ls --only-files'                           # files
-alias lsg='ls --git-repos'                            # list root of git-tree status
-alias lsgg='ls --git-repos-no-status'                 # list each git-repos branch name (much faster)
+alias lsg='ls --only-dirs --git-repos-no-status'      # list each git-repos branch name (much faster)
+alias lsgg='ls --only-dirs --git-repos'               # list root of git-tree status
 alias lsl='ls *(@)'                                   # symlinks
 alias lsm='ls --sort modified'                        # sort by modified
 alias lsr='ls --time-style=relative'                  # relative timestamp

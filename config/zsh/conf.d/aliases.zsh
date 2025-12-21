@@ -49,6 +49,7 @@ alias lsg='ls --only-dirs --git-repos-no-status'      # list each git-repos bran
 alias lsgg='ls --only-dirs --git-repos'               # list root of git-tree status
 alias lsl='ls *(@)'                                   # symlinks
 alias lsm='ls --sort modified'                        # sort by modified
+alias lsmr='ls --time-style=relative --sort modified' # relative timestamp
 alias lsr='ls --time-style=relative'                  # relative timestamp
 alias lsrm='ls --time-style=relative --sort modified' # relative timestamp
 alias lst='eza --tree --icons=auto'                   # recurse into directories as a tree (short)

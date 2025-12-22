@@ -222,6 +222,13 @@ select_environment() {
   done
 }
 
+install_yay() {
+  sudo pacman -S --needed git base-devel \
+    && git clone --depth 1 https://aur.archlinux.org/yay-bin.git /tmp/yay-bin \
+    && cd /tmp/yay-bin \
+    && makepkg -si
+}
+
 setup_packages() {
   if [[ ${DISTRO} == "Arch Linux" ]]; then
     select_environment
@@ -236,11 +243,7 @@ setup_packages() {
     fi
     sudo pacman -Syu
     sudo pacman -S --needed "${packages_pacman[@]}"
-    if ! command -v yay &> /dev/null; then
-      git clone --depth 1 https://aur.archlinux.org/yay-bin.git /tmp/yay-bin \
-        && cd /tmp/yay-bin \
-        && makepkg -si
-    fi
+    command -v yay > /dev/null || install_yay
     yay -Sy --needed "${packages_aur[@]}"
   elif [[ ${DISTRO} == "Fedora Linux" ]]; then
     sudo dnf check-update
@@ -251,6 +254,11 @@ setup_packages() {
     sudo "${apt}" install -y "${packages_apt[@]}"
   fi
 }
+
+if [[ $1 == "yay" ]]; then
+  install_yay
+  exit
+fi
 
 main() {
   detect_distro

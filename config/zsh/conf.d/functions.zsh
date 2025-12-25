@@ -439,19 +439,23 @@ countdown() {
     return 1
   fi
   start="$(($(date '+%s') + $1))"
+  printf '\e[?25l'
   while [[ ${start} -ge $(date +%s) ]]; do
     time="$((start - $(date +%s)))"
     printf '%s\r' "$(date -u -d "@${time}" +%H:%M:%S)"
     sleep 0.1
   done
+  printf '\e[?25h' # BUG: doesn't work when interrupted (i.e Ctrl-C)
 }
 timer() {
   start=$(date +%s)
+  printf '\e[?25l'
   while true; do
     time="$(($(date +%s) - start))"
     printf '%s\r' "$(date -u -d "@${time}" +%H:%M:%S)"
     sleep 0.1
   done
+  printf '\e[?25h' # BUG: doesn't work when interrupted (i.e Ctrl-C)
 }
 
 # check if file ends with newline character

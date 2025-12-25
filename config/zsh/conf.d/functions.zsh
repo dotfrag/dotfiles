@@ -431,11 +431,13 @@ zipdiff() {
 }
 
 # https://superuser.com/a/611582
-# usage:
-# countdown 60
-# countdown $((2 * 60 * 60)) # two hours
-# countdown $((24 * 60 * 60)) # one day
 countdown() {
+  if (($# != 1)); then
+    echo 'countdown 60'
+    echo 'countdown $((2 * 60 * 60)) # two hours'
+    echo 'countdown $((24 * 60 * 60)) # one day'
+    return 1
+  fi
   start="$(($(date '+%s') + $1))"
   while [[ ${start} -ge $(date +%s) ]]; do
     time="$((start - $(date +%s)))"
@@ -443,7 +445,7 @@ countdown() {
     sleep 0.1
   done
 }
-stopwatch() {
+timer() {
   start=$(date +%s)
   while true; do
     time="$(($(date +%s) - start))"

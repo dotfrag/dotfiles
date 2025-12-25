@@ -197,7 +197,13 @@ update-grml-zshrc() {
 
 # get latest caddy + cloudflare binary
 update-caddy() {
-  curl -o ~/.local/bin/caddy -L 'https://caddyserver.com/api/download?os=linux&arch=amd64&p=github.com%2Fcaddy-dns%2Fcloudflare'
+  local latest_version
+  latest_version=$(get-latest-version caddyserver/caddy)
+  if [[ $latest_version != $(caddy -v | awk '{print $1}') ]]; then
+    curl -o ~/.local/bin/caddy -L 'https://caddyserver.com/api/download?os=linux&arch=amd64&p=github.com%2Fcaddy-dns%2Fcloudflare'
+  else
+    echo "Already up to date."
+  fi
 }
 
 # install or update yt-dlp (https://github.com/yt-dlp/yt-dlp/wiki/Installation)

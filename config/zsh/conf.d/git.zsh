@@ -223,14 +223,13 @@ gallst() {
 }
 
 # get latest version of github release
-# or use `jq -r '.tag_name'`
 get-latest-version() {
   curl -sLH "Accept: application/json" "https://api.github.com/repos/$1/releases/latest" | jq -r '.tag_name' # grep -Po '"tag_name": "\Kv[^"]*'
 }
 
 # get latest tag
 get-latest-tag() {
-  git describe --tags "$(git rev-list --tags --max-count=1)"
+  git describe --tags $(git rev-list --tags --max-count=1)
 }
 
 # sync github fork

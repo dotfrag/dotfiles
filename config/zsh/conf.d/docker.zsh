@@ -78,7 +78,7 @@ update-container() {
 }
 
 update-containers() {
-  for i in $(docker compose ls | awk '{print $1}' | tail +2); do
+  for i in $(docker compose ls | awk '{print $1}' | tail +2 | rg -v caddy); do
     d=$(docker container inspect "${i}" \
       --format '{{ index .Config.Labels "com.docker.compose.project.working_dir" }}')
     (

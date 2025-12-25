@@ -195,6 +195,23 @@ update-grml-zshrc() {
   fi
 }
 
+# get latest caddy + cloudflare binary
+update-caddy() {
+  curl -o ~/.local/bin/caddy -L 'https://caddyserver.com/api/download?os=linux&arch=amd64&p=github.com%2Fcaddy-dns%2Fcloudflare'
+}
+
+# install or update yt-dlp (https://github.com/yt-dlp/yt-dlp/wiki/Installation)
+update-yt-dlp() {
+  local yt_dlp=$HOME/.local/bin/yt-dlp
+  if [[ -x $yt_dlp ]]; then
+    $yt_dlp -U
+  else
+    # wget --quiet --show-progress -O ~/.local/bin/yt-dlp https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux
+    curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o $yt_dlp
+    chmod a+rx $yt_dlp
+  fi
+}
+
 # history grep
 hgrep() {
   fc -Dlim "*$@*" 1
@@ -501,11 +518,6 @@ p() {
 # get a random, unused port
 random-port() {
   python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()'
-}
-
-# get latest caddy + cloudflare binary
-update-caddy() {
-  curl -o ~/.local/bin/caddy -L 'https://caddyserver.com/api/download?os=linux&arch=amd64&p=github.com%2Fcaddy-dns%2Fcloudflare'
 }
 
 # find regular files with more than link to them

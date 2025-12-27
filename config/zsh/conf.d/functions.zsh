@@ -218,6 +218,15 @@ update-yt-dlp() {
   fi
 }
 
+# install or update pnpm (https://pnpm.io/installation)
+update-pnpm() {
+  if check_com -c pnpm; then
+    pnpm self-update
+  else
+    curl -fsSL https://get.pnpm.io/install.sh | sh -
+  fi
+}
+
 # history grep
 hgrep() {
   fc -Dlim "*$@*" 1

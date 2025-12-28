@@ -212,8 +212,9 @@ update-yt-dlp() {
   if [[ -x $yt_dlp ]]; then
     $yt_dlp -U
   else
-    # wget --quiet --show-progress -O ~/.local/bin/yt-dlp https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux
-    curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o $yt_dlp
+    # curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o $yt_dlp
+    # using yt-dlp_linux (instead of zipimport binary above) because it bundles curl_cffi
+    wget --quiet --show-progress -O $yt_dlp https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux
     chmod a+rx $yt_dlp
   fi
 }

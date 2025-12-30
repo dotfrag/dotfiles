@@ -129,8 +129,15 @@ packages_pacman_desktop=(
 
 # AUTOSORT: START
 packages_pacman_server=(
+  bandwhich
+  docker
+  docker-compose
+  nethogs
+  qrencode
   sysstat
   ufw
+  unbound
+  wireguard-tools
 )
 # AUTOSORT: END
 

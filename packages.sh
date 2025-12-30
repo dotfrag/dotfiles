@@ -130,6 +130,7 @@ packages_pacman_desktop=(
 # AUTOSORT: START
 packages_pacman_server=(
   sysstat
+  ufw
 )
 # AUTOSORT: END
 

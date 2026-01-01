@@ -431,10 +431,10 @@ tmuxp() {
 
 # watch ls
 wls() {
-  watch -n "${1:-2}" -c eza --color=always -la --group-directories-first
+  watch -n "${1:-2}" -c eza --long --color=always --icons=auto --no-quotes --all --group-directories-first --smart-group --header
 }
 wlsm() {
-  watch -n "${1:-2}" -c "eza --color=always -la --group-directories-first --sort modified | tail -n $((LINES - 2))"
+  watch -n "${1:-2}" -c "eza --long --color=always --icons=auto --no-quotes --all --group-directories-first --smart-group --sort modified | tail -n $((LINES - 2))"
 }
 
 # adb download and run

@@ -96,12 +96,16 @@ alias -g HH='|head -$((LINES-4))'
 alias -g L='|less'
 alias -g LL='|& less -r'
 alias -g LS='|less -Sc'
-alias -g N='2>/dev/null'
-alias -g NN='&>/dev/null'
 alias -g S='|sk'
 alias -g T='|tail'
 alias -g TR="|tr ' ' '\n'"
 alias -g TS='|ts "%F %H:%M:%.S"'
+
+# alias -g DN='>/dev/null'
+alias -g N='>/dev/null'
+alias -g NE='2>/dev/null'
+alias -g NN='&>/dev/null'
+# alias -g NUL='&>/dev/null'
 
 alias -g Y='|yank'
 alias -g XY='|xyank'

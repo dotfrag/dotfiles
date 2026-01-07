@@ -523,6 +523,7 @@ fix-shellcheckrc-links() {
 # pnpm select command from package.json
 p() {
   if (($# == 0)); then
+    [[ -f package.json ]] || return 1
     local commands
     commands=$(jq -r '.scripts | to_entries[] | "\(.key)\t\(.value)"' package.json)
     fzf --with-nth=1 --delimiter='\t' --preview 'echo {2}' --preview-window=down:1:wrap --bind 'enter:become(pnpm run {1})' <<< "${commands}"

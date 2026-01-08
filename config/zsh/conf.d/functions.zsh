@@ -362,8 +362,8 @@ ptree() {
   done
 }
 
-# process search
-pss() {
+# process search (grep)
+psg() {
   ps -ef | sed -n "1p; /[${1:0:1}]${1:1}/p"
 }
 

@@ -54,7 +54,7 @@ lfd() {
 
 # copy file and cd to destination directory
 cpcd() {
-  if ((ARGC != 2)); then
+  if (($# != 2)); then
     printf 'usage: cpcd <file> <destination>\n'
     return 1
   fi
@@ -72,7 +72,7 @@ cpcd() {
 
 # move file and cd to destination directory
 mvcd() {
-  if ((ARGC != 2)); then
+  if (($# != 2)); then
     printf 'usage: mvcd <file> <destination>\n'
     return 1
   fi
@@ -90,7 +90,7 @@ mvcd() {
 
 # extract archive to subdirectory
 x() {
-  if ((ARGC < 1)); then
+  if (($# < 1)); then
     echo "usage: x[rm] <file..>"
     return 1
   fi

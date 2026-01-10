@@ -402,7 +402,7 @@ incognito() {
 
 # repeat command, similar to watch, but often more convenient
 whl() {
-  local clear=0
+  local interval clear=0
   if [[ $1 == "-c" ]]; then
     clear=1
     shift

@@ -401,17 +401,6 @@ timer() {
   printf '\e[?25h' # BUG: doesn't work when interrupted (i.e Ctrl-C)
 }
 
-# trust .nvim.lua in cwd
-nvim-trust() {
-  local f target
-  f=$(realpath "${PWD}"/.nvim.lua)
-  [[ -f ${f} ]] || return 1
-  # shellcheck disable=SC2154
-  target=${XDG_STATE_HOME}/nvim/trust
-  [[ -f ${target} ]] && sed -i "\+${f}+d" "${target}"
-  sha256sum "${f}" | xargs >> "${target}"
-}
-
 # -------------------------------------------------------------------- OVERLOADS
 # pnpm select command from package.json
 p() {
@@ -564,4 +553,15 @@ adb() {
     unzip "${file_path}" -d /tmp
   fi
   HOME=${XDG_DATA_HOME}/android /tmp/platform-tools/adb "$@"
+}
+
+# trust .nvim.lua in cwd
+nvim-trust() {
+  local f target
+  f=$(realpath "${PWD}"/.nvim.lua)
+  [[ -f ${f} ]] || return 1
+  # shellcheck disable=SC2154
+  target=${XDG_STATE_HOME}/nvim/trust
+  [[ -f ${target} ]] && sed -i "\+${f}+d" "${target}"
+  sha256sum "${f}" | xargs >> "${target}"
 }

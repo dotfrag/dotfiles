@@ -39,7 +39,6 @@ alias vn='nvim-nightly'
 alias ls='eza --long --icons=auto --no-quotes --hyperlink --all --group-directories-first --smart-group --header --git'
 
 alias lad='ls --treat-dirs-as-files .*(/)'                    # dot-directories
-alias lsG='ls --color always | rg --color never -M0'          # ls and rg
 alias lsa='ls .*(.)'                                          # dot-files
 alias lsb='find -xtype l'                                     # broken symlinks
 alias lsd='ls --only-dirs --show-symlinks'                    # directories
@@ -51,6 +50,7 @@ alias lsl='ls *(@)'                                           # symlinks
 alias lsm='ls --sort modified'                                # sort by modified
 alias lsmr='ls --time-style=relative --sort modified'         # relative timestamp
 alias lsr='ls --time-style=relative'                          # relative timestamp
+alias lsrg='ls --color always | rg --color never -M0'         # ls and rg
 alias lsrm='ls --time-style=relative --sort modified'         # relative timestamp
 alias lstt='ls --tree'                                        # recurse into directories as a tree (long)
 alias lsx='ls *(*)'                                           # executables

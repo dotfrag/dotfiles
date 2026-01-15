@@ -32,6 +32,7 @@ edfunc() {
   fi
 }
 
+# -------------------------------------------------------------------------- EZA
 # cd and list files
 cl() {
   cd $1 && eza --icons=auto --all --hyperlink --group-directories-first
@@ -40,6 +41,14 @@ cl() {
 # recurse into directories as a tree (short)
 lst() {
   eza --group-directories-first --tree --icons=auto --level "${1:-5}"
+}
+
+# watch ls
+wls() {
+  watch -n "${1:-2}" -c eza --long --color=always --icons=auto --no-quotes --all --group-directories-first --smart-group --header
+}
+wlsm() {
+  watch -n "${1:-2}" -c "eza --long --color=always --icons=auto --no-quotes --all --group-directories-first --smart-group --sort modified | tail -n $((LINES - 2))"
 }
 
 # yazi
@@ -131,6 +140,7 @@ xrm() {
   done
 }
 
+# --------------------------------------------------------------------- YANK/PUT
 # yank to clipboard
 yank() {
   if [[ $XDG_SESSION_TYPE == "wayland" ]]; then
@@ -163,6 +173,7 @@ put() {
   fi
 }
 
+# ----------------------------------------------------------------- UPDATE STUFF
 # update dotfiles list
 update-dots() {
   local dots="${XDG_DATA_HOME:-${HOME}/.local/share}/dots"
@@ -320,6 +331,17 @@ vs() {
   cat "${projects}" | fzf --multi --bind 'enter:become(code {+})'
 }
 
+# ------------------------------------------------------------------------ SHELL
+# fix all shellcheckrc files/links using `dotfiles/config/shellcheckrc` as main
+fix-shellcheckrc-links() {
+  cd "${HOME}" || exit
+  all=$(fd -u -d4 -tf shellcheckrc -X realpath)
+  main=$(rg '/shellcheckrc' <<< "${all}")
+  for i in $(rg -v '/shellcheckrc' <<< "${all}"); do
+    ln -vf "${main}" "${i}"
+  done | column -t
+}
+
 # shfmt format all files
 shellfmt() {
   if [[ -n $@ ]]; then
@@ -342,19 +364,6 @@ shellfix() {
   else
     rg -l '^#!/bin/bash' | xargs -P "$(nproc)" -I{} zsh -c 'shellcheck -f diff {} | git apply --allow-empty -q'
   fi
-}
-
-# create or source venv
-venv() {
-  local venv_dir=.venv
-  if [[ -v VIRTUAL_ENV ]]; then
-    deactivate
-    return
-  fi
-  if ! [[ -d ${venv_dir} ]]; then
-    $(command -v python3 || command -v python) -m venv ${venv_dir}
-  fi
-  source ${venv_dir}/bin/activate
 }
 
 # process tree
@@ -434,14 +443,6 @@ tmuxp() {
   fi
 }
 
-# watch ls
-wls() {
-  watch -n "${1:-2}" -c eza --long --color=always --icons=auto --no-quotes --all --group-directories-first --smart-group --header
-}
-wlsm() {
-  watch -n "${1:-2}" -c "eza --long --color=always --icons=auto --no-quotes --all --group-directories-first --smart-group --sort modified | tail -n $((LINES - 2))"
-}
-
 # adb download and run
 adb() {
   if ! [[ -x /tmp/platform-tools/adb ]]; then
@@ -515,16 +516,7 @@ nvim-trust() {
   sha256sum "${f}" | xargs >> "${target}"
 }
 
-# fix all shellcheckrc files/links using `dotfiles/config/shellcheckrc` as main
-fix-shellcheckrc-links() {
-  cd "${HOME}" || exit
-  all=$(fd -u -d4 -tf shellcheckrc -X realpath)
-  main=$(rg '/shellcheckrc' <<< "${all}")
-  for i in $(rg -v '/shellcheckrc' <<< "${all}"); do
-    ln -vf "${main}" "${i}"
-  done | column -t
-}
-
+# -------------------------------------------------------------------- OVERLOADS
 # pnpm select command from package.json
 p() {
   if (($# == 0)); then
@@ -537,11 +529,26 @@ p() {
   fi
 }
 
+# create or source venv
+venv() {
+  local venv_dir=.venv
+  if [[ -v VIRTUAL_ENV ]]; then
+    deactivate
+    return
+  fi
+  if ! [[ -d ${venv_dir} ]]; then
+    $(command -v python3 || command -v python) -m venv ${venv_dir}
+  fi
+  source ${venv_dir}/bin/activate
+}
+
+# ------------------------------------------------------------------------ UTILS
 # get a random, unused port
 random-port() {
   python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()'
 }
 
+# ------------------------------------------------------------------------- FIND
 # find regular files with more than link to them
 # to see names linked to the same file use `find -samefile file_name`
 find-hardlinks() {

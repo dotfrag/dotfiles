@@ -37,6 +37,11 @@ cl() {
   cd $1 && eza --icons=auto --all --hyperlink --group-directories-first
 }
 
+# recurse into directories as a tree (short)
+lst() {
+  eza --group-directories-first --tree --icons=auto --level "${1:-5}"
+}
+
 # yazi
 f() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"

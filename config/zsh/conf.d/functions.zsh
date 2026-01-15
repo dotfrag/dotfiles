@@ -51,6 +51,7 @@ wlsm() {
   watch -n "${1:-2}" -c "eza --long --color=always --icons=auto --no-quotes --all --group-directories-first --smart-group --sort modified | tail -n $((LINES - 2))"
 }
 
+# ----------------------------------------------------------------- FILE MANAGER
 # yazi
 f() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
@@ -64,6 +65,25 @@ f() {
 # change working dir in shell to last dir in lf on exit
 lfd() {
   cd "$(command lf -print-last-dir "$@")"
+}
+
+# ------------------------------------------------------------------------ MV/CP
+# move file and cd to destination directory
+mvcd() {
+  if (($# != 2)); then
+    printf 'usage: mvcd <file> <destination>\n'
+    return 1
+  fi
+  if [[ ! -e $1 ]]; then
+    printf "error: file $1 doesn't exist\n"
+    return 1
+  fi
+  mv -vi "$1" "$2"
+  if [[ -d $2 ]]; then
+    builtin cd "$2"
+  else
+    builtin cd "$(dirname "$2")"
+  fi
 }
 
 # copy file and cd to destination directory
@@ -84,24 +104,7 @@ cpcd() {
   fi
 }
 
-# move file and cd to destination directory
-mvcd() {
-  if (($# != 2)); then
-    printf 'usage: mvcd <file> <destination>\n'
-    return 1
-  fi
-  if [[ ! -e $1 ]]; then
-    printf "error: file $1 doesn't exist\n"
-    return 1
-  fi
-  mv -vi "$1" "$2"
-  if [[ -d $2 ]]; then
-    builtin cd "$2"
-  else
-    builtin cd "$(dirname "$2")"
-  fi
-}
-
+# ---------------------------------------------------------------------- EXTRACT
 # extract archive to subdirectory
 x() {
   if (($# < 1)); then
@@ -235,6 +238,16 @@ update-yt-dlp() {
   fi
 }
 
+# update node using fnm
+update-node() {
+  current_version=$(fnm ls | rg default | awk '{print $2}')
+  fnm install --lts
+  new_version=$(fnm ls | rg default | awk '{print $2}')
+  if [[ ${current_version} != "${new_version}" ]]; then
+    fnm uninstall "${current_version}"
+  fi
+}
+
 # install or update pnpm (https://pnpm.io/installation)
 update-pnpm() {
   if check_com -c pnpm; then
@@ -244,11 +257,13 @@ update-pnpm() {
   fi
 }
 
-# history grep
-hgrep() {
-  fc -Dlim "*$@*" 1
+# update pip packages inside venv
+pipup() {
+  [[ -v VIRTUAL_ENV ]] || return 1
+  pip list | awk '{print $1}' | tail +3 | xargs pip install -U
 }
 
+# -------------------------------------------------------------------- MAN PAGES
 # man pages search
 mans() {
   man "$1" | less -G +/"$2"
@@ -259,51 +274,13 @@ manzsh() {
   man zshall | less -G +/"$1"
 }
 
-# touch executable and edit
-touchx() {
-  (($# != 1)) && return 1
-  if ! [[ -e $1 ]]; then
-    case "$1" in
-      *.py) shebang="#!/usr/bin/env python3" ;;
-      *) shebang="#!/bin/bash" ;;
-    esac
-    echo -e "${shebang}\n\n" > "$1"
-  fi
-  chmod +x "$1" > /dev/null
-  ${EDITOR} + "$1"
+# ------------------------------------------------------------------------ SHELL
+# switching shell safely and efficiently? http://www.zsh.org/mla/workers/2001/msg02410.html
+bash() {
+  NO_SWITCH="yes" command bash "$@"
 }
-
-# create temporary executable
-sht() {
-  cdt
-  touchx test
-}
-
-# backup/restore file
-bak() {
-  while ((${#argv} > 0)); do
-    mv "$1" "$1.bak"
-    shift
-  done
-}
-ubak() {
-  while ((${#argv} > 0)); do
-    mv "$1" "${1%.bak}"
-    shift
-  done
-}
-
-# capture the output of a command so it can be retrieved with ret
-cap() {
-  tee /tmp/capture.out
-}
-ret() {
-  cat /tmp/capture.out
-}
-
-# ripgrep | less
-rgl() {
-  rg --pretty "$@" | less -RFX
+restart() {
+  exec $SHELL $SHELL_ARGS "$@"
 }
 
 # launch app and exit
@@ -317,21 +294,23 @@ help() {
   "$@" --help 2>&1 | bat --plain --language=help
 }
 
-# switching shell safely and efficiently? http://www.zsh.org/mla/workers/2001/msg02410.html
-bash() {
-  NO_SWITCH="yes" command bash "$@"
-}
-restart() {
-  exec $SHELL $SHELL_ARGS "$@"
+# history grep
+hgrep() {
+  fc -Dlim "*$@*" 1
 }
 
-# open project in vscode
-vs() {
-  local projects=${XDG_DATA_HOME:-${HOME}/.local/share}/projects
-  cat "${projects}" | fzf --multi --bind 'enter:become(code {+})'
+# disable saving shell history to histfile and atuin
+# https://unix.stackexchange.com/a/692914
+# https://github.com/atuinsh/atuin/issues/517#issuecomment-1271702597
+# NOTE: because the HISTFILE is unset, this will also discard (not save) the
+# commands of the current session to the history file, but atuin will register
+# all commands up to and including incognito
+incognito() {
+  unset HISTFILE
+  add-zsh-hook -d precmd _atuin_precmd
+  add-zsh-hook -d preexec _atuin_preexec
 }
 
-# ------------------------------------------------------------------------ SHELL
 # fix all shellcheckrc files/links using `dotfiles/config/shellcheckrc` as main
 fix-shellcheckrc-links() {
   cd "${HOME}" || exit
@@ -366,54 +345,6 @@ shellfix() {
   fi
 }
 
-# process tree
-ptree() {
-  (($# != 1)) && return
-  ps --no-headers "$@"
-  for p in "$@"; do
-    # shellcheck disable=SC2046
-    ptree $(cat "/proc/${p}/task/${p}/children")
-  done
-}
-
-# process search (grep)
-psg() {
-  ps -ef | sed -n "1p; /[${1:0:1}]${1:1}/p"
-}
-
-# update node
-fnmup() {
-  current_version=$(fnm ls | rg default | awk '{print $2}')
-  fnm install --lts
-  new_version=$(fnm ls | rg default | awk '{print $2}')
-  if [[ ${current_version} != "${new_version}" ]]; then
-    fnm uninstall "${current_version}"
-  fi
-}
-
-# update pip packages inside venv
-pipup() {
-  [[ -v VIRTUAL_ENV ]] || return 1
-  pip list | awk '{print $1}' | tail +3 | xargs pip install -U
-}
-
-# sort json keys using jq
-jqsort() {
-  jq 'to_entries|sort|from_entries' "$1" > "$1".tmp && mv -f "$1".tmp "$1"
-}
-
-# disable saving shell history to histfile and atuin
-# https://unix.stackexchange.com/a/692914
-# https://github.com/atuinsh/atuin/issues/517#issuecomment-1271702597
-# NOTE: because the HISTFILE is unset, this will also discard (not save) the
-# commands of the current session to the history file, but atuin will register
-# all commands up to and including incognito
-incognito() {
-  unset HISTFILE
-  add-zsh-hook -d precmd _atuin_precmd
-  add-zsh-hook -d preexec _atuin_preexec
-}
-
 # repeat command, similar to watch, but often more convenient
 whl() {
   local interval clear=0
@@ -433,42 +364,15 @@ whl() {
   done
 }
 
-# load tmuxp sessions
-tmuxp() {
-  local session
-  [[ -x $(whence -p tmuxp) ]] || return
-  session=$(fd . ~/.config/tmuxp -x basename {} .yml | sort | fzf)
-  if [[ -n ${session} ]]; then
-    command tmuxp load "${session}"
-  fi
+# capture the output of a command so it can be retrieved with ret
+cap() {
+  tee /tmp/capture.out
+}
+ret() {
+  cat /tmp/capture.out
 }
 
-# adb download and run
-adb() {
-  if ! [[ -x /tmp/platform-tools/adb ]]; then
-    local url=https://dl.google.com/android/repository/platform-tools-latest-linux.zip
-    local file_path=/tmp/platform-tools.zip
-    wget --quiet --show-progress -nc -O "${file_path}" "${url}"
-    unzip "${file_path}" -d /tmp
-  fi
-  HOME=${XDG_DATA_HOME}/android /tmp/platform-tools/adb "$@"
-}
-
-# diff two zip files
-zipdiff() {
-  # magic below:
-  # 1. print first line (header)
-  # 2. ignore last line (summary) and sort files
-  # 3. print last line (summary)
-  local contents contents_1 contents_2
-  contents=$(unzip -vql "$1" | grep -v -- '-----')
-  contents_1=$(head -n1 <<< "${contents}" && tail -n+2 <<< "${contents}" | head -n -1 | sort -fk8 && tail -1 <<< "${contents}")
-  contents=$(unzip -vql "$2" | grep -v -- '-----')
-  contents_2=$(head -n1 <<< "${contents}" && tail -n+2 <<< "${contents}" | head -n -1 | sort -fk8 && tail -1 <<< "${contents}")
-  # diff -W200 -y <(echo "${contents_1}") <(echo "${contents_2}")
-  git diff -U999 --no-index <(echo "${contents_1}") <(echo "${contents_2}")
-}
-
+# -------------------------------------------------------------- COUNTDOWN/TIMER
 # https://superuser.com/a/611582
 countdown() {
   if (($# != 1)); then
@@ -495,14 +399,6 @@ timer() {
     sleep 0.1
   done
   printf '\e[?25h' # BUG: doesn't work when interrupted (i.e Ctrl-C)
-}
-
-# check if file ends with newline character
-file-ends-with-newline() {
-  (($# != 1)) && return 1
-  [[ $(tail -c1 "$1" | wc -l) -gt 0 ]] \
-    && echo "yes" \
-    || echo "no"
 }
 
 # trust .nvim.lua in cwd
@@ -542,10 +438,14 @@ venv() {
   source ${venv_dir}/bin/activate
 }
 
-# ------------------------------------------------------------------------ UTILS
-# get a random, unused port
-random-port() {
-  python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()'
+# load tmuxp sessions
+tmuxp() {
+  local session
+  [[ -x $(whence -p tmuxp) ]] || return
+  session=$(fd . ~/.config/tmuxp -x basename {} .yml | sort | fzf)
+  if [[ -n ${session} ]]; then
+    command tmuxp load "${session}"
+  fi
 }
 
 # ------------------------------------------------------------------------- FIND
@@ -559,4 +459,109 @@ find-hardlinks() {
 # find broken symlink files
 find-broken-symlinks() {
   find -xtype l
+}
+
+# --------------------------------------------------------------------------- PS
+# process search (grep)
+psg() {
+  ps -ef | sed -n "1p; /[${1:0:1}]${1:1}/p"
+}
+
+# process tree
+ptree() {
+  (($# != 1)) && return
+  ps --no-headers "$@"
+  for p in "$@"; do
+    # shellcheck disable=SC2046
+    ptree $(cat "/proc/${p}/task/${p}/children")
+  done
+}
+
+# ------------------------------------------------------------------------ UTILS
+# touch executable and edit
+touchx() {
+  (($# != 1)) && return 1
+  if ! [[ -e $1 ]]; then
+    case "$1" in
+      *.py) shebang="#!/usr/bin/env python3" ;;
+      *) shebang="#!/bin/bash" ;;
+    esac
+    echo -e "${shebang}\n\n" > "$1"
+  fi
+  chmod +x "$1" > /dev/null
+  ${EDITOR} + "$1"
+}
+
+# create temporary executable
+sht() {
+  cdt
+  touchx test
+}
+
+# backup/restore file
+bak() {
+  while ((${#argv} > 0)); do
+    mv "$1" "$1.bak"
+    shift
+  done
+}
+ubak() {
+  while ((${#argv} > 0)); do
+    mv "$1" "${1%.bak}"
+    shift
+  done
+}
+
+# ripgrep | less
+rgl() {
+  rg --pretty "$@" | less -RFX
+}
+
+# sort json keys using jq
+jqsort() {
+  jq 'to_entries|sort|from_entries' "$1" > "$1".tmp && mv -f "$1".tmp "$1"
+}
+
+# open project in vscode
+vs() {
+  local projects=${XDG_DATA_HOME:-${HOME}/.local/share}/projects
+  cat "${projects}" | fzf --multi --bind 'enter:become(code {+})'
+}
+# check if file ends with newline character
+file-ends-with-newline() {
+  (($# != 1)) && return 1
+  [[ $(tail -c1 "$1" | wc -l) -gt 0 ]] \
+    && echo "yes" \
+    || echo "no"
+}
+
+# get a random, unused port
+random-port() {
+  python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()'
+}
+
+# diff two zip files
+zipdiff() {
+  # magic below:
+  # 1. print first line (header)
+  # 2. ignore last line (summary) and sort files
+  # 3. print last line (summary)
+  local contents contents_1 contents_2
+  contents=$(unzip -vql "$1" | grep -v -- '-----')
+  contents_1=$(head -n1 <<< "${contents}" && tail -n+2 <<< "${contents}" | head -n -1 | sort -fk8 && tail -1 <<< "${contents}")
+  contents=$(unzip -vql "$2" | grep -v -- '-----')
+  contents_2=$(head -n1 <<< "${contents}" && tail -n+2 <<< "${contents}" | head -n -1 | sort -fk8 && tail -1 <<< "${contents}")
+  # diff -W200 -y <(echo "${contents_1}") <(echo "${contents_2}")
+  git diff -U999 --no-index <(echo "${contents_1}") <(echo "${contents_2}")
+}
+
+# adb download and run
+adb() {
+  if ! [[ -x /tmp/platform-tools/adb ]]; then
+    local url=https://dl.google.com/android/repository/platform-tools-latest-linux.zip
+    local file_path=/tmp/platform-tools.zip
+    wget --quiet --show-progress -nc -O "${file_path}" "${url}"
+    unzip "${file_path}" -d /tmp
+  fi
+  HOME=${XDG_DATA_HOME}/android /tmp/platform-tools/adb "$@"
 }

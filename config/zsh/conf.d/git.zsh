@@ -195,7 +195,7 @@ gallx() {
 # run git command for all repos in directory that are checked out on specific branch
 gallb() {
   if (($# < 2)); then
-    echo "Usage: gallb <branch> <command>"
+    echo "Usage: $0 <branch> <command>"
     return 1
   fi
   local branch cmd repos
@@ -224,11 +224,41 @@ gallst() {
 
 # get latest version of github release
 get-latest-version() {
-  curl -sLH "Accept: application/json" "https://api.github.com/repos/$1/releases/latest" | jq -r '.tag_name' # grep -Po '"tag_name": "\Kv[^"]*'
+  local org repo
+  if (($# == 1)); then
+    if grep -q '/' <<< "$1"; then
+      org=${1%/*}
+      repo=${1#*/}
+    else
+      # shellcheck disable=SC2016
+      echo 'Bad format, expected `<org>/<repo>` or `<org> <repo>`.'
+      return 1
+    fi
+  elif (($# == 2)); then
+    org=$1
+    repo=$2
+  elif git rev-parse --is-inside-work-tree &> /dev/null; then
+    local remote
+    remote=$(git remote get-url origin)
+    if ! grep -q 'github.com' <<< "${remote}"; then
+      echo "Remote URL not supported."
+      return 1
+    fi
+    IFS='/' read -r org repo < <(cut -d'/' -f4,5 <<< "${remote}")
+  else
+    echo "usage:"
+    echo "    $0 <org>/<repo>"
+    echo "    $0 <org> <repo>"
+    echo "    $0 (when inside git repo)"
+    return 1
+  fi
+  repo=${repo%.git}
+  curl -sLH "Accept: application/json" "https://api.github.com/repos/${org}/${repo}/releases/latest" | jq -r '.tag_name' # grep -Po '"tag_name": "\Kv[^"]*'
 }
 
 # get latest tag
 get-latest-tag() {
+  git rev-parse --is-inside-work-tree &> /dev/null || return 1
   git describe --tags $(git rev-list --tags --max-count=1)
 }
 

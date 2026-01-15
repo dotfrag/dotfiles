@@ -182,7 +182,7 @@ update-projects() {
 }
 
 # update grml zsh config files
-update-grml-zshrc() {
+update-zshrc() {
   local zshrc=${ZDOTDIR:-${HOME}}/.zshrc
   local zshrcskel=${ZDOTDIR:-${HOME}}/.zshrc.skel
   wget -nv -O "${zshrc}.tmp" https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc

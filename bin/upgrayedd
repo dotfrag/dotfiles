@@ -201,7 +201,7 @@ _zsh() {
     fix-desktop-files
     update-dots
     update-projects
-    update-grml-zshrc
+    update-zshrc
     update-binaries
   )
   for i in "${funcs[@]}"; do

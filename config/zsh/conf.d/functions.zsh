@@ -32,6 +32,104 @@ edfunc() {
   fi
 }
 
+# ------------------------------------------------------------------------ SHELL
+# switching shell safely and efficiently? http://www.zsh.org/mla/workers/2001/msg02410.html
+bash() {
+  NO_SWITCH="yes" command bash "$@"
+}
+restart() {
+  exec $SHELL $SHELL_ARGS "$@"
+}
+
+# launch app and exit
+launch() {
+  nohup "$@" > /dev/null 2>&1 &
+  disown && exit
+}
+
+# bat hightlight help messages
+help() {
+  "$@" --help 2>&1 | bat --plain --language=help
+}
+
+# history grep
+hgrep() {
+  fc -Dlim "*$@*" 1
+}
+
+# disable saving shell history to histfile and atuin
+# https://unix.stackexchange.com/a/692914
+# https://github.com/atuinsh/atuin/issues/517#issuecomment-1271702597
+# NOTE: because the HISTFILE is unset, this will also discard (not save) the
+# commands of the current session to the history file, but atuin will register
+# all commands up to and including incognito
+incognito() {
+  unset HISTFILE
+  add-zsh-hook -d precmd _atuin_precmd
+  add-zsh-hook -d preexec _atuin_preexec
+}
+
+# fix all shellcheckrc files/links using `dotfiles/config/shellcheckrc` as main
+fix-shellcheckrc-links() {
+  cd "${HOME}" || exit
+  all=$(fd -u -d4 -tf shellcheckrc -X realpath)
+  main=$(rg '/shellcheckrc' <<< "${all}")
+  for i in $(rg -v '/shellcheckrc' <<< "${all}"); do
+    ln -vf "${main}" "${i}"
+  done | column -t
+}
+
+# shfmt format all files
+shellfmt() {
+  if [[ -n $@ ]]; then
+    while (($# > 0)); do
+      shfmt --write "$1"
+      shift
+    done
+  else
+    rg -l '^#!/bin/bash' | xargs -P "$(nproc)" shfmt --write
+  fi
+}
+
+# shellcheck fix all fixable issues
+shellfix() {
+  if [[ -n $@ ]]; then
+    while (($# > 0)); do
+      shellcheck -f diff "$1" | git apply --allow-empty
+      shift
+    done
+  else
+    rg -l '^#!/bin/bash' | xargs -P "$(nproc)" -I{} zsh -c 'shellcheck -f diff {} | git apply --allow-empty -q'
+  fi
+}
+
+# repeat command, similar to watch, but often more convenient
+whl() {
+  local interval clear=0
+  if [[ $1 == "-c" ]]; then
+    clear=1
+    shift
+  fi
+  local re='^[.0-9]+$'
+  if [[ $1 =~ ${re} ]]; then
+    interval=$1
+    shift
+  fi
+  while true; do
+    ((clear)) && clear
+    "$@"
+    sleep "${interval:-2}"
+  done
+}
+
+# capture the output of a command so it can be retrieved with ret
+cap() {
+  tee /tmp/capture.out
+}
+ret() {
+  cat /tmp/capture.out
+}
+
 # -------------------------------------------------------------------------- EZA
 # cd and list files
 cl() {
@@ -272,104 +370,6 @@ mans() {
 # zsh man page search
 manzsh() {
   man zshall | less -G +/"$1"
-}
-
-# ------------------------------------------------------------------------ SHELL
-# switching shell safely and efficiently? http://www.zsh.org/mla/workers/2001/msg02410.html
-bash() {
-  NO_SWITCH="yes" command bash "$@"
-}
-restart() {
-  exec $SHELL $SHELL_ARGS "$@"
-}
-
-# launch app and exit
-launch() {
-  nohup "$@" > /dev/null 2>&1 &
-  disown && exit
-}
-
-# bat hightlight help messages
-help() {
-  "$@" --help 2>&1 | bat --plain --language=help
-}
-
-# history grep
-hgrep() {
-  fc -Dlim "*$@*" 1
-}
-
-# disable saving shell history to histfile and atuin
-# https://unix.stackexchange.com/a/692914
-# https://github.com/atuinsh/atuin/issues/517#issuecomment-1271702597
-# NOTE: because the HISTFILE is unset, this will also discard (not save) the
-# commands of the current session to the history file, but atuin will register
-# all commands up to and including incognito
-incognito() {
-  unset HISTFILE
-  add-zsh-hook -d precmd _atuin_precmd
-  add-zsh-hook -d preexec _atuin_preexec
-}
-
-# fix all shellcheckrc files/links using `dotfiles/config/shellcheckrc` as main
-fix-shellcheckrc-links() {
-  cd "${HOME}" || exit
-  all=$(fd -u -d4 -tf shellcheckrc -X realpath)
-  main=$(rg '/shellcheckrc' <<< "${all}")
-  for i in $(rg -v '/shellcheckrc' <<< "${all}"); do
-    ln -vf "${main}" "${i}"
-  done | column -t
-}
-
-# shfmt format all files
-shellfmt() {
-  if [[ -n $@ ]]; then
-    while (($# > 0)); do
-      shfmt --write "$1"
-      shift
-    done
-  else
-    rg -l '^#!/bin/bash' | xargs -P "$(nproc)" shfmt --write
-  fi
-}
-
-# shellcheck fix all fixable issues
-shellfix() {
-  if [[ -n $@ ]]; then
-    while (($# > 0)); do
-      shellcheck -f diff "$1" | git apply --allow-empty
-      shift
-    done
-  else
-    rg -l '^#!/bin/bash' | xargs -P "$(nproc)" -I{} zsh -c 'shellcheck -f diff {} | git apply --allow-empty -q'
-  fi
-}
-
-# repeat command, similar to watch, but often more convenient
-whl() {
-  local interval clear=0
-  if [[ $1 == "-c" ]]; then
-    clear=1
-    shift
-  fi
-  local re='^[.0-9]+$'
-  if [[ $1 =~ ${re} ]]; then
-    interval=$1
-    shift
-  fi
-  while true; do
-    ((clear)) && clear
-    "$@"
-    sleep "${interval:-2}"
-  done
-}
-
-# capture the output of a command so it can be retrieved with ret
-cap() {
-  tee /tmp/capture.out
-}
-ret() {
-  cat /tmp/capture.out
 }
 
 # -------------------------------------------------------------- COUNTDOWN/TIMER

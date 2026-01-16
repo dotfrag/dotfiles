@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ -f /etc/arch-release ]]; then
-  yay -S --needed ttf-inter
+  sudo pacman -S --needed inter-font
   exit
 fi
 

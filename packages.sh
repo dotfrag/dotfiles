@@ -97,6 +97,7 @@ packages_pacman_desktop=(
   obsidian
   papirus-icon-theme
   pass
+  perl-image-exiftool
   plocate
   qalculate-gtk
   qpdf

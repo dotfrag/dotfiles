@@ -17,6 +17,10 @@ disabled = false
 [hostname]
 ssh_symbol = '  '
 
+[git_commit]
+tag_disabled = false
+tag_symbol = ' 🔖 '
+
 [git_metrics]
 disabled = false
 

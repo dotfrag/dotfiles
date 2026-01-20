@@ -38,7 +38,6 @@ packages_pacman_base=(
   lm_sensors
   man-db
   man-pages
-  mdcat
   mediainfo
   miniserve
   moreutils

@@ -37,6 +37,7 @@ alias vn='nvim-nightly'
 
 # --------------------------------------------------------------------- LS (eza)
 alias ls='eza --long --icons=auto --no-quotes --hyperlink --all --group-directories-first --smart-group --header --git'
+alias d='eza --icons=auto --all --hyperlink --group-directories-first'
 
 alias lad='ls --treat-dirs-as-files .*(/)'                    # dot-directories
 alias lsa='ls .*(.)'                                          # dot-files

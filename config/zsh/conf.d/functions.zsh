@@ -286,8 +286,7 @@ debounce-update-check() {
   local app=$1
   local f=${state}/${app}
   local hours=${2:-12}
-  local minutes=$((hours * 60))
-  local seconds=$((minutes * 60))
+  local seconds=$((hours * 60 * 60))
   local now last since
   mkdir -p "${state}"
 
@@ -303,7 +302,10 @@ debounce-update-check() {
       return 1
     fi
   else
-    echo "[${app}] ${minutes} minutes left until next update check."
+    local left=$((last + seconds - now))
+    minutes=$(qalc --defaults --terse --set "decimal comma off" "round(${left}/60, 2)")
+    hours=$(qalc --defaults --terse --set "decimal comma off" "round(${left}/60/60, 2)")
+    echo "[${app}] ${minutes} minutes (${hours} hours) left until next update check."
     return 1
   fi
 }

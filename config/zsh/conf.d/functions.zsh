@@ -275,6 +275,39 @@ put() {
 }
 
 # ----------------------------------------------------------------- UPDATE STUFF
+# debounce update check frequency
+debounce-update-check() {
+  if (($# < 1)); then
+    echo "usage: $0 <app> [hours]"
+    return 1
+  fi
+
+  local state=${XDG_STATE_HOME:-${HOME}.local/state}/zsh/debounce-update-check
+  local app=$1
+  local f=${state}/${app}
+  local hours=${2:-12}
+  local minutes=$((hours * 60))
+  local seconds=$((minutes * 60))
+  local now last since
+  mkdir -p "${state}"
+
+  now=$(date +%s)
+  last=$(date -f "${f}" +%s 2> /dev/null)
+  since=$((now - last))
+
+  if [[ -z ${last} ]] || ((since > seconds)); then
+    if date +@%s > "${f}"; then
+      return 0
+    else
+      echo 'Something went wrong.'
+      return 1
+    fi
+  else
+    echo "[${app}] ${minutes} minutes left until next update check."
+    return 1
+  fi
+}
+
 # update dotfiles list
 update-dots() {
   local dots="${XDG_DATA_HOME:-${HOME}/.local/share}/dots"
@@ -300,6 +333,7 @@ update-projects() {
 
 # update grml zsh config files
 update-zshrc() {
+  debounce-update-check zshrc || return
   local zshrc=${ZDOTDIR:-${HOME}}/.zshrc
   local zshrcskel=${ZDOTDIR:-${HOME}}/.zshrc.skel
   wget -nv -O "${zshrc}.tmp" https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc

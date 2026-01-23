@@ -1,12 +1,21 @@
 # -------------------------------------------------------------------- FUNCTIONS
 # print function with syntax highlighting
 func() {
-  if [[ ! -v functions[$1] ]]; then
-    echo "Function $1 not found."
-    return 1
-  fi
-  whence -v "$1" | awk '{print $NF}'
-  whence -f "$1" | bat --plain --language zsh
+  local f
+  while (($# > 0)); do
+    if [[ ! -v functions[$1] ]]; then
+      echo "Function $1 not found."
+      shift
+      (($# > 0)) && echo
+      continue
+    fi
+    f=$(whence -v "$1" | awk '{print $NF}')
+    f=${f/#${HOME}/\~}
+    print -P "%F{yellow}${f}%f"
+    whence -f "$1" | bat --plain --language zsh
+    shift
+    (($# > 0)) && echo
+  done
 }
 
 # edit function in editor

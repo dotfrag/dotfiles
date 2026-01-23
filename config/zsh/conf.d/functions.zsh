@@ -49,6 +49,7 @@ launch() {
 
 # bat hightlight help messages
 help() {
+  (($# < 1)) && return 1
   "$@" --help 2>&1 | bat --plain --language=help
 }
 

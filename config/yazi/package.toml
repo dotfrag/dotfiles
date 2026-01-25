@@ -1,21 +1,21 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-enter"
-rev = "de33976"
+rev = "6c71385"
 hash = "56fdabc96fc1f4d53c96eb884b02a5be"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:mount"
-rev = "de33976"
+rev = "6c71385"
 hash = "e2d4bfccf31e5ab05f46fee4797c5215"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:types"
-rev = "de33976"
-hash = "6c4759ffad7b1caef81fafed85b4a132"
+rev = "6c71385"
+hash = "204d77f3890fc8b0eb1efb081ed400c0"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "de33976"
+rev = "6c71385"
 hash = "3996fc74044bc44144b323686f887e1"
 
 [flavor]

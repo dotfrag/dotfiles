@@ -6,7 +6,7 @@ func() {
     if [[ ! -v functions[$1] ]]; then
       echo "Function $1 not found."
       shift
-      (($# > 0)) && echo
+      (($# > 0)) && echo || true
       continue
     fi
     f=$(whence -v "$1" | awk '{print $NF}')
@@ -14,7 +14,7 @@ func() {
     print -P "%F{yellow}${f}%f"
     whence -f "$1" | bat --plain --language zsh
     shift
-    (($# > 0)) && echo
+    (($# > 0)) && echo || true
   done
 }
 

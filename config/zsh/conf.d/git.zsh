@@ -295,6 +295,6 @@ delete-local-branches() {
   for repo in $(fd -IHL -td -d2 '^\.git$' -x echo {//}); do
     git -C "${repo}" branch \
       | rg -v 'master|main|next' \
-      | xargs -r git -C "${repo}" branch -d # -D
+      | xargs -r git -C "${repo}" branch "${1:--d}"
   done
 }

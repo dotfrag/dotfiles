@@ -91,7 +91,7 @@ fix-shellcheckrc-links() {
 
 # shfmt format all files
 shellfmt() {
-  if [[ -n $@ ]]; then
+  if (($# > 0)); then
     while (($# > 0)); do
       shfmt --write "$1"
       shift
@@ -103,7 +103,7 @@ shellfmt() {
 
 # shellcheck fix all fixable issues
 shellfix() {
-  if [[ -n $@ ]]; then
+  if (($# > 0)); then
     while (($# > 0)); do
       shellcheck -f diff "$1" | git apply --allow-empty
       shift

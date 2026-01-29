@@ -262,6 +262,10 @@ augroup END
 " endfunction
 
 " ------------------------------ Jump to the next change when using `do` or `dp`
+" Alternative:
+" nnoremap <expr> do &diff ? 'do]c' : 'do'
+" nnoremap <expr> dp &diff ? 'dp]c' : 'dp'
+
 augroup DiffAutoMove
   autocmd!
   " VimEnter: Handles the initial launch of vim -d / pacdiff
@@ -274,6 +278,8 @@ function! s:ApplyDiffMaps()
   if maparg('do', 'n') !~# '\]c'
     nnoremap <silent> <buffer> do do]c
     nnoremap <silent> <buffer> dp dp]c
+    nnoremap <silent> <buffer> <leader>q :qa!<CR>
+    call feedkeys("]c", 'tn')
   endif
 endfunction
 

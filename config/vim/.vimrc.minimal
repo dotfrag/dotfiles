@@ -126,6 +126,8 @@ function! s:ApplyDiffMaps()
   if maparg('do', 'n') !~# '\]c'
     nnoremap <silent> <buffer> do do]c
     nnoremap <silent> <buffer> dp dp]c
+    nnoremap <silent> <buffer> <leader>q :qa!<CR>
+    call feedkeys("]c", 'tn')
   endif
 endfunction
 

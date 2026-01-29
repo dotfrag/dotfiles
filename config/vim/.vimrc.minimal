@@ -115,23 +115,19 @@ nmap <leader>rt :%s/\s\+$//<cr>``
 autocmd BufEnter *.log* set nonumber norelativenumber nolist
 
 " Jump to the next change when using `do` or `dp`.
-augroup DiffDoDp
+augroup DiffAutoMove
   autocmd!
-  " Trigger when the 'diff' option is set (handles :diffthis or toggling)
-  autocmd OptionSet diff if v:option_new
-        " \ | nnoremap <buffer> do do:silent! normal! ]c<cr>
-        " \ | nnoremap <buffer> dp dp:silent! normal! ]c<cr>
-        \ | nnoremap <buffer> do do]c
-        \ | nnoremap <buffer> dp dp]c
-        \ | endif
-  " Trigger on buffer enter (handles starting with vim -d or switching windows)
-  autocmd BufEnter,WinEnter * if &diff
-        " \ | nnoremap <buffer> do do:silent! normal! ]c<cr>
-        " \ | nnoremap <buffer> dp dp:silent! normal! ]c<cr>
-        \ | nnoremap <buffer> do do]c
-        \ | nnoremap <buffer> dp dp]c
-        \ | endif
+  " VimEnter: Handles the initial launch of vim -d / pacdiff
+  " BufWinEnter: Handles new buffers/windows opened during the session
+  autocmd VimEnter,BufWinEnter * if &diff | call s:ApplyDiffMaps() | endif
 augroup END
+function! s:ApplyDiffMaps()
+  " Apply only if not already mapped to avoid recursion issues
+  if maparg('do', 'n') !~# '\]c'
+    nnoremap <silent> <buffer> do do]c
+    nnoremap <silent> <buffer> dp dp]c
+  endif
+endfunction
 
 " catppuccin_macchiato.vim
 set termguicolors

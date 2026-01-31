@@ -384,7 +384,7 @@ update-yt-dlp() {
 
 # update node using fnm
 update-node() {
-  current_version=$(fnm ls | rg default | awk '{print $2}')
+  current_version=$(fnm ls | rg lts-latest | awk '{print $2}')
   fnm install --lts
   new_version=$(fnm ls | rg default | awk '{print $2}')
   if [[ ${current_version} != "${new_version}" ]]; then

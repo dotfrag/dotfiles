@@ -148,7 +148,7 @@ cl() {
 
 # recurse into directories as a tree (short)
 lst() {
-  eza --group-directories-first --tree --icons=auto --level "${1:-5}"
+  eza --tree --icons=auto --all --group-directories-first --level "${1:-5}"
 }
 
 # watch ls

@@ -36,9 +36,10 @@ alias lg='lazygit'
 
 gr() {
   if [[ ${PWD} == *".git"* ]]; then
-    while [[ ${PWD} == *".git"* ]]; do cd ..; done
+    cd ..
+    $0
   else
-    cd $(git rev-parse --show-toplevel || echo .) || return
+    cd "$(git rev-parse --show-toplevel || echo .)" || return
   fi
 }
 

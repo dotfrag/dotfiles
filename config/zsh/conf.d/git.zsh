@@ -27,13 +27,20 @@ alias gdw='git diff -w'
 alias gfp='git ls-files --full-name'
 alias glg='git log --oneline -5'
 alias gpr='git pull --rebase'
-alias gr='cd $(git rev-parse --show-toplevel || echo .)'
 alias grv="git remote get-url origin"
 alias gs='git status'
 alias gsp='git stash pop'
 alias gss='git status -s'
 alias gst='git stash'
 alias lg='lazygit'
+
+gr() {
+  if [[ ${PWD} == *".git"* ]]; then
+    while [[ ${PWD} == *".git"* ]]; do cd ..; done
+  else
+    cd $(git rev-parse --show-toplevel || echo .) || return
+  fi
+}
 
 # lazygit filter path
 lgf() {

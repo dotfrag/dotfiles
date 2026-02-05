@@ -155,6 +155,7 @@ packages_aur_desktop=(
   bun-bin
   catppuccin-cursors-macchiato
   catppuccin-gtk-theme-macchiato
+  git-interactive-rebase-tool
   google-chrome
   networkmanager-dmenu-git
   otf-geist

@@ -59,6 +59,7 @@ alias lsx='ls *(*)'                                           # executables
 # ------------------------------------------------------------------------- MISC
 alias h='help'
 alias j='just'
+alias jc='just --choose'
 # alias p='pnpm'
 alias px='pnpx'
 alias rr='restart'

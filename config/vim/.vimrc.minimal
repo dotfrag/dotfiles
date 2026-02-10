@@ -124,9 +124,11 @@ augroup END
 function! s:ApplyDiffMaps()
   " Apply only if not already mapped to avoid recursion issues
   if maparg('do', 'n') !~# '\]c'
+    set diffopt-=iwhite
     nnoremap <silent> <buffer> do do]c
     nnoremap <silent> <buffer> dp dp]c
     nnoremap <silent> <buffer> <leader>q :qa!<CR>
+    nnoremap <silent> <buffer> <leader>x :xa<CR>
     call feedkeys("]c", 'tn')
   endif
 endfunction

@@ -20,6 +20,7 @@ func() {
 
 # edit function in editor
 edfunc() {
+  (($# < 1)) && return 1
   if [[ ! -v functions[$1] ]]; then
     echo "Function $1 not found."
     return 1

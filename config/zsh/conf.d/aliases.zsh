@@ -36,25 +36,27 @@ alias vm='nvim-main'
 alias vn='nvim-nightly'
 
 # --------------------------------------------------------------------- LS (eza)
-alias ls='eza --long --icons=auto --no-quotes --hyperlink --all --group-directories-first --smart-group --header --git'
-alias d='eza --icons=auto --no-quotes --hyperlink --all --group-directories-first'
+EZA_DEFAULT_OPTS="--icons=auto --no-quotes --hyperlink --all --group-directories-first"
+alias d="eza ${EZA_DEFAULT_OPTS}"
+alias ls1="eza ${EZA_DEFAULT_OPTS} --oneline"
+alias ls="eza ${EZA_DEFAULT_OPTS} --long --smart-group --header --git"
 
-alias lad='ls --treat-dirs-as-files .*(/)'                    # dot-directories
-alias lsa='ls .*(.)'                                          # dot-files
-alias lsb='find -xtype l'                                     # broken symlinks
-alias lsd='ls --only-dirs --show-symlinks'                    # directories
-alias lse='ls --treat-dirs-as-files *(/^F)'                   # empty directories
-alias lsf='ls --only-files'                                   # files
-alias lsg='ls --only-dirs --git-repos-no-status'              # list each git-repos branch name (much faster)
-alias lsgg='ls --only-dirs --git-repos'                       # list root of git-tree status
-alias lsl='ls *(@)'                                           # symlinks
-alias lsm='ls --sort modified'                                # sort by modified
-alias lsmr='ls --time-style=relative --sort modified'         # relative timestamp
-alias lsr='ls --time-style=relative'                          # relative timestamp
-alias lsrg='ls --color always | rg --color never -M0'         # ls and rg
-alias lsrm='ls --time-style=relative --sort modified'         # relative timestamp
-alias lstt='ls --tree'                                        # recurse into directories as a tree (long)
-alias lsx='ls *(*)'                                           # executables
+alias lad='ls --treat-dirs-as-files .*(/)'            # dot-directories
+alias lsa='ls .*(.)'                                  # dot-files
+alias lsb='find -xtype l'                             # broken symlinks
+alias lsd='ls --only-dirs --show-symlinks'            # directories
+alias lse='ls --treat-dirs-as-files *(/^F)'           # empty directories
+alias lsf='ls --only-files'                           # files
+alias lsg='ls --only-dirs --git-repos-no-status'      # list each git-repos branch name (much faster)
+alias lsgg='ls --only-dirs --git-repos'               # list root of git-tree status
+alias lsl='ls *(@)'                                   # symlinks
+alias lsm='ls --sort modified'                        # sort by modified
+alias lsmr='ls --time-style=relative --sort modified' # relative timestamp
+alias lsr='ls --time-style=relative'                  # relative timestamp
+alias lsrg='ls --color always | rg --color never -M0' # ls and rg
+alias lsrm='ls --time-style=relative --sort modified' # relative timestamp
+alias lstt='ls --tree'                                # recurse into directories as a tree (long)
+alias lsx='ls *(*)'                                   # executables
 
 # ------------------------------------------------------------------------- MISC
 alias h='help'

@@ -155,9 +155,9 @@ gppe() {
   elif [[ ${XDG_SESSION_DESKTOP} == "i3" ]]; then
     wm_msg=i3-msg
   fi
-  [[ -n ${wm_msg} ]] && ${wm_msg} '[con_id=__focused__]' move scratchpad
+  [[ -n ${wm_msg} ]] && ${wm_msg} move scratchpad
   if ! gpp; then
-    [[ -n ${wm_msg} ]] && ${wm_msg} '[con_id=__focused__]' scratchpad show
+    [[ -n ${wm_msg} ]] && ${wm_msg} scratchpad show
     return
   fi
   exit

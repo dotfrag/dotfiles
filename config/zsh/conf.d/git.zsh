@@ -62,9 +62,17 @@ gcd() {
   cd "${repo}" || return
 }
 gcdt() {
-  (($# != 1)) && return
-  cdt
-  gcd "$@"
+  if (($# == 1)); then
+    cdt
+    gcd "$@"
+  elif git rev-parse --is-inside-work-tree &> /dev/null; then
+    local remote
+    remote=$(git remote get-url origin)
+    cdt
+    gcd "${remote}"
+  else
+    return 1
+  fi
 }
 
 # git checkout

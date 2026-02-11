@@ -213,7 +213,7 @@ cpcd() {
   fi
 }
 
-# ---------------------------------------------------------------------- EXTRACT
+# --------------------------------------------------------------------- ARCHIVES
 # extract archive to subdirectory
 x() {
   if (($# < 1)); then
@@ -249,6 +249,30 @@ x() {
 xrm() {
   for f in "$@"; do
     x "${f}" && rm "${f}"
+  done
+}
+
+# list archive contents
+xl() {
+  if (($# < 1)); then
+    echo "usage: xl <file..>"
+    return 1
+  fi
+  for f in "$@"; do
+    if [[ ! -e ${f} ]]; then
+      echo "error: file ${f} doesn't exist"
+      return 1
+    fi
+    case "${f}" in
+      *.tar* | *.tgz | *.txz) tar -tvf "${f}" ;;
+      *.rar) unrar l "${f}" ;;
+      *.xz) unxz -l "${f}" ;;
+      *.zip) unzip -l "${f}" ;;
+      *)
+        echo 'archive format not supported'
+        return 1
+        ;;
+    esac
   done
 }
 

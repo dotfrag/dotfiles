@@ -538,6 +538,20 @@ ptree() {
 }
 
 # ------------------------------------------------------------------------ UTILS
+# print a banner message
+banner() {
+  local sep=";"
+  [[ $1 == "-s" ]] && sep=$2 && shift 2
+  TEXT=""
+  for row in "$@"; do
+    TEXT+="|${sep}${row}${sep}|\n"
+  done
+  TEXT=$(echo -e "${TEXT}" | column -t -s "${sep}")
+  length=$(echo "${TEXT}" | wc -L)
+  line="+ $(printf "%.0s-" $(seq $((length - 4)))) +"
+  echo -e "${line}\n${TEXT}\n${line}"
+}
+
 # touch executable and edit
 touchx() {
   (($# != 1)) && return 1

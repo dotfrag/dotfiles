@@ -19,3 +19,9 @@ _jqsort() {
   _arguments '1:json file:_path_files -g "**/*.json"'
 }
 compdef _jqsort jqsort
+
+_fkill() {
+    _arguments \
+        '1:signal:_signals'
+}
+compdef _fkill fkill

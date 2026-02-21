@@ -83,6 +83,7 @@ input {
 
     # Kill focused window
     bindsym $mod+q kill
+    bindsym $mod+Shift+q exec swaymsg -t get_tree | jq -r '.. | select(.type? == "con" and .focused? == true) .pid' | xargs -r kill -KILL
 
     # Start your launcher
     bindsym $mod+d       exec rofi -show drun

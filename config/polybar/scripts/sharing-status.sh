@@ -8,7 +8,7 @@ color_red=$("${SCRIPT_DIR}/get-property.sh" color red)
 
 i3-msg -t subscribe -m '[ "window" ]' | while read -r event; do
   name=$(echo "${event}" | jq -r '.container.name')
-  if [[ ${name} == "teams.microsoft.com is sharing"* ]]; then
+  if [[ ${name} == "teams.cloud.microsoft is sharing"* ]]; then
     change=$(echo "${event}" | jq -r '.change')
     if [[ ${change} == "new" ]]; then
       dunstctl set-paused true

@@ -152,6 +152,7 @@ packages_aur_base=(
 
 # AUTOSORT: START
 packages_aur_desktop=(
+  brave-bin
   bun-bin
   catppuccin-cursors-macchiato
   catppuccin-gtk-theme-macchiato

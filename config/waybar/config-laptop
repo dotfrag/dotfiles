@@ -4,6 +4,7 @@
 	"height": 34, // Waybar height (to be removed for auto height)
 	// "width": 1280, // Waybar width
 	"spacing": 24, // Gaps between modules (4px)
+	"reload_style_on_change": true,
 	// Choose the order of the modules
 	"modules-left": ["sway/workspaces", "sway/scratchpad", "sway/window"],
 	"modules-center": ["clock", "privacy", "sway/mode"],
@@ -64,7 +65,9 @@
 		}
 	},
 	"bluetooth": {
-		"format-off": ""
+		"format-off": "",
+		"format-disabled": "",
+		"format-on": ""
 	},
 	"tray": {
 		"icon-size": 20,

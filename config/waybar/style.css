@@ -119,3 +119,7 @@ tooltip label {
   animation-name: blink-red;
   animation-duration: 0.5s;
 }
+
+#bluetooth.on {
+  color: @yellow;
+}

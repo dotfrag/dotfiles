@@ -49,6 +49,7 @@ packages_pacman_base=(
   reflector
   ripgrep
   rsync
+  sd
   skim
   starship
   tealdeer

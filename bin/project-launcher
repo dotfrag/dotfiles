@@ -10,7 +10,7 @@ done < "${projects_file}"
 
 project=$(printf "%s\n" "${!projects[@]}" | rofi -dmenu -i)
 
-if [[ -z ${project} ]]; then
+if [[ ! -v projects[${project}] ]]; then
   exit 1
 fi
 
@@ -56,7 +56,7 @@ elif [[ $1 == "terminal" ]]; then
     exit 1
   fi
 else
-  echo "No editor specified."
-  notify-send "No editor specified."
+  echo "No launcher specified."
+  notify-send "No launcher specified."
   exit 1
 fi

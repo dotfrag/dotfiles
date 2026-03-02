@@ -74,7 +74,7 @@ update-container() {
   docker compose pull
   # docker compose down # not needed
   docker compose up -d
-  docker image prune -f
+  [[ $1 == "prune" ]] && docker image prune -f
 }
 
 update-containers() {
@@ -86,5 +86,5 @@ update-containers() {
       update-container
     )
   done
-  return
+  docker image prune -f
 }

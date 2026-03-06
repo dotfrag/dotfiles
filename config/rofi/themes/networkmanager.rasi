@@ -1,0 +1,20 @@
+@import "launcher.rasi"
+
+window {
+  width: 864px;
+  height: 864px;
+}
+
+mainbox {
+  padding: 12px;
+}
+
+listview {
+  spacing: 0;
+}
+
+element {
+  padding: 4px;
+}
+
+// vim: ft=rasi

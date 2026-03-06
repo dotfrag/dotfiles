@@ -46,6 +46,7 @@ packages_pacman_base=(
   pacman-contrib
   parallel
   procs
+  python-curl_cffi
   reflector
   ripgrep
   rsync

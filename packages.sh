@@ -29,6 +29,7 @@ packages_pacman_base=(
   git-delta
   git-filter-repo
   glow
+  gping
   imagemagick
   jq
   just

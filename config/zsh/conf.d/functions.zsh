@@ -475,6 +475,7 @@ timer() {
 # -------------------------------------------------------------------- OVERLOADS
 # pnpm select command from package.json
 p() {
+  debounce-update-check pnpm 24 > /dev/null && update-pnpm
   if (($# == 0)); then
     [[ -f package.json ]] || return 1
     local commands

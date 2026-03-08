@@ -28,6 +28,7 @@ packages_pacman_base=(
   git
   git-delta
   git-filter-repo
+  gitui
   glow
   gping
   imagemagick

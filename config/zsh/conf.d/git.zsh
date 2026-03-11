@@ -162,6 +162,21 @@ gppe() {
   fi
   exit
 }
+gpe() {
+  local wm_msg
+  # shellcheck disable=SC2154
+  if [[ ${XDG_SESSION_DESKTOP} == "sway" ]]; then
+    wm_msg=swaymsg
+  elif [[ ${XDG_SESSION_DESKTOP} == "i3" ]]; then
+    wm_msg=i3-msg
+  fi
+  [[ -n ${wm_msg} ]] && ${wm_msg} move scratchpad
+  if ! git push; then
+    [[ -n ${wm_msg} ]] && ${wm_msg} scratchpad show
+    return
+  fi
+  exit
+}
 
 # find branches that have modified a file
 glf() {

@@ -24,6 +24,17 @@ HISTSIZE=100000
 SAVEHIST=100000
 
 # ---------------------------------------------------------------------- WIDGETS
+if ((KITTY_WINDOW_ID)); then
+  # https://sw.kovidgoyal.net/kitty/conf/#shortcut-kitty.Reset-the-terminal
+  ctrl_l() {
+    builtin print -rn -- $'\r\e[0J\e[H\e[22J' > "${TTY}"
+    builtin zle .reset-prompt
+    builtin zle -R
+  }
+  zle -N ctrl_l
+  bindkey '^l' ctrl_l
+fi
+
 list-dir() { echo; ls .; printf '\n\n'; zle redisplay }
 zle -N list-dir
 bindkey "^[l" "list-dir"

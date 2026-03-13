@@ -30,6 +30,7 @@ alias gfp='git ls-files --full-name'
 alias glg='git log --oneline -5'
 alias gpr='git pull --rebase'
 alias grv="git remote get-url origin"
+alias grvv="git remote -v"
 alias gs='git status'
 alias gsp='git stash pop'
 alias gss='git status -s'

@@ -239,7 +239,7 @@ gallb() {
   repos=()
   # shellcheck disable=SC1083
   for repo in $(fd -td '^\.git$' -IHL --strip-cwd-prefix -x echo {//} | sort); do
-    if [[ $(git -C "${repo}" symbolic-ref --short -q HEAD) == "${branch}" ]]; then
+    if [[ $(git -C "${repo}" branch --show-current) == "${branch}" ]]; then
       repos+=("${repo}")
     fi
   done

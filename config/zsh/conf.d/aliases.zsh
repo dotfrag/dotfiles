@@ -59,10 +59,10 @@ alias lstt='ls --tree'                                # recurse into directories
 alias lsx='ls *(*)'                                   # executables
 
 # ------------------------------------------------------------------------- MISC
+# alias p='pnpm' # defined in functions.zsh
 alias h='help'
 alias j='just'
 alias jc='just --unsorted --choose'
-# alias p='pnpm'
 alias px='pnpx'
 alias rr='restart'
 alias tx='tmux new -As0'

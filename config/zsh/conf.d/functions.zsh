@@ -653,3 +653,14 @@ nvim-trust() {
   [[ -f ${target} ]] && sed -i "\+${f}+d" "${target}"
   sha256sum "${f}" | xargs >> "${target}"
 }
+
+# create justfile template
+jt() {
+  if just --init --quiet; then
+    echo -e '@default:\n    just --list --unsorted' > justfile
+    ${EDITOR} justfile
+  else
+    echo "Justfile already exists."
+    return 1
+  fi
+}

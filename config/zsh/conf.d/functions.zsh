@@ -657,7 +657,7 @@ nvim-trust() {
 # create justfile template
 jt() {
   if just --init --quiet; then
-    echo -e '@default:\n    just --list --unsorted' > justfile
+    echo -e '# List recipes\n@default:\n    just --list --unsorted' > justfile
     ${EDITOR} justfile
   else
     echo "Justfile already exists."

@@ -35,6 +35,7 @@ alias gs='git status'
 alias gsa='git stash apply'
 alias gsp='git stash pop'
 alias gss='git status -s'
+alias gssb='git status -sb'
 alias gst='git stash'
 alias lg='lazygit'
 

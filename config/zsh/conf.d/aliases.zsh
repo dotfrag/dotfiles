@@ -83,6 +83,7 @@ alias print-functions='print -rl -- ${(k)functions}'
 alias qlc='qalc --defaults --terse --set "decimal comma off"'
 alias ran='ranger --choosedir=/tmp/.rangerdir; LASTDIR=$(cat /tmp/.rangerdir); cd "$LASTDIR"'
 alias shfmt='shfmt --simplify --indent 2 --binary-next-line --case-indent --space-redirects'
+alias tv='tv channels'
 
 alias update-fnm='curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell'
 

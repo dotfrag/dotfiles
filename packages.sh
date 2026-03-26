@@ -56,6 +56,7 @@ packages_pacman_base=(
   skim
   starship
   tealdeer
+  television
   terminus-font
   thermald
   tmux

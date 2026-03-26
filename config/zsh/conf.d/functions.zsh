@@ -80,8 +80,8 @@ incognito() {
   add-zsh-hook -d preexec _atuin_preexec
 }
 
-# fix all shellcheckrc files/links using `dotfiles/config/shellcheckrc` as main
-fix-shellcheckrc-links() {
+# update all shellcheckrc files/links using `dotfiles/config/shellcheckrc` as main
+update-shellcheckrc-links() {
   cd "${HOME}" || exit
   all=$(fd -u -d4 -tf shellcheckrc -X realpath)
   main=$(rg '/shellcheckrc' <<< "${all}")

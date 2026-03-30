@@ -305,11 +305,9 @@ sync-fork() {
     echo "git remote add upstream https://github.com/ORIGINAL-OWNER/ORIGINAL-REPOSITORY.git"
     return
   fi
-  branch=$(git symbolic-ref --short -q HEAD)
-  git fetch upstream
-  # git checkout "${branch}"
-  git pull
+  branch=$(git branch --show-current)
   if git ls-remote --exit-code upstream "${branch}" > /dev/null; then
+    git pull --all
     git merge "upstream/${branch}"
   fi
 }

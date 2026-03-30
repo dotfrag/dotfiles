@@ -159,6 +159,7 @@ packages_aur_desktop=(
   brave-bin
   catppuccin-cursors-macchiato
   catppuccin-gtk-theme-macchiato
+  git-extras
   git-interactive-rebase-tool
   google-chrome
   networkmanager-dmenu-git

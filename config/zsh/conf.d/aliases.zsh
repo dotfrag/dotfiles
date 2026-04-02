@@ -8,12 +8,10 @@ alias mv='mv -vi'
 alias rm='rm -v'
 
 # ----------------------------------------------------------------------- PACMAN
-alias pqs='pacman -Q | sk'
+alias pqi='pacman -Qi'
+alias pqii='pacman -Qii'
 alias pqqs='pacman -Qq | sk'
-# alias agi='sudo nala install'
-# alias aug='sudo nala update && sudo nala upgrade'
-# alias di='sudo dnf install'
-# alias dug='sudo dnf check-update && sudo dnf upgrade'
+alias pqs='pacman -Q | sk'
 
 # ---------------------------------------------------------------- EDITOR (nvim)
 alias vim="${EDITOR}"

@@ -357,8 +357,11 @@ update-dots() {
 update-projects() {
   local projects=${XDG_DATA_HOME:-${HOME}/.local/share}/projects
   command rm -f "${projects}"
-  realpath ~/repos/* ~/repos/src/* ~/projects/* 2> /dev/null | while read -r line; do
-    [[ -d ${line} ]] && echo "${line}" >> "${projects}"
+  local project_dirs=(~/repos ~/projects)
+  for i in "${project_dirs[@]}"; do
+    if [[ -d ${i} ]]; then
+      printf '%s\n' "${i}"/*(/) >> "${projects}"
+    fi
   done
   printf '%s\n' "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"* >> "${projects}"
   # for d in ~/.local/share/nvim*; do

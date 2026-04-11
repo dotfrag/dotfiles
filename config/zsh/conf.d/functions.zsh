@@ -26,12 +26,12 @@ edfunc() {
     return 1
   fi
   local file_path line_number pat search
-  search="$(
+  search=$(
     rg -g '*.zsh' "^$1\(\)" \
       ~/repos/dotfiles{,-private} \
       --line-number --max-count 1 \
       | cut -d':' -f1-2
-  )"
+  )
   IFS=':' read -r file_path line_number <<< "${search}"
   pat='n?vim'
   # shellcheck disable=SC2154
@@ -163,9 +163,9 @@ wlsm() {
 # ----------------------------------------------------------------- FILE MANAGER
 # yazi
 f() {
-  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+  local tmp=$(mktemp -t "yazi-cwd.XXXXXX")
   yazi "$@" --cwd-file="$tmp"
-  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+  if cwd=$(cat -- "$tmp") && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
     cd -- "$cwd"
   fi
   command rm -f -- "$tmp"
@@ -457,10 +457,10 @@ countdown() {
     echo 'countdown $((24 * 60 * 60)) # one day'
     return 1
   fi
-  start="$(($(date '+%s') + $1))"
+  start=$(($(date '+%s') + $1))
   printf '\e[?25l'
   while [[ ${start} -ge $(date +%s) ]]; do
-    time="$((start - $(date +%s)))"
+    time=$((start - $(date +%s)))
     printf '%s\r' "$(date -u -d "@${time}" +%H:%M:%S)"
     sleep 0.1
   done
@@ -470,7 +470,7 @@ timer() {
   start=$(date +%s)
   printf '\e[?25l'
   while true; do
-    time="$(($(date +%s) - start))"
+    time=$(($(date +%s) - start))
     printf '%s\r' "$(date -u -d "@${time}" +%H:%M:%S)"
     sleep 0.1
   done

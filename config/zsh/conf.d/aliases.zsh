@@ -73,6 +73,7 @@ alias dfs='df -h | sort -n -k 5'
 alias duf='duf -only local -sort usage'
 alias duff='duf -only fuse -sort usage'
 alias dus='du -sh * 2>/dev/null | sort -h'
+alias fd='fd --hyperlink'
 alias files='nemo $(pwd) &>/dev/null & disown'
 alias insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" -o "PreferredAuthentications=keyboard-interactive"'
 alias killsigs="kill -l | tr ' ' '\n' | nl"

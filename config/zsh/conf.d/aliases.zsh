@@ -13,6 +13,7 @@ alias pqii='pacman -Qii'
 alias pqqs='pacman -Qq | sk'
 alias pqs='pacman -Q | sk'
 alias psi='pacman -Si'
+alias psii='pacman -Sii'
 
 # ---------------------------------------------------------------- EDITOR (nvim)
 alias vim="${EDITOR}"

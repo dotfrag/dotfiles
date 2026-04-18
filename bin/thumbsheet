@@ -1,0 +1,41 @@
+#!/bin/bash
+
+INPUT="$1"
+OUTPUT="${2:-output.jpg}"
+COLS="${3:-5}"
+ROWS="${4:-5}"
+WIDTH="${5:-320}"
+TIMESTAMPS="${6:-0}"
+SKIP="${7:-0}"
+
+if [[ -z ${INPUT} ]]; then
+  echo "Usage: $(basename "$0") input.mp4 [output.jpg(${OUTPUT})] [cols(${COLS})] [rows(${ROWS})] [thumb_width(${WIDTH})] [timestamps(${TIMESTAMPS})] [skip_seconds(${SKIP})]"
+  exit 1
+fi
+
+COUNT=$((COLS * ROWS))
+
+DURATION=$(ffprobe -v error -show_entries format=duration \
+  -of default=noprint_wrappers=1:nokey=1 "${INPUT}")
+
+FPS=$(awk "BEGIN { printf \"%.6f\", ${COUNT} / ${DURATION} }")
+
+echo "Duration: ${DURATION} sec"
+echo "Grid: ${COLS}x${ROWS} (${COUNT} thumbnails)"
+echo "Sampling FPS: ${FPS}"
+echo "Timestamps: ${TIMESTAMPS}"
+echo "Skip Seconds: ${SKIP}"
+
+FILTER="fps=${FPS},scale=${WIDTH}:-1"
+
+if ((TIMESTAMPS)); then
+  FILTER="${FILTER},drawtext=text='%{pts\\:hms}':x=5:y=5:fontsize=16:fontcolor=white:box=1:boxcolor=black@0.5"
+fi
+
+FILTER="${FILTER},tile=${COLS}x${ROWS}"
+
+echo "Generating.."
+
+ffmpeg -nostdin -hide_banner -loglevel error -y -ss "${SKIP}" -i "${INPUT}" -vf "${FILTER}" -frames:v 1 "${OUTPUT}"
+
+echo "Saved to ${OUTPUT}"

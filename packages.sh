@@ -21,6 +21,7 @@ packages_pacman_base=(
   dua-cli
   duf
   entr
+  ex-vi-compat
   eza
   fd
   ffmpeg

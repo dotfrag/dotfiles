@@ -1,0 +1,10 @@
+#!/bin/zsh -i
+
+funcs=$(print -l ${(ok)functions[(I)[^_]*]})
+func=$(echo "${funcs}" | rofi -dmenu -i)
+
+if [[ -z ${func} || ! -v functions[$func] ]]; then
+  exit 127
+fi
+
+$func

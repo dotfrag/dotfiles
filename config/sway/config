@@ -241,6 +241,7 @@ input {
 #
 # Project launcher:
 #
+    bindsym $mod+Shift+f exec ~/.config/sway/scripts/zsh-function
     bindsym $mod+Shift+v exec project-launcher vscode
     bindsym $mod+comma   exec project-launcher zed
     bindsym $mod+g       exec project-launcher lazygit

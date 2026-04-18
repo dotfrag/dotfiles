@@ -167,7 +167,6 @@ packages_aur_desktop=(
   otf-geist
   otf-geist-mono
   sublime-text-4
-  thorium-browser-bin
   ttf-merriweather
   visual-studio-code-bin
 )

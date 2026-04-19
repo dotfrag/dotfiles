@@ -82,7 +82,7 @@ incognito() {
 
 # update all shellcheckrc files/links using `dotfiles/config/shellcheckrc` as main
 update-shellcheckrc-links() {
-  cd "${HOME}" || exit
+  cd "${HOME}" || return
   all=$(fd -u -d4 -tf shellcheckrc -X realpath)
   main=$(rg '/shellcheckrc' <<< "${all}")
   for i in $(rg -v '/shellcheckrc' <<< "${all}"); do
@@ -563,7 +563,7 @@ cdl() {
   if (($# != 1)); then
     return 1
   fi
-  cd "$(readlink -e "$1")" || exit
+  cd "$(readlink -e "$1")" || return
 }
 
 # touch executable and edit

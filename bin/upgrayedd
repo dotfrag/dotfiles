@@ -115,7 +115,7 @@ _pnpm() {
   if has pnpm; then
     log_line "Pnpm"
     # shellcheck disable=SC2154
-    if [[ $(command -v pnpm) == "${XDG_DATA_HOME}/pnpm"* ]]; then
+    if [[ $(command -v pnpm) == "${XDG_DATA_HOME:-${HOME}/.local/share}/pnpm"* ]]; then
       run pnpm self-update
     fi
     run pnpm update --global

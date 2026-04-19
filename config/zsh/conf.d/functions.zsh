@@ -313,7 +313,7 @@ put() {
 # debounce update check frequency
 debounce-update-check() {
   if (($# < 1)); then
-    echo "usage: $0 <app> [hours]"
+    echo "usage: $0 <app> [hours(12)]"
     return 1
   fi
 
@@ -558,6 +558,14 @@ banner() {
   echo -e "${line}\n${TEXT}\n${line}"
 }
 
+# cd to real path (of symlink dir)
+cdl() {
+  if (($# != 1)); then
+    return 1
+  fi
+  cd "$(readlink -e "$1")" || exit
+}
+
 # touch executable and edit
 touchx() {
   (($# != 1)) && return 1
@@ -643,7 +651,7 @@ adb() {
     wget --quiet --show-progress -nc -O "${file_path}" "${url}"
     unzip "${file_path}" -d /tmp
   fi
-  HOME=${XDG_DATA_HOME}/android /tmp/platform-tools/adb "$@"
+  HOME=${XDG_DATA_HOME:-${HOME}/.local/share}/android /tmp/platform-tools/adb "$@"
 }
 
 # trust .nvim.lua in cwd

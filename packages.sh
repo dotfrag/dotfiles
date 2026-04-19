@@ -123,6 +123,7 @@ packages_pacman_desktop=(
   ttf-nerd-fonts-symbols-common
   ttf-nerd-fonts-symbols-mono
   ttf-opensans
+  usbutils
   uv
   wl-clipboard
   xdg-desktop-portal-gtk

@@ -27,7 +27,7 @@ edfunc() {
   fi
   local file_path line_number pat search
   search=$(
-    rg -g '*.zsh' "^$1\(\)" \
+    rg -u -g '*.zsh*' "^(function\s)?$1\s?\(\)" \
       ~/repos/dotfiles{,-private} \
       --line-number --max-count 1 \
       | cut -d':' -f1-2

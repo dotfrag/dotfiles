@@ -5,6 +5,7 @@ git:
   log:
     showGraph: when-maximised
 gui:
+  border: single
   commitHashLength: 4
   expandFocusedSidePanel: true
   expandedSidePanelWeight: 2

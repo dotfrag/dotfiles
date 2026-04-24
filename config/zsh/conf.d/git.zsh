@@ -29,6 +29,7 @@ alias gdw='git diff -w'
 alias gfp='git ls-files --full-name'
 alias glg='git log --oneline -5'
 alias gpr='git pull --rebase'
+alias grh='git reset --hard origin/$(git branch --show-current)'
 alias grv="git remote get-url origin"
 alias grvv="git remote -v"
 alias gs='git status'
@@ -329,7 +330,7 @@ delete-local-branches() {
   for repo in $(fd -IHL -td -d2 '^\.git$' -x echo {//}); do
     git -C "${repo}" branch \
       | cut -c 3- \
-      | rg -v 'master|main|next' \
+      | rg -v "master|main|next|$(git branch --show-current)" \
       | xargs -r git -C "${repo}" branch "${1:--d}"
   done
 }

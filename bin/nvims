@@ -109,6 +109,7 @@ clean_config() {
         fi
       done
     fi
+    rm -f "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim/nvim-pack-lock.json"
     echo "Cleaned ${sel} config."
   done
 }

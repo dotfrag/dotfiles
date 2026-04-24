@@ -675,3 +675,8 @@ jt() {
     return 1
   fi
 }
+
+# ss search (grep)
+ssg() {
+  ss -tulpn | sed -n "1p; /[${1:0:1}]${1:1}/p"
+}

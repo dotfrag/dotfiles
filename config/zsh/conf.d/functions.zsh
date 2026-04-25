@@ -615,12 +615,16 @@ vs() {
   local projects=${XDG_DATA_HOME:-${HOME}/.local/share}/projects
   cat "${projects}" | fzf --multi --bind 'enter:become(code {+})'
 }
+
 # check if file ends with newline character
 file-ends-with-newline() {
-  (($# != 1)) && return 1
-  [[ $(tail -c1 "$1" | wc -l) -gt 0 ]] \
-    && echo "yes" \
-    || echo "no"
+  (($# < 1)) && return 1
+  while (($# > 0)); do
+    [[ $(tail -c1 "$1" | wc -l) -gt 0 ]] \
+      && echo "$1: yes" \
+      || echo "$1: no"
+    shift
+  done | column -t
 }
 
 # get a random, unused port

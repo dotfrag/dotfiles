@@ -104,6 +104,13 @@ _bun() {
   :
 }
 
+_vp() {
+  if has vp; then
+    vp upgrade --check
+    vp update --global
+  fi
+}
+
 _npm() {
   if has npm; then
     log_line "Npm packages"
@@ -256,6 +263,7 @@ if [[ -n $1 ]]; then
       system | yay) _yay ;;
       tldr) _tldr ;;
       uv) _uv ;;
+      vp) _vp ;;
       yazi) _yazi ;;
       zsh) _zsh ;;
       # AUTOSORT: END
@@ -280,6 +288,7 @@ main() {
   _cargo
   _gup
   _code
+  _vp
   _npm
   _pnpm
   _docker

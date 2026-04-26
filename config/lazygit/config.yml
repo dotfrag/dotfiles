@@ -47,8 +47,20 @@ promptToReturnFromSubprocess: false
 customCommands:
   - key: "D"
     context: "localBranches"
+    description: "Reset hard to origin"
     command: "git reset --hard {{.SelectedRemote.Name}}/{{.SelectedLocalBranch.Name}}"
     prompts:
       - type: "confirm"
         title: "Hard reset"
         body: "Are you sure you want to hard reset the current head?"
+  - key: "O"
+    context: "commitFiles"
+    description: "Open file at previous commit"
+    command: |
+      FILE={{.SelectedCommitFile.Name | quote}}
+      BNAME=$(basename ${FILE})
+      SHA={{.SelectedCommit.Sha}}
+      TARGET_SHA=$(git rev-parse --short ${SHA}^1)
+      REPO=$(basename "$(git rev-parse --show-toplevel)")
+      OUT_FILE="/tmp/${REPO}-${TARGET_SHA}-${BNAME}"
+      git show ${TARGET_SHA}:${FILE} > "${OUT_FILE}" && kitty ${EDITOR} "${OUT_FILE}"

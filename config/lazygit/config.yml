@@ -60,7 +60,7 @@ customCommands:
       FILE={{.SelectedCommitFile.Name | quote}}
       BNAME=$(basename ${FILE})
       SHA={{.SelectedCommit.Sha}}
-      TARGET_SHA=$(git rev-parse --short ${SHA}^1)
+      TARGET_SHA=$(git rev-parse --short ${SHA}~1)
       REPO=$(basename "$(git rev-parse --show-toplevel)")
       OUT_FILE="/tmp/${REPO}-${TARGET_SHA}-${BNAME}"
       git show ${TARGET_SHA}:${FILE} > "${OUT_FILE}" && kitty ${EDITOR} "${OUT_FILE}"

@@ -169,6 +169,10 @@ cnoremap w!! w !sudo tee > /dev/null %
 map Q <nop>
 map Y y$
 
+" Better up/down
+nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+
 " Buffers
 noremap <leader>w :write<cr>
 noremap <leader>W :write<bar>bd<cr>
@@ -190,6 +194,7 @@ nmap <leader>cc :call ColorColumnToggle()<cr>
 nmap <leader>uv :call VirtualEditToggle()<cr>
 nmap <leader>h :set hlsearch! hlsearch?<cr>
 nmap <leader>z :set wrap!<cr>
+nmap <leader>uw :set wrap!<cr>
 nmap <leader>n nzz
 nmap <leader>N Nzz
 nmap cag ggcG

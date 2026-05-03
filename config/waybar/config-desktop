@@ -105,7 +105,7 @@
 		"tooltip-format-ethernet": "{ifname} via {gwaddr}",
 		"format-linked": "{ifname} (No IP) 󰊗",
 		"format-disconnected": "  Disconnected",
-		"format-alt": "{ifname}: {ipaddr}/{cidr}"
+		"format-alt": "{ifname}: {ipaddr}/{cidr} ({gwaddr})"
 	},
 	"pulseaudio": {
 		"scroll-step": 5, // %, can be a float

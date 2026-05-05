@@ -345,7 +345,7 @@ for_window {
   [class="discord"] $inhibit_focus
 
   # inhibit_fullscreen - inhibit_idle fullscreen
-  [instance="chromium|google-chrome|thorium-browser"] $inhibit_fullscreen
+  [app_id="brave-browser|chromium|google-chrome"] $inhibit_fullscreen
 
   # float - floating enable
   [app_id="blueman-manager"] $float

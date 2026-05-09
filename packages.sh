@@ -83,6 +83,7 @@ packages_pacman_desktop=(
   brightnessctl
   croc
   direnv
+  fnm
   gammastep
   github-cli
   gnome-keyring

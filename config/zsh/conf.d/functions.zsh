@@ -480,6 +480,10 @@ timer() {
 # -------------------------------------------------------------------- OVERLOADS
 # pnpm select command from package.json
 p() {
+  if command -v vp > /dev/null; then
+    echo "vite-plus is installed, use that instead."
+    return
+  fi
   debounce-update-check pnpm 24 > /dev/null && update-pnpm
   if (($# == 0)); then
     [[ -f package.json ]] || return 1

@@ -279,6 +279,15 @@ mode "resize" {
     bindsym Shift+$up    resize shrink height 40px
     bindsym Shift+$right resize grow   width  40px
 
+    bindsym Mod1+$left        resize shrink width  10px; move position center
+    bindsym Mod1+$down        resize grow   height 10px; move position center
+    bindsym Mod1+$up          resize shrink height 10px; move position center
+    bindsym Mod1+$right       resize grow   width  10px; move position center
+    bindsym Mod1+Shift+$left  resize shrink width  40px; move position center
+    bindsym Mod1+Shift+$down  resize grow   height 40px; move position center
+    bindsym Mod1+Shift+$up    resize shrink height 40px; move position center
+    bindsym Mod1+Shift+$right resize grow   width  40px; move position center
+
     # Ditto, with arrow keys
     bindsym Left        resize shrink width  10px
     bindsym Down        resize grow   height 10px
@@ -288,6 +297,15 @@ mode "resize" {
     bindsym Shift+Down  resize grow   height 40px
     bindsym Shift+Up    resize shrink height 40px
     bindsym Shift+Right resize grow   width  40px
+
+    bindsym Mod1+Left        resize shrink width  10px; move position center
+    bindsym Mod1+Down        resize grow   height 10px; move position center
+    bindsym Mod1+Up          resize shrink height 10px; move position center
+    bindsym Mod1+Right       resize grow   width  10px; move position center
+    bindsym Mod1+Shift+Left  resize shrink width  40px; move position center
+    bindsym Mod1+Shift+Down  resize grow   height 40px; move position center
+    bindsym Mod1+Shift+Up    resize shrink height 40px; move position center
+    bindsym Mod1+Shift+Right resize grow   width  40px; move position center
 
     # Move window to center
     bindsym c      move position center

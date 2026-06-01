@@ -98,6 +98,7 @@ packages_pacman_desktop=(
   mpv
   nemo
   noto-fonts
+  noto-fonts-cjk
   noto-fonts-emoji
   obsidian
   papirus-icon-theme

@@ -530,6 +530,15 @@ tmuxp() {
   fi
 }
 
+# play videos from cwd and return to picker
+mpv() {
+  if (($#)); then
+    command mpv "$@"
+  else
+    fd -e mp4 | fzf --bind 'enter:execute(mpv --really-quiet {})'
+  fi
+}
+
 # ------------------------------------------------------------------------- FIND
 # find regular files with more than link to them
 # to see names linked to the same file use `find -samefile file_name`

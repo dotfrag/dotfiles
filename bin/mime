@@ -21,6 +21,7 @@ if [[ ! -e ${f} ]]; then
   exit 1
 fi
 
+# file -bL --mime-type
 filetype=$(xdg-mime query filetype "${f}")
 application=$(xdg-mime query default "${filetype}")
 

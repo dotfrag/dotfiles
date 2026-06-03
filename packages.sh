@@ -78,12 +78,12 @@ packages_pacman_base=(
 
 # AUTOSORT: START
 packages_pacman_desktop=(
+  # fnm/vite-plus
   bitwarden
   bob
   brightnessctl
   croc
   direnv
-  fnm
   gammastep
   github-cli
   gnome-keyring
@@ -163,6 +163,7 @@ packages_aur_desktop=(
   brave-bin
   catppuccin-cursors-macchiato
   catppuccin-gtk-theme-macchiato
+  dragon-drop
   git-extras
   git-interactive-rebase-tool
   google-chrome

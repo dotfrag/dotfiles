@@ -30,6 +30,7 @@ alias gdw='git diff -w'
 alias gfp='git ls-files --full-name'
 alias glg='git log --oneline -5'
 alias gpr='git pull --rebase'
+alias gpra='git pull --rebase --autostash'
 alias grh='git reset --hard origin/$(git branch --show-current)'
 alias grv="git remote get-url origin"
 alias grvv="git remote -v"

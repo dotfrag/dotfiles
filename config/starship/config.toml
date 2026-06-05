@@ -24,6 +24,9 @@ tag_symbol = ' 🔖 '
 [git_metrics]
 disabled = false
 
+[cmd_duration]
+show_milliseconds = true
+
 [status]
 format = '[$symbol $common_meaning$signal_name$maybe_int \[$status\]]($style) '
 symbol = '󰅖'

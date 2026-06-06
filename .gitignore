@@ -1,3 +1,5 @@
+.sync-conflict-*
+
 config/i3/local.config
 config/sway/local.config
 config/waybar/config

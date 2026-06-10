@@ -443,15 +443,15 @@
 #    skip_display = yes
 
 [espanso]
-  summary = "Espanso"
-  body = "Espanso is running!"
-  skip_display = yes
-  history_ignore = yes
+    summary = "Espanso"
+    body = "Espanso is running!"
+    skip_display = yes
+    history_ignore = yes
 
 [snap]
-  summary = "Some required theme snaps are missing."
-  skip_display = yes
-  history_ignore = yes
+    summary = "Some required theme snaps are missing."
+    skip_display = yes
+    history_ignore = yes
 
 #[signed_on]
 #    appname = Pidgin
@@ -476,5 +476,5 @@
 #[stack-volumes]
 #    appname = "some_volume_notifiers"
 #    set_stack_tag = "volume"
-#
-# vim: ft=cfg
+
+# vim: ft=cfg ts=4 sw=4 et

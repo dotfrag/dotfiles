@@ -19,4 +19,4 @@ fi
 echo
 echo "Looking good. Double check and push:"
 echo "git remote add origin ${remote}"
-echo "git push -fu origin main "
+echo "git push -fu origin main"

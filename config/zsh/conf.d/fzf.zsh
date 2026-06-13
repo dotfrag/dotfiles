@@ -165,10 +165,19 @@ cmd() {
   fzf --query="$@" --select-1 --exit-0 --bind 'enter:become(eval {}),ctrl-v:accept-non-empty' < "${cmds}"
 }
 
-# ps interactive
+# ps -ef interactive
 # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#updating-the-list-of-processes-by-pressing-ctrl-r
 psf() {
   fzf --bind='start,ctrl-r:reload(date; ps -ef)' \
+    --header=$'Press CTRL-R to reload\n\n' --header-lines=2 \
+    --preview='echo {}' --preview-window=down,3,wrap \
+    --multi --height=100% | sed '$!G'
+}
+
+# ps -efl interactive
+# https://github.com/junegunn/fzf/blob/master/ADVANCED.md#updating-the-list-of-processes-by-pressing-ctrl-r
+psfl() {
+  fzf --bind='start,ctrl-r:reload(date; ps -efl)' \
     --header=$'Press CTRL-R to reload\n\n' --header-lines=2 \
     --preview='echo {}' --preview-window=down,3,wrap \
     --multi --height=100% | sed '$!G'

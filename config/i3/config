@@ -19,7 +19,14 @@ bindsym $mod+Return exec --no-startup-id kitty
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen --lock dim
+
+# betterlockscreen
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen --lock dim
+# bindsym $mod+Ctrl+Mod1+l exec --no-startup-id loginctl lock-session
+
+# xscreensaver
+exec --no-startup-id xss-lock -- xscreensaver-command -lock
+exec --no-startup-id xscreensaver -no-splash
 bindsym $mod+Ctrl+Mod1+l exec --no-startup-id loginctl lock-session
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,

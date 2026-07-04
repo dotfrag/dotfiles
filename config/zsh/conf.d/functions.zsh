@@ -411,6 +411,21 @@ update-yt-dlp() {
   fi
 }
 
+# update fnm
+update-fnm() {
+  check_com -c fnm || return
+  local latest_version current_version
+  latest_version=$(get-latest-version Schniz/fnm)
+  latest_version=${latest_version/v/}
+  current_version=$(fnm -V | awk '{print $2}')
+  if [[ ${latest_version} != "${current_version}" ]]; then
+    echo "Upgrading fnm from ${current_version} to ${latest_version}"
+    curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
+  else
+    echo "Already up to date."
+  fi
+}
+
 # update node using fnm
 update-node() {
   current_version=$(fnm ls | rg lts-latest | awk '{print $2}')

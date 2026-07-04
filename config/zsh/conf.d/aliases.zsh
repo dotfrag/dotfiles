@@ -86,8 +86,6 @@ alias ran='ranger --choosedir=/tmp/.rangerdir; LASTDIR=$(cat /tmp/.rangerdir); c
 alias shfmt='shfmt --simplify --indent 2 --binary-next-line --case-indent --space-redirects'
 alias tv='tv channels'
 
-alias update-fnm='curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell'
-
 # --------------------------------------------------------------- GLOBAL ALIASES
 alias -g BH='|bathelp'
 alias -g C='|wc -l'

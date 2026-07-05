@@ -46,6 +46,7 @@ packages_pacman_base=(
   moreutils
   mtr
   neovim
+  ouch
   pacman-contrib
   parallel
   procs

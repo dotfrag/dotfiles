@@ -554,6 +554,15 @@ mpv() {
   fi
 }
 
+# open remote server dir using oil
+nvim-ssh() {
+  if (($# < 1)); then
+    echo "usage: $0 [username@]hostname[:port] [path]"
+    return 1
+  fi
+  nvim oil-ssh://"$1"/"$2"
+}
+
 # ------------------------------------------------------------------------- FIND
 # find regular files with more than link to them
 # to see names linked to the same file use `find -samefile file_name`

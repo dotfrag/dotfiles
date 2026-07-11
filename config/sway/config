@@ -350,11 +350,12 @@ bindsym $mod+Escape mode $powermenu
 focus_on_window_activation focus
 
 set {
+  $center move position center
+  $float floating enable
+  $identify border pixel 10
   $inhibit_focus inhibit_idle focus
   $inhibit_fullscreen inhibit_idle fullscreen
-  $float floating enable
   $popup floating enable; sticky enable
-  $identify border pixel 10
 }
 
 for_window {
@@ -367,6 +368,7 @@ for_window {
 
   # float - floating enable
   [app_id="blueman-manager"] $float
+  [app_id="brave-.*" title="Bitwarden"] $float; $center
   [app_id="gucharmap"] $float
   [app_id="ibus-extension-gtk3"] $float
   [app_id="imv"] $float
@@ -378,7 +380,6 @@ for_window {
   [app_id="qalculate-gtk"] $float
   [app_id="spacekitty"] $float
   [app_id="wdisplays"] $float
-  [class="Chromium|Google-chrome|Thorium-browser" title="Bitwarden"] $float
   [class="qBittorrent" title="^(?!qBittorrent)"] $float
   [window_role="pop-up,task_dialog,About"] $float
   [window_type="dialog"] $float

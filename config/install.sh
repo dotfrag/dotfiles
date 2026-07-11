@@ -18,7 +18,6 @@ declare -A config_dirs=(
   ["shellcheck"]="shellcheckrc"
   ["subl"]="sublime-text"
   ["sway"]="xdg-desktop-portal"
-  ["thorium-browser"]="thorium-flags.conf"
 )
 
 # straightforward configs

@@ -33,6 +33,7 @@ packages_pacman_base=(
   glow
   gping
   imagemagick
+  jless
   jq
   just
   lazygit

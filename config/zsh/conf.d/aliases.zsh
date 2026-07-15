@@ -8,8 +8,10 @@ alias mv='mv -vi'
 alias rm='rm -v'
 
 # ----------------------------------------------------------------------- PACMAN
+alias pfl='pacman -Fl'
 alias pqi='pacman -Qi'
 alias pqii='pacman -Qii'
+alias pql='pacman -Ql'
 alias pqqs='pacman -Qq | sk'
 alias pqs='pacman -Q | sk'
 alias psi='pacman -Si'

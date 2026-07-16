@@ -637,13 +637,13 @@ sht() {
 
 # backup/restore file
 bak() {
-  while ((${#argv} > 0)); do
+  while (($# > 0)); do
     mv "$1" "$1.bak"
     shift
   done
 }
 ubak() {
-  while ((${#argv} > 0)); do
+  while (($# > 0)); do
     mv "$1" "${1%.bak}"
     shift
   done

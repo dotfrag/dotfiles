@@ -6,6 +6,18 @@
 # }
 compdef _functions func edfunc
 
+_archiver() {
+  _arguments \
+    '*:action:(check download missing sync upload)'
+}
+compdef _archiver archiver
+
+_fkill() {
+  _arguments \
+    '1:signal:_signals'
+}
+compdef _fkill fkill
+
 _upgrayedd() {
   _arguments \
     '1:step:(bob bun cargo code docker gh gup nala npm pnpm repos rust rustup snap system tldr uv vp yay yazi zsh)'
@@ -20,9 +32,3 @@ _jqsort() {
     '1:json file:_path_files -g "**/*.json"'
 }
 compdef _jqsort jqsort
-
-_fkill() {
-  _arguments \
-    '1:signal:_signals'
-}
-compdef _fkill fkill

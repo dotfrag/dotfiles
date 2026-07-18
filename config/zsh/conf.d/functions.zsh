@@ -428,6 +428,7 @@ update-fnm() {
 
 # update node using fnm
 update-node() {
+  check_com -c fnm || return
   current_version=$(fnm ls | rg lts-latest | awk '{print $2}')
   fnm install --lts
   new_version=$(fnm ls | rg default | awk '{print $2}')

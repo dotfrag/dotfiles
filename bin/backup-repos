@@ -8,7 +8,9 @@ cd "${CACHE_DIR}"
 
 repos=$(gh repo list --source --limit 100 | awk '{print $1}' | sort -f)
 
+shopt -s nullglob
 for i in "${CACHE_DIR}"/*; do
+  # [[ -e ${i} ]] || break
   repo=${i##*/}
   repo=${repo%.git}
   if ! rg -q "${repo}" <<< "${repos}"; then
@@ -17,6 +19,7 @@ for i in "${CACHE_DIR}"/*; do
     exit 1
   fi
 done
+shopt -u nullglob
 
 new_repos=()
 for i in ${repos}; do

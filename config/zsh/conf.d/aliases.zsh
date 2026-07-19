@@ -9,6 +9,7 @@ alias rm='rm -v'
 
 # ----------------------------------------------------------------------- PACMAN
 alias pfl='pacman -Fl'
+alias pkgcache='sudo fd -te -td . /var/cache/pacman/pkg -X rm -vrf'
 alias pqi='pacman -Qi'
 alias pqii='pacman -Qii'
 alias pql='pacman -Ql'

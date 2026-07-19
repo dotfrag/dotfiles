@@ -179,11 +179,11 @@ lfd() {
 # move file and cd to destination directory
 mvcd() {
   if (($# != 2)); then
-    printf 'usage: mvcd <file> <destination>\n'
+    echo "usage: $0 <file> <destination>"
     return 1
   fi
   if [[ ! -e $1 ]]; then
-    printf "error: file $1 doesn't exist\n"
+    echo "error: file $1 doesn't exist"
     return 1
   fi
   mv -vi "$1" "$2"
@@ -197,11 +197,11 @@ mvcd() {
 # copy file and cd to destination directory
 cpcd() {
   if (($# != 2)); then
-    printf 'usage: cpcd <file> <destination>\n'
+    echo "usage: $0 <file> <destination>"
     return 1
   fi
   if [[ ! -e $1 ]]; then
-    printf "error: file $1 doesn't exist\n"
+    echo "error: file $1 doesn't exist"
     return 1
   fi
   cp -vi "$1" "$2"
@@ -733,4 +733,17 @@ jt() {
 # ss search (grep)
 ssg() {
   ss -tulpn | sed -n "1p; /[${1:0:1}]${1:1}/p"
+}
+
+# find files by mime type
+find-by-mime() {
+  if (($# > 0)); then
+    while (($# > 0)); do
+      find . -type f | file -if - | grep "$1" | cut -d: -f1
+      shift
+    done
+  else
+    echo "usage: $0 <mime>"
+    return 1
+  fi
 }

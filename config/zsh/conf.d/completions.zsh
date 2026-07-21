@@ -8,7 +8,7 @@ compdef _functions func edfunc
 
 _archiver() {
   _arguments \
-    '*:action:(check download missing sync upload)'
+    '*:action:(check delete download missing sync upload)'
 }
 compdef _archiver archiver
 

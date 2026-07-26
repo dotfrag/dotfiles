@@ -61,19 +61,23 @@ lgf() {
 
 # git clone and cd
 gcd() {
-  (($# != 1)) && return
+  (($# < 1)) && return
   local repo
   repo=${1##*/}
   repo=${repo%.git}
-  if [[ ! -d ${repo} ]]; then
-    git clone "$1"
+  local dst=${2:-${repo}}
+  if [[ ! -d ${dst} ]]; then
+    git clone "$1" "${dst}"
   fi
-  cd "${repo}" || return
+  cd "${dst}" || return
 }
 gcdt() {
   if (($# == 1)); then
-    cdt
-    gcd "$@"
+    # cdt
+    local repo
+    repo=${1##*/}
+    repo=${repo%.git}
+    gcd "$1" "/tmp/${repo}"
   elif git rev-parse --is-inside-work-tree &> /dev/null; then
     local remote
     remote=$(git remote get-url origin)

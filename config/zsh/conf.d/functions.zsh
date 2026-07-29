@@ -747,3 +747,15 @@ find-by-mime() {
     return 1
   fi
 }
+
+# quickly approve-builds in a node project
+pnab() {
+  if check_com -c vp; then
+    vp pm approve-builds --all
+  elif check_com -c pn; then
+    pn approve-builds --all
+  else
+    echo "No package manager found (checked for viteplus and pnpm)."
+    return 1
+  fi
+}

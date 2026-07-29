@@ -564,6 +564,19 @@ nvim-ssh() {
   nvim oil-ssh://"$1"/"$2"
 }
 
+# run or download latest pocketbase binary
+pb() {
+  if [[ ! -x pocketbase ]]; then
+    latest_version=$(get-latest-version pocketbase/pocketbase)
+    url=https://github.com/pocketbase/pocketbase/releases/download/${latest_version}/pocketbase_${latest_version/v/}_linux_amd64.zip
+    file_path=/tmp/pocketbase_${latest_version/v/}_linux_amd64.zip
+    wget --quiet --show-progress -nc -O "${file_path}" "${url}"
+    unzip -n "${file_path}" -d "${file_path%.zip}"
+    cp -v "${file_path%.zip}/pocketbase" ./
+  fi
+  ./pocketbase "$@"
+}
+
 # ------------------------------------------------------------------------- FIND
 # find regular files with more than link to them
 # to see names linked to the same file use `find -samefile file_name`

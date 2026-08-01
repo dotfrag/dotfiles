@@ -1,7 +1,7 @@
 #!/bin/bash
 
 projects_file=${XDG_DATA_HOME:-${HOME}/.local/share}/projects
-custom_projects_file=${XDG_DATA_HOME:-${HOME}/.local/share}/custom-projects
+custom_projects_file=${XDG_DATA_HOME:-${HOME}/.local/share}/projects-custom
 
 declare -A projects
 

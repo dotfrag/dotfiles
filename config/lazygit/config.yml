@@ -1,7 +1,6 @@
 git:
-  pagers:
-    - colorArg: always
-      pager: delta --dark --paging=never --line-numbers-left-format='{nm}⫶' --line-numbers-right-format='{np}|' --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+  diffRenderers:
+    - command: delta --dark --paging=never --line-numbers-left-format='{nm}⫶' --line-numbers-right-format='{np}|' --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
   log:
     showGraph: when-maximised
 gui:

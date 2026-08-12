@@ -18,7 +18,7 @@ FILE_LIST=(
 
 init() {
   if command -v docker &> /dev/null; then
-    systemctl is-active --quiet docker || systemctl start docker || exit 1
+    systemctl is-active --quiet docker.service docker.socket || systemctl start docker || exit 1
   else
     DOCKER=podman
   fi

@@ -114,6 +114,17 @@ nmap <leader>rt :%s/\s\+$//<cr>``
 " File specific settings
 autocmd BufEnter *.log* set nonumber norelativenumber nolist
 
+" Restore cursor location
+augroup RestoreCursor
+  autocmd!
+  autocmd BufReadPost *
+        \ let line = line("'\"")
+        \ | if line >= 1 && line <= line("$") && &filetype !~# 'commit'
+        \      && index(['xxd', 'gitrebase'], &filetype) == -1
+        \ |   execute "normal! g`\""
+        \ | endif
+augroup END
+
 " Jump to the next change when using `do` or `dp`.
 augroup DiffAutoMove
   autocmd!

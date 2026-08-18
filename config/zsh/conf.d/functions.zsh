@@ -559,10 +559,19 @@ mpv() {
   fi
 }
 
+# open remote server dir using netrw
+vim-ssh() {
+  if (($# < 1)); then
+    echo "usage: $0 [user@]hostname[:port] [path]"
+    return 1
+  fi
+  vi scp://"$1"/"$2"
+}
+
 # open remote server dir using oil
 nvim-ssh() {
   if (($# < 1)); then
-    echo "usage: $0 [username@]hostname[:port] [path]"
+    echo "usage: $0 [user@]hostname[:port] [path]"
     return 1
   fi
   nvim oil-ssh://"$1"/"$2"

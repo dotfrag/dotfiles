@@ -1,10 +1,10 @@
 diff --git a/config/yazi/yazi.toml b/config/yazi/yazi.toml
-index 041c408..06f4eb5 100644
+index 16a5baa..840d4d7 100644
 --- a/config/yazi/yazi.toml
 +++ b/config/yazi/yazi.toml
 @@ -29,3 +29,10 @@ rules = [
-   # { name = "*", use = [ "open", "reveal" ] },
-   { mime = "*", use = [] },
+   # { url = "*", use = [ "open", "reveal" ] },
+   { url = "*", use = [] },
  ]
 +
 +[plugin]

@@ -63,7 +63,7 @@ feb() {
 fed() {
   local dots="${XDG_DATA_HOME:-${HOME}/.local/share}/dots"
   # shellcheck disable=SC2016
-  local bind='one:become($EDITOR {+}),enter:become($EDITOR {+}),ctrl-v:become(vi {+})'
+  local bind='one:become($EDITOR ~/repos/{+}),enter:become($EDITOR ~/repos/{+}),ctrl-v:become(vi ~/repos/{+})'
   if [[ -n $1 ]]; then
     rg "$1" "${dots}" | fzf --multi --bind "${bind}"
   else

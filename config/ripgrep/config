@@ -1,4 +1,4 @@
---max-columns=150
+--hyperlink-format=kitty
 --max-columns-preview
+--max-columns=150
 --smart-case
---hyperlink-format=default

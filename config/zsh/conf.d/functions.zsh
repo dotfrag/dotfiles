@@ -347,9 +347,17 @@ debounce-update-check() {
 # update dotfiles list
 update-dots() {
   local dots="${XDG_DATA_HOME:-${HOME}/.local/share}/dots"
-  git -C "${HOME}/repos/dotfiles" ls-files | rg -v 'ttf$' | while read -r line; do realpath "${HOME}/repos/dotfiles/${line}"; done | sed "s+${HOME}/repos/++" > "${dots}"
-  git -C "${HOME}/repos/dotfiles-private" ls-files | while read -r line; do realpath "${HOME}/repos/dotfiles-private/${line}"; done | sed "s+${HOME}/repos/++" >> "${dots}"
-  sort -o "${dots}" -u "${dots}"
+  local repo file
+  : > "${dots}"
+  for repo in ${HOME}/repos/dotfiles{,-private}; do
+    git -C "${repo}" ls-files \
+      | while IFS= read -r file; do
+        [[ -f "${repo}/${file}" ]] && realpath "${repo}/${file}"
+      done
+  done \
+    | rg -v 'ttf$' \
+    | sed "s+^${HOME}/repos/++" \
+    | sort -u > "${dots}"
 }
 
 # update projects list

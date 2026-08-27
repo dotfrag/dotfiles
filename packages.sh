@@ -69,6 +69,7 @@ packages_pacman_base=(
   unzip
   vim
   wget
+  whois
   yazi
   yt-dlp
   yt-dlp-ejs

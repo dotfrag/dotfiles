@@ -15,9 +15,9 @@ cleanup() {
 trap cleanup SIGINT SIGTERM
 
 # allows for running chained commands, i.e. `sh -c 'echo one && echo two`
-args=
+args=()
 while [[ $1 == -* ]]; do
-  args="${args} $1"
+  args+=("$1")
   shift
 done
 
@@ -31,14 +31,14 @@ handle_file() {
   if (($# > 0)); then
     # shellcheck disable=SC2086
     # might need `$*` to join args into one string rather than separate, however, no issues so far
-    command ls "${f}" | entr -c ${args} "$@"
+    command ls "${f}" | entr "${args[@]}" "$@"
     return
   fi
 
   # no command has been specified, use magic
   if [[ -x ${f} ]]; then # file is executable, run it
     # shellcheck disable=SC2086
-    command ls "${f}" | entr -c ${args} ./"${f}"
+    command ls "${f}" | entr "${args[@]}" ./"${f}"
   else
     case "${f}" in
       .nvim.lua) cmd="zsh -ic nvim-trust" ;;
@@ -46,7 +46,7 @@ handle_file() {
       *) cmd="bat -pp" ;; # unknown filetype, cat it
     esac
     # shellcheck disable=SC2086
-    command ls "${f}" | entr -c ${args} ${cmd} "${f}"
+    command ls "${f}" | entr "${args[@]}" ${cmd} "${f}"
   fi
 }
 
@@ -56,7 +56,7 @@ handle_dir() {
     exit 1
   fi
   # might need `$*` to join args into one string rather than separate, however, no issues so far
-  fd . "${f}" | entr -c "$@"
+  fd . "${f}" | entr "$@"
 }
 
 if [[ -f ${f} ]]; then

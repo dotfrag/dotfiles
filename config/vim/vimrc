@@ -3,6 +3,16 @@ set nocompatible
 set encoding=utf-8
 
 " -------------------------------------------------------------- XDG directories
+if empty($XDG_CONFIG_HOME)
+  let $XDG_CONFIG_HOME = expand('~/.config')
+endif
+if empty($XDG_DATA_HOME)
+  let $XDG_DATA_HOME = expand('~/.local/share')
+endif
+if empty($XDG_STATE_HOME)
+  let $XDG_STATE_HOME = expand('~/.local/state')
+endif
+
 set runtimepath^=$XDG_CONFIG_HOME/vim
 set runtimepath+=$XDG_DATA_HOME/vim
 set runtimepath+=$XDG_CONFIG_HOME/vim/after

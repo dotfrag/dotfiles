@@ -21,21 +21,23 @@ set viewdir=$XDG_STATE_HOME/vim/view     | call mkdir(&viewdir,   'p')
 if !has('nvim') | set viminfofile=$XDG_STATE_HOME/vim/viminfo | endif
 
 " ------------------------------------------------------------ Settings: General
+" set cursorline                    " Highlight the current line
+" set ofu=syntaxcomplete#Complete " Set omni-completion method
 set autoread                      " Set to auto read when a file is changed from the outside
 set backspace=indent,eol,start    " Backspace behaviour
 set balloonevalterm               " Enable balloon-eval functionality
-" set cursorline                    " Highlight the current line
 set diffopt+=iwhite               " Ignore whitespace in diff mode
 set foldmethod=manual             " Enable manual folding
 set gdefault                      " By default add g flag to search/replace. Add g to toggle
 set hidden                        " When a buffer is brought to foreground, remember undo history and marks
 set history=500                   " Change default history (20)
+set hlsearch                      " Enable search highlight
 set ignorecase                    " Ignore character case in search
 set incsearch                     " Highlight dynamically as pattern is typed
 set laststatus=2                  " Always show status line
 set magic                         " Enable extended regexes
+set modeline                      " Enable modeline
 set mouse=a                       " Enable mouse in all in all modes
-set hlsearch                      " Enable search highlight
 set nojoinspaces                  " Only insert single space after a '.', '?' and '!' with a join command
 set noshowmode                    " Don't show the current mode (airline.vim takes care of us)
 set nostartofline                 " Don't reset cursor to start of line when moving around
@@ -58,7 +60,6 @@ set ttymouse=sgr                  " Name of the terminal type for which mouse co
 set undofile                      " Persistent undo
 set winminheight=0                " Allow splits to be reduced to a single line
 set wrapscan                      " Searches wrap around end of file
-" set ofu=syntaxcomplete#Complete " Set omni-completion method
 
 " -------------------------------------------------------- Settings: Indentation
 set autoindent    " Copy indent from last line when starting new line

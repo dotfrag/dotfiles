@@ -192,6 +192,8 @@ noremap <leader>x :x<cr>
 noremap <leader>d :bd<cr>
 noremap <leader>D :b#<bar>bd#<cr>
 noremap <leader>q :q<cr>
+noremap <S-h> :bprevious<cr>
+noremap <S-l> :bnext<cr>
 " noremap <C-h> <C-w>h
 " noremap <C-j> <C-w>j
 " noremap <C-k> <C-w>k

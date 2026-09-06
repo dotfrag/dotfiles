@@ -229,14 +229,17 @@ nmap <A-l> >>
 nmap <leader>rt :%s/\s\+$//<cr>``
 
 " Fzf
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 nmap <leader>, :Buffers<cr>
+nmap <leader>/ :BLines<cr>
+nmap <leader>s/ :History/<cr>
+nmap <leader>sC :Commands<cr>
+nmap <leader>sc :History:<cr>
 nmap <leader>sf :Files<cr>
 nmap <leader>sg :RG<cr>
 nmap <leader>sh :Helptags<cr>
-nmap <leader>/ :BLines<cr>
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+nmap <leader>sr :History<cr>
 
 " Easy align
 xmap ga <plug>(EasyAlign)

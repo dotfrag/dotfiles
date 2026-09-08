@@ -10,7 +10,7 @@ ZSH_PLUGINS_DIR=${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/plugins
 if [[ -f /etc/os-release ]]; then
   . /etc/os-release
   DISTRO=${NAME}
-elif command -v lsb_release &> /dev/null; then
+elif command -v lsb_release > /dev/null; then
   DISTRO=$(lsb_release -si)
 elif [[ -f /etc/lsb-release ]]; then
   # shellcheck disable=SC1091
@@ -31,6 +31,7 @@ git_clone() {
 }
 
 setup_zsh() {
+  command -v zsh > /dev/null || return
   [[ -n ${ZDOTDIR} ]] && mkdir -p "${ZDOTDIR}"
   mkdir -p "${ZSH_PLUGINS_DIR}"
   printf "[fast-syntax-highlighting] "
@@ -55,6 +56,7 @@ setup_vim() {
 
 setup_fzf() {
   [[ ${DISTRO} == "Arch Linux" ]] && return
+  command -v fzf > /dev/null && return
   printf "[fzf] "
   git_clone "${FZF_DIR}" "https://github.com/junegunn/fzf"
   "${FZF_DIR}/install" --bin > /dev/null

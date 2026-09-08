@@ -4,6 +4,10 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 GIT_ROOT=$(git -C "${SCRIPT_DIR}" rev-parse --show-toplevel)
 TARGET=${GIT_ROOT}/config/yazi/yazi.toml
 
+if grep -q preloaders "${TARGET}"; then
+  exit
+fi
+
 cat << EOF >> "${TARGET}"
 
 [plugin]

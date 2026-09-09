@@ -74,7 +74,7 @@ update-container() {
   [[ -f compose.yml ]] || return
   docker compose pull
   # docker compose down # not needed
-  docker compose up -d
+  docker compose up -d # --force-recreate
   [[ $1 == "prune" ]] && docker image prune -f
 }
 

@@ -574,7 +574,7 @@ vim-ssh() {
     echo "usage: $0 [user@]hostname[:port] [path]"
     return 1
   fi
-  vi scp://"$1"/"$2"
+  vi scp://"$1"//"$2"
 }
 
 # open remote server dir using oil

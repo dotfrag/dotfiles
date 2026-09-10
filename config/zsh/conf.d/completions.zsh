@@ -24,6 +24,12 @@ _upgrayedd() {
 }
 compdef _upgrayedd upgrayedd
 
+_tab() {
+  _arguments \
+    '1:what:(passwd group shadow)'
+}
+compdef _tab tab
+
 _jqsort() {
   # _files -g '*.json' # find json files in cwd
   # _path_files -g '**/*.json' # find json files recursively

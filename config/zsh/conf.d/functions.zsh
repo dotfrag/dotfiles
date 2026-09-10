@@ -770,6 +770,11 @@ ssg() {
   ss -tulpn | sed -n "1p; /[${1:0:1}]${1:1}/p"
 }
 
+# ss public ports
+sspub() {
+  ss -tulpn | awk '$5 ~ /^*:/ {print}'
+}
+
 # find files by mime type
 find-by-mime() {
   if (($# > 0)); then
@@ -802,4 +807,23 @@ download() {
   else
     wget -qO- "$1"
   fi
+}
+
+# cat file as table
+tab() {
+  case $1 in
+    passwd)
+      column -t -s: -N user,passwd,uid,gid,gecos,home,shell /etc/passwd
+      ;;
+    group)
+      column -t -s: -N group,passwd,gid,members /etc/group
+      ;;
+    shadow)
+      sudo column -t -s: -N user,passwd,lastchg,min,max,warn,inactive,expire,reserved /etc/shadow
+      ;;
+    *)
+      echo "$1 not supported."
+      return 1
+      ;;
+  esac
 }

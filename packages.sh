@@ -33,6 +33,7 @@ packages_pacman_base=(
   glow
   gping
   imagemagick
+  ipcalc
   jless
   jq
   just

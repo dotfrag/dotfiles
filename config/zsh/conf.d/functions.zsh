@@ -772,7 +772,7 @@ ssg() {
 
 # ss public ports
 sspub() {
-  ss -tulpn | awk '$5 ~ /^*:/ {print}'
+  ss -tulpn | awk '$5 ~ /^(*|0.0.0.0):/ {print}'
 }
 
 # find files by mime type

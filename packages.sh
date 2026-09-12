@@ -181,7 +181,11 @@ packages_aur_desktop=(
 )
 # AUTOSORT: END
 
-packages_aur_server=()
+# AUTOSORT: START
+packages_aur_server=(
+  dtop-bin
+)
+# AUTOSORT: END
 
 # AUTOSORT: START
 packages_dnf=(

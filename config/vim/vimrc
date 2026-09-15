@@ -268,8 +268,21 @@ autocmd BufReadPost *
       \ |   exe "normal! g`\""
       \ | endif
 
+
+" ----------------------------------------- Resize splits when window is resized
+function! ResizeSplits() abort
+  let current_tab = tabpagenr()
+  tabdo wincmd =
+  execute 'tabnext ' . current_tab
+endfunction
+
+augroup resize_splits
+  autocmd!
+  autocmd VimResized * call ResizeSplits()
+augroup END
+
 " ------------------------------- Close man pages with <q> (useful for MANPAGER)
-augroup close-with-q
+augroup close_with_q
   autocmd!
   " autocmd FileType man call s:CloseWithQ()
   autocmd FileType man nnoremap <silent> <buffer> q :quit<cr>

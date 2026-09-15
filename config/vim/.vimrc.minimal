@@ -125,6 +125,18 @@ augroup RestoreCursor
         \ | endif
 augroup END
 
+" Resize splits when window is resized
+function! ResizeSplits() abort
+  let current_tab = tabpagenr()
+  tabdo wincmd =
+  execute 'tabnext ' . current_tab
+endfunction
+
+augroup resize_splits
+  autocmd!
+  autocmd VimResized * call ResizeSplits()
+augroup END
+
 " Jump to the next change when using `do` or `dp`.
 augroup DiffAutoMove
   autocmd!

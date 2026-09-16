@@ -402,6 +402,7 @@ update-caddy() {
   if [[ ${latest_version} != "${current_version}" ]]; then
     echo "Upgrading caddy from ${current_version} to ${latest_version}"
     curl -o ~/.local/bin/caddy -L 'https://caddyserver.com/api/download?os=linux&arch=amd64&p=github.com%2Fcaddy-dns%2Fcloudflare'
+    chmod +x ~/.local/bin/caddy
   else
     echo "Already up to date."
   fi

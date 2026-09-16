@@ -157,7 +157,6 @@ packages_pacman_server=(
 # AUTOSORT: START
 packages_aur_base=(
   czkawka-cli-bin
-  lazydocker-bin
   topgrade-bin
   viddy-bin
 )
@@ -184,6 +183,7 @@ packages_aur_desktop=(
 # AUTOSORT: START
 packages_aur_server=(
   dtop-bin
+  lazydocker-bin
 )
 # AUTOSORT: END
 

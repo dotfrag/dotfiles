@@ -75,6 +75,7 @@ alias tx='tmux new -As0'
 
 alias bathelp='bat --plain --language=help'
 alias cat='bat'
+alias catp='bat --plain'
 alias colors='bash -c "$(wget -qO- https://git.io/vQgMr)"'
 alias dfs='df -h | sort -n -k 5'
 alias duf='duf -only local -sort usage'

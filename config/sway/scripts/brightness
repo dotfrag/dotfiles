@@ -7,8 +7,8 @@ if ! command -v brightnessctl &> /dev/null; then
 fi
 
 case "$1" in
-  up) brightnessctl set 10%+ ;;
-  down) brightnessctl set 10%- ;;
+  up) brightnessctl set 5%+ ;;
+  down) brightnessctl set 5%- ;;
 esac
 
 value=$(brightnessctl info | grep -oP "\d+%")

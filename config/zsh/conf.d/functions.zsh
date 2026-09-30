@@ -451,8 +451,8 @@ update-node() {
 update-pnpm() {
   if check_com -c pnpm; then
     pnpm self-update
-  # elif check_com -c vp; then
-  #   echo "Found vite-plus installation, aborting."
+  elif check_com -c vp; then
+    echo "Found vite-plus installation, aborting."
   else
     curl -fsSL https://get.pnpm.io/install.sh | sh -
   fi
@@ -462,8 +462,8 @@ update-pnpm() {
 update-vp() {
   if check_com -c vp; then
     vp upgrade
-  elif check_com -c pnpm; then
-    echo "Found pnpm installation, aborting."
+  # elif check_com -c pnpm; then
+  #   echo "Found pnpm installation, aborting."
   else
     curl -fsSL https://vite.plus | bash
   fi

@@ -516,26 +516,26 @@ timer() {
 }
 
 # -------------------------------------------------------------------- OVERLOADS
-# pnpm select command from package.json
-p() {
-  if ! check_com -c pnpm; then
-    echo "pnpm not found."
-    return 1
-  fi
-  # if command -v vp > /dev/null; then
-  #   echo "vite-plus is installed, use that instead."
-  #   return
-  # fi
-  debounce-update-check pnpm 24 > /dev/null && update-pnpm
-  if (($# == 0)); then
-    [[ -f package.json ]] || return 1
-    local commands
-    commands=$(jq -r '.scripts | to_entries[] | "\(.key)\t\(.value)"' package.json)
-    fzf --with-nth=1 --delimiter='\t' --preview 'echo {2}' --preview-window=down:1:wrap --bind 'enter:become(pnpm run {1})' <<< "${commands}"
-  else
-    pnpm "$@"
-  fi
-}
+# # pnpm select command from package.json
+# p() {
+#   if ! check_com -c pnpm; then
+#     echo "pnpm not found."
+#     return 1
+#   fi
+#   # if command -v vp > /dev/null; then
+#   #   echo "vite-plus is installed, use that instead."
+#   #   return
+#   # fi
+#   debounce-update-check pnpm 24 > /dev/null && update-pnpm
+#   if (($# == 0)); then
+#     [[ -f package.json ]] || return 1
+#     local commands
+#     commands=$(jq -r '.scripts | to_entries[] | "\(.key)\t\(.value)"' package.json)
+#     fzf --with-nth=1 --delimiter='\t' --preview 'echo {2}' --preview-window=down:1:wrap --bind 'enter:become(pnpm run {1})' <<< "${commands}"
+#   else
+#     pnpm "$@"
+#   fi
+# }
 
 # create or source venv
 venv() {

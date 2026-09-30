@@ -20,9 +20,12 @@ NM_DMENU_CONFIG=/path/to/config.ini   (environment variable)
 The command line argument takes precedence over the environment variable.
 """
 
+__version__ = "2.7.2"
+
+from collections import Counter
 from os.path import basename, expanduser, isfile
 from shutil import which
-from time import sleep
+from time import localtime, monotonic, sleep, strftime
 import argparse
 import configparser
 import locale
@@ -105,6 +108,8 @@ gui = nm-connection-editor
 
 [nmdm]
 rescan_delay = 5
+notification_timeout = 5
+show_notifications = True
 """
 
 
@@ -153,7 +158,15 @@ def detect_installed_terminals():
 
 
 def prompt_command_line(prompt, options):
-    """Prompt the user for a selection via command line"""
+    """Prompt the user for a selection via command line
+
+    Falls back to the first option when there is nothing to prompt on, which
+    is the case on a first run started from a keybinding rather than a shell.
+    """
+    if not sys.stdin.isatty():
+        print(f"{prompt} No terminal to ask on, using {options[0]}")
+        return options[0]
+
     print(f"\n{prompt}")
     for i, option in enumerate(options, 1):
         print(f"{i}. {option}")
@@ -167,6 +180,9 @@ def prompt_command_line(prompt, options):
             print("Invalid selection. Please try again.")
         except ValueError:
             print("Please enter a number.")
+        except EOFError:
+            print(f"\nNo input available, using {options[0]}")
+            return options[0]
 
 
 def setup_initial_config():
@@ -210,7 +226,10 @@ def setup_initial_config():
 
     if not installed_terminals:
         print("No common terminals detected.")
-        custom_terminal = input("Enter the name of your terminal: ")
+        try:
+            custom_terminal = input("Enter the name of your terminal: ")
+        except EOFError:
+            custom_terminal = ""
         if custom_terminal.strip():
             chosen_terminal = custom_terminal.strip()
     elif len(installed_terminals) == 1:
@@ -245,9 +264,19 @@ def setup_initial_config():
 
 # Parse command-line arguments for config flag
 def parse_args():
-    parser = argparse.ArgumentParser(description="NetworkManager dmenu")
+    # allow_abbrev=False so that launcher flags which happen to be a prefix of
+    # `--config` are passed through instead of consumed as a config path
+    parser = argparse.ArgumentParser(
+        description="NetworkManager dmenu", allow_abbrev=False
+    )
     parser.add_argument(
         "--config", dest="config_path", help="Path to configuration file"
+    )
+    parser.add_argument(
+        "-V",
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
     )
     # Parse only the --config argument, leaving the rest for dmenu
     # This allows us to maintain compatibility with existing command line flags
@@ -269,6 +298,11 @@ if args.config_path:
         config_path = args.config_path
     else:
         # Use default if specified file doesn't exist
+        print(
+            f"Config file not found: {args.config_path}. "
+            f"Using {default_config_path}",
+            file=sys.stderr,
+        )
         config_path = default_config_path
 else:
     # Check environment variable
@@ -276,6 +310,12 @@ else:
     if env_config_path and isfile(env_config_path):
         config_path = env_config_path
     else:
+        if env_config_path:
+            print(
+                f"NM_DMENU_CONFIG file not found: {env_config_path}. "
+                f"Using {default_config_path}",
+                file=sys.stderr,
+            )
         # Fall back to default path
         config_path = default_config_path
 
@@ -293,28 +333,32 @@ CONF.read(config_path)
 
 
 def cli_args(args):
-    """Remove certain flags from a list of arguments
+    """Remove prompt setting flags from a list of arguments
+
+    `dmenu_cmd` adds the prompt flag appropriate to the launcher, so any prompt
+    flag coming from `dmenu_command` or the command line has to be dropped
+    first to avoid passing it twice.
 
     Arguments: List of strings
 
-    Returns: List of CLI arguments with `prompt_*args` removed if present
+    Returns: List of CLI arguments with prompt flags removed if present
     """
-    # List of prompt flags to remove (both short and long forms)
-    prompts_args = ["-p", "--prompt"]
+    # Prompt flags taking a separate value.
+    prompts_args = ["-p", "--prompt", "--prompt-text", "--placeholder"]
     prompts_no_args = ["-d", "-dmenu", "--dmenu"]
 
     i = 0
     while i < len(args):
+        # Check for `--prompt=text` style arguments
+        if "=" in args[i] and args[i].split("=", 1)[0] in prompts_args:
+            del args[i]
         # Check for arguments with values
-        if args[i] in prompts_args:
+        elif args[i] in prompts_args:
             del args[i]
             if i < len(args):  # Delete arg value, but not beyond list length
                 del args[i]
         # Check for standalone args
         elif args[i] in prompts_no_args:
-            del args[i]
-        # Check for -p with no space before arguments (-ptext)
-        elif args[i].startswith("-p") and len(args[i]) > 2:
             del args[i]
         # For all other flags, keep them to override config
         else:
@@ -454,10 +498,70 @@ def choose_adapter(client):
     return devices[0]
 
 
+def unique_names(conns):
+    """Display name per connection, unique within the list
+
+    Several profiles can share the same id (two saved profiles for one SSID,
+    the same network saved in two places), and the id alone then can't say
+    which profile a menu line means. Qualify the duplicates with when they
+    were last used, which is what actually decides which one is wanted.
+
+    Args: conns - list of NM.RemoteConnection
+    Returns: list of strings, in the order of `conns`
+
+    """
+    ids = Counter(i.get_id() for i in conns)
+    quals = []
+    for conn in conns:
+        if ids[conn.get_id()] == 1:
+            quals.append([])
+            continue
+        setting = conn.get_setting_connection()
+        stamp = setting.get_timestamp() if setting is not None else 0
+        quals.append(
+            [f"last used {strftime('%Y-%m-%d', localtime(stamp))}"]
+            if stamp
+            else ["never used"]
+        )
+    # Profiles that were never used, or last used on the same day, are still
+    # not told apart, so add the start of the UUID to whatever is left over.
+    # It says nothing on its own, but it is the handle `nmcli` prints.
+    dups = Counter((i.get_id(), tuple(q)) for i, q in zip(conns, quals))
+    for conn, qual in zip(conns, quals):
+        if qual and dups[(conn.get_id(), tuple(qual))] > 1:
+            qual.append(conn.get_uuid()[:8])
+    return [
+        f"{i.get_id()} ({', '.join(q)})" if q else i.get_id()
+        for i, q in zip(conns, quals)
+    ]
+
+
+def choose_connection(conns):
+    """Ask which of several connection profiles to use
+
+    Args: conns - list of NM.RemoteConnection
+    Returns: NM.RemoteConnection
+
+    """
+    if len(conns) == 1:
+        return conns[0]
+    names = unique_names(conns)
+    sel = run_dmenu(dmenu_cmd("CHOOSE CONNECTION:"), "\n".join(names)).stdout
+    if not sel.strip():
+        sys.exit()
+    conns = [i for i, name in zip(conns, names) if name == sel.rstrip("\n")]
+    if len(conns) != 1:
+        raise ValueError(f"Selection was ambiguous: '{str(sel.strip())}'")
+    return conns[0]
+
+
 def is_running(cmd):
     try:
         subprocess.check_output(["pidof", cmd])
     except subprocess.CalledProcessError:
+        return False
+    except FileNotFoundError:
+        # No pidof installed, so assume not running rather than crashing
         return False
     else:
         return True
@@ -473,11 +577,11 @@ def bluetooth_get_enabled():
         # service isn't running.
         try:
             res = subprocess.run(
-                ["bluetoothctl <<< show"],
-                shell=True,
+                ["bluetoothctl", "show"],
                 timeout=2,
                 capture_output=True,
                 text=True,
+                check=False,
             )
             return "Powered: yes" in res.stdout
         except subprocess.TimeoutExpired:
@@ -531,28 +635,38 @@ def rescan_wifi():
     Rescan WiFi Access Points
     """
     delay = CONF.getint("nmdm", "rescan_delay", fallback=5)
+    scanned = False
     for dev in CLIENT.get_devices():
-        if gi.repository.NM.DeviceWifi is type(dev):
+        if NM.DeviceWifi is type(dev):
             try:
                 dev.request_scan_async(None, rescan_cb, None)
                 LOOP.run()
-                sleep(delay)
-                notify("WiFi scan complete")
-                main()
-            except gi.repository.GLib.Error as err:
+                scanned = True
+            except GLib.Error as err:
                 # Too frequent rescan error
                 notify("WiFi rescan failed", urgency="critical")
                 if not err.code == 6:  # pylint: disable=no-member
                     raise err
+    if not scanned:
+        return
+    sleep(delay)
+    notify("WiFi scan complete")
+    # Redisplay the menu once, after every adapter has been scanned
+    main()
 
 
 def rescan_cb(dev, res, _):
     """Callback for rescan_wifi. Just for notifications"""
-    if dev.request_scan_finish(res) is True:
-        notify("WiFi scan running...")
-    else:
-        notify("WiFi scan failed", urgency="critical")
-    LOOP.quit()
+    try:
+        if dev.request_scan_finish(res) is True:
+            notify("WiFi scan running...")
+        else:
+            notify("WiFi scan failed", urgency="critical")
+    except GLib.Error as err:
+        # Rescanning too often is the common case here
+        notify(f"WiFi scan failed: {err.message}", urgency="critical")
+    finally:
+        LOOP.quit()
 
 
 def ssid_to_utf8(nm_ap):
@@ -562,6 +676,19 @@ def ssid_to_utf8(nm_ap):
         return ""
     ret = NM.utils_ssid_to_utf8(ssid.get_data())
     return ret
+
+
+def display_id(obj):
+    """Best effort display name for a connection or an access point
+
+    NM.ActiveConnection / NM.RemoteConnection have `get_id`, NM.AccessPoint
+    does not, and either can be handed to the async callbacks below.
+    """
+    if hasattr(obj, "get_id"):
+        return obj.get_id()
+    if hasattr(obj, "get_ssid"):
+        return ssid_to_utf8(obj)
+    return "connection"
 
 
 def prompt_saved(saved_cons):
@@ -668,43 +795,146 @@ def process_ap(nm_ap, is_active, adapter):
             if i.get_setting_wireless() is not None
             and conn_matches_adapter(i, adapter)
         ]
-        con = nm_ap.filter_connections(conns_cur)
-        if len(con) > 1:
-            raise ValueError("There are multiple connections possible")
-
-        if len(con) == 1:
+        # `filter_connections` is `connection_valid` in a loop, but its
+        # (transfer container) return trips a refcount bug in PyGObject that
+        # logs GObject criticals at interpreter shutdown
+        con = [i for i in conns_cur if nm_ap.connection_valid(i)]
+        if con:
+            # A mesh network is still a single profile, so more than one match
+            # means the AP really was saved twice: ask which profile to use
             CLIENT.activate_connection_async(
-                con[0], adapter, nm_ap.get_path(), None, activate_cb, nm_ap
+                choose_connection(con),
+                adapter,
+                nm_ap.get_path(),
+                None,
+                activate_cb,
+                nm_ap,
             )
             LOOP.run()
+            wait_for_activation(adapter)
         else:
-            if ap_security(nm_ap) != "--":
-                password = get_passphrase()
-            else:
-                password = ""
+            sec = ap_security(nm_ap)
+            if "802.1X" in sec:
+                # create_wifi_profile would store the answer as a PSK, which
+                # can never authenticate against an enterprise network
+                notify(
+                    "802.1X networks are not supported",
+                    "Add the connection with the editor first",
+                    urgency="critical",
+                )
+                return
+            password = get_passphrase() if sec != "--" else ""
             set_new_connection(nm_ap, password, adapter)
 
 
 def activate_cb(dev, res, data):
-    """Notification if activate connection completed successfully"""
+    """Notification that NetworkManager accepted the activation request
+
+    Finishing here only means NM took the request, the activation itself
+    settles long after nmdm has exited, so do not claim it succeeded.
+    """
+    global ACTIVE_CONN
     try:
         conn = dev.activate_connection_finish(res)
-    except GLib.Error:
-        conn = None
-    if conn is not None:
-        notify(f"Activated {conn.get_id()}")
-    else:
-        notify(f"Problem activating {data.get_id()}", urgency="critical")
-    LOOP.quit()
+        if conn is not None:
+            ACTIVE_CONN = conn
+            notify(f"Connecting to {conn.get_id()}")
+        else:
+            notify(
+                f"Problem activating {display_id(data)}", urgency="critical"
+            )
+    except GLib.Error as err:
+        notify(
+            f"Problem activating {display_id(data)}: {err.message}",
+            urgency="critical",
+        )
+    finally:
+        LOOP.quit()
+
+
+def wait_for_device_activated(device, timeout=30):
+    """Block until the device has finished activating
+
+    NetworkManager ties the activation of a connection's secondaries (the VPN
+    profiles listed in `connection.secondaries`) to the D-Bus client that
+    asked for it, so returning as soon as the activation request is accepted
+    leaves the VPN to be torn down again the moment nmdm exits. Stay on the
+    bus until the device reports ACTIVATED, the state it only reaches once
+    its secondaries are up.
+
+    Args: device - NM.Device
+          timeout - seconds to wait before giving up
+
+    """
+    if device.get_state() == NM.DeviceState.ACTIVATED:
+        return
+
+    timed_out = False
+
+    def on_state_changed(dev, new_state, old_state, reason):
+        if new_state == NM.DeviceState.ACTIVATED:
+            LOOP.quit()
+
+    def on_timeout():
+        nonlocal timed_out
+        timed_out = True
+        LOOP.quit()
+        return GLib.SOURCE_REMOVE
+
+    handler_id = device.connect("state-changed", on_state_changed)
+    timeout_id = GLib.timeout_add_seconds(timeout, on_timeout)
+    LOOP.run()
+    if not timed_out:
+        GLib.source_remove(timeout_id)
+    # NM.Device shadows GObject's `disconnect`, and its version disconnects
+    # the device from the network instead of the signal handler
+    device.handler_disconnect(handler_id)
+    if timed_out:
+        notify(
+            f"{device.get_iface()} did not finish activating",
+            f"Gave up waiting after {timeout} seconds",
+            urgency="critical",
+        )
+
+
+def wait_for_activation(device=None):
+    """Block until the activation just requested has finished
+
+    `process_ap` and `set_new_connection` activate against an adapter and
+    pass it in. `process_vpngsm` has no adapter to pass, so take the device
+    from the connection NetworkManager just activated instead.
+
+    Args: device - NM.Device to wait on, or None to use the device of the
+                   connection that was activated
+
+    """
+    if ACTIVE_CONN is None:
+        # The request itself failed, there is nothing left to wait for
+        return
+    if device is None:
+        devices = ACTIVE_CONN.get_devices()
+        if not devices:
+            return
+        device = devices[0]
+    wait_for_device_activated(device)
 
 
 def deactivate_cb(dev, res, data):
     """Notification if deactivate connection completed successfully"""
-    if dev.deactivate_connection_finish(res) is True:
-        notify(f"Deactivated {data.get_id()}")
-    else:
-        notify(f"Problem deactivating {data.get_id()}", urgency="critical")
-    LOOP.quit()
+    try:
+        if dev.deactivate_connection_finish(res) is True:
+            notify(f"Deactivated {display_id(data)}")
+        else:
+            notify(
+                f"Problem deactivating {display_id(data)}", urgency="critical"
+            )
+    except GLib.Error as err:
+        notify(
+            f"Problem deactivating {display_id(data)}: {err.message}",
+            urgency="critical",
+        )
+    finally:
+        LOOP.quit()
 
 
 def process_vpngsm(con, activate):
@@ -713,8 +943,12 @@ def process_vpngsm(con, activate):
         CLIENT.activate_connection_async(
             con, None, None, None, activate_cb, con
         )
-    else:
-        CLIENT.deactivate_connection_async(con, None, deactivate_cb, con)
+        LOOP.run()
+        # Saved connections are activated without an adapter, so the device
+        # to wait on is whichever one NetworkManager picked
+        wait_for_activation()
+        return
+    CLIENT.deactivate_connection_async(con, None, deactivate_cb, con)
     LOOP.run()
 
 
@@ -722,7 +956,12 @@ def strength_bars(signal_strength):
     bars = NM.utils_wifi_strength_bars(signal_strength)
     wifi_chars = CONF.get("dmenu", "wifi_chars", fallback="")
     if wifi_chars:
-        bars = "".join([wifi_chars[i] for i, j in enumerate(bars) if j == "*"])
+        # `utils_wifi_strength_bars` always returns four slots, so clamp the
+        # index rather than raising if fewer characters were configured
+        last = len(wifi_chars) - 1
+        bars = "".join(
+            [wifi_chars[min(i, last)] for i, j in enumerate(bars) if j == "*"]
+        )
     return " " * (len(wifi_chars) - len(bars)) + bars
 
 
@@ -869,10 +1108,12 @@ def create_saved_actions(saved):
 
 
 def _create_vpngsm_actions(cons, active_cons, label):
-    active_con_ids = [a.get_id() for a in active_cons]
+    # Match on UUID, not id: two profiles can share an id, and comparing by id
+    # would mark both of them active when only one of the two is
+    active_con_uuids = [a.get_uuid() for a in active_cons]
     actions = []
-    for con in cons:
-        is_active = con.get_id() in active_con_ids
+    for con, name in zip(cons, unique_names(cons)):
+        is_active = con.get_uuid() in active_con_uuids
         try:
             # Get hotspot ssid
             if con.get_setting_wireless().get_mode() == "ap":
@@ -881,10 +1122,10 @@ def _create_vpngsm_actions(cons, active_cons, label):
                 hotspot = ""
         except AttributeError:
             hotspot = ""
-        action_name = f"{con.get_id()}{hotspot}:{label}"
+        action_name = f"{name}{hotspot}:{label}"
         if is_active:
             active_connection = [
-                a for a in active_cons if a.get_id() == con.get_id()
+                a for a in active_cons if a.get_uuid() == con.get_uuid()
             ]
             if len(active_connection) != 1:
                 raise ValueError(
@@ -957,7 +1198,8 @@ def get_wofi_highlight_markup(action):
     if highlight_bold:
         style += 'weight="bold" '
 
-    return f"<span {style}>" + str(action) + "</span>"
+    # SSIDs can contain `<`, `>` and `&`, which would break the markup
+    return f"<span {style}>" + GLib.markup_escape_text(str(action)) + "</span>"
 
 
 def get_selection(all_actions):
@@ -1005,16 +1247,17 @@ def get_selection(all_actions):
             or get_wofi_highlight_markup(i) == sel.strip()
         ]
     else:
+        # Some launchers trim trailing whitespace from the line they return,
+        # so compare on the stripped text rather than the padded line
+        sel_text = sel.rstrip("\n")
+        sel_active = sel_text.startswith(active_chars)
+        if sel_active:
+            sel_text = sel_text[len(active_chars):]
+        sel_text = sel_text.strip()
         action = [
             i
             for i in all_actions
-            if (
-                (str(i).strip() == str(sel.strip()) and not i.is_active)
-                or (
-                    active_chars + " " + str(i) == str(sel.rstrip("\n"))
-                    and i.is_active
-                )
-            )
+            if str(i).strip() == sel_text and i.is_active == sel_active
         ]
     if len(action) != 1:
         raise ValueError(f"Selection was ambiguous: '{str(sel.strip())}'")
@@ -1140,7 +1383,10 @@ def toggle_bluetooth(enable):
                 "Check README for configuration options.",
                 urgency="critical",
             )
-    sleep(5)  # Needs a delay to ensure state has changed
+    # The state does not change instantly, wait for it rather than guessing
+    deadline = monotonic() + 5
+    while monotonic() < deadline and bluetooth_get_enabled() != enable:
+        sleep(0.25)
     notify(f"Bluetooth {'enabled' if bluetooth_get_enabled() else 'disabled'}")
 
 
@@ -1150,11 +1396,12 @@ def launch_connection_editor():
     gui_if_available = CONF.getboolean(
         "editor", "gui_if_available", fallback=True
     )
-    gui = CONF.get("editor", "gui", fallback="nm-connection-editor")
-    if gui_if_available is True:
-        if is_installed(gui):
-            subprocess.run(gui, check=False)
-            return
+    gui = shlex.split(
+        CONF.get("editor", "gui", fallback="nm-connection-editor")
+    )
+    if gui_if_available is True and gui and is_installed(gui[0]):
+        subprocess.run(gui, check=False)
+        return
     if is_installed("nmtui"):
         subprocess.run(terminal + ["-e", "nmtui"], check=False)
         return
@@ -1193,7 +1440,7 @@ def get_passphrase():
         prompt = CONF.get("pinentry", "prompt", fallback="Password: ")
         pin = ""
         out = subprocess.run(
-            pinentry,
+            shlex.split(pinentry),
             capture_output=True,
             check=False,
             encoding=ENC,
@@ -1210,8 +1457,8 @@ def get_passphrase():
 def delete_connection():
     """Display list of NM connections and delete the selected one"""
     conn_acts = [
-        Action(i.get_id(), i.delete_async, args=[None, delete_cb, None])
-        for i in CONNS
+        Action(name, i.delete_async, args=[None, delete_cb, None])
+        for name, i in zip(unique_names(CONNS), CONNS)
     ]
     conn_names = "\n".join([str(i) for i in conn_acts])
     sel = run_dmenu(dmenu_cmd("CHOOSE CONNECTION TO DELETE:"), conn_names).stdout
@@ -1220,17 +1467,29 @@ def delete_connection():
     action = [i for i in conn_acts if str(i) == sel.rstrip("\n")]
     if len(action) != 1:
         raise ValueError(f"Selection was ambiguous: {str(sel)}")
+    confirm = run_dmenu(
+        dmenu_cmd(f"DELETE '{sel.strip()}'?"), "No\nYes"
+    ).stdout
+    if confirm.strip() != "Yes":
+        sys.exit()
     action[0]()
     LOOP.run()
 
 
 def delete_cb(dev, res, _):
     """Notification if delete completed successfully"""
-    if dev.delete_finish(res) is True:
-        notify(f"Deleted {dev.get_id()}")
-    else:
-        notify(f"Problem deleting {dev.get_id()}", urgency="critical")
-    LOOP.quit()
+    try:
+        if dev.delete_finish(res) is True:
+            notify(f"Deleted {display_id(dev)}")
+        else:
+            notify(f"Problem deleting {display_id(dev)}", urgency="critical")
+    except GLib.Error as err:
+        notify(
+            f"Problem deleting {display_id(dev)}: {err.message}",
+            urgency="critical",
+        )
+    finally:
+        LOOP.quit()
 
 
 def set_new_connection(nm_ap, nm_pw, adapter):
@@ -1240,12 +1499,15 @@ def set_new_connection(nm_ap, nm_pw, adapter):
           pw - string
 
     """
-    nm_pw = str(nm_pw).strip()
+    # Only the newline the launcher adds, leading/trailing spaces are legal
+    # characters in a WPA passphrase
+    nm_pw = str(nm_pw).rstrip("\r\n")
     profile = create_wifi_profile(nm_ap, nm_pw, adapter)
     CLIENT.add_and_activate_connection_async(
         profile, adapter, nm_ap.get_path(), None, verify_conn, profile
     )
     LOOP.run()
+    wait_for_activation(adapter)
 
 
 def create_wifi_profile(nm_ap, password, adapter):
@@ -1313,9 +1575,11 @@ def verify_conn(client, result, data):
     is an error.
 
     """
-    act_conn = client.add_and_activate_connection_finish(result)
-    conn = act_conn.get_connection()
+    global ACTIVE_CONN
+    conn = None
     try:
+        act_conn = client.add_and_activate_connection_finish(result)
+        conn = act_conn.get_connection()
         if not all(
             [
                 conn.verify(),
@@ -1324,14 +1588,38 @@ def verify_conn(client, result, data):
                 data.verify_secrets(),
             ]
         ):
-            raise GLib.Error
-        notify(f"Added {conn.get_id()}")
-    except GLib.Error:
-        try:
-            notify(f"Connection to {conn.get_id()} failed", urgency="critical")
-            conn.delete_async(None, None, None)
-        except UnboundLocalError:
-            pass
+            raise GLib.Error("New connection failed verification")
+    except (GLib.Error, AttributeError) as err:
+        # AttributeError covers add_and_activate_connection_finish returning an
+        # active connection with no connection attached
+        reason = getattr(err, "message", str(err))
+        name = display_id(conn) if conn is not None else display_id(data)
+        notify(f"Connection to {name} failed: {reason}", urgency="critical")
+        if conn is not None:
+            # Keep the loop running so the delete is actually dispatched.
+            # cleanup_cb quits it once NetworkManager has removed the profile.
+            conn.delete_async(None, cleanup_cb, None)
+            return
+    else:
+        ACTIVE_CONN = act_conn
+        notify(f"Connecting to {conn.get_id()}")
+    LOOP.quit()
+
+
+def cleanup_cb(conn, res, _):
+    """Callback for removing the profile left behind by a failed connection
+
+    Stays quiet unless the removal itself fails, the caller has already been
+    notified that the connection did not work.
+    """
+    try:
+        if conn.delete_finish(res) is not True:
+            notify(f"Could not remove {display_id(conn)}", urgency="critical")
+    except GLib.Error as err:
+        notify(
+            f"Could not remove {display_id(conn)}: {err.message}",
+            urgency="critical",
+        )
     finally:
         LOOP.quit()
 
@@ -1357,8 +1645,9 @@ def create_ap_list(adapter, active_connections):
         reverse=True,
     )
     if adapter.get_mode() == getattr(NM, "80211Mode").AP:
-        # Remove active hotspot from AP list
-        aps_all.remove(active_ap)
+        # Remove active hotspot from AP list. It is not always reported.
+        if active_ap in aps_all:
+            aps_all.remove(active_ap)
         active_ap = None
     conns_cur = [
         i
@@ -1368,7 +1657,11 @@ def create_ap_list(adapter, active_connections):
         and conn_matches_adapter(i, adapter)
     ]
     try:
-        ap_conns = active_ap.filter_connections(conns_cur) if active_ap else []
+        ap_conns = (
+            [i for i in conns_cur if active_ap.connection_valid(i)]
+            if active_ap
+            else []
+        )
         active_ap_name = ssid_to_utf8(active_ap)
         active_ap_con = [
             active_conn
@@ -1394,15 +1687,17 @@ def create_ap_list(adapter, active_connections):
 
 def notify(message, details=None, urgency="low"):
     """Use notify-send if available for notifications"""
-    delay = CONF.getint("nmdm", "rescan_delay", fallback=5)
-    show_notifications = CONF.getboolean("nmdm", "show_notifications", fallback=True)
+    timeout = CONF.getint("nmdm", "notification_timeout", fallback=5)
+    show_notifications = CONF.getboolean(
+        "nmdm", "show_notifications", fallback=True
+    )
     args = [
         "-u",
         urgency,
         "-a",
         "networkmanager-dmenu",
         "-t",
-        str(delay * 1000),
+        str(timeout * 1000),
         message,
     ]
     if details is not None:
@@ -1418,6 +1713,10 @@ def run():  # pylint: disable=too-many-locals
     except subprocess.CalledProcessError:
         notify("WARNING: NetworkManager don't seems to be running")
         print("WARNING: NetworkManager don't seems to be running")
+    except FileNotFoundError:
+        # Nothing to check with. NM.Client.new would already have failed if
+        # NetworkManager were genuinely absent, so say nothing.
+        pass
     active = CLIENT.get_active_connections()
     adapter = choose_adapter(CLIENT)
     if adapter:
@@ -1454,11 +1753,14 @@ def run():  # pylint: disable=too-many-locals
         gsm_actions = create_gsm_actions(gsms, active)
         wwan_actions = create_wwan_actions(CLIENT)
     else:
+        gsms = []
         gsm_actions = []
         wwan_actions = []
 
     list_saved = CONF.getboolean("dmenu", "list_saved", fallback=False)
-    saved_cons = [i for i in CONNS if i not in vpns + wgs + eths + blues]
+    # Anything already shown under its own heading must not appear again here
+    listed = vpns + wgs + eths + blues + vlans + gsms + hotspots
+    saved_cons = [i for i in CONNS if i not in listed]
     if list_saved:
         saved_actions = create_saved_actions(saved_cons)
     else:
@@ -1485,7 +1787,8 @@ def run():  # pylint: disable=too-many-locals
 
 def main():
     """Main. Enables script to be re-run after a WiFi rescan"""
-    global CLIENT, CONNS, LOOP
+    global CLIENT, CONNS, LOOP, ACTIVE_CONN
+    ACTIVE_CONN = None
     CLIENT = NM.Client.new(None)
     LOOP = GLib.MainLoop()
     CONNS = CLIENT.get_connections()

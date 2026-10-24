@@ -100,7 +100,11 @@ zstyle ':completion:*' completer _expand_alias _complete _approximate
 # zle -N predict-off
 
 # ---------------------------------------------------------------------- PLUGINS
-xsource "${XDG_DATA_HOME}/zsh/plugins/fsh/fast-syntax-highlighting.plugin.zsh"
+if check_com -c zsh-patina; then
+  eval "$(zsh-patina activate)"
+else
+  xsource "${XDG_DATA_HOME}/zsh/plugins/fsh/fast-syntax-highlighting.plugin.zsh"
+fi
 
 # ----------------------------------------------------------------------- PROMPT
 prompt off

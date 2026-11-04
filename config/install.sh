@@ -28,7 +28,7 @@ done
 # custom config dirs
 for i in "${!config_dirs[@]}"; do
   if [[ ${i} == fast-theme ]]; then
-    output+=("$(ln -vsfT "${SCRIPT_DIR}/${config_dirs['fast-theme']}" "${HOME}/.config/${config_dirs['fast-theme']}")")
+    output+=("$(ln -vsfT "${SCRIPT_DIR}/${config_dirs[${i}]}" "${HOME}/.config/${config_dirs[${i}]}")")
   elif [[ ${i} == subl ]]; then
     subl_dir=${CONFIG_DIR}/sublime-text/Packages
     mkdir -p "${subl_dir}"
@@ -57,7 +57,9 @@ if command -v gh > /dev/null && gh extension list | grep -q gh-dash; then
 fi
 
 # fast-syntax-highlighting and bat setup
-zsh -ic 'fast-theme XDG:catppuccin-macchiato; bat cache --build' > /dev/null
+if command -v fast-theme > /dev/null; then
+  zsh -ic 'fast-theme XDG:catppuccin-macchiato; bat cache --build' > /dev/null
+fi
 
 # shellcheck disable=SC2207
 IFS=$'\n' output=($(sort <<< "${output[*]}"))

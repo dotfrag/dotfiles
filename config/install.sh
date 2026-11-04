@@ -21,7 +21,7 @@ declare -A config_dirs=(
 )
 
 # straightforward configs
-for i in $(git -C "${SCRIPT_DIR}" ls-tree --name-only main | grep -vP "install|zsh"); do
+for i in $(git -C "${SCRIPT_DIR}" ls-tree --name-only main | grep -vP "install|zsh$"); do
   output+=("$(command -v "${i}" > /dev/null && ln -vsfT "${SCRIPT_DIR}/${i}" "${CONFIG_DIR}/${i}")")
 done
 

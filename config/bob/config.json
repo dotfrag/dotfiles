@@ -1,3 +1,4 @@
 {
-	"rollback_limit": 0
+  "rollback_limit": 0,
+  "add_neovim_binary_to_path": true
 }

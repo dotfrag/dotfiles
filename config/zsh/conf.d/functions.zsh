@@ -396,6 +396,8 @@ update-zshrc() {
 
 # get latest caddy + cloudflare binary
 update-caddy() {
+  # caddy upgrade
+  return 1
   local latest_version current_version
   latest_version=$(get-latest-version caddyserver/caddy)
   current_version=$(caddy -v | awk '{print $1}')

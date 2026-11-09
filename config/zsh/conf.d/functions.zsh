@@ -300,7 +300,7 @@ put() {
       filename=$(date +%Y-%m-%d_%T).png
       wl-paste -t "${type}" > "${filename}" \
         && echo "Created image file ${filename}"
-      [[ -v KITTY_WINDOW_ID ]] && kitten icat "${filename}"
+      ((KITTY_WINDOW_ID)) && kitten icat "${filename}"
     else
       wl-paste
     fi

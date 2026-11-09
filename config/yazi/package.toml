@@ -23,5 +23,10 @@ use = "yazi-rs/plugins:chmod"
 rev = "c0529fc"
 hash = "87472b05a8c420100f6a2b9cde1e7746"
 
+[[plugin.deps]]
+use = "Lil-Dank/lazygit"
+rev = "e73fd74"
+hash = "6ea5f37c7f219671ec504cb8311f889d"
+
 [flavor]
 deps = []

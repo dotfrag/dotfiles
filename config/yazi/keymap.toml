@@ -26,6 +26,7 @@ prepend_keymap = [
   { on = "T", run = "plugin create-tmp-and-cd" },
   { on  = [ "c", "m" ], run  = "plugin chmod", desc = "Chmod on selected files" },
   { on = "<A-d>", run = "shell -- dragon-drop -x -T %h" },
+  { on = "<A-g>", run = "plugin lazygit", desc = "Lazygit" },
 
   # Goto
   { on = [ "g", "<Space>" ], run = "noop" },

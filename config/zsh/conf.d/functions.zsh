@@ -309,7 +309,7 @@ put() {
   fi
 }
 
-# ----------------------------------------------------------------- UPDATE STUFF
+# -------------------------------------------------------------------- UPGRAYEDD
 # debounce update check frequency
 debounce-update-check() {
   if (($# < 1)); then
@@ -338,8 +338,8 @@ debounce-update-check() {
     fi
   else
     local left=$((last + seconds - now))
-    minutes=$(qalc --defaults --terse --set "decimal comma off" "round(${left}/60, 2)")
-    hours=$(qalc --defaults --terse --set "decimal comma off" "round(${left}/60/60, 2)")
+    minutes=$(qlc "round(${left}/60, 2)")
+    hours=$(qlc "round(${left}/60/60, 2)")
     echo "[${app}] ${minutes} minutes (${hours} hours) left until next update check."
     return 1
   fi
@@ -423,42 +423,45 @@ update-yt-dlp() {
   fi
 }
 
-# update fnm
-update-fnm() {
-  check_com -c fnm || return
-  local latest_version current_version
-  latest_version=$(get-latest-version Schniz/fnm)
-  latest_version=${latest_version/v/}
-  current_version=$(fnm -V | awk '{print $2}')
-  if [[ ${latest_version} != "${current_version}" ]]; then
-    echo "Upgrading fnm from ${current_version} to ${latest_version}"
-    curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
-  else
-    echo "Already up to date."
-  fi
-}
+# using vp
+# # update fnm
+# update-fnm() {
+#   check_com -c fnm || return
+#   local latest_version current_version
+#   latest_version=$(get-latest-version Schniz/fnm)
+#   latest_version=${latest_version/v/}
+#   current_version=$(fnm -V | awk '{print $2}')
+#   if [[ ${latest_version} != "${current_version}" ]]; then
+#     echo "Upgrading fnm from ${current_version} to ${latest_version}"
+#     curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
+#   else
+#     echo "Already up to date."
+#   fi
+# }
 
-# update node using fnm
-update-node() {
-  check_com -c fnm || return
-  current_version=$(fnm ls | rg lts-latest | awk '{print $2}')
-  fnm install --lts
-  new_version=$(fnm ls | rg default | awk '{print $2}')
-  if [[ ${current_version} != "${new_version}" ]]; then
-    fnm uninstall "${current_version}"
-  fi
-}
+# using vp
+# # update node using fnm
+# update-node() {
+#   check_com -c fnm || return
+#   current_version=$(fnm ls | rg lts-latest | awk '{print $2}')
+#   fnm install --lts
+#   new_version=$(fnm ls | rg default | awk '{print $2}')
+#   if [[ ${current_version} != "${new_version}" ]]; then
+#     fnm uninstall "${current_version}"
+#   fi
+# }
 
-# install or update pnpm (https://pnpm.io/installation)
-update-pnpm() {
-  if check_com -c pnpm; then
-    pnpm self-update
-  elif check_com -c vp; then
-    echo "Found vite-plus installation, aborting."
-  else
-    curl -fsSL https://get.pnpm.io/install.sh | sh -
-  fi
-}
+# using vp
+# # install or update pnpm (https://pnpm.io/installation)
+# update-pnpm() {
+#   if check_com -c pnpm; then
+#     pnpm self-update
+#   elif check_com -c vp; then
+#     echo "Found vite-plus installation, aborting."
+#   else
+#     curl -fsSL https://get.pnpm.io/install.sh | sh -
+#   fi
+# }
 
 # install or update vp (https://viteplus.dev/guide/)
 update-vp() {
@@ -506,6 +509,7 @@ countdown() {
   done
   printf '\e[?25h' # BUG: doesn't work when interrupted (i.e Ctrl-C)
 }
+
 timer() {
   start=$(date +%s)
   printf '\e[?25l'

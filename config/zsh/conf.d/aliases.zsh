@@ -20,6 +20,7 @@ alias pqqs='pacman -Qq | sk -m'
 alias pqs='pacman -Q | sk -m'
 alias psi='pacman -Si'
 alias psii='pacman -Sii'
+alias remove-orphans='pacman -Qdtq | sk -m | ifne sudo pacman -Rns -'
 
 # ---------------------------------------------------------------- EDITOR (nvim)
 alias vim="${EDITOR}"

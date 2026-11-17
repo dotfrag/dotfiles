@@ -49,7 +49,7 @@ customCommands:
     prompts:
       - type: "confirm"
         title: "Hard reset"
-        body: "Are you sure you want to hard reset the current head?"
+        body: "Are you sure you want to hard reset to {{.SelectedRemote.Name}}/{{.SelectedLocalBranch.Name}}?"
   - key: "O"
     context: "commitFiles"
     description: "Open file at previous commit"

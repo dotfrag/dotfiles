@@ -22,7 +22,6 @@
 	// Modules configuration
 	"sway/workspaces": {
 		"enable-bar-scroll": true,
-		"disable-scroll-wraparound": true,
 		"smooth-scrolling-threshold": 3,
 		"format": "{icon}",
 		"format-icons": {
